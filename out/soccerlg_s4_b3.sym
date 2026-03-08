@@ -11,11 +11,11 @@ Symbol Table
     _CallFnc_U8_P1                                                  ******** GX
     _CallFnc_VOID                                                   ******** GX
     _CallFnc_VOID_P1                                                ******** GX
-  7 _EnforcePenaltyBoxRestriction                                   00000887 GR
-  7 _GetClosestPlayerToBall                                         00000994 GR
+  7 _EnforcePenaltyBoxRestriction                                   0000088C GR
+  7 _GetClosestPlayerToBall                                         00000999 GR
   7 _GetJoystickDirection                                           00000017 GR
     _GetNoMovingPlayerPatternId                                     ******** GX
-  7 _GetPlayerIdByRole                                              00000939 GR
+  7 _GetPlayerIdByRole                                              0000093E GR
   7 _InitVariables                                                  00000117 GR
     _IsJoystickTriggerPressed                                       ******** GX
   7 _IsTeamJoystickTriggerPressed                                   00000000 GR
@@ -23,17 +23,16 @@ Symbol Table
     _Keyboard_IsKeyPressed                                          ******** GX
     _LoadMsxVdpFonts                                                ******** GX
   7 _LoadPresentation                                               00000146 GR
-  7 _MainGameLoop                                                   00000406 GR
-  7 _MainSub                                                        000002DE GR
+  7 _MainGameLoop                                                   0000040B GR
+  7 _MainSub                                                        000002E3 GR
     _PerformPass                                                    ******** GX
     _PlayPCM                                                        ******** GX
-    _PlaySCC                                                        ******** GX
     _PlayVGM                                                        ******** GX
     _Print_DrawText                                                 ******** GX
     _Print_SetColor                                                 ******** GX
-  7 _PutBallOnPlayerFeet                                            00000AF5 GR
+  7 _PutBallOnPlayerFeet                                            00000AFA GR
     _PutPonPonGirlSprite                                            ******** GX
-  7 _SetPlayerBallPossession                                        00000AB7 GR
+  7 _SetPlayerBallPossession                                        00000ABC GR
     _SetPlayerTarget                                                ******** GX
     _ShowMenu                                                       ******** GX
     _TickAI                                                         ******** GX
@@ -41,29 +40,29 @@ Symbol Table
     _TickBallCollision                                              ******** GX
     _TickBallFlying                                                 ******** GX
     _TickCheckBallBoundaries                                        ******** GX
-  7 _TickCornerKick                                                 00000FF4 GR
+  7 _TickCornerKick                                                 00000FF9 GR
   1 _TickCornerKick_joyMoved_131078_1448                            00000002 R
   1 _TickCornerKick_s_ForceKickTimer_65537_1415                     00000000 R
   1 _TickCornerKick_t1Latched_131079_1453                           00000003 R
-  7 _TickGameFieldScrolling                                         000001C7 GR
+  7 _TickGameFieldScrolling                                         000001CC GR
     _TickGoalCelebration                                            ******** GX
     _TickGoalKick                                                   ******** GX
     _TickGoalkeeperAnimation                                        ******** GX
     _TickPlayerToOwnTarget                                          ******** GX
     _TickPonPonGirlsAnimation                                       ******** GX
-  7 _TickShotCursor                                                 000007A4 GR
-  7 _TickShowKickOff                                                000006DC GR
+  7 _TickShotCursor                                                 000007A9 GR
+  7 _TickShowKickOff                                                000006E1 GR
     _TickTeamJoystick                                               ******** GX
     _TickThrowIn                                                    ******** GX
     _TickUpdateTime                                                 ******** GX
     _UpdatePassTarget                                               ******** GX
     _UpdateSpritesPositions                                         ******** GX
+    _V9990_ClearTextFromLayerA                                      ******** GX
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180 / ZX-Next / eZ80 / R800)                          Page 2
 Hexadecimal [32-Bits]
 
 Symbol Table
 
-    _V9990_ClearTextFromLayerA                                      ******** GX
     _V9990_InitMenuLayers                                           ******** GX
     _V9990_LoadImagePresentationData                                ******** GX
     _V9990_PrintLayerAStringAtPos                                   ******** GX
@@ -83,12 +82,13 @@ Symbol Table
     _VDP_RegWriteBakMask                                            ******** GX
     _VDP_SetMode                                                    ******** GX
     _VGM_Stop                                                       ******** GX
-  7 ___str_0                                                        0000038D R
-  7 ___str_1                                                        0000039E R
-  7 ___str_2                                                        000003C1 R
-  7 ___str_3                                                        000003D3 R
-  7 ___str_4                                                        000003E0 R
-  7 ___str_5                                                        0000079B R
+    _YSCC_Play                                                      ******** GX
+  7 ___str_0                                                        00000392 R
+  7 ___str_1                                                        000003A3 R
+  7 ___str_2                                                        000003C6 R
+  7 ___str_3                                                        000003D8 R
+  7 ___str_4                                                        000003E5 R
+  7 ___str_5                                                        000007A0 R
     _g_ACPAGE                                                   =   0000FAF6 G
     _g_ASPCT1                                                   =   0000F40B G
     _g_ASPCT2                                                   =   0000F40D G
@@ -396,7 +396,7 @@ Area Table
    4 _HOME                                      size        0   flags    0
    5 _GSINIT                                    size       16   flags    0
    6 _GSFINAL                                   size        0   flags    0
-   7 _SEG4                                      size     19EA   flags    0
+   7 _SEG4                                      size     19EF   flags    0
    8 _INITIALIZER                               size        0   flags    0
    9 _CABS                                      size        0   flags    8
 

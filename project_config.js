@@ -30,7 +30,7 @@ ProjModules = [ ProjName ];
 LibModules = [ "v9990", "system", "input", "vdp", "psg", "print", "memory", "debug", "math", "pcm/pcmenc", "ayfx/ayfx_player" ];
 
 //-- Additional sources to be compiled and linked with the project (array)
-AddSources = [ "libs/vgm_player.c" ];
+AddSources = [ "libs/vgm/vgm_player.c", "libs/yscc/yscc_player.c" ];
 
 //-- Target MSX machine version (string)
 //   - 1        MSX1
@@ -72,7 +72,7 @@ Machine = "1";
 Target = "ROM_YAMANOOTO";
 
 //-- ROM mapper total size in KB (number). Must be a multiple of 8 or 16 depending on the mapper type (from 64 to 4096)
-ROMSize = 2048;
+ROMSize = 8192;
 
 
 
@@ -230,7 +230,7 @@ Emulator = "E:\\Dropbox\\FAUSTO\\SVILUPPI\\MSX\\EMULATORI\\openMSX\\openMSX.exe"
 // General options
 
 // EmulMachine    = true;				//-- Force the MSX version of the emulated machine (boolean)
- Emul60Hz         = true;				//-- Force the emulated machine to be at 60 Hz (boolean)
+ Emul60Hz         = false;				//-- Force the emulated machine to be at 60 Hz (boolean)
 // EmulFullScreen = false;				//-- Force the emulator to start in fullscreen mode (boolean)
 // EmulMute       = false;				//-- Disable emulator sound (boolean)
 // EmulDebug      = false;				//-- Start emulator debugger with program launch (boolean)

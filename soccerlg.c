@@ -17,7 +17,8 @@
 #include "psg.h"
 #include "soccerlg_rawdef.h"
 #include "ayfx/ayfx_player.h"
-#include "libs/vgm_player.h"
+#include "libs/vgm/vgm_player.h"
+#include "libs/yscc/yscc_player.h"
 
 // ------------------
 // *** STRUCTURES ***
@@ -89,13 +90,8 @@ u8              g_currentVGMPlayingSegment=NO_VALUE;
 u8				g_currentVGMPlayerSong;
 bool 			g_TimerActive = FALSE;
 bool  			g_VblankSuspended=FALSE;
-u16 			g_SCC_SamplePos;        // Current read address offset in Bank3 (0x0000-0x2000)
-u8  			g_SCC_SamplePage;       // Current ROM segment mapped in Bank3 for PCM
-u8             g_Padding1;             // PADDING per evitare aliasing con g_SCC_NumBlocksToPlay
-volatile u16 	g_SCC_NumBlocksToPlay;  // Remaining 128-byte blocks (volatile + allineato)
-u16 			g_SCC_Period;           // SCC channel period (frequency)
-static u16		s_SCC_SavedSeg3;        // Salva Bank3 (seg15) durante SCC_CopyPCMBlock
-static u8       s_SCC_Buf[128];         // Buffer PCM frame (static per accesso da inline asm)
+
+
 
 // -----------------
 // *** CONSTANTS ***
@@ -266,107 +262,9 @@ bool CallFnc_BOOL_P1(u8 segment, bool (*func)(u8), u8 p1) {
 // -----------
 // *** SCC ***
 // -----------
-void InitSCC() {
-    //u8 prev3 = GET_BANK_SEGMENT(3);
-    //SET_BANK_SEGMENT(3, 15);
-    
-    // Period = 3579545*1001/(32*60*1000)-1 = 1865 = 0x749 (NTSC 59.94 Hz)
-    // La wave table (32 sample) deve scansionarsi esattamente 1 volta per frame
-    g_SCC_Period = 0x0749;
-    
-    SccSearch();               // Attiva il chip (scrive 0x3F a 0x9000 direttamente)
-    SET_BANK_SEGMENT(2, 0x3F); // Sincronizza shadow MSXgl con Bank2=0x3F (SCC attivo)
-    SccInit();                 // Scrive volumi e frequenze nei registri 9880h-988Dh
-    
-    //SET_BANK_SEGMENT(3, prev3);
-}
-void SCC_CopyPCMBlock() {
-    u16  i, base_addr;
 
-    if (g_SCC_SamplePage > 135) {
-        g_SCC_NumBlocksToPlay = 0;
-        return;
-    }
 
-    s_SCC_SavedSeg3 = GET_BANK_SEGMENT(3);
-    SET_BANK_SEGMENT(3, (u16)g_SCC_SamplePage);
 
-    base_addr = 0xA000 + g_SCC_SamplePos;
-    for (i = 0; i < 128; i++) {
-        s_SCC_Buf[i] = *((u8*)(base_addr + i));
-    }
-
-    SET_BANK_SEGMENT(3, s_SCC_SavedSeg3);
-
-    __asm
-        ; --- CH1: LDIR 21 byte buf[0..20] → 0x9800, poi phase reset ---
-        ld   hl, #_s_SCC_Buf
-        ld   de, #0x9800
-        ld   bc, #0x0015
-        ldir
-        ld   a, (_g_SCC_Period + 1)
-        ld   (0x9881), a
-
-        ; --- CH2: LDIR 21 byte buf[32..52] → 0x9820, poi phase reset ---
-        ld   hl, #_s_SCC_Buf + 32
-        ld   de, #0x9820
-        ld   bc, #0x0015
-        ldir
-        ld   a, (_g_SCC_Period + 1)
-        ld   (0x9883), a
-
-        ; --- CH3: LDIR 21 byte buf[64..84] → 0x9840, poi phase reset ---
-        ld   hl, #_s_SCC_Buf + 64
-        ld   de, #0x9840
-        ld   bc, #0x0015
-        ldir
-        ld   a, (_g_SCC_Period + 1)
-        ld   (0x9885), a
-
-        ; --- CH4: LDIR 21 byte buf[96..116] → 0x9860, poi phase reset ---
-        ld   hl, #_s_SCC_Buf + 96
-        ld   de, #0x9860
-        ld   bc, #0x0015
-        ldir
-        ld   a, (_g_SCC_Period + 1)
-        ld   (0x9887), a
-
-        ; --- PASS2: ultimi 11 byte per tutti i canali ---
-        ld   hl, #_s_SCC_Buf + 21
-        ld   de, #0x9815
-        ld   bc, #0x000B
-        ldir
-
-        ld   hl, #_s_SCC_Buf + 53
-        ld   de, #0x9835
-        ld   bc, #0x000B
-        ldir
-
-        ld   hl, #_s_SCC_Buf + 85
-        ld   de, #0x9855
-        ld   bc, #0x000B
-        ldir
-
-        ld   hl, #_s_SCC_Buf + 117
-        ld   de, #0x9875
-        ld   bc, #0x000B
-        ldir
-    __endasm;
-
-    g_SCC_SamplePos += 128;
-
-    if (g_SCC_SamplePos >= (u16)0x2000) {
-        g_SCC_SamplePage++;
-        g_SCC_SamplePos = 0;
-    }
-}
-void PlaySCC(u8 start_seg, u16 byte_size) {
-	//u8 currentSegment = GET_BANK_SEGMENT(3);
-	g_SCC_SamplePage = start_seg;
-    g_SCC_SamplePos = 0;               
-    g_SCC_NumBlocksToPlay = (byte_size + 127) / 128;
-	//SET_BANK_SEGMENT(3, currentSegment);
-}
 
 // -----------
 // *** PCM ***
@@ -678,18 +576,8 @@ const TeamStats* GetTeamStats(u8 teamId) {
     return &g_TeamStats[teamId];
 }
 void PlaySounds(){
-	if (g_SCC_NumBlocksToPlay > 0) {
-        ReplayerUpdate();
-        
-        g_SCC_NumBlocksToPlay--;
 
-        if (g_SCC_NumBlocksToPlay == 0) {
-            __asm 
-                xor a
-                ld (0x988F), a
-            __endasm;
-        }
-    }
+	YSCC_Decode();
 	if(g_currentVGMPlayingSegment!=NO_VALUE){
 		u8 currentSegment = GET_BANK_SEGMENT(3);
 		SET_BANK_SEGMENT(3, g_currentVGMPlayingSegment);
@@ -715,49 +603,6 @@ void main(){
 	ayFX_InitBank(g_Data_AYFX_Bank);
 	ayFX_SetChannel(PSG_CHANNEL_C);
 	ayFX_SetMode(AYFX_MODE_FIXED);
-	InitSCC();
-	
-	
+	YSCC_Init();
 	CallFnc_VOID(4,MainSub);
-}
-void SccSearch() {
-    __asm
-        ld   hl, #0x9000
-        ld   (hl), #0x3F
-    __endasm;
-}
-
-void SccInit() {
-    __asm
-        push af
-        push hl
-        ld   a, #0x20
-        ld   (0x98E0), a       
-        ld   (0x98C0), a        
-        xor  a
-        ld   (0x988E), a        
-        ld   (0x988F), a  ; SCC_CH_ENABLE
-        ld   a, #0x0F
-        ld   (0x988A), a        
-        ld   (0x988B), a        
-        ld   (0x988C), a        
-        ld   (0x988D), a        
-        ld   hl, (_g_SCC_Period)
-        ld   (0x9880), hl       
-        ld   (0x9882), hl       
-        ld   (0x9884), hl       
-        ld   (0x9886), hl       
-        ld   hl, #0
-        ld   (0x9888), hl       
-        pop  hl
-        pop  af
-    __endasm;
-}
-
-void ReplayerUpdate() {
-    __asm
-        call _SCC_CopyPCMBlock
-        ld   a, #0x0F
-        ld   (0x988F), a 
-    __endasm;
 }

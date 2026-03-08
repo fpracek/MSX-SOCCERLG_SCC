@@ -15,7 +15,8 @@
 #include "pt3/pt3_player.h"
 #include "memory.h"
 #include "soccerlg_rawdef.h"
-#include "libs/vgm_player.h"
+#include "libs/vgm/vgm_player.h"
+#include "libs/yscc/yscc_player.h"
 
 // -----------------
 // *** FUNCTIONS ***
@@ -135,7 +136,7 @@ void LoadPresentation(){
     
 	V9_SetInterruptLine(71);
     V9_SetInterrupt(V9_INT_VBLANK);
-    PlaySCC(SCC_PRESENTATION_BIN_SEG,SCC_PRESENTATION_BIN_SIZE);
+    YSCC_Play(SCC_PRESENTATION_BIN_SEG,(u32)SCC_PRESENTATION_BIN_SIZE);
     g_Timer=0;
 	g_TimerActive=TRUE;
     while (g_Timer!=200)

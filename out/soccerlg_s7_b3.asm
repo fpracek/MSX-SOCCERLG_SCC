@@ -314,11 +314,11 @@ _g_LOGOPR	=	0xfb02
 _g_GRPACX	=	0xfcb7
 _g_GRPACY	=	0xfcb9
 _g_SLTSL	=	0xffff
-_TickThrowIn_s_ThrowTargetId_65537_1225:
+_TickThrowIn_s_ThrowTargetId_65537_1224:
 	.ds 1
-_TickThrowIn_s_JoyMoved_65537_1225:
+_TickThrowIn_s_JoyMoved_65537_1224:
 	.ds 1
-_TickThrowIn_s_ForceThrowTimer_65537_1225:
+_TickThrowIn_s_ForceThrowTimer_65537_1224:
 	.ds 2
 ;--------------------------------------------------------
 ; ram data
@@ -336,14 +336,14 @@ _TickThrowIn_s_ForceThrowTimer_65537_1225:
 	.area _GSFINAL
 	.area _GSINIT
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s7_b3.c:201: static u8 s_ThrowTargetId = NO_VALUE;
-	ld	hl, #_TickThrowIn_s_ThrowTargetId_65537_1225
+	ld	hl, #_TickThrowIn_s_ThrowTargetId_65537_1224
 	ld	(hl), #0xff
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s7_b3.c:202: static bool s_JoyMoved = false;
-	ld	iy, #_TickThrowIn_s_JoyMoved_65537_1225
+	ld	iy, #_TickThrowIn_s_JoyMoved_65537_1224
 	ld	0 (iy), #0x00
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s7_b3.c:203: static u16 s_ForceThrowTimer = 0;
 	ld	hl, #0x0000
-	ld	(_TickThrowIn_s_ForceThrowTimer_65537_1225), hl
+	ld	(_TickThrowIn_s_ForceThrowTimer_65537_1224), hl
 ;--------------------------------------------------------
 ; Home
 ;--------------------------------------------------------
@@ -1466,14 +1466,14 @@ _TickThrowIn::
 	or	a, a
 	jp	NZ, 00171$
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s7_b3.c:206: s_ThrowTargetId = NO_VALUE;
-	ld	hl, #_TickThrowIn_s_ThrowTargetId_65537_1225
+	ld	hl, #_TickThrowIn_s_ThrowTargetId_65537_1224
 	ld	(hl), #0xff
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s7_b3.c:207: s_JoyMoved = false;
-	ld	hl, #_TickThrowIn_s_JoyMoved_65537_1225
+	ld	hl, #_TickThrowIn_s_JoyMoved_65537_1224
 	ld	(hl), #0x00
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s7_b3.c:208: s_ForceThrowTimer = 0;
 	ld	hl, #0x0000
-	ld	(_TickThrowIn_s_ForceThrowTimer_65537_1225), hl
+	ld	(_TickThrowIn_s_ForceThrowTimer_65537_1224), hl
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s7_b3.c:211: if (g_Ball.X < FIELD_POS_X_CENTER) {
 	ld	hl, (#(_g_Ball + 2) + 0)
 	ld	de, #0x0078
@@ -3021,17 +3021,17 @@ _TickThrowIn::
 	ld	c, -15 (ix)
 	ld	b, -14 (ix)
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s7_b3.c:413: if (s_ThrowTargetId == NO_VALUE && c1 != NO_VALUE) s_ThrowTargetId = c1;
-	ld	a, (_TickThrowIn_s_ThrowTargetId_65537_1225+0)
+	ld	a, (_TickThrowIn_s_ThrowTargetId_65537_1224+0)
 	inc	a
 	jr	NZ, 00209$
 	ld	a, -15 (ix)
 	inc	a
 	jr	Z, 00209$
 	ld	a, -15 (ix)
-	ld	(_TickThrowIn_s_ThrowTargetId_65537_1225+0), a
+	ld	(_TickThrowIn_s_ThrowTargetId_65537_1224+0), a
 00209$:
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s7_b3.c:415: if (s_ThrowTargetId == NO_VALUE) {
-	ld	a, (_TickThrowIn_s_ThrowTargetId_65537_1225+0)
+	ld	a, (_TickThrowIn_s_ThrowTargetId_65537_1224+0)
 	inc	a
 	jr	NZ, 00212$
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s7_b3.c:416: s_ThrowTargetId = CallFnc_U8_P2(4,GetClosestPlayerToBall,g_RestartKickTeamId, g_ThrowInPlayerId);
@@ -3045,7 +3045,7 @@ _TickThrowIn::
 	ld	a, #0x04
 	call	_CallFnc_U8_P2
 	pop	bc
-	ld	(_TickThrowIn_s_ThrowTargetId_65537_1225+0), a
+	ld	(_TickThrowIn_s_ThrowTargetId_65537_1224+0), a
 00212$:
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s7_b3.c:420: bool isHuman = (g_RestartKickTeamId == TEAM_1);
 	ld	a, (_g_RestartKickTeamId+0)
@@ -3094,7 +3094,7 @@ _TickThrowIn::
 	ld	a, d
 	or	a, a
 	jr	Z, 00227$
-	ld	a, (_TickThrowIn_s_JoyMoved_65537_1225+0)
+	ld	a, (_TickThrowIn_s_JoyMoved_65537_1224+0)
 	or	a, a
 	jr	NZ, 00227$
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s7_b3.c:432: if (c1 != NO_VALUE && c2 != NO_VALUE) {
@@ -3105,20 +3105,20 @@ _TickThrowIn::
 	inc	a
 	jr	Z, 00222$
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s7_b3.c:433: if (s_ThrowTargetId == c1) s_ThrowTargetId = c2;
-	ld	a, (_TickThrowIn_s_ThrowTargetId_65537_1225+0)
+	ld	a, (_TickThrowIn_s_ThrowTargetId_65537_1224+0)
 	sub	a, c
 	jr	NZ, 00219$
 	ld	a, b
-	ld	(#_TickThrowIn_s_ThrowTargetId_65537_1225), a
+	ld	(#_TickThrowIn_s_ThrowTargetId_65537_1224), a
 	jp	00222$
 00219$:
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s7_b3.c:434: else s_ThrowTargetId = c1;
 	ld	a, c
-	ld	(#_TickThrowIn_s_ThrowTargetId_65537_1225), a
+	ld	(#_TickThrowIn_s_ThrowTargetId_65537_1224), a
 00222$:
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s7_b3.c:436: s_JoyMoved = true;
 	ld	a, #0x01
-	ld	(#_TickThrowIn_s_JoyMoved_65537_1225), a
+	ld	(#_TickThrowIn_s_JoyMoved_65537_1224), a
 	jp	00228$
 00227$:
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s7_b3.c:437: } else if (joy == DIRECTION_NONE) {
@@ -3126,27 +3126,27 @@ _TickThrowIn::
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s7_b3.c:438: s_JoyMoved = false;
 	or	a,a
 	jr	NZ, 00228$
-	ld	(#_TickThrowIn_s_JoyMoved_65537_1225), a
+	ld	(#_TickThrowIn_s_JoyMoved_65537_1224), a
 00228$:
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s7_b3.c:442: g_PassTargetPlayer = s_ThrowTargetId; 
-	ld	a, (_TickThrowIn_s_ThrowTargetId_65537_1225+0)
+	ld	a, (_TickThrowIn_s_ThrowTargetId_65537_1224+0)
 	ld	(_g_PassTargetPlayer+0), a
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s7_b3.c:445: s_ForceThrowTimer++;
-	ld	hl, (_TickThrowIn_s_ForceThrowTimer_65537_1225)
+	ld	hl, (_TickThrowIn_s_ForceThrowTimer_65537_1224)
 	inc	hl
-	ld	(_TickThrowIn_s_ForceThrowTimer_65537_1225), hl
+	ld	(_TickThrowIn_s_ForceThrowTimer_65537_1224), hl
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s7_b3.c:448: if ((trig || s_ForceThrowTimer > 240) && s_ThrowTargetId != NO_VALUE) {
 	ld	a, e
 	or	a, a
 	jr	NZ, 00233$
-	ld	hl, (_TickThrowIn_s_ForceThrowTimer_65537_1225)
+	ld	hl, (_TickThrowIn_s_ForceThrowTimer_65537_1224)
 	ld	a, #0xf0
 	cp	a, l
 	ld	a, #0x00
 	sbc	a, h
 	jp	NC, 00269$
 00233$:
-	ld	a, (_TickThrowIn_s_ThrowTargetId_65537_1225+0)
+	ld	a, (_TickThrowIn_s_ThrowTargetId_65537_1224+0)
 	inc	a
 	jp	Z,00269$
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s7_b3.c:449: g_Ball.PossessionPlayerId = g_ThrowInPlayerId;
@@ -3178,7 +3178,7 @@ _TickThrowIn::
 	ld	b, (hl)
 	ld	(_g_Ball), bc
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s7_b3.c:452: CallFnc_VOID_P1(5,PerformPass,s_ThrowTargetId);
-	ld	a, (_TickThrowIn_s_ThrowTargetId_65537_1225+0)
+	ld	a, (_TickThrowIn_s_ThrowTargetId_65537_1224+0)
 	push	af
 	inc	sp
 	ld	de, #_PerformPass
@@ -3210,17 +3210,17 @@ _TickThrowIn::
 	sub	a, (hl)
 	jp	NC, 00243$
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s7_b3.c:461: if (s_ThrowTargetId == NO_VALUE && c1 != NO_VALUE) s_ThrowTargetId = c1; 
-	ld	a, (_TickThrowIn_s_ThrowTargetId_65537_1225+0)
+	ld	a, (_TickThrowIn_s_ThrowTargetId_65537_1224+0)
 	inc	a
 	jr	NZ, 00235$
 	ld	a, c
 	inc	a
 	jr	Z, 00235$
-	ld	hl, #_TickThrowIn_s_ThrowTargetId_65537_1225
+	ld	hl, #_TickThrowIn_s_ThrowTargetId_65537_1224
 	ld	(hl), c
 00235$:
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s7_b3.c:462: if (s_ThrowTargetId == NO_VALUE) s_ThrowTargetId = CallFnc_U8_P2(4,GetClosestPlayerToBall,g_RestartKickTeamId, g_ThrowInPlayerId);
-	ld	a, (_TickThrowIn_s_ThrowTargetId_65537_1225+0)
+	ld	a, (_TickThrowIn_s_ThrowTargetId_65537_1224+0)
 	inc	a
 	jr	NZ, 00238$
 	ld	a, (_g_ThrowInPlayerId+0)
@@ -3231,7 +3231,7 @@ _TickThrowIn::
 	ld	de, #_GetClosestPlayerToBall
 	ld	a, #0x04
 	call	_CallFnc_U8_P2
-	ld	(_TickThrowIn_s_ThrowTargetId_65537_1225+0), a
+	ld	(_TickThrowIn_s_ThrowTargetId_65537_1224+0), a
 00238$:
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s7_b3.c:465: if (g_Timer > 120) {
 	ld	a, #0x78
@@ -3267,7 +3267,7 @@ _TickThrowIn::
 	ld	b, (hl)
 	ld	(_g_Ball), bc
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s7_b3.c:469: CallFnc_VOID_P1(5,PerformPass,s_ThrowTargetId);
-	ld	a, (_TickThrowIn_s_ThrowTargetId_65537_1225+0)
+	ld	a, (_TickThrowIn_s_ThrowTargetId_65537_1224+0)
 	push	af
 	inc	sp
 	ld	de, #_PerformPass

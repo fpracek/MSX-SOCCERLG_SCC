@@ -327,7 +327,7 @@
                          0000FCB7   327 _g_GRPACX	=	0xfcb7
                          0000FCB9   328 _g_GRPACY	=	0xfcb9
                          0000FFFF   329 _g_SLTSL	=	0xffff
-    00000000                        330 _GetNumberString_str_65536_1333:
+    00000000                        330 _GetNumberString_str_65536_1332:
     00000000                        331 	.ds 5
                                     332 ;--------------------------------------------------------
                                     333 ; ram data
@@ -3976,7 +3976,7 @@
     00001731 DE 00            [ 7] 3974 	sbc	a, #0x00
     00001733 30 0D            [12] 3975 	jr	NC, 00102$
                                    3976 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s9_b3.c:725: str[0] = '0' + value;
-    00001735 01r00r00         [10] 3977 	ld	bc, #_GetNumberString_str_65536_1333+0
+    00001735 01r00r00         [10] 3977 	ld	bc, #_GetNumberString_str_65536_1332+0
     00001738 7B               [ 4] 3978 	ld	a, e
     00001739 C6 30            [ 7] 3979 	add	a, #0x30
     0000173B 02               [ 7] 3980 	ld	(bc), a
@@ -3999,7 +3999,7 @@
     0000174B C1               [10] 3997 	pop	bc
     0000174C 7B               [ 4] 3998 	ld	a, e
     0000174D C6 30            [ 7] 3999 	add	a, #0x30
-    0000174F 32r00r00         [13] 4000 	ld	(#_GetNumberString_str_65536_1333),a
+    0000174F 32r00r00         [13] 4000 	ld	(#_GetNumberString_str_65536_1332),a
                                    4001 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s9_b3.c:729: str[1] = '0' + (value % 10);
     00001752 11 0A 00         [10] 4002 	ld	de, #0x000a
     00001755 69               [ 4] 4003 	ld	l, c
@@ -4011,13 +4011,13 @@
     00001757 CDr00r00         [17] 4009 	call	__moduint
     0000175A 7B               [ 4] 4010 	ld	a, e
     0000175B C6 30            [ 7] 4011 	add	a, #0x30
-    0000175D 32r01r00         [13] 4012 	ld	(#(_GetNumberString_str_65536_1333 + 1)),a
+    0000175D 32r01r00         [13] 4012 	ld	(#(_GetNumberString_str_65536_1332 + 1)),a
                                    4013 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s9_b3.c:730: str[2] = '\0';
-    00001760 21r02r00         [10] 4014 	ld	hl, #(_GetNumberString_str_65536_1333 + 2)
+    00001760 21r02r00         [10] 4014 	ld	hl, #(_GetNumberString_str_65536_1332 + 2)
     00001763 36 00            [10] 4015 	ld	(hl), #0x00
     00001765                       4016 00103$:
                                    4017 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s9_b3.c:733: return str;
-    00001765 11r00r00         [10] 4018 	ld	de, #_GetNumberString_str_65536_1333
+    00001765 11r00r00         [10] 4018 	ld	de, #_GetNumberString_str_65536_1332
                                    4019 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s9_b3.c:734: }
     00001768 C9               [10] 4020 	ret
                                    4021 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s9_b3.c:736: void ShowHeaderInfo(){
@@ -4420,7 +4420,7 @@
     0000196B 11 07 00         [10] 4418 	ld	de, #0x0007
     0000196E CDr00r00         [17] 4419 	call	__modsint
     00001971 C1               [10] 4420 	pop	bc
-    00001972 21r9Dr19         [10] 4421 	ld	hl, #_SetTeamsPresentationSpritesPosition_k_PlayerRoles_65537_1345
+    00001972 21r9Dr19         [10] 4421 	ld	hl, #_SetTeamsPresentationSpritesPosition_k_PlayerRoles_65537_1344
     00001975 19               [11] 4422 	add	hl, de
     00001976 7E               [ 7] 4423 	ld	a, (hl)
     00001977 D1               [10] 4424 	pop	de
@@ -4448,7 +4448,7 @@
     00001998 DD F9            [10] 4446 	ld	sp, ix
     0000199A DD E1            [14] 4447 	pop	ix
     0000199C C9               [10] 4448 	ret
-    0000199D                       4449 _SetTeamsPresentationSpritesPosition_k_PlayerRoles_65537_1345:
+    0000199D                       4449 _SetTeamsPresentationSpritesPosition_k_PlayerRoles_65537_1344:
     0000199D 00                    4450 	.db #0x00	; 0
     0000199E 01                    4451 	.db #0x01	; 1
     0000199F 04                    4452 	.db #0x04	; 4
@@ -4580,7 +4580,7 @@
     00001A60                       4578 00193$:
     00001A60 DD 77 F9         [19] 4579 	ld	-7 (ix), a
                                    4580 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s9_b3.c:852: u16 tx = k_KO_X[role];
-    00001A63 01r4Fr1B         [10] 4581 	ld	bc, #_SetPlayerTarget_k_KO_X_196608_1355+0
+    00001A63 01r4Fr1B         [10] 4581 	ld	bc, #_SetPlayerTarget_k_KO_X_196608_1354+0
     00001A66 DD 6E F8         [19] 4582 	ld	l, -8 (ix)
     00001A69 26 00            [ 7] 4583 	ld	h, #0x00
     00001A6B 09               [11] 4584 	add	hl, bc
@@ -4597,7 +4597,7 @@
     00001A89 DD 7E F9         [19] 4595 	ld	a, -7 (ix)
     00001A8C B7               [ 4] 4596 	or	a, a
     00001A8D 28 16            [12] 4597 	jr	Z, 00123$
-    00001A8F 01r56r1B         [10] 4598 	ld	bc, #_SetPlayerTarget_k_KO_Y_T1_196608_1355+0
+    00001A8F 01r56r1B         [10] 4598 	ld	bc, #_SetPlayerTarget_k_KO_Y_T1_196608_1354+0
     00001A92 DD 6E FD         [19] 4599 	ld	l, -3 (ix)
     00001A95 DD 66 FE         [19] 4600 	ld	h, -2 (ix)
     00001A98 09               [11] 4601 	add	hl, bc
@@ -4609,10 +4609,10 @@
     00001AA2 C3rBAr1A         [10] 4607 	jp	00124$
     00001AA5                       4608 00123$:
     00001AA5 DD 7E FD         [19] 4609 	ld	a, -3 (ix)
-    00001AA8 C6r64            [ 7] 4610 	add	a, #<(_SetPlayerTarget_k_KO_Y_T2_196608_1355)
+    00001AA8 C6r64            [ 7] 4610 	add	a, #<(_SetPlayerTarget_k_KO_Y_T2_196608_1354)
     00001AAA 4F               [ 4] 4611 	ld	c, a
     00001AAB DD 7E FE         [19] 4612 	ld	a, -2 (ix)
-    00001AAE CEs1B            [ 7] 4613 	adc	a, #>(_SetPlayerTarget_k_KO_Y_T2_196608_1355)
+    00001AAE CEs1B            [ 7] 4613 	adc	a, #>(_SetPlayerTarget_k_KO_Y_T2_196608_1354)
     00001AB0 47               [ 4] 4614 	ld	b, a
     00001AB1 0A               [ 7] 4615 	ld	a, (bc)
     00001AB2 DD 77 F1         [19] 4616 	ld	-15 (ix), a
@@ -4698,7 +4698,7 @@
     00001B4A DD F9            [10] 4696 	ld	sp, ix
     00001B4C DD E1            [14] 4697 	pop	ix
     00001B4E C9               [10] 4698 	ret
-    00001B4F                       4699 _SetPlayerTarget_k_KO_X_196608_1355:
+    00001B4F                       4699 _SetPlayerTarget_k_KO_X_196608_1354:
     00001B4F 78                    4700 	.db #0x78	; 120	'x'
     00001B50 28                    4701 	.db #0x28	; 40
     00001B51 C6                    4702 	.db #0xc6	; 198
@@ -4706,7 +4706,7 @@
     00001B53 62                    4704 	.db #0x62	; 98	'b'
     00001B54 28                    4705 	.db #0x28	; 40
     00001B55 C6                    4706 	.db #0xc6	; 198
-    00001B56                       4707 _SetPlayerTarget_k_KO_Y_T1_196608_1355:
+    00001B56                       4707 _SetPlayerTarget_k_KO_Y_T1_196608_1354:
     00001B56 A8 01                 4708 	.dw #0x01a8
     00001B58 76 01                 4709 	.dw #0x0176
     00001B5A 76 01                 4710 	.dw #0x0176
@@ -4714,7 +4714,7 @@
     00001B5E 44 01                 4712 	.dw #0x0144
     00001B60 1C 01                 4713 	.dw #0x011c
     00001B62 1C 01                 4714 	.dw #0x011c
-    00001B64                       4715 _SetPlayerTarget_k_KO_Y_T2_196608_1355:
+    00001B64                       4715 _SetPlayerTarget_k_KO_Y_T2_196608_1354:
     00001B64 32 00                 4716 	.dw #0x0032
     00001B66 82 00                 4717 	.dw #0x0082
     00001B68 82 00                 4718 	.dw #0x0082

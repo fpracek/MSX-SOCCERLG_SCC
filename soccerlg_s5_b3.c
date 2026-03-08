@@ -15,7 +15,7 @@
 #include "pt3/pt3_player.h"
 #include "memory.h"
 #include "soccerlg_rawdef.h"
-#include "libs/vgm_player.h"
+#include "libs/vgm/vgm_player.h"
 
 // -----------------
 // *** FUNCTIONS ***

@@ -331,7 +331,7 @@ _g_LOGOPR	=	0xfb02
 _g_GRPACX	=	0xfcb7
 _g_GRPACY	=	0xfcb9
 _g_SLTSL	=	0xffff
-_PutBallSprite_s_StopCooldown_65538_1236:
+_PutBallSprite_s_StopCooldown_65538_1235:
 	.ds 1
 ;--------------------------------------------------------
 ; ram data
@@ -349,7 +349,7 @@ _PutBallSprite_s_StopCooldown_65538_1236:
 	.area _GSFINAL
 	.area _GSINIT
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s6_b3.c:231: static u8 s_StopCooldown = 0;
-	ld	iy, #_PutBallSprite_s_StopCooldown_65538_1236
+	ld	iy, #_PutBallSprite_s_StopCooldown_65538_1235
 	ld	0 (iy), #0x00
 ;--------------------------------------------------------
 ; Home
@@ -1015,22 +1015,22 @@ _TickGoalCelebration::
 	ld	(bc), a
 00112$:
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s6_b3.c:149: i8 dy = k_CelebDY[dir];
-	ld	a, #<(_TickGoalCelebration_k_CelebDY_131073_1208)
+	ld	a, #<(_TickGoalCelebration_k_CelebDY_131073_1207)
 	add	a, -2 (ix)
 	ld	l, a
 ;	spillPairReg hl
 ;	spillPairReg hl
-	ld	a, #>(_TickGoalCelebration_k_CelebDY_131073_1208)
+	ld	a, #>(_TickGoalCelebration_k_CelebDY_131073_1207)
 	adc	a, #0x00
 	ld	h, a
 	ld	c, (hl)
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s6_b3.c:150: i8 dx = k_CelebDX[dir];
-	ld	a, #<(_TickGoalCelebration_k_CelebDX_131073_1208)
+	ld	a, #<(_TickGoalCelebration_k_CelebDX_131073_1207)
 	add	a, -2 (ix)
 	ld	l, a
 ;	spillPairReg hl
 ;	spillPairReg hl
-	ld	a, #>(_TickGoalCelebration_k_CelebDX_131073_1208)
+	ld	a, #>(_TickGoalCelebration_k_CelebDX_131073_1207)
 	adc	a, #0x00
 	ld	h, a
 	ld	b, (hl)
@@ -1441,7 +1441,7 @@ _TickGoalCelebration::
 	ld	sp, ix
 	pop	ix
 	ret
-_TickGoalCelebration_k_CelebDX_131073_1208:
+_TickGoalCelebration_k_CelebDX_131073_1207:
 	.db #0x00	;  0
 	.db #0x00	;  0
 	.db #0x01	;  1
@@ -1451,7 +1451,7 @@ _TickGoalCelebration_k_CelebDX_131073_1208:
 	.db #0xff	; -1
 	.db #0xff	; -1
 	.db #0xff	; -1
-_TickGoalCelebration_k_CelebDY_131073_1208:
+_TickGoalCelebration_k_CelebDY_131073_1207:
 	.db #0x00	;  0
 	.db #0xff	; -1
 	.db #0xff	; -1
@@ -1615,18 +1615,18 @@ _PutBallSprite::
 	jr	Z, 00110$
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s6_b3.c:239: s_StopCooldown = 15; // Keep animation active for ~1/4 sec after last move
 	ld	a, #0x0f
-	ld	(#_PutBallSprite_s_StopCooldown_65538_1236), a
+	ld	(#_PutBallSprite_s_StopCooldown_65538_1235), a
 	jp	00111$
 00110$:
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s6_b3.c:241: if (s_StopCooldown > 0) s_StopCooldown--;
-	ld	a, (_PutBallSprite_s_StopCooldown_65538_1236+0)
+	ld	a, (_PutBallSprite_s_StopCooldown_65538_1235+0)
 	or	a, a
 	jr	Z, 00111$
-	ld	iy, #_PutBallSprite_s_StopCooldown_65538_1236
+	ld	iy, #_PutBallSprite_s_StopCooldown_65538_1235
 	dec	0 (iy)
 00111$:
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s6_b3.c:244: bool isAnimating = (s_StopCooldown > 0);
-	ld	a, (_PutBallSprite_s_StopCooldown_65538_1236+0)
+	ld	a, (_PutBallSprite_s_StopCooldown_65538_1235+0)
 	or	a, a
 	ld	a, #0x01
 	jr	NZ, 00120$
@@ -1659,7 +1659,7 @@ _PutBallSprite::
 00125$:
 	add	hl, de
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s6_b3.c:256: attr.Pattern = k_BallPatterns[idx & 7];
-	ld	de, #_PutBallSprite_k_BallPatterns_65539_1239+0
+	ld	de, #_PutBallSprite_k_BallPatterns_65539_1238+0
 	ld	a, l
 ;	spillPairReg hl
 ;	spillPairReg hl
@@ -1721,7 +1721,7 @@ _PutBallSprite::
 	ld	sp, ix
 	pop	ix
 	ret
-_PutBallSprite_k_BallPatterns_65539_1239:
+_PutBallSprite_k_BallPatterns_65539_1238:
 	.db #0x39	; 57	'9'
 	.db #0x3a	; 58
 	.db #0x3b	; 59
@@ -3907,10 +3907,10 @@ _TickTeamJoystick::
 	ld	a, (hl)
 	ld	-4 (ix), a
 	ld	a, -1 (ix)
-	add	a, #<(_TickTeamJoystick_k_MoveDX_131075_1323)
+	add	a, #<(_TickTeamJoystick_k_MoveDX_131075_1322)
 	ld	-3 (ix), a
 	ld	a, #0x00
-	adc	a, #>(_TickTeamJoystick_k_MoveDX_131075_1323)
+	adc	a, #>(_TickTeamJoystick_k_MoveDX_131075_1322)
 	ld	-2 (ix), a
 	ld	l, -3 (ix)
 	ld	h, -2 (ix)
@@ -3950,10 +3950,10 @@ _TickTeamJoystick::
 	ld	a, (hl)
 	ld	-4 (ix), a
 	ld	a, -1 (ix)
-	add	a, #<(_TickTeamJoystick_k_MoveDY_131075_1323)
+	add	a, #<(_TickTeamJoystick_k_MoveDY_131075_1322)
 	ld	-3 (ix), a
 	ld	a, #0x00
-	adc	a, #>(_TickTeamJoystick_k_MoveDY_131075_1323)
+	adc	a, #>(_TickTeamJoystick_k_MoveDY_131075_1322)
 	ld	-2 (ix), a
 	ld	l, -3 (ix)
 	ld	h, -2 (ix)
@@ -4124,7 +4124,7 @@ _TickTeamJoystick::
 	ld	sp, ix
 	pop	ix
 	ret
-_TickTeamJoystick_k_MoveDX_131075_1323:
+_TickTeamJoystick_k_MoveDX_131075_1322:
 	.db #0x00	;  0
 	.db #0x00	;  0
 	.db #0x02	;  2
@@ -4134,7 +4134,7 @@ _TickTeamJoystick_k_MoveDX_131075_1323:
 	.db #0xfe	; -2
 	.db #0xfe	; -2
 	.db #0xfe	; -2
-_TickTeamJoystick_k_MoveDY_131075_1323:
+_TickTeamJoystick_k_MoveDY_131075_1322:
 	.db #0x00	;  0
 	.db #0xfe	; -2
 	.db #0xfe	; -2

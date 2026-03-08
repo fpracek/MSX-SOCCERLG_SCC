@@ -339,14 +339,14 @@ _g_VGM_NotifyCallback::
 ; code
 ;--------------------------------------------------------
 	.area _CODE
-;./libs/vgm_player.c:82: void VGM_SetNotifyCB(VGM_Callback cb)
+;./libs/vgm/vgm_player.c:82: void VGM_SetNotifyCB(VGM_Callback cb)
 ;	---------------------------------
 ; Function VGM_SetNotifyCB
 ; ---------------------------------
 _VGM_SetNotifyCB::
 	ld	(_g_VGM_NotifyCallback), hl
-;./libs/vgm_player.c:84: g_VGM_NotifyCallback = cb;
-;./libs/vgm_player.c:85: }
+;./libs/vgm/vgm_player.c:84: g_VGM_NotifyCallback = cb;
+;./libs/vgm/vgm_player.c:85: }
 	ret
 _g_RDPRIM	=	0xf380
 _g_WRPRIM	=	0xf385
@@ -512,7 +512,7 @@ _g_RAMAD2	=	0xf343
 _g_RAMAD3	=	0xf344
 _g_MASTER	=	0xf348
 _g_BDOS	=	0xf37d
-;./libs/vgm_player.c:95: bool VGM_Play(const void* addr, bool loop)
+;./libs/vgm/vgm_player.c:95: bool VGM_Play(const void* addr, bool loop)
 ;	---------------------------------
 ; Function VGM_Play
 ; ---------------------------------
@@ -523,13 +523,13 @@ _VGM_Play::
 	push	af
 	push	af
 	push	af
-;./libs/vgm_player.c:97: VGM_Pause(); // Mute all sound chip
+;./libs/vgm/vgm_player.c:97: VGM_Pause(); // Mute all sound chip
 	push	hl
 	call	_VGM_Pause
 	pop	hl
-;./libs/vgm_player.c:99: g_VGM_Header = (VGM_Header*)addr;
+;./libs/vgm/vgm_player.c:99: g_VGM_Header = (VGM_Header*)addr;
 	ld	(_g_VGM_Header), hl
-;./libs/vgm_player.c:101: if (g_VGM_Header->Ident != VGM_IDENT)
+;./libs/vgm/vgm_player.c:101: if (g_VGM_Header->Ident != VGM_IDENT)
 	ld	hl, (_g_VGM_Header)
 	ex	(sp), hl
 	pop	de
@@ -552,21 +552,21 @@ _VGM_Play::
 	sbc	hl, bc
 	jr	Z, 00102$
 00151$:
-;./libs/vgm_player.c:102: return FALSE;
+;./libs/vgm/vgm_player.c:102: return FALSE;
 	xor	a, a
 	jp	00119$
 00102$:
-;./libs/vgm_player.c:104: g_VGM_State = VGM_STATE_PLAY;
+;./libs/vgm/vgm_player.c:104: g_VGM_State = VGM_STATE_PLAY;
 	ld	iy, #_g_VGM_State
 	ld	0 (iy), #0x80
-;./libs/vgm_player.c:105: if (loop)
+;./libs/vgm/vgm_player.c:105: if (loop)
 	ld	a, 4 (ix)
 	or	a, a
 	jr	Z, 00104$
-;./libs/vgm_player.c:106: g_VGM_State |= VGM_STATE_LOOP;
+;./libs/vgm/vgm_player.c:106: g_VGM_State |= VGM_STATE_LOOP;
 	ld	0 (iy), #0x82
 00104$:
-;./libs/vgm_player.c:109: g_VGM_Pointer = (u8*)((u16)&g_VGM_Header->Data_offset + (u16)g_VGM_Header->Data_offset);
+;./libs/vgm/vgm_player.c:109: g_VGM_Pointer = (u8*)((u16)&g_VGM_Header->Data_offset + (u16)g_VGM_Header->Data_offset);
 	pop	hl
 	push	hl
 	ld	de, #0x0034
@@ -580,24 +580,24 @@ _VGM_Play::
 	ld	l, a
 	add	hl, bc
 	ld	(_g_VGM_Pointer), hl
-;./libs/vgm_player.c:112: g_VGM_DataStart = g_VGM_Pointer; 
+;./libs/vgm/vgm_player.c:112: g_VGM_DataStart = g_VGM_Pointer; 
 	ld	hl, (_g_VGM_Pointer)
 	ld	(_g_VGM_DataStart), hl
-;./libs/vgm_player.c:115: g_VGM_Config = 0; 
+;./libs/vgm/vgm_player.c:115: g_VGM_Config = 0; 
 	ld	iy, #_g_VGM_Config
 	ld	0 (iy), #0x00
-;./libs/vgm_player.c:118: u16 startAddr = (u16)g_VGM_Pointer; 
+;./libs/vgm/vgm_player.c:118: u16 startAddr = (u16)g_VGM_Pointer; 
 	ld	hl, (_g_VGM_Pointer)
-;./libs/vgm_player.c:120: if (startAddr >= 0x8000 && startAddr < VGM_BANK_LIMIT) 
+;./libs/vgm/vgm_player.c:120: if (startAddr >= 0x8000 && startAddr < VGM_BANK_LIMIT) 
 	ld	a,h
 	cp	a,#0x80
 	jr	C, 00106$
 	sub	a, #0xc0
 	jr	NC, 00106$
-;./libs/vgm_player.c:122: g_VGM_Config |= VGM_CFG_MAPPED; 
+;./libs/vgm/vgm_player.c:122: g_VGM_Config |= VGM_CFG_MAPPED; 
 	ld	0 (iy), #0x01
 00106$:
-;./libs/vgm_player.c:128: if (g_VGM_Header->Loop_offset){
+;./libs/vgm/vgm_player.c:128: if (g_VGM_Header->Loop_offset){
 	pop	hl
 	push	hl
 	ld	de, #0x001c
@@ -616,17 +616,17 @@ _VGM_Play::
 	or	a, b
 	or	a, c
 	jr	Z, 00109$
-;./libs/vgm_player.c:129: u32 absoluteLoopOffset = (u32)&g_VGM_Header->Loop_offset + g_VGM_Header->Loop_offset;
+;./libs/vgm/vgm_player.c:129: u32 absoluteLoopOffset = (u32)&g_VGM_Header->Loop_offset + g_VGM_Header->Loop_offset;
 	add	hl, bc
-;./libs/vgm_player.c:130: g_VGM_Loop = (u8*)(u16)absoluteLoopOffset;
+;./libs/vgm/vgm_player.c:130: g_VGM_Loop = (u8*)(u16)absoluteLoopOffset;
 	ld	(_g_VGM_Loop), hl
 	jp	00110$
 00109$:
-;./libs/vgm_player.c:133: g_VGM_Loop = 0;
+;./libs/vgm/vgm_player.c:133: g_VGM_Loop = 0;
 	ld	hl, #0x0000
 	ld	(_g_VGM_Loop), hl
 00110$:
-;./libs/vgm_player.c:136: g_VGM_WaitCount = 0;
+;./libs/vgm/vgm_player.c:136: g_VGM_WaitCount = 0;
 	ld	hl, #0x0000
 	ld	(_g_VGM_WaitCount), hl
 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/system.h:190: inline u8 Sys_GetBIOSInfo() { return g_BASRVN[0]; }
@@ -636,28 +636,28 @@ _VGM_Play::
 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/system.h:219: inline bool Sys_Is50Hz() { return Sys_GetFrequency() == SYS_FREQ_50HZ; }
 	sub	a, #0x80
 	jr	NZ, 00112$
-;./libs/vgm_player.c:138: if (Sys_Is50Hz())
-;./libs/vgm_player.h:119: inline void VGM_SetFrequency50Hz() { g_VGM_State |= VGM_STATE_50HZ; g_VGM_WaitFrame = VGM_WAIT_50HZ; }
+;./libs/vgm/vgm_player.c:138: if (Sys_Is50Hz())
+;./libs/vgm/vgm_player.h:119: inline void VGM_SetFrequency50Hz() { g_VGM_State |= VGM_STATE_50HZ; g_VGM_WaitFrame = VGM_WAIT_50HZ; }
 	ld	a, (_g_VGM_State+0)
 	or	a, #0x01
 	ld	(_g_VGM_State+0), a
 	ld	hl, #0x0372
 	ld	(_g_VGM_WaitFrame), hl
-;./libs/vgm_player.c:139: VGM_SetFrequency50Hz();
+;./libs/vgm/vgm_player.c:139: VGM_SetFrequency50Hz();
 	jp	00113$
 00112$:
-;./libs/vgm_player.h:123: inline void VGM_SetFrequency60Hz() { g_VGM_State &= ~VGM_STATE_50HZ; g_VGM_WaitFrame = VGM_WAIT_60HZ; }
+;./libs/vgm/vgm_player.h:123: inline void VGM_SetFrequency60Hz() { g_VGM_State &= ~VGM_STATE_50HZ; g_VGM_WaitFrame = VGM_WAIT_60HZ; }
 	ld	a, (_g_VGM_State+0)
 	and	a, #0xfe
 	ld	(_g_VGM_State+0), a
 	ld	hl, #0x02df
 	ld	(_g_VGM_WaitFrame), hl
-;./libs/vgm_player.c:141: VGM_SetFrequency60Hz();
+;./libs/vgm/vgm_player.c:141: VGM_SetFrequency60Hz();
 00113$:
-;./libs/vgm_player.c:143: return TRUE;
+;./libs/vgm/vgm_player.c:143: return TRUE;
 	ld	a, #0x01
 00119$:
-;./libs/vgm_player.c:144: }
+;./libs/vgm/vgm_player.c:144: }
 	ld	sp, ix
 	pop	ix
 	pop	hl
@@ -666,16 +666,16 @@ _VGM_Play::
 ___str_0:
 	.ascii "Vgm "
 	.db 0x00
-;./libs/vgm_player.c:148: void VGM_Resume()
+;./libs/vgm/vgm_player.c:148: void VGM_Resume()
 ;	---------------------------------
 ; Function VGM_Resume
 ; ---------------------------------
 _VGM_Resume::
-;./libs/vgm_player.c:150: g_VGM_State |= VGM_STATE_PLAY;
+;./libs/vgm/vgm_player.c:150: g_VGM_State |= VGM_STATE_PLAY;
 	ld	a, (_g_VGM_State+0)
 	or	a, #0x80
 	ld	(_g_VGM_State+0), a
-;./libs/vgm_player.h:149: inline bool VGM_ContainsPSG() { return (g_VGM_Header->Version >= 0x0151) && g_VGM_Header->AY8910_clock; }
+;./libs/vgm/vgm_player.h:149: inline bool VGM_ContainsPSG() { return (g_VGM_Header->Version >= 0x0151) && g_VGM_Header->AY8910_clock; }
 	ld	bc, (_g_VGM_Header)
 	ld	e, c
 	ld	d, b
@@ -720,32 +720,32 @@ _VGM_Resume::
 00107$:
 	ld	a, #0x01
 00108$:
-;./libs/vgm_player.c:153: if (VGM_ContainsPSG())
+;./libs/vgm/vgm_player.c:153: if (VGM_ContainsPSG())
 	or	a, a
-;./libs/vgm_player.c:154: PSG_Resume();
+;./libs/vgm/vgm_player.c:154: PSG_Resume();
 	jp	NZ,_PSG_Resume
-;./libs/vgm_player.c:171: }
+;./libs/vgm/vgm_player.c:171: }
 	ret
-;./libs/vgm_player.c:175: void VGM_Pause()
+;./libs/vgm/vgm_player.c:175: void VGM_Pause()
 ;	---------------------------------
 ; Function VGM_Pause
 ; ---------------------------------
 _VGM_Pause::
-;./libs/vgm_player.c:177: g_VGM_State &= ~VGM_STATE_PLAY;
+;./libs/vgm/vgm_player.c:177: g_VGM_State &= ~VGM_STATE_PLAY;
 	ld	a, (_g_VGM_State+0)
 	and	a, #0x7f
 	ld	(_g_VGM_State+0), a
-;./libs/vgm_player.c:179: PSG_Mute();
-;./libs/vgm_player.c:192: }
+;./libs/vgm/vgm_player.c:179: PSG_Mute();
+;./libs/vgm/vgm_player.c:192: }
 	jp	_PSG_Mute
-;./libs/vgm_player.c:196: void VGM_Stop()
+;./libs/vgm/vgm_player.c:196: void VGM_Stop()
 ;	---------------------------------
 ; Function VGM_Stop
 ; ---------------------------------
 _VGM_Stop::
-;./libs/vgm_player.c:198: VGM_Pause();
+;./libs/vgm/vgm_player.c:198: VGM_Pause();
 	call	_VGM_Pause
-;./libs/vgm_player.c:199: g_VGM_Pointer = (u8*)((u16)&g_VGM_Header->Data_offset + (u16)g_VGM_Header->Data_offset);
+;./libs/vgm/vgm_player.c:199: g_VGM_Pointer = (u8*)((u16)&g_VGM_Header->Data_offset + (u16)g_VGM_Header->Data_offset);
 	ld	hl, (_g_VGM_Header)
 	ld	bc, #0x0034
 	add	hl, bc
@@ -758,12 +758,12 @@ _VGM_Stop::
 	ld	l, a
 	add	hl, bc
 	ld	(_g_VGM_Pointer), hl
-;./libs/vgm_player.c:200: g_VGM_WaitCount = 0;
+;./libs/vgm/vgm_player.c:200: g_VGM_WaitCount = 0;
 	ld	hl, #0x0000
 	ld	(_g_VGM_WaitCount), hl
-;./libs/vgm_player.c:201: }
+;./libs/vgm/vgm_player.c:201: }
 	ret
-;./libs/vgm_player.c:206: void VGM_Decode()
+;./libs/vgm/vgm_player.c:206: void VGM_Decode()
 ;	---------------------------------
 ; Function VGM_Decode
 ; ---------------------------------
@@ -772,13 +772,13 @@ _VGM_Decode::
 	ld	ix,#0
 	add	ix,sp
 	push	af
-;./libs/vgm_player.c:208: if (!(g_VGM_State & VGM_STATE_PLAY))
+;./libs/vgm/vgm_player.c:208: if (!(g_VGM_State & VGM_STATE_PLAY))
 	ld	a, (_g_VGM_State+0)
 	rlca
 	jp	NC,00177$
-;./libs/vgm_player.c:209: return;
+;./libs/vgm/vgm_player.c:209: return;
 	jp	00174$
-;./libs/vgm_player.c:212: while (g_VGM_WaitCount < g_VGM_WaitFrame)
+;./libs/vgm/vgm_player.c:212: while (g_VGM_WaitCount < g_VGM_WaitFrame)
 00174$:
 	ld	hl, #_g_VGM_WaitFrame
 	ld	a, (_g_VGM_WaitCount+0)
@@ -787,7 +787,7 @@ _VGM_Decode::
 	ld	a, (_g_VGM_WaitCount+1)
 	sbc	a, (hl)
 	jp	NC, 00176$
-;./libs/vgm_player.c:215: VGM_FETCH_BYTE(cmd); 
+;./libs/vgm/vgm_player.c:215: VGM_FETCH_BYTE(cmd); 
 	ld	hl, (_g_VGM_Pointer)
 	ld	c, (hl)
 	ld	hl, (_g_VGM_Pointer)
@@ -820,11 +820,11 @@ _VGM_Decode::
 	ld	hl, #0xa000
 	ld	(_g_VGM_Pointer), hl
 00110$:
-;./libs/vgm_player.c:217: if (cmd == 0xA0) // PSG Write
+;./libs/vgm/vgm_player.c:217: if (cmd == 0xA0) // PSG Write
 	ld	a, c
 	sub	a, #0xa0
 	jp	NZ,00172$
-;./libs/vgm_player.c:220: VGM_FETCH_BYTE(reg); 
+;./libs/vgm/vgm_player.c:220: VGM_FETCH_BYTE(reg); 
 	ld	hl, (_g_VGM_Pointer)
 	ld	c, (hl)
 	ld	hl, (_g_VGM_Pointer)
@@ -857,7 +857,7 @@ _VGM_Decode::
 	ld	hl, #0xa000
 	ld	(_g_VGM_Pointer), hl
 00118$:
-;./libs/vgm_player.c:221: VGM_FETCH_BYTE(val); 
+;./libs/vgm/vgm_player.c:221: VGM_FETCH_BYTE(val); 
 	ld	hl, (_g_VGM_Pointer)
 	ld	b, (hl)
 	ld	hl, (_g_VGM_Pointer)
@@ -890,7 +890,7 @@ _VGM_Decode::
 	ld	hl, #0xa000
 	ld	(_g_VGM_Pointer), hl
 00126$:
-;./libs/vgm_player.c:222: PSG_SetRegister(reg, val); 
+;./libs/vgm/vgm_player.c:222: PSG_SetRegister(reg, val); 
 	ld	l, b
 ;	spillPairReg hl
 ;	spillPairReg hl
@@ -898,11 +898,11 @@ _VGM_Decode::
 	call	_PSG_SetRegister
 	jp	00174$
 00172$:
-;./libs/vgm_player.c:265: else if (cmd == 0x61) // Wait n samples
+;./libs/vgm/vgm_player.c:265: else if (cmd == 0x61) // Wait n samples
 	ld	a, c
 	sub	a, #0x61
 	jp	NZ,00169$
-;./libs/vgm_player.c:268: VGM_FETCH_BYTE(lo);
+;./libs/vgm/vgm_player.c:268: VGM_FETCH_BYTE(lo);
 	ld	hl, (_g_VGM_Pointer)
 	ld	e, (hl)
 	ld	hl, (_g_VGM_Pointer)
@@ -935,7 +935,7 @@ _VGM_Decode::
 	ld	hl, #0xa000
 	ld	(_g_VGM_Pointer), hl
 00134$:
-;./libs/vgm_player.c:269: VGM_FETCH_BYTE(hi);
+;./libs/vgm/vgm_player.c:269: VGM_FETCH_BYTE(hi);
 	ld	hl, (_g_VGM_Pointer)
 	ld	d, (hl)
 	ld	hl, (_g_VGM_Pointer)
@@ -968,7 +968,7 @@ _VGM_Decode::
 	ld	hl, #0xa000
 	ld	(_g_VGM_Pointer), hl
 00142$:
-;./libs/vgm_player.c:270: g_VGM_WaitCount += lo | ((u16)hi << 8);
+;./libs/vgm/vgm_player.c:270: g_VGM_WaitCount += lo | ((u16)hi << 8);
 	ld	b, d
 	ld	c, #0x00
 	ld	d, c
@@ -988,7 +988,7 @@ _VGM_Decode::
 	ld	(hl), a
 	jp	00174$
 00169$:
-;./libs/vgm_player.c:272: else if (cmd == 0x62) { g_VGM_WaitCount += 735; }
+;./libs/vgm/vgm_player.c:272: else if (cmd == 0x62) { g_VGM_WaitCount += 735; }
 	ld	a, c
 	sub	a, #0x62
 	jr	NZ, 00166$
@@ -998,7 +998,7 @@ _VGM_Decode::
 	ld	(_g_VGM_WaitCount), hl
 	jp	00174$
 00166$:
-;./libs/vgm_player.c:273: else if (cmd == 0x63) { g_VGM_WaitCount += 882; }
+;./libs/vgm/vgm_player.c:273: else if (cmd == 0x63) { g_VGM_WaitCount += 882; }
 	ld	a, c
 	sub	a, #0x63
 	jr	NZ, 00163$
@@ -1008,55 +1008,55 @@ _VGM_Decode::
 	ld	(_g_VGM_WaitCount), hl
 	jp	00174$
 00163$:
-;./libs/vgm_player.c:274: else if (cmd == 0x66) // End of sound data
+;./libs/vgm/vgm_player.c:274: else if (cmd == 0x66) // End of sound data
 	ld	a, c
 	sub	a, #0x66
 	jr	NZ, 00160$
-;./libs/vgm_player.c:276: if (g_VGM_State & VGM_STATE_LOOP)
+;./libs/vgm/vgm_player.c:276: if (g_VGM_State & VGM_STATE_LOOP)
 	ld	a, (_g_VGM_State+0)
 	bit	1, a
 	jr	Z, 00155$
-;./libs/vgm_player.c:279: if (g_VGM_Config & VGM_CFG_MAPPED) {
+;./libs/vgm/vgm_player.c:279: if (g_VGM_Config & VGM_CFG_MAPPED) {
 	ld	a, (_g_VGM_Config+0)
 	rrca
 	jr	NC, 00148$
-;./libs/vgm_player.c:280: if (g_VGM_NotifyCallback) {
+;./libs/vgm/vgm_player.c:280: if (g_VGM_NotifyCallback) {
 	ld	a, (_g_VGM_NotifyCallback+1)
 	ld	hl, #_g_VGM_NotifyCallback
 	or	a, (hl)
 	jr	Z, 00148$
-;./libs/vgm_player.c:281: if (!g_VGM_NotifyCallback(1)) { 
+;./libs/vgm/vgm_player.c:281: if (!g_VGM_NotifyCallback(1)) { 
 	ld	a, #0x01
 	ld	hl, (_g_VGM_NotifyCallback)
 	call	___sdcc_call_hl
 	or	a, a
 	jr	NZ, 00148$
-;./libs/vgm_player.c:282: VGM_Stop();
+;./libs/vgm/vgm_player.c:282: VGM_Stop();
 	call	_VGM_Stop
-;./libs/vgm_player.c:283: return;
+;./libs/vgm/vgm_player.c:283: return;
 	jp	00177$
 00148$:
-;./libs/vgm_player.c:291: if (g_VGM_Loop != 0)
+;./libs/vgm/vgm_player.c:291: if (g_VGM_Loop != 0)
 	ld	a, (_g_VGM_Loop+1)
 	ld	hl, #_g_VGM_Loop
 	or	a, (hl)
 	jr	Z, 00150$
-;./libs/vgm_player.c:292: g_VGM_Pointer = g_VGM_Loop;
+;./libs/vgm/vgm_player.c:292: g_VGM_Pointer = g_VGM_Loop;
 	ld	hl, (_g_VGM_Loop)
 	ld	(_g_VGM_Pointer), hl
 	jp	00151$
 00150$:
-;./libs/vgm_player.c:294: g_VGM_Pointer = g_VGM_DataStart;
+;./libs/vgm/vgm_player.c:294: g_VGM_Pointer = g_VGM_DataStart;
 	ld	hl, (_g_VGM_DataStart)
 	ld	(_g_VGM_Pointer), hl
 00151$:
-;./libs/vgm_player.c:296: g_VGM_WaitCount = 0;
+;./libs/vgm/vgm_player.c:296: g_VGM_WaitCount = 0;
 	ld	hl, #0x0000
 	ld	(_g_VGM_WaitCount), hl
-;./libs/vgm_player.c:297: continue; 
+;./libs/vgm/vgm_player.c:297: continue; 
 	jp	00174$
 00155$:
-;./libs/vgm_player.c:301: if (g_VGM_NotifyCallback) g_VGM_NotifyCallback(0xFF);
+;./libs/vgm/vgm_player.c:301: if (g_VGM_NotifyCallback) g_VGM_NotifyCallback(0xFF);
 	ld	a, (_g_VGM_NotifyCallback+1)
 	ld	hl, #_g_VGM_NotifyCallback
 	or	a, (hl)
@@ -1065,12 +1065,12 @@ _VGM_Decode::
 	ld	hl, (_g_VGM_NotifyCallback)
 	call	___sdcc_call_hl
 00153$:
-;./libs/vgm_player.c:302: VGM_Stop();
+;./libs/vgm/vgm_player.c:302: VGM_Stop();
 	call	_VGM_Stop
-;./libs/vgm_player.c:303: return;
+;./libs/vgm/vgm_player.c:303: return;
 	jp	00177$
 00160$:
-;./libs/vgm_player.c:306: else if ((cmd & 0xF0) == 0x70) 
+;./libs/vgm/vgm_player.c:306: else if ((cmd & 0xF0) == 0x70) 
 	ld	-2 (ix), c
 	ld	-1 (ix), #0x00
 	ld	a, -2 (ix)
@@ -1081,7 +1081,7 @@ _VGM_Decode::
 	sub	a, #0x70
 	or	a, b
 	jp	NZ,00174$
-;./libs/vgm_player.c:308: g_VGM_WaitCount += 1 + (cmd & 0x0F);
+;./libs/vgm/vgm_player.c:308: g_VGM_WaitCount += 1 + (cmd & 0x0F);
 	ld	a, -2 (ix)
 	and	a, #0x0f
 	ld	b, #0x00
@@ -1092,7 +1092,7 @@ _VGM_Decode::
 	ld	(_g_VGM_WaitCount), hl
 	jp	00174$
 00176$:
-;./libs/vgm_player.c:312: g_VGM_WaitCount -= g_VGM_WaitFrame;
+;./libs/vgm/vgm_player.c:312: g_VGM_WaitCount -= g_VGM_WaitFrame;
 	ld	hl, #_g_VGM_WaitFrame
 	push	de
 	ld	de, #_g_VGM_WaitCount
@@ -1106,7 +1106,7 @@ _VGM_Decode::
 	ld	(de), a
 	pop	de
 00177$:
-;./libs/vgm_player.c:313: }
+;./libs/vgm/vgm_player.c:313: }
 	ld	sp, ix
 	pop	ix
 	ret

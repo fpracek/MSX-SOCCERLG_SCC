@@ -13,7 +13,7 @@
 #include "debug.h"
 #include "input.h"
 #include "memory.h"
-#include "libs/vgm_player.h"
+#include "libs/vgm/vgm_player.h"
 
 
 

@@ -22,9 +22,9 @@ Symbol Table
   7 _PutPonPonGirlSprite                                            000004ED GR
     _SetPlayerBallPossession                                        ******** GX
   7 _TickThrowIn                                                    000005C1 GR
-  1 _TickThrowIn_s_ForceThrowTimer_65537_1225                       00000002 R
-  1 _TickThrowIn_s_JoyMoved_65537_1225                              00000001 R
-  1 _TickThrowIn_s_ThrowTargetId_65537_1225                         00000000 R
+  1 _TickThrowIn_s_ForceThrowTimer_65537_1224                       00000002 R
+  1 _TickThrowIn_s_JoyMoved_65537_1224                              00000001 R
+  1 _TickThrowIn_s_ThrowTargetId_65537_1224                         00000000 R
     _V9990_ClearTextFromLayerA                                      ******** GX
     _V9990_PrintLayerAStringAtPos                                   ******** GX
     _V9_Poke16_CurrentAddr                                          ******** GX

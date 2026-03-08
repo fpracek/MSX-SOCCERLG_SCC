@@ -339,14 +339,14 @@
                                     339 ; code
                                     340 ;--------------------------------------------------------
                                     341 	.area _CODE
-                                    342 ;./libs/vgm_player.c:82: void VGM_SetNotifyCB(VGM_Callback cb)
+                                    342 ;./libs/vgm/vgm_player.c:82: void VGM_SetNotifyCB(VGM_Callback cb)
                                     343 ;	---------------------------------
                                     344 ; Function VGM_SetNotifyCB
                                     345 ; ---------------------------------
     00000000                        346 _VGM_SetNotifyCB::
     00000000 22r00r00         [16]  347 	ld	(_g_VGM_NotifyCallback), hl
-                                    348 ;./libs/vgm_player.c:84: g_VGM_NotifyCallback = cb;
-                                    349 ;./libs/vgm_player.c:85: }
+                                    348 ;./libs/vgm/vgm_player.c:84: g_VGM_NotifyCallback = cb;
+                                    349 ;./libs/vgm/vgm_player.c:85: }
     00000003 C9               [10]  350 	ret
                          0000F380   351 _g_RDPRIM	=	0xf380
                          0000F385   352 _g_WRPRIM	=	0xf385
@@ -512,7 +512,7 @@
                          0000F344   512 _g_RAMAD3	=	0xf344
                          0000F348   513 _g_MASTER	=	0xf348
                          0000F37D   514 _g_BDOS	=	0xf37d
-                                    515 ;./libs/vgm_player.c:95: bool VGM_Play(const void* addr, bool loop)
+                                    515 ;./libs/vgm/vgm_player.c:95: bool VGM_Play(const void* addr, bool loop)
                                     516 ;	---------------------------------
                                     517 ; Function VGM_Play
                                     518 ; ---------------------------------
@@ -523,13 +523,13 @@
     0000000C F5               [11]  523 	push	af
     0000000D F5               [11]  524 	push	af
     0000000E F5               [11]  525 	push	af
-                                    526 ;./libs/vgm_player.c:97: VGM_Pause(); // Mute all sound chip
+                                    526 ;./libs/vgm/vgm_player.c:97: VGM_Pause(); // Mute all sound chip
     0000000F E5               [11]  527 	push	hl
     00000010 CDr2Ar01         [17]  528 	call	_VGM_Pause
     00000013 E1               [10]  529 	pop	hl
-                                    530 ;./libs/vgm_player.c:99: g_VGM_Header = (VGM_Header*)addr;
+                                    530 ;./libs/vgm/vgm_player.c:99: g_VGM_Header = (VGM_Header*)addr;
     00000014 22r00r00         [16]  531 	ld	(_g_VGM_Header), hl
-                                    532 ;./libs/vgm_player.c:101: if (g_VGM_Header->Ident != VGM_IDENT)
+                                    532 ;./libs/vgm/vgm_player.c:101: if (g_VGM_Header->Ident != VGM_IDENT)
     00000017 2Ar00r00         [16]  533 	ld	hl, (_g_VGM_Header)
     0000001A E3               [19]  534 	ex	(sp), hl
     0000001B D1               [10]  535 	pop	de
@@ -552,21 +552,21 @@
     00000040 ED 42            [15]  552 	sbc	hl, bc
     00000042 28 04            [12]  553 	jr	Z, 00102$
     00000044                        554 00151$:
-                                    555 ;./libs/vgm_player.c:102: return FALSE;
+                                    555 ;./libs/vgm/vgm_player.c:102: return FALSE;
     00000044 AF               [ 4]  556 	xor	a, a
     00000045 C3rDAr00         [10]  557 	jp	00119$
     00000048                        558 00102$:
-                                    559 ;./libs/vgm_player.c:104: g_VGM_State = VGM_STATE_PLAY;
+                                    559 ;./libs/vgm/vgm_player.c:104: g_VGM_State = VGM_STATE_PLAY;
     00000048 FD 21r0Ar00      [14]  560 	ld	iy, #_g_VGM_State
     0000004C FD 36 00 80      [19]  561 	ld	0 (iy), #0x80
-                                    562 ;./libs/vgm_player.c:105: if (loop)
+                                    562 ;./libs/vgm/vgm_player.c:105: if (loop)
     00000050 DD 7E 04         [19]  563 	ld	a, 4 (ix)
     00000053 B7               [ 4]  564 	or	a, a
     00000054 28 04            [12]  565 	jr	Z, 00104$
-                                    566 ;./libs/vgm_player.c:106: g_VGM_State |= VGM_STATE_LOOP;
+                                    566 ;./libs/vgm/vgm_player.c:106: g_VGM_State |= VGM_STATE_LOOP;
     00000056 FD 36 00 82      [19]  567 	ld	0 (iy), #0x82
     0000005A                        568 00104$:
-                                    569 ;./libs/vgm_player.c:109: g_VGM_Pointer = (u8*)((u16)&g_VGM_Header->Data_offset + (u16)g_VGM_Header->Data_offset);
+                                    569 ;./libs/vgm/vgm_player.c:109: g_VGM_Pointer = (u8*)((u16)&g_VGM_Header->Data_offset + (u16)g_VGM_Header->Data_offset);
     0000005A E1               [10]  570 	pop	hl
     0000005B E5               [11]  571 	push	hl
     0000005C 11 34 00         [10]  572 	ld	de, #0x0034
@@ -580,24 +580,24 @@
     00000065 6F               [ 4]  580 	ld	l, a
     00000066 09               [11]  581 	add	hl, bc
     00000067 22r02r00         [16]  582 	ld	(_g_VGM_Pointer), hl
-                                    583 ;./libs/vgm_player.c:112: g_VGM_DataStart = g_VGM_Pointer; 
+                                    583 ;./libs/vgm/vgm_player.c:112: g_VGM_DataStart = g_VGM_Pointer; 
     0000006A 2Ar02r00         [16]  584 	ld	hl, (_g_VGM_Pointer)
     0000006D 22r0Cr00         [16]  585 	ld	(_g_VGM_DataStart), hl
-                                    586 ;./libs/vgm_player.c:115: g_VGM_Config = 0; 
+                                    586 ;./libs/vgm/vgm_player.c:115: g_VGM_Config = 0; 
     00000070 FD 21r0Br00      [14]  587 	ld	iy, #_g_VGM_Config
     00000074 FD 36 00 00      [19]  588 	ld	0 (iy), #0x00
-                                    589 ;./libs/vgm_player.c:118: u16 startAddr = (u16)g_VGM_Pointer; 
+                                    589 ;./libs/vgm/vgm_player.c:118: u16 startAddr = (u16)g_VGM_Pointer; 
     00000078 2Ar02r00         [16]  590 	ld	hl, (_g_VGM_Pointer)
-                                    591 ;./libs/vgm_player.c:120: if (startAddr >= 0x8000 && startAddr < VGM_BANK_LIMIT) 
+                                    591 ;./libs/vgm/vgm_player.c:120: if (startAddr >= 0x8000 && startAddr < VGM_BANK_LIMIT) 
     0000007B 7C               [ 4]  592 	ld	a,h
     0000007C FE 80            [ 7]  593 	cp	a,#0x80
     0000007E 38 08            [12]  594 	jr	C, 00106$
     00000080 D6 C0            [ 7]  595 	sub	a, #0xc0
     00000082 30 04            [12]  596 	jr	NC, 00106$
-                                    597 ;./libs/vgm_player.c:122: g_VGM_Config |= VGM_CFG_MAPPED; 
+                                    597 ;./libs/vgm/vgm_player.c:122: g_VGM_Config |= VGM_CFG_MAPPED; 
     00000084 FD 36 00 01      [19]  598 	ld	0 (iy), #0x01
     00000088                        599 00106$:
-                                    600 ;./libs/vgm_player.c:128: if (g_VGM_Header->Loop_offset){
+                                    600 ;./libs/vgm/vgm_player.c:128: if (g_VGM_Header->Loop_offset){
     00000088 E1               [10]  601 	pop	hl
     00000089 E5               [11]  602 	push	hl
     0000008A 11 1C 00         [10]  603 	ld	de, #0x001c
@@ -616,17 +616,17 @@
     00000099 B0               [ 4]  616 	or	a, b
     0000009A B1               [ 4]  617 	or	a, c
     0000009B 28 07            [12]  618 	jr	Z, 00109$
-                                    619 ;./libs/vgm_player.c:129: u32 absoluteLoopOffset = (u32)&g_VGM_Header->Loop_offset + g_VGM_Header->Loop_offset;
+                                    619 ;./libs/vgm/vgm_player.c:129: u32 absoluteLoopOffset = (u32)&g_VGM_Header->Loop_offset + g_VGM_Header->Loop_offset;
     0000009D 09               [11]  620 	add	hl, bc
-                                    621 ;./libs/vgm_player.c:130: g_VGM_Loop = (u8*)(u16)absoluteLoopOffset;
+                                    621 ;./libs/vgm/vgm_player.c:130: g_VGM_Loop = (u8*)(u16)absoluteLoopOffset;
     0000009E 22r04r00         [16]  622 	ld	(_g_VGM_Loop), hl
     000000A1 C3rAAr00         [10]  623 	jp	00110$
     000000A4                        624 00109$:
-                                    625 ;./libs/vgm_player.c:133: g_VGM_Loop = 0;
+                                    625 ;./libs/vgm/vgm_player.c:133: g_VGM_Loop = 0;
     000000A4 21 00 00         [10]  626 	ld	hl, #0x0000
     000000A7 22r04r00         [16]  627 	ld	(_g_VGM_Loop), hl
     000000AA                        628 00110$:
-                                    629 ;./libs/vgm_player.c:136: g_VGM_WaitCount = 0;
+                                    629 ;./libs/vgm/vgm_player.c:136: g_VGM_WaitCount = 0;
     000000AA 21 00 00         [10]  630 	ld	hl, #0x0000
     000000AD 22r06r00         [16]  631 	ld	(_g_VGM_WaitCount), hl
                                     632 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/system.h:190: inline u8 Sys_GetBIOSInfo() { return g_BASRVN[0]; }
@@ -636,28 +636,28 @@
                                     636 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/system.h:219: inline bool Sys_Is50Hz() { return Sys_GetFrequency() == SYS_FREQ_50HZ; }
     000000B5 D6 80            [ 7]  637 	sub	a, #0x80
     000000B7 20 11            [12]  638 	jr	NZ, 00112$
-                                    639 ;./libs/vgm_player.c:138: if (Sys_Is50Hz())
-                                    640 ;./libs/vgm_player.h:119: inline void VGM_SetFrequency50Hz() { g_VGM_State |= VGM_STATE_50HZ; g_VGM_WaitFrame = VGM_WAIT_50HZ; }
+                                    639 ;./libs/vgm/vgm_player.c:138: if (Sys_Is50Hz())
+                                    640 ;./libs/vgm/vgm_player.h:119: inline void VGM_SetFrequency50Hz() { g_VGM_State |= VGM_STATE_50HZ; g_VGM_WaitFrame = VGM_WAIT_50HZ; }
     000000B9 3Ar0Ar00         [13]  641 	ld	a, (_g_VGM_State+0)
     000000BC F6 01            [ 7]  642 	or	a, #0x01
     000000BE 32r0Ar00         [13]  643 	ld	(_g_VGM_State+0), a
     000000C1 21 72 03         [10]  644 	ld	hl, #0x0372
     000000C4 22r08r00         [16]  645 	ld	(_g_VGM_WaitFrame), hl
-                                    646 ;./libs/vgm_player.c:139: VGM_SetFrequency50Hz();
+                                    646 ;./libs/vgm/vgm_player.c:139: VGM_SetFrequency50Hz();
     000000C7 C3rD8r00         [10]  647 	jp	00113$
     000000CA                        648 00112$:
-                                    649 ;./libs/vgm_player.h:123: inline void VGM_SetFrequency60Hz() { g_VGM_State &= ~VGM_STATE_50HZ; g_VGM_WaitFrame = VGM_WAIT_60HZ; }
+                                    649 ;./libs/vgm/vgm_player.h:123: inline void VGM_SetFrequency60Hz() { g_VGM_State &= ~VGM_STATE_50HZ; g_VGM_WaitFrame = VGM_WAIT_60HZ; }
     000000CA 3Ar0Ar00         [13]  650 	ld	a, (_g_VGM_State+0)
     000000CD E6 FE            [ 7]  651 	and	a, #0xfe
     000000CF 32r0Ar00         [13]  652 	ld	(_g_VGM_State+0), a
     000000D2 21 DF 02         [10]  653 	ld	hl, #0x02df
     000000D5 22r08r00         [16]  654 	ld	(_g_VGM_WaitFrame), hl
-                                    655 ;./libs/vgm_player.c:141: VGM_SetFrequency60Hz();
+                                    655 ;./libs/vgm/vgm_player.c:141: VGM_SetFrequency60Hz();
     000000D8                        656 00113$:
-                                    657 ;./libs/vgm_player.c:143: return TRUE;
+                                    657 ;./libs/vgm/vgm_player.c:143: return TRUE;
     000000D8 3E 01            [ 7]  658 	ld	a, #0x01
     000000DA                        659 00119$:
-                                    660 ;./libs/vgm_player.c:144: }
+                                    660 ;./libs/vgm/vgm_player.c:144: }
     000000DA DD F9            [10]  661 	ld	sp, ix
     000000DC DD E1            [14]  662 	pop	ix
     000000DE E1               [10]  663 	pop	hl
@@ -666,16 +666,16 @@
     000000E1                        666 ___str_0:
     000000E1 56 67 6D 20            667 	.ascii "Vgm "
     000000E5 00                     668 	.db 0x00
-                                    669 ;./libs/vgm_player.c:148: void VGM_Resume()
+                                    669 ;./libs/vgm/vgm_player.c:148: void VGM_Resume()
                                     670 ;	---------------------------------
                                     671 ; Function VGM_Resume
                                     672 ; ---------------------------------
     000000E6                        673 _VGM_Resume::
-                                    674 ;./libs/vgm_player.c:150: g_VGM_State |= VGM_STATE_PLAY;
+                                    674 ;./libs/vgm/vgm_player.c:150: g_VGM_State |= VGM_STATE_PLAY;
     000000E6 3Ar0Ar00         [13]  675 	ld	a, (_g_VGM_State+0)
     000000E9 F6 80            [ 7]  676 	or	a, #0x80
     000000EB 32r0Ar00         [13]  677 	ld	(_g_VGM_State+0), a
-                                    678 ;./libs/vgm_player.h:149: inline bool VGM_ContainsPSG() { return (g_VGM_Header->Version >= 0x0151) && g_VGM_Header->AY8910_clock; }
+                                    678 ;./libs/vgm/vgm_player.h:149: inline bool VGM_ContainsPSG() { return (g_VGM_Header->Version >= 0x0151) && g_VGM_Header->AY8910_clock; }
     000000EE ED 4Br00r00      [20]  679 	ld	bc, (_g_VGM_Header)
     000000F2 59               [ 4]  680 	ld	e, c
     000000F3 50               [ 4]  681 	ld	d, b
@@ -720,32 +720,32 @@
     00000123                        720 00107$:
     00000123 3E 01            [ 7]  721 	ld	a, #0x01
     00000125                        722 00108$:
-                                    723 ;./libs/vgm_player.c:153: if (VGM_ContainsPSG())
+                                    723 ;./libs/vgm/vgm_player.c:153: if (VGM_ContainsPSG())
     00000125 B7               [ 4]  724 	or	a, a
-                                    725 ;./libs/vgm_player.c:154: PSG_Resume();
+                                    725 ;./libs/vgm/vgm_player.c:154: PSG_Resume();
     00000126 C2r00r00         [10]  726 	jp	NZ,_PSG_Resume
-                                    727 ;./libs/vgm_player.c:171: }
+                                    727 ;./libs/vgm/vgm_player.c:171: }
     00000129 C9               [10]  728 	ret
-                                    729 ;./libs/vgm_player.c:175: void VGM_Pause()
+                                    729 ;./libs/vgm/vgm_player.c:175: void VGM_Pause()
                                     730 ;	---------------------------------
                                     731 ; Function VGM_Pause
                                     732 ; ---------------------------------
     0000012A                        733 _VGM_Pause::
-                                    734 ;./libs/vgm_player.c:177: g_VGM_State &= ~VGM_STATE_PLAY;
+                                    734 ;./libs/vgm/vgm_player.c:177: g_VGM_State &= ~VGM_STATE_PLAY;
     0000012A 3Ar0Ar00         [13]  735 	ld	a, (_g_VGM_State+0)
     0000012D E6 7F            [ 7]  736 	and	a, #0x7f
     0000012F 32r0Ar00         [13]  737 	ld	(_g_VGM_State+0), a
-                                    738 ;./libs/vgm_player.c:179: PSG_Mute();
-                                    739 ;./libs/vgm_player.c:192: }
+                                    738 ;./libs/vgm/vgm_player.c:179: PSG_Mute();
+                                    739 ;./libs/vgm/vgm_player.c:192: }
     00000132 C3r00r00         [10]  740 	jp	_PSG_Mute
-                                    741 ;./libs/vgm_player.c:196: void VGM_Stop()
+                                    741 ;./libs/vgm/vgm_player.c:196: void VGM_Stop()
                                     742 ;	---------------------------------
                                     743 ; Function VGM_Stop
                                     744 ; ---------------------------------
     00000135                        745 _VGM_Stop::
-                                    746 ;./libs/vgm_player.c:198: VGM_Pause();
+                                    746 ;./libs/vgm/vgm_player.c:198: VGM_Pause();
     00000135 CDr2Ar01         [17]  747 	call	_VGM_Pause
-                                    748 ;./libs/vgm_player.c:199: g_VGM_Pointer = (u8*)((u16)&g_VGM_Header->Data_offset + (u16)g_VGM_Header->Data_offset);
+                                    748 ;./libs/vgm/vgm_player.c:199: g_VGM_Pointer = (u8*)((u16)&g_VGM_Header->Data_offset + (u16)g_VGM_Header->Data_offset);
     00000138 2Ar00r00         [16]  749 	ld	hl, (_g_VGM_Header)
     0000013B 01 34 00         [10]  750 	ld	bc, #0x0034
     0000013E 09               [11]  751 	add	hl, bc
@@ -758,12 +758,12 @@
     00000144 6F               [ 4]  758 	ld	l, a
     00000145 09               [11]  759 	add	hl, bc
     00000146 22r02r00         [16]  760 	ld	(_g_VGM_Pointer), hl
-                                    761 ;./libs/vgm_player.c:200: g_VGM_WaitCount = 0;
+                                    761 ;./libs/vgm/vgm_player.c:200: g_VGM_WaitCount = 0;
     00000149 21 00 00         [10]  762 	ld	hl, #0x0000
     0000014C 22r06r00         [16]  763 	ld	(_g_VGM_WaitCount), hl
-                                    764 ;./libs/vgm_player.c:201: }
+                                    764 ;./libs/vgm/vgm_player.c:201: }
     0000014F C9               [10]  765 	ret
-                                    766 ;./libs/vgm_player.c:206: void VGM_Decode()
+                                    766 ;./libs/vgm/vgm_player.c:206: void VGM_Decode()
                                     767 ;	---------------------------------
                                     768 ; Function VGM_Decode
                                     769 ; ---------------------------------
@@ -772,13 +772,13 @@
     00000152 DD 21 00 00      [14]  772 	ld	ix,#0
     00000156 DD 39            [15]  773 	add	ix,sp
     00000158 F5               [11]  774 	push	af
-                                    775 ;./libs/vgm_player.c:208: if (!(g_VGM_State & VGM_STATE_PLAY))
+                                    775 ;./libs/vgm/vgm_player.c:208: if (!(g_VGM_State & VGM_STATE_PLAY))
     00000159 3Ar0Ar00         [13]  776 	ld	a, (_g_VGM_State+0)
     0000015C 07               [ 4]  777 	rlca
     0000015D D2r94r03         [10]  778 	jp	NC,00177$
-                                    779 ;./libs/vgm_player.c:209: return;
+                                    779 ;./libs/vgm/vgm_player.c:209: return;
     00000160 C3r63r01         [10]  780 	jp	00174$
-                                    781 ;./libs/vgm_player.c:212: while (g_VGM_WaitCount < g_VGM_WaitFrame)
+                                    781 ;./libs/vgm/vgm_player.c:212: while (g_VGM_WaitCount < g_VGM_WaitFrame)
     00000163                        782 00174$:
     00000163 21r08r00         [10]  783 	ld	hl, #_g_VGM_WaitFrame
     00000166 3Ar06r00         [13]  784 	ld	a, (_g_VGM_WaitCount+0)
@@ -787,7 +787,7 @@
     0000016B 3Ar07r00         [13]  787 	ld	a, (_g_VGM_WaitCount+1)
     0000016E 9E               [ 7]  788 	sbc	a, (hl)
     0000016F D2r84r03         [10]  789 	jp	NC, 00176$
-                                    790 ;./libs/vgm_player.c:215: VGM_FETCH_BYTE(cmd); 
+                                    790 ;./libs/vgm/vgm_player.c:215: VGM_FETCH_BYTE(cmd); 
     00000172 2Ar02r00         [16]  791 	ld	hl, (_g_VGM_Pointer)
     00000175 4E               [ 7]  792 	ld	c, (hl)
     00000176 2Ar02r00         [16]  793 	ld	hl, (_g_VGM_Pointer)
@@ -820,11 +820,11 @@
     000001AA 21 00 A0         [10]  820 	ld	hl, #0xa000
     000001AD 22r02r00         [16]  821 	ld	(_g_VGM_Pointer), hl
     000001B0                        822 00110$:
-                                    823 ;./libs/vgm_player.c:217: if (cmd == 0xA0) // PSG Write
+                                    823 ;./libs/vgm/vgm_player.c:217: if (cmd == 0xA0) // PSG Write
     000001B0 79               [ 4]  824 	ld	a, c
     000001B1 D6 A0            [ 7]  825 	sub	a, #0xa0
     000001B3 C2r3Ar02         [10]  826 	jp	NZ,00172$
-                                    827 ;./libs/vgm_player.c:220: VGM_FETCH_BYTE(reg); 
+                                    827 ;./libs/vgm/vgm_player.c:220: VGM_FETCH_BYTE(reg); 
     000001B6 2Ar02r00         [16]  828 	ld	hl, (_g_VGM_Pointer)
     000001B9 4E               [ 7]  829 	ld	c, (hl)
     000001BA 2Ar02r00         [16]  830 	ld	hl, (_g_VGM_Pointer)
@@ -857,7 +857,7 @@
     000001EE 21 00 A0         [10]  857 	ld	hl, #0xa000
     000001F1 22r02r00         [16]  858 	ld	(_g_VGM_Pointer), hl
     000001F4                        859 00118$:
-                                    860 ;./libs/vgm_player.c:221: VGM_FETCH_BYTE(val); 
+                                    860 ;./libs/vgm/vgm_player.c:221: VGM_FETCH_BYTE(val); 
     000001F4 2Ar02r00         [16]  861 	ld	hl, (_g_VGM_Pointer)
     000001F7 46               [ 7]  862 	ld	b, (hl)
     000001F8 2Ar02r00         [16]  863 	ld	hl, (_g_VGM_Pointer)
@@ -890,7 +890,7 @@
     0000022C 21 00 A0         [10]  890 	ld	hl, #0xa000
     0000022F 22r02r00         [16]  891 	ld	(_g_VGM_Pointer), hl
     00000232                        892 00126$:
-                                    893 ;./libs/vgm_player.c:222: PSG_SetRegister(reg, val); 
+                                    893 ;./libs/vgm/vgm_player.c:222: PSG_SetRegister(reg, val); 
     00000232 68               [ 4]  894 	ld	l, b
                                     895 ;	spillPairReg hl
                                     896 ;	spillPairReg hl
@@ -898,11 +898,11 @@
     00000234 CDr00r00         [17]  898 	call	_PSG_SetRegister
     00000237 C3r63r01         [10]  899 	jp	00174$
     0000023A                        900 00172$:
-                                    901 ;./libs/vgm_player.c:265: else if (cmd == 0x61) // Wait n samples
+                                    901 ;./libs/vgm/vgm_player.c:265: else if (cmd == 0x61) // Wait n samples
     0000023A 79               [ 4]  902 	ld	a, c
     0000023B D6 61            [ 7]  903 	sub	a, #0x61
     0000023D C2rD3r02         [10]  904 	jp	NZ,00169$
-                                    905 ;./libs/vgm_player.c:268: VGM_FETCH_BYTE(lo);
+                                    905 ;./libs/vgm/vgm_player.c:268: VGM_FETCH_BYTE(lo);
     00000240 2Ar02r00         [16]  906 	ld	hl, (_g_VGM_Pointer)
     00000243 5E               [ 7]  907 	ld	e, (hl)
     00000244 2Ar02r00         [16]  908 	ld	hl, (_g_VGM_Pointer)
@@ -935,7 +935,7 @@
     00000278 21 00 A0         [10]  935 	ld	hl, #0xa000
     0000027B 22r02r00         [16]  936 	ld	(_g_VGM_Pointer), hl
     0000027E                        937 00134$:
-                                    938 ;./libs/vgm_player.c:269: VGM_FETCH_BYTE(hi);
+                                    938 ;./libs/vgm/vgm_player.c:269: VGM_FETCH_BYTE(hi);
     0000027E 2Ar02r00         [16]  939 	ld	hl, (_g_VGM_Pointer)
     00000281 56               [ 7]  940 	ld	d, (hl)
     00000282 2Ar02r00         [16]  941 	ld	hl, (_g_VGM_Pointer)
@@ -968,7 +968,7 @@
     000002B6 21 00 A0         [10]  968 	ld	hl, #0xa000
     000002B9 22r02r00         [16]  969 	ld	(_g_VGM_Pointer), hl
     000002BC                        970 00142$:
-                                    971 ;./libs/vgm_player.c:270: g_VGM_WaitCount += lo | ((u16)hi << 8);
+                                    971 ;./libs/vgm/vgm_player.c:270: g_VGM_WaitCount += lo | ((u16)hi << 8);
     000002BC 42               [ 4]  972 	ld	b, d
     000002BD 0E 00            [ 7]  973 	ld	c, #0x00
     000002BF 51               [ 4]  974 	ld	d, c
@@ -988,7 +988,7 @@
     000002CF 77               [ 7]  988 	ld	(hl), a
     000002D0 C3r63r01         [10]  989 	jp	00174$
     000002D3                        990 00169$:
-                                    991 ;./libs/vgm_player.c:272: else if (cmd == 0x62) { g_VGM_WaitCount += 735; }
+                                    991 ;./libs/vgm/vgm_player.c:272: else if (cmd == 0x62) { g_VGM_WaitCount += 735; }
     000002D3 79               [ 4]  992 	ld	a, c
     000002D4 D6 62            [ 7]  993 	sub	a, #0x62
     000002D6 20 0D            [12]  994 	jr	NZ, 00166$
@@ -998,7 +998,7 @@
     000002DF 22r06r00         [16]  998 	ld	(_g_VGM_WaitCount), hl
     000002E2 C3r63r01         [10]  999 	jp	00174$
     000002E5                       1000 00166$:
-                                   1001 ;./libs/vgm_player.c:273: else if (cmd == 0x63) { g_VGM_WaitCount += 882; }
+                                   1001 ;./libs/vgm/vgm_player.c:273: else if (cmd == 0x63) { g_VGM_WaitCount += 882; }
     000002E5 79               [ 4] 1002 	ld	a, c
     000002E6 D6 63            [ 7] 1003 	sub	a, #0x63
     000002E8 20 0D            [12] 1004 	jr	NZ, 00163$
@@ -1008,55 +1008,55 @@
     000002F1 22r06r00         [16] 1008 	ld	(_g_VGM_WaitCount), hl
     000002F4 C3r63r01         [10] 1009 	jp	00174$
     000002F7                       1010 00163$:
-                                   1011 ;./libs/vgm_player.c:274: else if (cmd == 0x66) // End of sound data
+                                   1011 ;./libs/vgm/vgm_player.c:274: else if (cmd == 0x66) // End of sound data
     000002F7 79               [ 4] 1012 	ld	a, c
     000002F8 D6 66            [ 7] 1013 	sub	a, #0x66
     000002FA 20 5F            [12] 1014 	jr	NZ, 00160$
-                                   1015 ;./libs/vgm_player.c:276: if (g_VGM_State & VGM_STATE_LOOP)
+                                   1015 ;./libs/vgm/vgm_player.c:276: if (g_VGM_State & VGM_STATE_LOOP)
     000002FC 3Ar0Ar00         [13] 1016 	ld	a, (_g_VGM_State+0)
     000002FF CB 4F            [ 8] 1017 	bit	1, a
     00000301 28 41            [12] 1018 	jr	Z, 00155$
-                                   1019 ;./libs/vgm_player.c:279: if (g_VGM_Config & VGM_CFG_MAPPED) {
+                                   1019 ;./libs/vgm/vgm_player.c:279: if (g_VGM_Config & VGM_CFG_MAPPED) {
     00000303 3Ar0Br00         [13] 1020 	ld	a, (_g_VGM_Config+0)
     00000306 0F               [ 4] 1021 	rrca
     00000307 30 1A            [12] 1022 	jr	NC, 00148$
-                                   1023 ;./libs/vgm_player.c:280: if (g_VGM_NotifyCallback) {
+                                   1023 ;./libs/vgm/vgm_player.c:280: if (g_VGM_NotifyCallback) {
     00000309 3Ar01r00         [13] 1024 	ld	a, (_g_VGM_NotifyCallback+1)
     0000030C 21r00r00         [10] 1025 	ld	hl, #_g_VGM_NotifyCallback
     0000030F B6               [ 7] 1026 	or	a, (hl)
     00000310 28 11            [12] 1027 	jr	Z, 00148$
-                                   1028 ;./libs/vgm_player.c:281: if (!g_VGM_NotifyCallback(1)) { 
+                                   1028 ;./libs/vgm/vgm_player.c:281: if (!g_VGM_NotifyCallback(1)) { 
     00000312 3E 01            [ 7] 1029 	ld	a, #0x01
     00000314 2Ar00r00         [16] 1030 	ld	hl, (_g_VGM_NotifyCallback)
     00000317 CDr00r00         [17] 1031 	call	___sdcc_call_hl
     0000031A B7               [ 4] 1032 	or	a, a
     0000031B 20 06            [12] 1033 	jr	NZ, 00148$
-                                   1034 ;./libs/vgm_player.c:282: VGM_Stop();
+                                   1034 ;./libs/vgm/vgm_player.c:282: VGM_Stop();
     0000031D CDr35r01         [17] 1035 	call	_VGM_Stop
-                                   1036 ;./libs/vgm_player.c:283: return;
+                                   1036 ;./libs/vgm/vgm_player.c:283: return;
     00000320 C3r94r03         [10] 1037 	jp	00177$
     00000323                       1038 00148$:
-                                   1039 ;./libs/vgm_player.c:291: if (g_VGM_Loop != 0)
+                                   1039 ;./libs/vgm/vgm_player.c:291: if (g_VGM_Loop != 0)
     00000323 3Ar05r00         [13] 1040 	ld	a, (_g_VGM_Loop+1)
     00000326 21r04r00         [10] 1041 	ld	hl, #_g_VGM_Loop
     00000329 B6               [ 7] 1042 	or	a, (hl)
     0000032A 28 09            [12] 1043 	jr	Z, 00150$
-                                   1044 ;./libs/vgm_player.c:292: g_VGM_Pointer = g_VGM_Loop;
+                                   1044 ;./libs/vgm/vgm_player.c:292: g_VGM_Pointer = g_VGM_Loop;
     0000032C 2Ar04r00         [16] 1045 	ld	hl, (_g_VGM_Loop)
     0000032F 22r02r00         [16] 1046 	ld	(_g_VGM_Pointer), hl
     00000332 C3r3Br03         [10] 1047 	jp	00151$
     00000335                       1048 00150$:
-                                   1049 ;./libs/vgm_player.c:294: g_VGM_Pointer = g_VGM_DataStart;
+                                   1049 ;./libs/vgm/vgm_player.c:294: g_VGM_Pointer = g_VGM_DataStart;
     00000335 2Ar0Cr00         [16] 1050 	ld	hl, (_g_VGM_DataStart)
     00000338 22r02r00         [16] 1051 	ld	(_g_VGM_Pointer), hl
     0000033B                       1052 00151$:
-                                   1053 ;./libs/vgm_player.c:296: g_VGM_WaitCount = 0;
+                                   1053 ;./libs/vgm/vgm_player.c:296: g_VGM_WaitCount = 0;
     0000033B 21 00 00         [10] 1054 	ld	hl, #0x0000
     0000033E 22r06r00         [16] 1055 	ld	(_g_VGM_WaitCount), hl
-                                   1056 ;./libs/vgm_player.c:297: continue; 
+                                   1056 ;./libs/vgm/vgm_player.c:297: continue; 
     00000341 C3r63r01         [10] 1057 	jp	00174$
     00000344                       1058 00155$:
-                                   1059 ;./libs/vgm_player.c:301: if (g_VGM_NotifyCallback) g_VGM_NotifyCallback(0xFF);
+                                   1059 ;./libs/vgm/vgm_player.c:301: if (g_VGM_NotifyCallback) g_VGM_NotifyCallback(0xFF);
     00000344 3Ar01r00         [13] 1060 	ld	a, (_g_VGM_NotifyCallback+1)
     00000347 21r00r00         [10] 1061 	ld	hl, #_g_VGM_NotifyCallback
     0000034A B6               [ 7] 1062 	or	a, (hl)
@@ -1065,12 +1065,12 @@
     0000034F 2Ar00r00         [16] 1065 	ld	hl, (_g_VGM_NotifyCallback)
     00000352 CDr00r00         [17] 1066 	call	___sdcc_call_hl
     00000355                       1067 00153$:
-                                   1068 ;./libs/vgm_player.c:302: VGM_Stop();
+                                   1068 ;./libs/vgm/vgm_player.c:302: VGM_Stop();
     00000355 CDr35r01         [17] 1069 	call	_VGM_Stop
-                                   1070 ;./libs/vgm_player.c:303: return;
+                                   1070 ;./libs/vgm/vgm_player.c:303: return;
     00000358 C3r94r03         [10] 1071 	jp	00177$
     0000035B                       1072 00160$:
-                                   1073 ;./libs/vgm_player.c:306: else if ((cmd & 0xF0) == 0x70) 
+                                   1073 ;./libs/vgm/vgm_player.c:306: else if ((cmd & 0xF0) == 0x70) 
     0000035B DD 71 FE         [19] 1074 	ld	-2 (ix), c
     0000035E DD 36 FF 00      [19] 1075 	ld	-1 (ix), #0x00
     00000362 DD 7E FE         [19] 1076 	ld	a, -2 (ix)
@@ -1081,7 +1081,7 @@
     0000036B D6 70            [ 7] 1081 	sub	a, #0x70
     0000036D B0               [ 4] 1082 	or	a, b
     0000036E C2r63r01         [10] 1083 	jp	NZ,00174$
-                                   1084 ;./libs/vgm_player.c:308: g_VGM_WaitCount += 1 + (cmd & 0x0F);
+                                   1084 ;./libs/vgm/vgm_player.c:308: g_VGM_WaitCount += 1 + (cmd & 0x0F);
     00000371 DD 7E FE         [19] 1085 	ld	a, -2 (ix)
     00000374 E6 0F            [ 7] 1086 	and	a, #0x0f
     00000376 06 00            [ 7] 1087 	ld	b, #0x00
@@ -1092,7 +1092,7 @@
     0000037E 22r06r00         [16] 1092 	ld	(_g_VGM_WaitCount), hl
     00000381 C3r63r01         [10] 1093 	jp	00174$
     00000384                       1094 00176$:
-                                   1095 ;./libs/vgm_player.c:312: g_VGM_WaitCount -= g_VGM_WaitFrame;
+                                   1095 ;./libs/vgm/vgm_player.c:312: g_VGM_WaitCount -= g_VGM_WaitFrame;
     00000384 21r08r00         [10] 1096 	ld	hl, #_g_VGM_WaitFrame
     00000387 D5               [11] 1097 	push	de
     00000388 11r06r00         [10] 1098 	ld	de, #_g_VGM_WaitCount
@@ -1106,7 +1106,7 @@
     00000392 12               [ 7] 1106 	ld	(de), a
     00000393 D1               [10] 1107 	pop	de
     00000394                       1108 00177$:
-                                   1109 ;./libs/vgm_player.c:313: }
+                                   1109 ;./libs/vgm/vgm_player.c:313: }
     00000394 DD F9            [10] 1110 	ld	sp, ix
     00000396 DD E1            [14] 1111 	pop	ix
     00000398 C9               [10] 1112 	ret

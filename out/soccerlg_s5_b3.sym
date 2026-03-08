@@ -12,7 +12,7 @@ Symbol Table
     _CallFnc_VOID_P1                                                ******** GX
     _GetNoMovingPlayerPatternId                                     ******** GX
   7 _GetPatternIdByPoseAndDirection                                 00001AD0 GR
-  7 _GetPatternIdByPoseAndDirection_k_MovePats_65537_1400           00001B1C R
+  7 _GetPatternIdByPoseAndDirection_k_MovePats_65537_1399           00001B1C R
     _GetPlayerIdByRole                                              ******** GX
     _GetTeamStats                                                   ******** GX
   7 _GoalkeeperWithBall                                             00000AA2 GR
@@ -26,10 +26,10 @@ Symbol Table
   7 _PutPlayerSprite                                                00001737 GR
     _SetPlayerBallPossession                                        ******** GX
   7 _TickGoalKick                                                   000004E3 GR
-  1 _TickGoalKick_s_SafetyTimeout_65537_1249                        00000000 R
-  1 _TickGoalKick_s_SetupDone_65537_1249                            00000002 R
+  1 _TickGoalKick_s_SafetyTimeout_65537_1248                        00000000 R
+  1 _TickGoalKick_s_SetupDone_65537_1248                            00000002 R
   7 _TickPlayerToOwnTarget                                          00000CC3 GR
-  1 _TickPlayerToOwnTarget_s_GkMoveTick_131072_1305                 00000003 R
+  1 _TickPlayerToOwnTarget_s_GkMoveTick_131072_1304                 00000003 R
   7 _UpdatePlayerPatternByDirection                                 00001A03 GR
     _V9990_ClearTextFromLayerA                                      ******** GX
     _V9_SetWriteAddress                                             ******** GX
