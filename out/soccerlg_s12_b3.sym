@@ -16,7 +16,6 @@ Symbol Table
     _PeopleMoving                                                   ******** GX
     _PlayAyFx                                                       ******** GX
     _PlayPCM                                                        ******** GX
-    _PlayVGM                                                        ******** GX
     _ShowHeaderInfo                                                 ******** GX
     _TeamVictory                                                    ******** GX
     _UpdateSpritesPositions                                         ******** GX
@@ -25,11 +24,12 @@ Symbol Table
     _V9990_WaitSynch                                                ******** GX
     _V9_SetWriteAddress                                             ******** GX
     _V9_WriteVRAM_CurrentAddr                                       ******** GX
-    _VGM_Stop                                                       ******** GX
-  7 ___str_0                                                        00001690 R
-  7 ___str_1                                                        000016A1 R
-  7 ___str_2                                                        000016AA R
-  7 ___str_3                                                        000016B0 R
+    _YSCC_Play                                                      ******** GX
+    _YSCC_Stop                                                      ******** GX
+  7 ___str_0                                                        000016E1 R
+  7 ___str_1                                                        000016F2 R
+  7 ___str_2                                                        000016FB R
+  7 ___str_3                                                        00001701 R
     __modsint                                                       ******** GX
     _g_ACPAGE                                                   =   0000FAF6 G
     _g_ASPCT1                                                   =   0000F40B G
@@ -326,7 +326,7 @@ Area Table
    4 _HOME                                      size        0   flags    0
    5 _GSINIT                                    size        0   flags    0
    6 _GSFINAL                                   size        0   flags    0
-   7 _SEG12                                     size     16B5   flags    0
+   7 _SEG12                                     size     1706   flags    0
    8 _INITIALIZER                               size        0   flags    0
    9 _CABS                                      size        0   flags    8
 

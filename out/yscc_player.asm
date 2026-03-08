@@ -8,8 +8,7 @@
 ;--------------------------------------------------------
 ; Public variables in this module
 ;--------------------------------------------------------
-	.globl _DEBUG_PRINT
-	.globl _DEBUG_LOG
+	.globl _g_currentSCCPlayingSegment
 	.globl _g_YSCC_Period
 	.globl _g_YSCC_NumBlocksToPlay
 	.globl _g_YSCC_SamplePage
@@ -218,8 +217,15 @@
 	.globl _g_WRPRIM
 	.globl _g_RDPRIM
 	.globl _YSCC_Init
-	.globl _YSCC_Decode
+	.globl _YSCC_GetFirstSegmentOfCurrentPlaying
+	.globl _YSCC_Stop
+	.globl _YSCC_Pause
+	.globl _YSCC_Resume
+	.globl _YSCC_IsPlaying
+	.globl _YSCC_IsPaused
 	.globl _YSCC_Play
+	.globl _YSCC_PlayLoop
+	.globl _YSCC_Decode
 	.globl _YSCC_CopyPCMBlock
 ;--------------------------------------------------------
 ; special function registers
@@ -299,12 +305,20 @@ _g_YSCC_Period::
 	.ds 2
 _s_YSCC_SavedSeg3:
 	.ds 2
-_s_YSCC_Buf:
-	.ds 128
+_s_YSCC_StartSeg:
+	.ds 1
+_s_YSCC_TotalBlocks:
+	.ds 2
+_s_YSCC_Loop:
+	.ds 1
+_s_YSCC_Paused:
+	.ds 1
 ;--------------------------------------------------------
 ; ram data
 ;--------------------------------------------------------
 	.area _INITIALIZED
+_g_currentSCCPlayingSegment::
+	.ds 2
 ;--------------------------------------------------------
 ; absolute external ram data
 ;--------------------------------------------------------
@@ -325,53 +339,20 @@ _s_YSCC_Buf:
 ; code
 ;--------------------------------------------------------
 	.area _CODE
-;./libs/yscc/yscc_player.c:13: void YSCC_Init() {
+;./libs/yscc/yscc_player.c:18: static void s_YSCC_Silence() {
 ;	---------------------------------
-; Function YSCC_Init
+; Function s_YSCC_Silence
 ; ---------------------------------
-_YSCC_Init::
-;./libs/yscc/yscc_player.c:14: g_YSCC_Period = 0x0749;
-	ld	hl, #0x0749
-	ld	(_g_YSCC_Period), hl
-;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/rom_mapper.h:190: g_Bank0Segment[b] = s;
-	ld	hl, #0x003f
-	ld	((_g_Bank0Segment + 4)), hl
-;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/rom_mapper.h:191: Poke(YAMANOOTO_OFFR, (s >> 2) & 0xC0);
-	ld	a, #0x0f
-	and	a, #0xc0
-;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/system.h:101: inline void Poke(u16 addr, u8 val) { *(u8*)addr = val; }
-	ld	(#0x7ffe),a
-;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/rom_mapper.h:194: else if (b == 2)	Poke(ADDR_BANK_2, s & 0xFF);
-	ld	a, #0x3f
-;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/system.h:101: inline void Poke(u16 addr, u8 val) { *(u8*)addr = val; }
-	ld	hl, #0x9000
-	ld	(hl), a
-;./libs/yscc/yscc_player.c:44: __endasm;
-	ld	hl, #0x9000
-	ld	(hl), #0x3F
-	push	af
-	push	hl
-	ld	a, #0x20
-	ld	(0x98E0), a
-	ld	(0x98C0), a
+_s_YSCC_Silence:
+;./libs/yscc/yscc_player.c:27: __endasm;
 	xor	a
-	ld	(0x988E), a
-	ld	(0x988F), a ; SCC_CH_ENABLE
-	ld	a, #0x0F
-	ld	(0x988A), a
-	ld	(0x988B), a
-	ld	(0x988C), a
-	ld	(0x988D), a
-	ld	hl, (_g_YSCC_Period)
-	ld	(0x9880), hl
-	ld	(0x9882), hl
-	ld	(0x9884), hl
-	ld	(0x9886), hl
-	ld	hl, #0
-	ld	(0x9888), hl
-	pop	hl
-	pop	af
-;./libs/yscc/yscc_player.c:45: }
+	ld	(0x988F), a ; CH_ENABLE = 0 (tutti i canali off)
+	ld	hl, #0x9800
+	ld	de, #0x9801
+	ld	bc, #0x007F
+	ld	(hl), a ; 0x9800 = 0
+	ldir	; 0x9801-0x987F = 0
+;./libs/yscc/yscc_player.c:28: }
 	ret
 _g_RDPRIM	=	0xf380
 _g_WRPRIM	=	0xf385
@@ -537,21 +518,265 @@ _g_RAMAD2	=	0xf343
 _g_RAMAD3	=	0xf344
 _g_MASTER	=	0xf348
 _g_BDOS	=	0xf37d
-;./libs/yscc/yscc_player.c:48: bool YSCC_Decode(){
+;./libs/yscc/yscc_player.c:31: void YSCC_Init() {
 ;	---------------------------------
-; Function YSCC_Decode
+; Function YSCC_Init
 ; ---------------------------------
-_YSCC_Decode::
-;./libs/yscc/yscc_player.c:49: if (g_YSCC_NumBlocksToPlay > 0) {
+_YSCC_Init::
+;./libs/yscc/yscc_player.c:32: g_YSCC_Period  = 0x0749;
+	ld	hl, #0x0749
+	ld	(_g_YSCC_Period), hl
+;./libs/yscc/yscc_player.c:33: s_YSCC_Loop    = FALSE;
+	ld	hl, #_s_YSCC_Loop
+	ld	(hl), #0x00
+;./libs/yscc/yscc_player.c:34: s_YSCC_Paused  = FALSE;
+	ld	iy, #_s_YSCC_Paused
+	ld	0 (iy), #0x00
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/rom_mapper.h:190: g_Bank0Segment[b] = s;
+	ld	hl, #0x003f
+	ld	((_g_Bank0Segment + 4)), hl
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/rom_mapper.h:191: Poke(YAMANOOTO_OFFR, (s >> 2) & 0xC0);
+	ld	a, #0x0f
+	and	a, #0xc0
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/system.h:101: inline void Poke(u16 addr, u8 val) { *(u8*)addr = val; }
+	ld	(#0x7ffe),a
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/rom_mapper.h:194: else if (b == 2)	Poke(ADDR_BANK_2, s & 0xFF);
+	ld	a, #0x3f
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/system.h:101: inline void Poke(u16 addr, u8 val) { *(u8*)addr = val; }
+	ld	hl, #0x9000
+	ld	(hl), a
+;./libs/yscc/yscc_player.c:63: __endasm;
+	ld	hl, #0x9000
+	ld	(hl), #0x3F ; attiva SCC
+	push	af
+	push	hl
+	ld	a, #0x20
+	ld	(0x98E0), a ; deformation register
+	ld	(0x98C0), a ; SCC+ compat
+	xor	a
+	ld	(0x988E), a ; vol ch5 = 0
+	ld	(0x988F), a ; CH_ENABLE = 0
+	ld	a, #0x0F
+	ld	(0x988A), a ; vol ch1 = max
+	ld	(0x988B), a ; vol ch2 = max
+	ld	(0x988C), a ; vol ch3 = max
+	ld	(0x988D), a ; vol ch4 = max
+	ld	hl, (_g_YSCC_Period)
+	ld	(0x9880), hl ; periodo ch1
+	ld	(0x9882), hl ; periodo ch2
+	ld	(0x9884), hl ; periodo ch3
+	ld	(0x9886), hl ; periodo ch4
+	ld	hl, #0
+	ld	(0x9888), hl ; periodo ch5 = 0
+	pop	hl
+	pop	af
+;./libs/yscc/yscc_player.c:64: }
+	ret
+;./libs/yscc/yscc_player.c:66: u16 YSCC_GetFirstSegmentOfCurrentPlaying(){
+;	---------------------------------
+; Function YSCC_GetFirstSegmentOfCurrentPlaying
+; ---------------------------------
+_YSCC_GetFirstSegmentOfCurrentPlaying::
+;./libs/yscc/yscc_player.c:67: return g_currentSCCPlayingSegment; 
+	ld	de, (_g_currentSCCPlayingSegment)
+;./libs/yscc/yscc_player.c:68: }
+	ret
+;./libs/yscc/yscc_player.c:69: void YSCC_Stop() {
+;	---------------------------------
+; Function YSCC_Stop
+; ---------------------------------
+_YSCC_Stop::
+;./libs/yscc/yscc_player.c:70: g_currentSCCPlayingSegment=0xFFFF;
+	ld	hl, #0xffff
+	ld	(_g_currentSCCPlayingSegment), hl
+;./libs/yscc/yscc_player.c:71: g_YSCC_NumBlocksToPlay = 0;
+	ld	hl, #0x0000
+	ld	(_g_YSCC_NumBlocksToPlay), hl
+;./libs/yscc/yscc_player.c:72: s_YSCC_Paused = FALSE;
+	ld	iy, #_s_YSCC_Paused
+	ld	0 (iy), #0x00
+;./libs/yscc/yscc_player.c:73: s_YSCC_Silence();
+;./libs/yscc/yscc_player.c:74: }
+	jp	_s_YSCC_Silence
+;./libs/yscc/yscc_player.c:77: void YSCC_Pause() {
+;	---------------------------------
+; Function YSCC_Pause
+; ---------------------------------
+_YSCC_Pause::
+;./libs/yscc/yscc_player.c:78: if (!s_YSCC_Paused && g_YSCC_NumBlocksToPlay > 0) {
+	ld	a, (_s_YSCC_Paused+0)
+	or	a, a
+	ret	NZ
 	ld	a, (_g_YSCC_NumBlocksToPlay+1)
 	ld	iy, #_g_YSCC_NumBlocksToPlay
 	or	a, 0 (iy)
 	ret	Z
-;./libs/yscc/yscc_player.c:54: __endasm;
+;./libs/yscc/yscc_player.c:79: s_YSCC_Paused = TRUE;
+	ld	iy, #_s_YSCC_Paused
+	ld	0 (iy), #0x01
+;./libs/yscc/yscc_player.c:83: __endasm;
+	xor	a
+	ld	(0x988F), a ; CH_ENABLE = 0
+;./libs/yscc/yscc_player.c:85: }
+	ret
+;./libs/yscc/yscc_player.c:88: void YSCC_Resume() {
+;	---------------------------------
+; Function YSCC_Resume
+; ---------------------------------
+_YSCC_Resume::
+;./libs/yscc/yscc_player.c:89: s_YSCC_Paused = FALSE;
+	ld	hl, #_s_YSCC_Paused
+	ld	(hl), #0x00
+;./libs/yscc/yscc_player.c:90: }
+	ret
+;./libs/yscc/yscc_player.c:93: bool YSCC_IsPlaying() {
+;	---------------------------------
+; Function YSCC_IsPlaying
+; ---------------------------------
+_YSCC_IsPlaying::
+;./libs/yscc/yscc_player.c:94: return (g_YSCC_NumBlocksToPlay > 0) && !s_YSCC_Paused;
+	ld	a, (_g_YSCC_NumBlocksToPlay+1)
+	ld	hl, #_g_YSCC_NumBlocksToPlay
+	or	a, (hl)
+	jr	Z, 00103$
+	ld	a, (_s_YSCC_Paused+0)
+	or	a, a
+	jr	Z, 00104$
+00103$:
+	xor	a, a
+	ret
+00104$:
+	ld	a, #0x01
+;./libs/yscc/yscc_player.c:95: }
+	ret
+;./libs/yscc/yscc_player.c:98: bool YSCC_IsPaused() {
+;	---------------------------------
+; Function YSCC_IsPaused
+; ---------------------------------
+_YSCC_IsPaused::
+;./libs/yscc/yscc_player.c:99: return s_YSCC_Paused;
+	ld	a, (_s_YSCC_Paused+0)
+;./libs/yscc/yscc_player.c:100: }
+	ret
+;./libs/yscc/yscc_player.c:103: void YSCC_Play(u8 start_seg, u32 byte_size) {
+;	---------------------------------
+; Function YSCC_Play
+; ---------------------------------
+_YSCC_Play::
+	push	ix
+	ld	ix,#0
+	add	ix,sp
+	ld	c, a
+;./libs/yscc/yscc_player.c:104: YSCC_Stop();
+	push	bc
+	call	_YSCC_Stop
+	pop	bc
+;./libs/yscc/yscc_player.c:105: g_currentSCCPlayingSegment=start_seg;
+	ld	l, c
+;	spillPairReg hl
+;	spillPairReg hl
+	ld	h, #0x00
+;	spillPairReg hl
+;	spillPairReg hl
+	ld	(_g_currentSCCPlayingSegment), hl
+;./libs/yscc/yscc_player.c:106: s_YSCC_StartSeg    = start_seg;
+	ld	a, c
+	ld	(#_s_YSCC_StartSeg), a
+;./libs/yscc/yscc_player.c:107: s_YSCC_TotalBlocks = (u16)((byte_size + 127) / 128);
+	ld	a, 4 (ix)
+	add	a, #0x7f
+	ld	c, a
+	ld	a, 5 (ix)
+	adc	a, #0x00
+	ld	b, a
+	ld	a, 6 (ix)
+	adc	a, #0x00
+	ld	e, a
+	ld	a, 7 (ix)
+	adc	a, #0x00
+	ld	d, a
+	ld	a, #0x07
+00103$:
+	srl	d
+	rr	e
+	rr	b
+	rr	c
+	dec	a
+	jr	NZ, 00103$
+	ld	(_s_YSCC_TotalBlocks), bc
+;./libs/yscc/yscc_player.c:108: s_YSCC_Loop        = FALSE;
+	ld	iy, #_s_YSCC_Loop
+	ld	0 (iy), #0x00
+;./libs/yscc/yscc_player.c:109: g_YSCC_SamplePage  = start_seg;
+	ld	(_g_YSCC_SamplePage), hl
+;./libs/yscc/yscc_player.c:110: g_YSCC_SamplePos   = 0;
+	ld	hl, #0x0000
+	ld	(_g_YSCC_SamplePos), hl
+;./libs/yscc/yscc_player.c:111: g_YSCC_NumBlocksToPlay = s_YSCC_TotalBlocks;
+	ld	hl, (_s_YSCC_TotalBlocks)
+	ld	(_g_YSCC_NumBlocksToPlay), hl
+;./libs/yscc/yscc_player.c:112: }
+	pop	ix
+	pop	hl
+	pop	af
+	pop	af
+	jp	(hl)
+;./libs/yscc/yscc_player.c:115: void YSCC_PlayLoop(u8 start_seg, u32 byte_size) {
+;	---------------------------------
+; Function YSCC_PlayLoop
+; ---------------------------------
+_YSCC_PlayLoop::
+	ld	c, a
+;./libs/yscc/yscc_player.c:116: YSCC_Play(start_seg, byte_size);
+	ld	iy, #2
+	add	iy, sp
+;	spillPairReg hl
+;	spillPairReg hl
+	ld	l, 2 (iy)
+	ld	h, 3 (iy)
+;	spillPairReg hl
+;	spillPairReg hl
+	push	hl
+;	spillPairReg hl
+;	spillPairReg hl
+	ld	l, 0 (iy)
+	ld	h, 1 (iy)
+;	spillPairReg hl
+;	spillPairReg hl
+	push	hl
+	ld	a, c
+	call	_YSCC_Play
+;./libs/yscc/yscc_player.c:117: s_YSCC_Loop = TRUE;
+	ld	iy, #_s_YSCC_Loop
+	ld	0 (iy), #0x01
+;./libs/yscc/yscc_player.c:118: }
+	pop	hl
+	pop	af
+	pop	af
+	jp	(hl)
+;./libs/yscc/yscc_player.c:123: bool YSCC_Decode() {
+;	---------------------------------
+; Function YSCC_Decode
+; ---------------------------------
+_YSCC_Decode::
+;./libs/yscc/yscc_player.c:124: if (s_YSCC_Paused || g_YSCC_NumBlocksToPlay == 0)
+	ld	a, (_s_YSCC_Paused+0)
+	or	a, a
+	jr	NZ, 00101$
+	ld	a, (_g_YSCC_NumBlocksToPlay+1)
+	ld	iy, #_g_YSCC_NumBlocksToPlay
+	or	a, 0 (iy)
+	jr	NZ, 00102$
+00101$:
+;./libs/yscc/yscc_player.c:125: return FALSE;
+	xor	a, a
+	ret
+00102$:
+;./libs/yscc/yscc_player.c:131: __endasm;
 	call	_YSCC_CopyPCMBlock
 	ld	a, #0x0F
-	ld	(0x988F), a
-;./libs/yscc/yscc_player.c:56: g_YSCC_NumBlocksToPlay--;
+	ld	(0x988F), a ; abilita canali 1-4
+;./libs/yscc/yscc_player.c:133: g_YSCC_NumBlocksToPlay--;
 	ld	bc, (_g_YSCC_NumBlocksToPlay)
 	ld	hl, #_g_YSCC_NumBlocksToPlay
 	ld	a, c
@@ -561,155 +786,52 @@ _YSCC_Decode::
 	ld	a, b
 	adc	a, #0xff
 	ld	(hl), a
-;./libs/yscc/yscc_player.c:58: if (g_YSCC_NumBlocksToPlay == 0) {
+;./libs/yscc/yscc_player.c:135: if (g_YSCC_NumBlocksToPlay == 0) {
 	ld	a, (_g_YSCC_NumBlocksToPlay+1)
+	ld	iy, #_g_YSCC_NumBlocksToPlay
 	or	a, 0 (iy)
-	jp	NZ, 00102$
-;./libs/yscc/yscc_player.c:62: __endasm;
-	xor	a
-	ld	(0x988F), a
-;./libs/yscc/yscc_player.c:63: return TRUE;
-	ld	a, #0x01
-	ret
-00102$:
-;./libs/yscc/yscc_player.c:65: return FALSE;
-	xor	a, a
-;./libs/yscc/yscc_player.c:67: }
-	ret
-;./libs/yscc/yscc_player.c:68: void YSCC_Play(u8 start_seg, u32 byte_size) {
-;	---------------------------------
-; Function YSCC_Play
-; ---------------------------------
-_YSCC_Play::
-	push	ix
-	ld	ix,#0
-	add	ix,sp
-	dec	sp
-	ld	-1 (ix), a
-;./libs/yscc/yscc_player.c:69: DEBUG_PRINT("--> %U\n",byte_size);
-	ld	l, 6 (ix)
-;	spillPairReg hl
-;	spillPairReg hl
-	ld	h, 7 (ix)
-;	spillPairReg hl
-;	spillPairReg hl
-	push	hl
-	ld	l, 4 (ix)
-;	spillPairReg hl
-;	spillPairReg hl
-	ld	h, 5 (ix)
-;	spillPairReg hl
-;	spillPairReg hl
-	push	hl
-	ld	hl, #___str_0
-	push	hl
-	call	_DEBUG_PRINT
-	ld	hl, #6
-	add	hl, sp
-	ld	sp, hl
-;./libs/yscc/yscc_player.c:70: g_YSCC_SamplePage = start_seg;
-	ld	a, -1 (ix)
+	jr	NZ, 00110$
+;./libs/yscc/yscc_player.c:136: if (s_YSCC_Loop) {
+	ld	a, (_s_YSCC_Loop+0)
+	or	a, a
+	jr	Z, 00107$
+;./libs/yscc/yscc_player.c:138: g_YSCC_SamplePage      = s_YSCC_StartSeg;
+	ld	a, (_s_YSCC_StartSeg+0)
 	ld	(_g_YSCC_SamplePage+0), a
 	ld	hl, #_g_YSCC_SamplePage + 1
 	ld	(hl), #0x00
-;./libs/yscc/yscc_player.c:71: g_YSCC_SamplePos = 0;  
+;./libs/yscc/yscc_player.c:139: g_YSCC_SamplePos       = 0;
 	ld	hl, #0x0000
 	ld	(_g_YSCC_SamplePos), hl
-;./libs/yscc/yscc_player.c:72: u16 test=(u16)((byte_size + 127) / 128);
-	ld	a, 4 (ix)
-	add	a, #0x7f
-	ld	e, a
-	ld	a, 5 (ix)
-	adc	a, #0x00
-	ld	d, a
-	ld	a, 6 (ix)
-	adc	a, #0x00
-	ld	l, a
-;	spillPairReg hl
-;	spillPairReg hl
-	ld	a, 7 (ix)
-	adc	a, #0x00
-	ld	h, a
-;	spillPairReg hl
-;	spillPairReg hl
-	ld	b, #0x07
-00103$:
-	srl	h
-	rr	l
-	rr	d
-	rr	e
-	djnz	00103$
-;./libs/yscc/yscc_player.c:73: DEBUG_LOG("oo")       ;
-	push	de
-	push	de
-	ld	hl, #___str_1
-	call	_DEBUG_LOG
-	pop	de
-	pop	bc
-;./libs/yscc/yscc_player.c:74: DEBUG_PRINT("--> %i\n",test);
-	push	de
-	push	bc
-	ld	hl, #___str_2
-	push	hl
-	call	_DEBUG_PRINT
-	pop	af
-	pop	af
-	pop	de
-;./libs/yscc/yscc_player.c:75: g_YSCC_NumBlocksToPlay = (byte_size + 127) / 128;
-	ld	(_g_YSCC_NumBlocksToPlay), de
-;./libs/yscc/yscc_player.c:76: DEBUG_PRINT("-- %U %i\n",byte_size,g_YSCC_NumBlocksToPlay);
-	ld	hl, (_g_YSCC_NumBlocksToPlay)
-	push	hl
-	ld	l, 6 (ix)
-;	spillPairReg hl
-;	spillPairReg hl
-	ld	h, 7 (ix)
-;	spillPairReg hl
-;	spillPairReg hl
-	push	hl
-	ld	l, 4 (ix)
-;	spillPairReg hl
-;	spillPairReg hl
-	ld	h, 5 (ix)
-;	spillPairReg hl
-;	spillPairReg hl
-	push	hl
-	ld	hl, #___str_3
-	push	hl
-	call	_DEBUG_PRINT
-	ld	hl, #8
-	add	hl, sp
-	ld	sp, hl
-;./libs/yscc/yscc_player.c:77: }
-	inc	sp
-	pop	ix
-	pop	hl
-	pop	af
-	pop	af
-	jp	(hl)
-___str_0:
-	.ascii "--> %U"
-	.db 0x0a
-	.db 0x00
-___str_1:
-	.ascii "oo"
-	.db 0x00
-___str_2:
-	.ascii "--> %i"
-	.db 0x0a
-	.db 0x00
-___str_3:
-	.ascii "-- %U %i"
-	.db 0x0a
-	.db 0x00
-;./libs/yscc/yscc_player.c:79: void YSCC_CopyPCMBlock() {
+;./libs/yscc/yscc_player.c:140: g_YSCC_NumBlocksToPlay = s_YSCC_TotalBlocks;
+	ld	hl, (_s_YSCC_TotalBlocks)
+	ld	(_g_YSCC_NumBlocksToPlay), hl
+	jp	00108$
+00107$:
+;./libs/yscc/yscc_player.c:142: if(!s_YSCC_Loop){
+	ld	a, (_s_YSCC_Loop+0)
+	or	a, a
+	jr	NZ, 00105$
+;./libs/yscc/yscc_player.c:143: g_currentSCCPlayingSegment=0xFFFF;
+	ld	hl, #0xffff
+	ld	(_g_currentSCCPlayingSegment), hl
+00105$:
+;./libs/yscc/yscc_player.c:146: s_YSCC_Silence();   // fine brano: azzera wave table e disabilita canali
+	call	_s_YSCC_Silence
+00108$:
+;./libs/yscc/yscc_player.c:148: return TRUE;            // segnala fine ciclo al chiamante
+	ld	a, #0x01
+	ret
+00110$:
+;./libs/yscc/yscc_player.c:150: return FALSE;
+	xor	a, a
+;./libs/yscc/yscc_player.c:151: }
+	ret
+;./libs/yscc/yscc_player.c:154: void YSCC_CopyPCMBlock() {
 ;	---------------------------------
 ; Function YSCC_CopyPCMBlock
 ; ---------------------------------
 _YSCC_CopyPCMBlock::
-;./libs/yscc/yscc_player.c:81: DEBUG_LOG("OO");
-	ld	hl, #___str_4
-	call	_DEBUG_LOG
 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/rom_mapper.h:212: inline u16 GET_BANK_SEGMENT(u8 b) { return g_Bank0Segment[b]; }
 	ld	hl, #(_g_Bank0Segment + 6)
 	ld	a, (hl)
@@ -717,7 +839,7 @@ _YSCC_CopyPCMBlock::
 	ld	(_s_YSCC_SavedSeg3+0), a
 	ld	a, (hl)
 	ld	(_s_YSCC_SavedSeg3+1), a
-;./libs/yscc/yscc_player.c:88: SET_BANK_SEGMENT(3, g_YSCC_SamplePage);
+;./libs/yscc/yscc_player.c:156: SET_BANK_SEGMENT(3, g_YSCC_SamplePage);
 	ld	de, (_g_YSCC_SamplePage)
 	ld	c, e
 	ld	b, d
@@ -738,37 +860,65 @@ _YSCC_CopyPCMBlock::
 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/system.h:101: inline void Poke(u16 addr, u8 val) { *(u8*)addr = val; }
 	ld	hl, #0xb000
 	ld	(hl), c
-;./libs/yscc/yscc_player.c:90: base_addr = 0xA000 + g_YSCC_SamplePos;
+;./libs/yscc/yscc_player.c:228: __endasm;
+;	HL = 0xA000 + g_YSCC_SamplePos (sorgente diretta in Bank3)
 	ld	hl, (_g_YSCC_SamplePos)
-	ld	c, l
-	ld	a, h
-	add	a, #0xa0
-	ld	b, a
-;./libs/yscc/yscc_player.c:91: for (i = 0; i < 128; i++) {
-	ld	de, #0x0000
-00139$:
-;./libs/yscc/yscc_player.c:92: s_YSCC_Buf[i] = *((u8*)(base_addr + i));
-	ld	hl, #_s_YSCC_Buf
-	add	hl, de
-	push	de
-	pop	iy
-	add	iy, bc
-	ld	a, 0 (iy)
-	ld	(hl), a
-;./libs/yscc/yscc_player.c:91: for (i = 0; i < 128; i++) {
-	inc	de
-	ld	l, e
-;	spillPairReg hl
-;	spillPairReg hl
-	ld	h, d
-;	spillPairReg hl
-;	spillPairReg hl
-	ld	a, l
-	sub	a, #0x80
-	ld	a, h
-	sbc	a, #0x00
-	jr	C, 00139$
-;./libs/yscc/yscc_player.c:95: SET_BANK_SEGMENT(3, s_YSCC_SavedSeg3);
+	ld	bc, #0xA000
+	add	hl, bc
+;	--- CH1 PASS1: 21 byte HL → 0x9800 ---
+	ld	de, #0x9800
+	ld	bc, #0x0015
+	ldir	; HL = base+21
+	push	hl ; salva per CH1 PASS2
+	ld	a, (_g_YSCC_Period + 1)
+	ld	(0x9881), a ; phase reset CH1
+;	salta 11 byte a CH2 (base+32)
+	ld	bc, #0x000B
+	add	hl, bc
+;	--- CH2 PASS1: 21 byte HL → 0x9820 ---
+	ld	de, #0x9820
+	ld	bc, #0x0015
+	ldir	; HL = base+53
+	push	hl ; salva per CH2 PASS2
+	ld	(0x9883), a ; phase reset CH2 (A ancora valido)
+;	salta 11 byte a CH3 (base+64)
+	ld	bc, #0x000B
+	add	hl, bc
+;	--- CH3 PASS1: 21 byte HL → 0x9840 ---
+	ld	de, #0x9840
+	ld	bc, #0x0015
+	ldir	; HL = base+85
+	push	hl ; salva per CH3 PASS2
+	ld	(0x9885), a ; phase reset CH3
+;	salta 11 byte a CH4 (base+96)
+	ld	bc, #0x000B
+	add	hl, bc
+;	--- CH4 PASS1: 21 byte HL → 0x9860 ---
+	ld	de, #0x9860
+	ld	bc, #0x0015
+	ldir	; HL = base+117
+	ld	(0x9887), a ; phase reset CH4
+;	--- PASS2: ultimi 11 byte per canale (stack in ordine inverso) ---
+;	CH4 PASS2 (HL = base+117)
+	ld	de, #0x9875
+	ld	bc, #0x000B
+	ldir
+;	CH3 PASS2
+	pop	hl ; HL = base+85
+	ld	de, #0x9855
+	ld	bc, #0x000B
+	ldir
+;	CH2 PASS2
+	pop	hl ; HL = base+53
+	ld	de, #0x9835
+	ld	bc, #0x000B
+	ldir
+;	CH1 PASS2
+	pop	hl ; HL = base+21
+	ld	de, #0x9815
+	ld	bc, #0x000B
+	ldir
+;./libs/yscc/yscc_player.c:230: SET_BANK_SEGMENT(3, s_YSCC_SavedSeg3);
 	ld	de, (_s_YSCC_SavedSeg3)
 	ld	c, e
 	ld	b, d
@@ -789,109 +939,26 @@ _YSCC_CopyPCMBlock::
 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/system.h:101: inline void Poke(u16 addr, u8 val) { *(u8*)addr = val; }
 	ld	hl, #0xb000
 	ld	(hl), c
-;./libs/yscc/yscc_player.c:150: __endasm;
-;	--- CH1: LDIR 21 byte buf[0..20] → 0x9800, poi phase reset ---
-	ld	hl, #_s_YSCC_Buf
-	ld	de, #0x9800
-	ld	bc, #0x0015
-	ldir
-	ld	a, (_g_YSCC_Period + 1)
-	ld	(0x9881), a
-;	--- CH2: LDIR 21 byte buf[32..52] → 0x9820, poi phase reset ---
-	ld	hl, #_s_YSCC_Buf + 32
-	ld	de, #0x9820
-	ld	bc, #0x0015
-	ldir
-	ld	a, (_g_YSCC_Period + 1)
-	ld	(0x9883), a
-;	--- CH3: LDIR 21 byte buf[64..84] → 0x9840, poi phase reset ---
-	ld	hl, #_s_YSCC_Buf + 64
-	ld	de, #0x9840
-	ld	bc, #0x0015
-	ldir
-	ld	a, (_g_YSCC_Period + 1)
-	ld	(0x9885), a
-;	--- CH4: LDIR 21 byte buf[96..116] → 0x9860, poi phase reset ---
-	ld	hl, #_s_YSCC_Buf + 96
-	ld	de, #0x9860
-	ld	bc, #0x0015
-	ldir
-	ld	a, (_g_YSCC_Period + 1)
-	ld	(0x9887), a
-;	--- PASS2: ultimi 11 byte per tutti i canali ---
-	ld	hl, #_s_YSCC_Buf + 21
-	ld	de, #0x9815
-	ld	bc, #0x000B
-	ldir
-	ld	hl, #_s_YSCC_Buf + 53
-	ld	de, #0x9835
-	ld	bc, #0x000B
-	ldir
-	ld	hl, #_s_YSCC_Buf + 85
-	ld	de, #0x9855
-	ld	bc, #0x000B
-	ldir
-	ld	hl, #_s_YSCC_Buf + 117
-	ld	de, #0x9875
-	ld	bc, #0x000B
-	ldir
-;./libs/yscc/yscc_player.c:152: g_YSCC_SamplePos += 128;
+;./libs/yscc/yscc_player.c:232: g_YSCC_SamplePos += 128;
 	ld	hl, (_g_YSCC_SamplePos)
 	ld	bc, #0x0080
 	add	hl, bc
 	ld	(_g_YSCC_SamplePos), hl
-;./libs/yscc/yscc_player.c:153: DEBUG_PRINT("> %i %i %i\n",g_YSCC_SamplePage,g_YSCC_SamplePos,g_YSCC_NumBlocksToPlay);
-	ld	hl, (_g_YSCC_NumBlocksToPlay)
-	push	hl
-	ld	hl, (_g_YSCC_SamplePos)
-	push	hl
-	ld	hl, (_g_YSCC_SamplePage)
-	push	hl
-	ld	hl, #___str_5
-	push	hl
-	call	_DEBUG_PRINT
-	ld	hl, #8
-	add	hl, sp
-	ld	sp, hl
-;./libs/yscc/yscc_player.c:154: if (g_YSCC_SamplePos >= (u16)0x2000) {
+;./libs/yscc/yscc_player.c:233: if (g_YSCC_SamplePos >= (u16)0x2000) {
 	ld	a, (_g_YSCC_SamplePos+1)
 	sub	a, #0x20
 	ret	C
-;./libs/yscc/yscc_player.c:155: DEBUG_LOG("CAMBIO\n");
-	ld	hl, #___str_6
-	call	_DEBUG_LOG
-;./libs/yscc/yscc_player.c:156: g_YSCC_SamplePage++;
+;./libs/yscc/yscc_player.c:234: g_YSCC_SamplePage++;
 	ld	hl, (_g_YSCC_SamplePage)
 	inc	hl
 	ld	(_g_YSCC_SamplePage), hl
-;./libs/yscc/yscc_player.c:157: DEBUG_PRINT("PPP> %i\n",g_YSCC_SamplePage);
-	ld	hl, (_g_YSCC_SamplePage)
-	push	hl
-	ld	hl, #___str_7
-	push	hl
-	call	_DEBUG_PRINT
-	pop	af
-	pop	af
-;./libs/yscc/yscc_player.c:158: g_YSCC_SamplePos = 0;
+;./libs/yscc/yscc_player.c:235: g_YSCC_SamplePos = 0;
 	ld	hl, #0x0000
 	ld	(_g_YSCC_SamplePos), hl
-;./libs/yscc/yscc_player.c:160: }
+;./libs/yscc/yscc_player.c:237: }
 	ret
-___str_4:
-	.ascii "OO"
-	.db 0x00
-___str_5:
-	.ascii "> %i %i %i"
-	.db 0x0a
-	.db 0x00
-___str_6:
-	.ascii "CAMBIO"
-	.db 0x0a
-	.db 0x00
-___str_7:
-	.ascii "PPP> %i"
-	.db 0x0a
-	.db 0x00
 	.area _CODE
 	.area _INITIALIZER
+__xinit__g_currentSCCPlayingSegment:
+	.dw #0xffff
 	.area _CABS (ABS)

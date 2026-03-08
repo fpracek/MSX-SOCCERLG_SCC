@@ -139,13 +139,7 @@ extern bool				g_VblankSuspended;
 // *** DEFINES ***
 // ---------------
 
-#define VGM_MENU                            0
-#define VGM_PLAYERS_PRESENTATION            1
-#define VGM_MATCH                           2
-#define VGM_PUBLIC_GOAL                     3
-#define VGM_PUBLIC_PRESENTATION             4
-#define VGM_REFEERER                 		5
-#define VGM_VICTORY							6
+
 
 #define AYFX_TEAM_SELECTION					6
 #define AYFX_BALL							5
@@ -375,6 +369,9 @@ extern bool				g_VblankSuspended;
 
 #define PT3_VRAM_MENU_DATA_ADDRESS			0x7B000
 
+#define SCROLLTEXT_ROW   25
+#define SCROLLTEXT_COLS  32
+
 // ------------------
 // *** PROTOTYPES ***
 // ------------------
@@ -401,9 +398,10 @@ bool CallFnc_BOOL_P1(u8 bank, u8 (*func)(u8), u8 p1);
 u8 CallFnc_U8_P2(u8 bank, u8 (*func)(u8, u8), u8 p1, u8 p2);
 u8 CallFnc_U8_P1(u8 bank, u8 (*func)(u8), u8 p1);
 u16 CallFnc_U16_P1(u8 segment, u16 (*func)(u8), u8 p1);
-void PlayVGM(u8 vgmId);
 void PlayPCM(u8 id);
 void V9990_ClearTextFromLayerA(u8 x, u8 y, u8 length);
+void V9990_StopScrollText();
+void V9990_InitScrollText();
 const TeamStats* GetTeamStats(u8 teamId);
 void PlayAyFx(u8 id);
 i32 Math_Abs32(i32 v);

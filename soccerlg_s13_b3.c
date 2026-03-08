@@ -13,7 +13,9 @@
 #include "debug.h"
 #include "input.h"
 #include "memory.h"
-#include "libs/vgm/vgm_player.h"
+//#include "libs/vgm/vgm_player.h"
+#include "libs/yscc/yscc_player.h"
+#include "soccerlg_rawdef.h"
 
 // -----------------
 // *** FUNCTIONS ***
@@ -45,7 +47,7 @@ void TeamVictory(u8 teamId) {
 
     u16 timer = 0;
     u16 extraTime = 0;
-    PlayVGM(VGM_VICTORY);
+    YSCC_Play(SCC_VICTORY_BIN_SEG,SCC_VICTORY_BIN_SIZE);
     while (true) { 
         V9990_WaitSynch();
         timer++;

@@ -331,7 +331,7 @@
                          0000FCB7   331 _g_GRPACX	=	0xfcb7
                          0000FCB9   332 _g_GRPACY	=	0xfcb9
                          0000FFFF   333 _g_SLTSL	=	0xffff
-    00000000                        334 _PutBallSprite_s_StopCooldown_65538_1235:
+    00000000                        334 _PutBallSprite_s_StopCooldown_65538_1234:
     00000000                        335 	.ds 1
                                     336 ;--------------------------------------------------------
                                     337 ; ram data
@@ -349,7 +349,7 @@
                                     349 	.area _GSFINAL
                                     350 	.area _GSINIT
                                     351 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s6_b3.c:231: static u8 s_StopCooldown = 0;
-    00000000 FD 21r00r00      [14]  352 	ld	iy, #_PutBallSprite_s_StopCooldown_65538_1235
+    00000000 FD 21r00r00      [14]  352 	ld	iy, #_PutBallSprite_s_StopCooldown_65538_1234
     00000004 FD 36 00 00      [19]  353 	ld	0 (iy), #0x00
                                     354 ;--------------------------------------------------------
                                     355 ; Home
@@ -1015,22 +1015,22 @@
     0000026A 02               [ 7] 1015 	ld	(bc), a
     0000026B                       1016 00112$:
                                    1017 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s6_b3.c:149: i8 dy = k_CelebDY[dir];
-    0000026B 3Er2D            [ 7] 1018 	ld	a, #<(_TickGoalCelebration_k_CelebDY_131073_1207)
+    0000026B 3Er2D            [ 7] 1018 	ld	a, #<(_TickGoalCelebration_k_CelebDY_131073_1206)
     0000026D DD 86 FE         [19] 1019 	add	a, -2 (ix)
     00000270 6F               [ 4] 1020 	ld	l, a
                                    1021 ;	spillPairReg hl
                                    1022 ;	spillPairReg hl
-    00000271 3Es05            [ 7] 1023 	ld	a, #>(_TickGoalCelebration_k_CelebDY_131073_1207)
+    00000271 3Es05            [ 7] 1023 	ld	a, #>(_TickGoalCelebration_k_CelebDY_131073_1206)
     00000273 CE 00            [ 7] 1024 	adc	a, #0x00
     00000275 67               [ 4] 1025 	ld	h, a
     00000276 4E               [ 7] 1026 	ld	c, (hl)
                                    1027 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s6_b3.c:150: i8 dx = k_CelebDX[dir];
-    00000277 3Er24            [ 7] 1028 	ld	a, #<(_TickGoalCelebration_k_CelebDX_131073_1207)
+    00000277 3Er24            [ 7] 1028 	ld	a, #<(_TickGoalCelebration_k_CelebDX_131073_1206)
     00000279 DD 86 FE         [19] 1029 	add	a, -2 (ix)
     0000027C 6F               [ 4] 1030 	ld	l, a
                                    1031 ;	spillPairReg hl
                                    1032 ;	spillPairReg hl
-    0000027D 3Es05            [ 7] 1033 	ld	a, #>(_TickGoalCelebration_k_CelebDX_131073_1207)
+    0000027D 3Es05            [ 7] 1033 	ld	a, #>(_TickGoalCelebration_k_CelebDX_131073_1206)
     0000027F CE 00            [ 7] 1034 	adc	a, #0x00
     00000281 67               [ 4] 1035 	ld	h, a
     00000282 46               [ 7] 1036 	ld	b, (hl)
@@ -1441,7 +1441,7 @@
     0000051F DD F9            [10] 1441 	ld	sp, ix
     00000521 DD E1            [14] 1442 	pop	ix
     00000523 C9               [10] 1443 	ret
-    00000524                       1444 _TickGoalCelebration_k_CelebDX_131073_1207:
+    00000524                       1444 _TickGoalCelebration_k_CelebDX_131073_1206:
     00000524 00                    1445 	.db #0x00	;  0
     00000525 00                    1446 	.db #0x00	;  0
     00000526 01                    1447 	.db #0x01	;  1
@@ -1451,7 +1451,7 @@
     0000052A FF                    1451 	.db #0xff	; -1
     0000052B FF                    1452 	.db #0xff	; -1
     0000052C FF                    1453 	.db #0xff	; -1
-    0000052D                       1454 _TickGoalCelebration_k_CelebDY_131073_1207:
+    0000052D                       1454 _TickGoalCelebration_k_CelebDY_131073_1206:
     0000052D 00                    1455 	.db #0x00	;  0
     0000052E FF                    1456 	.db #0xff	; -1
     0000052F FF                    1457 	.db #0xff	; -1
@@ -1615,18 +1615,18 @@
     00000615 28 08            [12] 1615 	jr	Z, 00110$
                                    1616 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s6_b3.c:239: s_StopCooldown = 15; // Keep animation active for ~1/4 sec after last move
     00000617 3E 0F            [ 7] 1617 	ld	a, #0x0f
-    00000619 32r00r00         [13] 1618 	ld	(#_PutBallSprite_s_StopCooldown_65538_1235), a
+    00000619 32r00r00         [13] 1618 	ld	(#_PutBallSprite_s_StopCooldown_65538_1234), a
     0000061C C3r2Cr06         [10] 1619 	jp	00111$
     0000061F                       1620 00110$:
                                    1621 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s6_b3.c:241: if (s_StopCooldown > 0) s_StopCooldown--;
-    0000061F 3Ar00r00         [13] 1622 	ld	a, (_PutBallSprite_s_StopCooldown_65538_1235+0)
+    0000061F 3Ar00r00         [13] 1622 	ld	a, (_PutBallSprite_s_StopCooldown_65538_1234+0)
     00000622 B7               [ 4] 1623 	or	a, a
     00000623 28 07            [12] 1624 	jr	Z, 00111$
-    00000625 FD 21r00r00      [14] 1625 	ld	iy, #_PutBallSprite_s_StopCooldown_65538_1235
+    00000625 FD 21r00r00      [14] 1625 	ld	iy, #_PutBallSprite_s_StopCooldown_65538_1234
     00000629 FD 35 00         [23] 1626 	dec	0 (iy)
     0000062C                       1627 00111$:
                                    1628 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s6_b3.c:244: bool isAnimating = (s_StopCooldown > 0);
-    0000062C 3Ar00r00         [13] 1629 	ld	a, (_PutBallSprite_s_StopCooldown_65538_1235+0)
+    0000062C 3Ar00r00         [13] 1629 	ld	a, (_PutBallSprite_s_StopCooldown_65538_1234+0)
     0000062F B7               [ 4] 1630 	or	a, a
     00000630 3E 01            [ 7] 1631 	ld	a, #0x01
     00000632 20 01            [12] 1632 	jr	NZ, 00120$
@@ -1659,7 +1659,7 @@
     00000655                       1659 00125$:
     00000655 19               [11] 1660 	add	hl, de
                                    1661 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s6_b3.c:256: attr.Pattern = k_BallPatterns[idx & 7];
-    00000656 11rABr06         [10] 1662 	ld	de, #_PutBallSprite_k_BallPatterns_65539_1238+0
+    00000656 11rABr06         [10] 1662 	ld	de, #_PutBallSprite_k_BallPatterns_65539_1237+0
     00000659 7D               [ 4] 1663 	ld	a, l
                                    1664 ;	spillPairReg hl
                                    1665 ;	spillPairReg hl
@@ -1721,7 +1721,7 @@
     000006A6 DD F9            [10] 1721 	ld	sp, ix
     000006A8 DD E1            [14] 1722 	pop	ix
     000006AA C9               [10] 1723 	ret
-    000006AB                       1724 _PutBallSprite_k_BallPatterns_65539_1238:
+    000006AB                       1724 _PutBallSprite_k_BallPatterns_65539_1237:
     000006AB 39                    1725 	.db #0x39	; 57	'9'
     000006AC 3A                    1726 	.db #0x3a	; 58
     000006AD 3B                    1727 	.db #0x3b	; 59
@@ -3907,10 +3907,10 @@
     00001436 7E               [ 7] 3907 	ld	a, (hl)
     00001437 DD 77 FC         [19] 3908 	ld	-4 (ix), a
     0000143A DD 7E FF         [19] 3909 	ld	a, -1 (ix)
-    0000143D C6r01            [ 7] 3910 	add	a, #<(_TickTeamJoystick_k_MoveDX_131075_1322)
+    0000143D C6r01            [ 7] 3910 	add	a, #<(_TickTeamJoystick_k_MoveDX_131075_1321)
     0000143F DD 77 FD         [19] 3911 	ld	-3 (ix), a
     00001442 3E 00            [ 7] 3912 	ld	a, #0x00
-    00001444 CEs16            [ 7] 3913 	adc	a, #>(_TickTeamJoystick_k_MoveDX_131075_1322)
+    00001444 CEs16            [ 7] 3913 	adc	a, #>(_TickTeamJoystick_k_MoveDX_131075_1321)
     00001446 DD 77 FE         [19] 3914 	ld	-2 (ix), a
     00001449 DD 6E FD         [19] 3915 	ld	l, -3 (ix)
     0000144C DD 66 FE         [19] 3916 	ld	h, -2 (ix)
@@ -3950,10 +3950,10 @@
     0000149F 7E               [ 7] 3950 	ld	a, (hl)
     000014A0 DD 77 FC         [19] 3951 	ld	-4 (ix), a
     000014A3 DD 7E FF         [19] 3952 	ld	a, -1 (ix)
-    000014A6 C6r0A            [ 7] 3953 	add	a, #<(_TickTeamJoystick_k_MoveDY_131075_1322)
+    000014A6 C6r0A            [ 7] 3953 	add	a, #<(_TickTeamJoystick_k_MoveDY_131075_1321)
     000014A8 DD 77 FD         [19] 3954 	ld	-3 (ix), a
     000014AB 3E 00            [ 7] 3955 	ld	a, #0x00
-    000014AD CEs16            [ 7] 3956 	adc	a, #>(_TickTeamJoystick_k_MoveDY_131075_1322)
+    000014AD CEs16            [ 7] 3956 	adc	a, #>(_TickTeamJoystick_k_MoveDY_131075_1321)
     000014AF DD 77 FE         [19] 3957 	ld	-2 (ix), a
     000014B2 DD 6E FD         [19] 3958 	ld	l, -3 (ix)
     000014B5 DD 66 FE         [19] 3959 	ld	h, -2 (ix)
@@ -4124,7 +4124,7 @@
     000015FC DD F9            [10] 4124 	ld	sp, ix
     000015FE DD E1            [14] 4125 	pop	ix
     00001600 C9               [10] 4126 	ret
-    00001601                       4127 _TickTeamJoystick_k_MoveDX_131075_1322:
+    00001601                       4127 _TickTeamJoystick_k_MoveDX_131075_1321:
     00001601 00                    4128 	.db #0x00	;  0
     00001602 00                    4129 	.db #0x00	;  0
     00001603 02                    4130 	.db #0x02	;  2
@@ -4134,7 +4134,7 @@
     00001607 FE                    4134 	.db #0xfe	; -2
     00001608 FE                    4135 	.db #0xfe	; -2
     00001609 FE                    4136 	.db #0xfe	; -2
-    0000160A                       4137 _TickTeamJoystick_k_MoveDY_131075_1322:
+    0000160A                       4137 _TickTeamJoystick_k_MoveDY_131075_1321:
     0000160A 00                    4138 	.db #0x00	;  0
     0000160B FE                    4139 	.db #0xfe	; -2
     0000160C FE                    4140 	.db #0xfe	; -2

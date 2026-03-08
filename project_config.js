@@ -30,7 +30,7 @@ ProjModules = [ ProjName ];
 LibModules = [ "v9990", "system", "input", "vdp", "psg", "print", "memory", "debug", "math", "pcm/pcmenc", "ayfx/ayfx_player" ];
 
 //-- Additional sources to be compiled and linked with the project (array)
-AddSources = [ "libs/vgm/vgm_player.c", "libs/yscc/yscc_player.c" ];
+AddSources = [ "libs/yscc/yscc_player.c" ];
 
 //-- Target MSX machine version (string)
 //   - 1        MSX1
@@ -105,14 +105,14 @@ BankedCall = false;
 
 //-- List of raw data files to be added to final binary (array). Each entry must be in the following format: { offset:0x0000, file:"myfile.bin" }
 RawFiles = [
-    { segment:75, file:"vgm/vgm_menu.vgm" },
-    { segment:80, file:"vgm/vgm_players_presentation.vgm" },
-    { segment:84, file:"vgm/vgm_game_melody.vgm" },
-    { segment:88, file:"vgm/vgm_public_goal.vgm" },
-    { segment:92, file:"vgm/vgm_public_presentation.vgm" },
-    { segment:96, file:"vgm/vgm_refereer.vgm" },
-    { segment:100, file:"vgm/vgm_victory.vgm" },
-    { segment:105, file:"scc/scc_presentation.bin" }
+    { segment:75, file:"scc/scc_public_goal.bin" },
+    { segment:105, file:"scc/scc_presentation.bin" },
+    { segment:110, file:"scc/scc_match.bin" },
+    { segment:145, file:"scc/scc_menu.bin" },
+    { segment:234, file:"scc/scc_players.bin" },
+    { segment:244, file:"scc/scc_public_presentation.bin" },
+    { segment:252, file:"scc/scc_victory.bin" },
+   // { segment:289, file:"scc/scc_public_goal.bin" }
 ];
 
 //-- Size of the final disk (.DSK file). Can be "360K" or "720K" (string)
@@ -180,7 +180,7 @@ BuildLibrary = true;
 // CompileOpt = "";
 
 //-- Skip file if compile data (REL) is newer than the source code (boolean)
-CompileSkipOld = true;
+//CompileSkipOld = true;
 
 //-- Additionnal link options (string)
 // LinkOpt = "";

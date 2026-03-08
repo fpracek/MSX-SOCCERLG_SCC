@@ -15,7 +15,7 @@
 #include "pt3/pt3_player.h"
 #include "memory.h"
 #include "soccerlg_rawdef.h"
-#include "libs/vgm/vgm_player.h"
+//#include "libs/vgm/vgm_player.h"
 
 // -----------------
 // *** FUNCTIONS ***
@@ -708,7 +708,7 @@ void TickPlayerToOwnTarget(){
 		if(g_MatchStatus==MATCH_BEFORE_KICK_OFF && allPlayersInPosition && g_FieldScrollingActionInProgress==NO_VALUE){
      
             g_Ball.Size=1;
-			VGM_Stop();
+			//VGM_Stop();
 			g_FieldScrollSpeed=FIELD_SCROLL_GAME_SPEED;
 			g_MatchStatus=MATCH_KICK_OFF;
 			

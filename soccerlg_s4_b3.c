@@ -15,7 +15,7 @@
 #include "pt3/pt3_player.h"
 #include "memory.h"
 #include "soccerlg_rawdef.h"
-#include "libs/vgm/vgm_player.h"
+//#include "libs/vgm/vgm_player.h"
 #include "libs/yscc/yscc_player.h"
 
 // -----------------
@@ -126,20 +126,23 @@ void LoadPresentation(){
 	V9_SetPaletteEntry(0, colorBlack);    
 	V9_SetBackgroundColor(0);
 
-	V9990_LoadImagePresentationData(); 
-	
+	V9990_LoadImagePresentationData();
+	LoadMsxVdpFonts();
+    
+
     g_MatchStatus=MATCH_PRESENTATION;
     V9_SetInterrupt(V9_INT_NONE);
-    
+
     g_FieldCurrentYPosition = 0; // Ensure safe value before enabling ISR
     V9_SetDisplayEnable(TRUE);
-    
+
 	V9_SetInterruptLine(71);
     V9_SetInterrupt(V9_INT_VBLANK);
     YSCC_Play(SCC_PRESENTATION_BIN_SEG,(u32)SCC_PRESENTATION_BIN_SIZE);
     g_Timer=0;
 	g_TimerActive=TRUE;
-    while (g_Timer!=200)
+    DEBUG_LOG("TEST");
+    while (g_Timer!=254)
     {
         
     }
@@ -267,15 +270,15 @@ void MainGameLoop(){
                 g_VgmPublicPresentationEnded=FALSE;
             
             
-                while(!g_VgmPublicPresentationEnded){
-                     
-                  //No move this ouside of the loop (without it the wait loop doesn't work)
-                }
-                VGM_Stop();
+               while(YSCC_GetFirstSegmentOfCurrentPlaying()==SCC_PUBLIC_PRESENTATION_BIN_SEG){
+                    
+                 //No move this ouside of the loop (without it the wait loop doesn't work)
+               }
+               YSCC_Stop();
             }
             
 
-			PlayVGM(VGM_PLAYERS_PRESENTATION);
+			YSCC_Play(SCC_PLAYERS_BIN_SEG,SCC_PLAYERS_BIN_SIZE);
             g_Timer=0;
 
             while (g_Timer!=45)
@@ -291,7 +294,7 @@ void MainGameLoop(){
 
 		}
 		if(g_MatchStatus==MATCH_NOT_STARTED){
-			if(g_currentVGMPlayingSegment==VGM_PLAYERS_PRESENTATION_VGM_SEG && g_TimerActive && g_Timer<30){
+			if(YSCC_GetFirstSegmentOfCurrentPlaying()==SCC_PLAYERS_BIN_SEG && g_TimerActive && g_Timer<30){
 				continue;
 			}
 			
@@ -398,6 +401,7 @@ void MainGameLoop(){
 void TickShowKickOff(){
 	if(g_MatchStatus==MATCH_KICK_OFF){
 			V9990_PrintLayerAStringAtPos(12,18,"KICK OFF");
+            YSCC_Stop();
             PlayPCM(PCM_REFEREER);
 			PlayPCM(PCM_KICKOFF);
 			
@@ -427,7 +431,7 @@ void TickShowKickOff(){
 
 			g_MatchStatus=MATCH_IN_ACTION;
 			g_TimerActive=FALSE;
-			PlayVGM(VGM_MATCH);
+			YSCC_PlayLoop(SCC_MATCH_BIN_SEG,SCC_MATCH_BIN_SIZE);
             
 	}
     if(g_MatchStatus==MATCH_BEFORE_OFFSIDE){

@@ -17,7 +17,7 @@
 #include "psg.h"
 #include "soccerlg_rawdef.h"
 #include "ayfx/ayfx_player.h"
-#include "libs/vgm/vgm_player.h"
+//#include "libs/vgm/vgm_player.h"
 #include "libs/yscc/yscc_player.h"
 
 // ------------------
@@ -161,16 +161,6 @@ const TeamStats g_TeamStats[] = {
     { 6, 16, 7, 8, 15 }  // GER (Fast 1.25, Strong, Pass+)
 };
 
-const struct MusicEntry g_MusicEntry[] =
-{
-	{ "Menu", 0xA000 + VGM_MENU_VGM_REL,       VGM_MENU_VGM_SEG },
-	{ "Players presentation", 0xA000 + VGM_PLAYERS_PRESENTATION_VGM_REL,     VGM_PLAYERS_PRESENTATION_VGM_SEG },
-	{ "Game melody", 0xA000 + VGM_GAME_MELODY_VGM_REL,     VGM_GAME_MELODY_VGM_SEG },
-	{ "Public goal", 0xA000 + VGM_PUBLIC_GOAL_VGM_REL,     VGM_PUBLIC_GOAL_VGM_SEG },
-	{ "Public presentation", 0xA000 + VGM_PUBLIC_PRESENTATION_VGM_REL,     VGM_PUBLIC_PRESENTATION_VGM_SEG },
-	{ "Refereer", 0xA000 + VGM_REFEREER_VGM_REL,     VGM_REFEREER_VGM_SEG },
-	{ "Victory", 0xA000 + VGM_VICTORY_VGM_REL,     VGM_VICTORY_VGM_SEG }
-};
 
 // -----------------------------
 // *** TRAMPOLINES FUNCTIONS ***
@@ -260,19 +250,12 @@ bool CallFnc_BOOL_P1(u8 segment, bool (*func)(u8), u8 p1) {
 }
 
 // -----------
-// *** SCC ***
-// -----------
-
-
-
-
-// -----------
 // *** PCM ***
 // -----------
 
 void PlayPCM(u8 id){
-	bool isVGMPlaying=VGM_IsPlaying();
-	VGM_Stop();
+	bool isSCCPlaying=YSCC_GetFirstSegmentOfCurrentPlaying()!=0xFFFF;
+	YSCC_Pause();
 	u8 currentSegment2 = GET_BANK_SEGMENT(2);
 	u8 currentSegment3 = GET_BANK_SEGMENT(3);
 	switch(id){
@@ -315,8 +298,8 @@ void PlayPCM(u8 id){
 	}
 	SET_BANK_SEGMENT(2, currentSegment2);
 	SET_BANK_SEGMENT(3, currentSegment3);
-	if(isVGMPlaying){
-		VGM_Resume();
+	if(isSCCPlaying){
+		YSCC_Resume();
 	}
 }
 
@@ -333,42 +316,6 @@ void PlayAyFx(u8 id){
 
 }
 
-// -----------
-// *** VGM ***
-// -----------
-
-// +++ Play VGM +++
-void PlayVGM(u8 vgmId){
-	g_currentVGMPlayerSong=vgmId;
-	u8 currentSegment = GET_BANK_SEGMENT(3);
-	g_currentVGMPlayingSegment=g_MusicEntry[vgmId].Segment;
-	SET_BANK_SEGMENT(3, g_currentVGMPlayingSegment);
-	VGM_Play((void*)g_MusicEntry[vgmId].Data,vgmId!=VGM_PLAYERS_PRESENTATION && vgmId!=VGM_PUBLIC_PRESENTATION && vgmId!=VGM_REFEERER);
-	SET_BANK_SEGMENT(3, currentSegment);
-	VGM_Resume();
-}
-// +++ VGM notifications callbacks +++
-bool VGMNotification(u8 id)
-{
-	__asm di __endasm;
-
-	switch (id)
-	{
-	case 0x00: // End of data segment
-		g_currentVGMPlayingSegment++;
-		break;
-
-	case 0x01: // Reach loop marker
-		g_currentVGMPlayingSegment=g_MusicEntry[g_currentVGMPlayerSong].Segment;
-		break;
-	
-	case 0xFF: // Jump to loop marker
-		g_VgmPublicPresentationEnded=TRUE;
-		break;
-	}
-	__asm ei __endasm;
-	return TRUE;
-}
 // ---------------------
 // *** MSX VDP FONTS ***
 // ---------------------
@@ -522,6 +469,58 @@ void V9990_ClearTextFromLayerA(u8 x, u8 y, u8 length){
 		x++;
 	}
 }
+
+// ---------------------
+// *** SCROLL TEXT ***
+// ---------------------
+// Row 25 = pixels 200-207 (ultima riga completamente visibile in 212px)
+#define SCROLLTEXT_SPEED  6  // avanza di 1 char ogni N frame
+
+static const c8 s_ScrollText[] =
+    "   2026 MSX SOCCER LEAGUE  BY FAUSTO PRACEK  -  ASSOCIAZIONE ITALIANA MSX - POWERED BY MSXGL  -  "
+    "SPECIAL THANKS TO ARTURO RAGOZINI FOR HIS HELP WITH SOUND EFFECTS  -  "
+    "THE GAME IS A TRIBUTE TO THE 1983 EXCITING SOCCER  -  "
+    "NO COPYRIGHT INFRINGEMENT INTENDED   ";
+
+static u16 s_ScrollTextLen;
+static u16 s_ScrollTextPos;
+static u8  s_ScrollTickCount;
+
+// Inizializza il scrolltext: calcola lunghezza, riempie la riga con i primi 32 caratteri
+void V9990_InitScrollText() {
+    s_ScrollTextLen = 0;
+    while (s_ScrollText[s_ScrollTextLen] != 0) s_ScrollTextLen++;
+    s_ScrollTextPos   = 0;
+    s_ScrollTickCount = 0;
+    for (u8 col = 0; col < SCROLLTEXT_COLS; col++) {
+        u16 idx = (col < s_ScrollTextLen) ? col : 0;
+        V9_Poke16(V9_CellAddrP1A(col, SCROLLTEXT_ROW), (u16)s_ScrollText[idx]);
+    }
+}
+
+// Ferma lo scrolling e azzera la riga (carattere trasparente 0)
+void V9990_StopScrollText() {
+    s_ScrollTextLen = 0; // disabilita il tick
+    V9990_ClearTextFromLayerA(0, SCROLLTEXT_ROW, SCROLLTEXT_COLS);
+}
+
+// Avanza il testo di 1 carattere ogni SCROLLTEXT_SPEED frame. Chiamare ad ogni VBlank.
+static void V9990_TickScrollText() {
+    if (s_ScrollTextLen == 0) return;
+    s_ScrollTickCount++;
+    if (s_ScrollTickCount < SCROLLTEXT_SPEED) return;
+    s_ScrollTickCount = 0;
+
+    s_ScrollTextPos++;
+    if (s_ScrollTextPos >= s_ScrollTextLen) s_ScrollTextPos = 0;
+
+    for (u8 col = 0; col < SCROLLTEXT_COLS; col++) {
+        u16 idx = s_ScrollTextPos + col;
+        if (idx >= s_ScrollTextLen) idx -= s_ScrollTextLen;
+        V9_Poke16(V9_CellAddrP1A(col, SCROLLTEXT_ROW), (u16)s_ScrollText[idx]);
+    }
+}
+
 // +++ VBlank interrupt +++
 void V9_InterruptVBlank(){
 	g_VSynch = TRUE;
@@ -531,6 +530,9 @@ void V9_InterruptVBlank(){
 		g_FrameCounter=0;
 	}
 	PlaySounds();
+	if (g_MatchStatus == MATCH_SHOW_MENU) {
+		V9990_TickScrollText();
+	}
 
     g_Timer++;
 
@@ -578,16 +580,16 @@ const TeamStats* GetTeamStats(u8 teamId) {
 void PlaySounds(){
 
 	YSCC_Decode();
-	if(g_currentVGMPlayingSegment!=NO_VALUE){
+	//if(g_currentVGMPlayingSegment!=NO_VALUE){
 		u8 currentSegment = GET_BANK_SEGMENT(3);
-		SET_BANK_SEGMENT(3, g_currentVGMPlayingSegment);
-		VGM_Decode();
+		//SET_BANK_SEGMENT(3, g_currentVGMPlayingSegment);
+		//VGM_Decode();
 		SET_BANK_SEGMENT(3, 69);
 		ayFX_Update();
 		PSG_Apply();
 		SET_BANK_SEGMENT(3, currentSegment);
 		
-	}
+	//}
 	
 }
 
@@ -598,7 +600,6 @@ void main(){
 	DEBUG_INIT();
     Bios_SetHookDirectCallback(H_KEYI, InterruptHook);
 	Bios_ClearHook(H_TIMI);
-	VGM_SetNotifyCB(VGMNotification);
 	SET_BANK_SEGMENT(3,69);
 	ayFX_InitBank(g_Data_AYFX_Bank);
 	ayFX_SetChannel(PSG_CHANNEL_C);

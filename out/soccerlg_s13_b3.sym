@@ -9,11 +9,11 @@ Symbol Table
     .__.H$L.                                                    =   00000000 L
     _CallFnc_VOID                                                   ******** GX
     _Math_Abs32                                                     ******** GX
-    _PlayVGM                                                        ******** GX
     _ShowMenu                                                       ******** GX
   7 _TeamVictory                                                    00000000 GR
     _UpdateSpritesPositions                                         ******** GX
     _V9990_WaitSynch                                                ******** GX
+    _YSCC_Play                                                      ******** GX
     __divuint                                                       ******** GX
     __modsint                                                       ******** GX
     __moduint                                                       ******** GX
@@ -296,7 +296,7 @@ Area Table
    4 _HOME                                      size        0   flags    0
    5 _GSINIT                                    size        0   flags    0
    6 _GSFINAL                                   size        0   flags    0
-   7 _SEG13                                     size      7E7   flags    0
+   7 _SEG13                                     size      7EF   flags    0
    8 _INITIALIZER                               size        0   flags    0
    9 _CABS                                      size        0   flags    8
 

@@ -13,7 +13,9 @@
 #include "debug.h"
 #include "input.h"
 #include "memory.h"
-#include "libs/vgm/vgm_player.h"
+//#include "libs/vgm/vgm_player.h"
+#include "libs/yscc/yscc_player.h"
+#include "soccerlg_rawdef.h"
 
 // -----------------
 // *** FUNCTIONS ***
@@ -368,7 +370,8 @@ void PenaltyShots() {
             if (kickingTeam == TEAM_1) goals1++; else goals2++;
             V9990_PrintLayerAStringAtPos(12, 10, "IN  GOAL");
             PlayPCM(PCM_INGOAL);
-            PlayVGM(VGM_PUBLIC_GOAL);
+            YSCC_Stop();
+            YSCC_Play(SCC_PUBLIC_GOAL_BIN_SEG,SCC_PUBLIC_GOAL_BIN_SIZE);
             g_peopleState=!g_peopleState;
 	        CallFnc_VOID_P1(7,PeopleMoving,g_peopleState);
         } else {
@@ -491,7 +494,7 @@ void PenaltyShots() {
         CallFnc_VOID(6,UpdateSpritesPositions);
 
 
-        VGM_Stop();
+        //VGM_Stop();
         turn++;
     }
 }

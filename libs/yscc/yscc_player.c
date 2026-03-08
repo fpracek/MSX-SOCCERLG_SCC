@@ -2,159 +2,236 @@
 #include "yscc_player.h"
 #include "debug.h"
 
-u16 			g_YSCC_SamplePos;        // Current read address offset in Bank3 (0x0000-0x2000)
-u16  			g_YSCC_SamplePage;       // Current ROM segment mapped in Bank3 for PCM
-volatile u16 	g_YSCC_NumBlocksToPlay;  // Remaining 128-byte blocks (volatile + allineato)
-u16 			g_YSCC_Period;           // SCC channel period (frequency)
-static u16		s_YSCC_SavedSeg3;        // Salva Bank3 (seg15) durante SCC_CopyPCMBlock
-static u8       s_YSCC_Buf[128];         // Buffer PCM frame (static per accesso da inline asm)
+u16          g_YSCC_SamplePos;
+u16          g_YSCC_SamplePage;
+volatile u16 g_YSCC_NumBlocksToPlay;
+u16          g_YSCC_Period;
+static u16   s_YSCC_SavedSeg3;
+u16           g_currentSCCPlayingSegment=0xFFFF;
+static u8    s_YSCC_StartSeg;      // segmento iniziale (per loop/restart)
+static u16   s_YSCC_TotalBlocks;   // numero totale di blocchi (per loop/restart)
+static bool  s_YSCC_Loop;          // TRUE = loop infinito
+static bool  s_YSCC_Paused;        // TRUE = riproduzione in pausa
+
+
+// Azzera le wave table SCC e disabilita tutti i canali
+static void s_YSCC_Silence() {
+    __asm
+        xor  a
+        ld   (0x988F), a        ; CH_ENABLE = 0 (tutti i canali off)
+        ld   hl, #0x9800
+        ld   de, #0x9801
+        ld   bc, #0x007F
+        ld   (hl), a            ; 0x9800 = 0
+        ldir                    ; 0x9801-0x987F = 0
+    __endasm;
+}
 
 
 void YSCC_Init() {
-    g_YSCC_Period = 0x0749;
-    
-            
-    SET_BANK_SEGMENT(2, 0x3F); 
+    g_YSCC_Period  = 0x0749;
+    s_YSCC_Loop    = FALSE;
+    s_YSCC_Paused  = FALSE;
+
+    SET_BANK_SEGMENT(2, 0x3F);
 
     __asm
         ld   hl, #0x9000
-        ld   (hl), #0x3F
+        ld   (hl), #0x3F        ; attiva SCC
         push af
         push hl
         ld   a, #0x20
-        ld   (0x98E0), a       
-        ld   (0x98C0), a        
+        ld   (0x98E0), a        ; deformation register
+        ld   (0x98C0), a        ; SCC+ compat
         xor  a
-        ld   (0x988E), a        
-        ld   (0x988F), a  ; SCC_CH_ENABLE
+        ld   (0x988E), a        ; vol ch5 = 0
+        ld   (0x988F), a        ; CH_ENABLE = 0
         ld   a, #0x0F
-        ld   (0x988A), a        
-        ld   (0x988B), a        
-        ld   (0x988C), a        
-        ld   (0x988D), a        
+        ld   (0x988A), a        ; vol ch1 = max
+        ld   (0x988B), a        ; vol ch2 = max
+        ld   (0x988C), a        ; vol ch3 = max
+        ld   (0x988D), a        ; vol ch4 = max
         ld   hl, (_g_YSCC_Period)
-        ld   (0x9880), hl       
-        ld   (0x9882), hl       
-        ld   (0x9884), hl       
-        ld   (0x9886), hl       
+        ld   (0x9880), hl       ; periodo ch1
+        ld   (0x9882), hl       ; periodo ch2
+        ld   (0x9884), hl       ; periodo ch3
+        ld   (0x9886), hl       ; periodo ch4
         ld   hl, #0
-        ld   (0x9888), hl       
+        ld   (0x9888), hl       ; periodo ch5 = 0
         pop  hl
         pop  af
     __endasm;
 }
 
+u16 YSCC_GetFirstSegmentOfCurrentPlaying(){
+    return g_currentSCCPlayingSegment; 
+}
+void YSCC_Stop() {
+    g_currentSCCPlayingSegment=0xFFFF;
+    g_YSCC_NumBlocksToPlay = 0;
+    s_YSCC_Paused = FALSE;
+    s_YSCC_Silence();
+}
 
-bool YSCC_Decode(){
-    if (g_YSCC_NumBlocksToPlay > 0) {
+
+void YSCC_Pause() {
+    if (!s_YSCC_Paused && g_YSCC_NumBlocksToPlay > 0) {
+        s_YSCC_Paused = TRUE;
         __asm
-        	call _YSCC_CopyPCMBlock
-        	ld   a, #0x0F
-        	ld   (0x988F), a 
-    	__endasm;
-        
-        g_YSCC_NumBlocksToPlay--;
-
-        if (g_YSCC_NumBlocksToPlay == 0) {
-            __asm 
-                xor a
-                ld (0x988F), a
-            __endasm;
-            return TRUE;
-        }
-        return FALSE;
+            xor a
+            ld  (0x988F), a     ; CH_ENABLE = 0
+        __endasm;
     }
 }
-void YSCC_Play(u8 start_seg, u32 byte_size) {
-    DEBUG_PRINT("--> %U\n",byte_size);
-	g_YSCC_SamplePage = start_seg;
-    g_YSCC_SamplePos = 0;  
-    u16 test=(u16)((byte_size + 127) / 128);
-    DEBUG_LOG("oo")       ;
-    DEBUG_PRINT("--> %i\n",test);
-    g_YSCC_NumBlocksToPlay = (byte_size + 127) / 128;
-    DEBUG_PRINT("-- %U %i\n",byte_size,g_YSCC_NumBlocksToPlay);
+
+
+void YSCC_Resume() {
+    s_YSCC_Paused = FALSE;
 }
 
+
+bool YSCC_IsPlaying() {
+    return (g_YSCC_NumBlocksToPlay > 0) && !s_YSCC_Paused;
+}
+
+
+bool YSCC_IsPaused() {
+    return s_YSCC_Paused;
+}
+
+
+void YSCC_Play(u8 start_seg, u32 byte_size) {
+    YSCC_Stop();
+    g_currentSCCPlayingSegment=start_seg;
+    s_YSCC_StartSeg    = start_seg;
+    s_YSCC_TotalBlocks = (u16)((byte_size + 127) / 128);
+    s_YSCC_Loop        = FALSE;
+    g_YSCC_SamplePage  = start_seg;
+    g_YSCC_SamplePos   = 0;
+    g_YSCC_NumBlocksToPlay = s_YSCC_TotalBlocks;
+}
+
+
+void YSCC_PlayLoop(u8 start_seg, u32 byte_size) {
+    YSCC_Play(start_seg, byte_size);
+    s_YSCC_Loop = TRUE;
+}
+
+
+// Chiamare ad ogni VBlank.
+// Ritorna TRUE al completamento di un ciclo (fine brano o fine iterazione loop).
+bool YSCC_Decode() {
+    if (s_YSCC_Paused || g_YSCC_NumBlocksToPlay == 0)
+        return FALSE;
+
+    __asm
+        call _YSCC_CopyPCMBlock
+        ld   a, #0x0F
+        ld   (0x988F), a        ; abilita canali 1-4
+    __endasm;
+
+    g_YSCC_NumBlocksToPlay--;
+
+    if (g_YSCC_NumBlocksToPlay == 0) {
+        if (s_YSCC_Loop) {
+            // ricomincia dall'inizio
+            g_YSCC_SamplePage      = s_YSCC_StartSeg;
+            g_YSCC_SamplePos       = 0;
+            g_YSCC_NumBlocksToPlay = s_YSCC_TotalBlocks;
+        } else {
+            if(!s_YSCC_Loop){
+                g_currentSCCPlayingSegment=0xFFFF;
+            }
+             
+            s_YSCC_Silence();   // fine brano: azzera wave table e disabilita canali
+        }
+        return TRUE;            // segnala fine ciclo al chiamante
+    }
+    return FALSE;
+}
+
+
 void YSCC_CopyPCMBlock() {
-    u16  i, base_addr;
-    DEBUG_LOG("OO");
-    //if (g_YSCC_SamplePage > 135) {
-    //    g_YSCC_NumBlocksToPlay = 0;
-    //    return;
-    //}
-    
     s_YSCC_SavedSeg3 = GET_BANK_SEGMENT(3);
     SET_BANK_SEGMENT(3, g_YSCC_SamplePage);
 
-    base_addr = 0xA000 + g_YSCC_SamplePos;
-    for (i = 0; i < 128; i++) {
-        s_YSCC_Buf[i] = *((u8*)(base_addr + i));
-    }
-    
-    SET_BANK_SEGMENT(3, s_YSCC_SavedSeg3);
-
     __asm
-        ; --- CH1: LDIR 21 byte buf[0..20] → 0x9800, poi phase reset ---
-        ld   hl, #_s_YSCC_Buf
+        ; HL = 0xA000 + g_YSCC_SamplePos  (sorgente diretta in Bank3)
+        ld   hl, (_g_YSCC_SamplePos)
+        ld   bc, #0xA000
+        add  hl, bc
+
+        ; --- CH1 PASS1: 21 byte HL → 0x9800 ---
         ld   de, #0x9800
         ld   bc, #0x0015
-        ldir
+        ldir                        ; HL = base+21
+        push hl                     ; salva per CH1 PASS2
         ld   a, (_g_YSCC_Period + 1)
-        ld   (0x9881), a
+        ld   (0x9881), a            ; phase reset CH1
 
-        ; --- CH2: LDIR 21 byte buf[32..52] → 0x9820, poi phase reset ---
-        ld   hl, #_s_YSCC_Buf + 32
+        ; salta 11 byte a CH2 (base+32)
+        ld   bc, #0x000B
+        add  hl, bc
+
+        ; --- CH2 PASS1: 21 byte HL → 0x9820 ---
         ld   de, #0x9820
         ld   bc, #0x0015
-        ldir
-        ld   a, (_g_YSCC_Period + 1)
-        ld   (0x9883), a
+        ldir                        ; HL = base+53
+        push hl                     ; salva per CH2 PASS2
+        ld   (0x9883), a            ; phase reset CH2 (A ancora valido)
 
-        ; --- CH3: LDIR 21 byte buf[64..84] → 0x9840, poi phase reset ---
-        ld   hl, #_s_YSCC_Buf + 64
+        ; salta 11 byte a CH3 (base+64)
+        ld   bc, #0x000B
+        add  hl, bc
+
+        ; --- CH3 PASS1: 21 byte HL → 0x9840 ---
         ld   de, #0x9840
         ld   bc, #0x0015
-        ldir
-        ld   a, (_g_YSCC_Period + 1)
-        ld   (0x9885), a
+        ldir                        ; HL = base+85
+        push hl                     ; salva per CH3 PASS2
+        ld   (0x9885), a            ; phase reset CH3
 
-        ; --- CH4: LDIR 21 byte buf[96..116] → 0x9860, poi phase reset ---
-        ld   hl, #_s_YSCC_Buf + 96
+        ; salta 11 byte a CH4 (base+96)
+        ld   bc, #0x000B
+        add  hl, bc
+
+        ; --- CH4 PASS1: 21 byte HL → 0x9860 ---
         ld   de, #0x9860
         ld   bc, #0x0015
-        ldir
-        ld   a, (_g_YSCC_Period + 1)
-        ld   (0x9887), a
+        ldir                        ; HL = base+117
+        ld   (0x9887), a            ; phase reset CH4
 
-        ; --- PASS2: ultimi 11 byte per tutti i canali ---
-        ld   hl, #_s_YSCC_Buf + 21
-        ld   de, #0x9815
+        ; --- PASS2: ultimi 11 byte per canale (stack in ordine inverso) ---
+
+        ; CH4 PASS2 (HL = base+117)
+        ld   de, #0x9875
         ld   bc, #0x000B
         ldir
 
-        ld   hl, #_s_YSCC_Buf + 53
-        ld   de, #0x9835
-        ld   bc, #0x000B
-        ldir
-
-        ld   hl, #_s_YSCC_Buf + 85
+        ; CH3 PASS2
+        pop  hl                     ; HL = base+85
         ld   de, #0x9855
         ld   bc, #0x000B
         ldir
 
-        ld   hl, #_s_YSCC_Buf + 117
-        ld   de, #0x9875
+        ; CH2 PASS2
+        pop  hl                     ; HL = base+53
+        ld   de, #0x9835
+        ld   bc, #0x000B
+        ldir
+
+        ; CH1 PASS2
+        pop  hl                     ; HL = base+21
+        ld   de, #0x9815
         ld   bc, #0x000B
         ldir
     __endasm;
 
+    SET_BANK_SEGMENT(3, s_YSCC_SavedSeg3);
+
     g_YSCC_SamplePos += 128;
-    DEBUG_PRINT("> %i %i %i\n",g_YSCC_SamplePage,g_YSCC_SamplePos,g_YSCC_NumBlocksToPlay);
     if (g_YSCC_SamplePos >= (u16)0x2000) {
-        DEBUG_LOG("CAMBIO\n");
         g_YSCC_SamplePage++;
-        DEBUG_PRINT("PPP> %i\n",g_YSCC_SamplePage);
         g_YSCC_SamplePos = 0;
     }
 }

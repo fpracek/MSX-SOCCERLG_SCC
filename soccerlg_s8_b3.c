@@ -16,7 +16,9 @@
 #include "pt3/pt3_player.h"
 #include "memory.h"
 #include "psg.h"
-#include "libs/vgm/vgm_player.h"
+//#include "libs/vgm/vgm_player.h"
+#include "libs/yscc/yscc_player.h"
+#include "soccerlg_rawdef.h"
 
 // ---------------------
 // *** TEAM PALETTES ***
@@ -294,8 +296,7 @@ void ShowMenu(){
 	// Set scroll immediately to -1 (alignment) and block ISR updates
 	V9_SetScrollingBY(-1);
 	V9_SetScrollingY(-1);
-	VGM_Stop();
-    PlayVGM(VGM_MENU);
+    YSCC_PlayLoop(SCC_MENU_BIN_SEG,SCC_MENU_BIN_SIZE);
 	for(u8 i=0;i<32;i++){
 		struct V9_Sprite attr;
 		attr.D = 1;
@@ -330,7 +331,8 @@ void ShowMenu(){
 	
 	V9_SetDisplayEnable(TRUE);
 	V9990_PrintLayerAStringAtPos(4,0,"    PLAYER TEAM SELECT");
-    
+    V9990_InitScrollText();
+
     g_Team1PaletteId = SelectTeam(SPRITE_PLAYER, NO_VALUE);
 	
 	
@@ -369,11 +371,12 @@ void ShowMenu(){
 	
 	V9_SetSpriteEnable(TRUE);
 
-    
-	V9_SetDisplayEnable(FALSE);
-    
-    
+    V9990_ClearTextFromLayerA(0, SCROLLTEXT_ROW, SCROLLTEXT_COLS);
 
+	V9_SetDisplayEnable(FALSE);
+
+
+	V9990_StopScrollText();
 	if(g_ShowButtonsInfo){
 		g_ShowButtonsInfo=false;
 		V9_FillVRAM(V9_P1_PGT_A, 0x00, 128*212); 
@@ -396,7 +399,7 @@ void ShowMenu(){
 	
 		V9_SetDisplayEnable(FALSE);
 	}
-    VGM_Stop();
+    YSCC_Stop();
 	g_MatchStatus=MATCH_NOT_STARTED;
 
 	V9990_LoadP1LayerA();
@@ -479,7 +482,7 @@ void GameStart(){
     CallFnc_VOID(6,InitPonPonGirls);
     V9_SetDisplayEnable(TRUE);
     V9_SetInterrupt(V9_INT_VBLANK);
-	PlayVGM(VGM_PUBLIC_PRESENTATION);
+	YSCC_Play(SCC_PUBLIC_PRESENTATION_BIN_SEG,SCC_PUBLIC_PRESENTATION_BIN_SIZE);
 }
 // Get no moving plaer pattern id +++
 u8 GetNoMovingPlayerPatternId(u8 direction){
@@ -847,8 +850,8 @@ void TickUpdateTime(){
 			g_SecondsToEndOfMatch--;
 			CallFnc_VOID(9,ShowHeaderInfo);
 			if(g_SecondsToEndOfMatch==0){
-				VGM_Stop();
-    			PlayVGM(VGM_REFEERER);
+				YSCC_Stop();
+    			PlayPCM(PCM_REFEREER);
 				CallFnc_VOID(11,TimeUp);
 			}
 		}
@@ -887,7 +890,8 @@ void BallInGoal(u8 teamScored){
     CallFnc_VOID(6,PutBallSprite);
 	
     PlayPCM(PCM_INGOAL);
-    PlayVGM(VGM_PUBLIC_GOAL);
+	YSCC_Stop();
+    YSCC_Play(SCC_PUBLIC_GOAL_BIN_SEG,SCC_PUBLIC_GOAL_BIN_SIZE);
 	
 	g_MatchStatus=MATCH_AFTER_IN_GOAL;
 	g_RestartKickTeamId = (teamScored == TEAM_1) ? TEAM_2 : TEAM_1;
