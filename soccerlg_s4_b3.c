@@ -129,18 +129,20 @@ void LoadPresentation(){
 	
     g_MatchStatus=MATCH_PRESENTATION;
     V9_SetInterrupt(V9_INT_NONE);
-    g_Timer=0;
+    
     g_FieldCurrentYPosition = 0; // Ensure safe value before enabling ISR
     V9_SetDisplayEnable(TRUE);
     
 	V9_SetInterruptLine(71);
     V9_SetInterrupt(V9_INT_VBLANK);
+    PlaySCC(SCC_PRESENTATION_BIN_SEG,SCC_PRESENTATION_BIN_SIZE);
+    g_Timer=0;
 	g_TimerActive=TRUE;
     while (g_Timer!=200)
     {
-
+        
     }
-    SET_BANK_SEGMENT(3,4);
+    //SET_BANK_SEGMENT(3,4);
 	g_TimerActive=FALSE;
     g_MatchStatus=MATCH_NOT_STARTED;
     V9_SetInterrupt(V9_INT_NONE);
@@ -194,7 +196,7 @@ void TickGameFieldScrolling(){
 // +++ Main soubroutine +++
 void MainSub(){
     
-    DEBUG_INIT();
+    
 	
 
     InitVariables();

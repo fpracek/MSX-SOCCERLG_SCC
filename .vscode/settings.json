@@ -29,6 +29,23 @@
         "g_Timer": true,
         "s_OffsideTargetId": true,
         "GetClosestPlayerToBall(g_RestartKickTeamId,": true,
-        "g_RestartKickTeamId": true
+        "g_RestartKickTeamId": true,
+        "/^cmd /c \"del /Q out\\\\\\*\\.\\* && build\\.bat\"$/": {
+            "approve": true,
+            "matchCommandLine": true
+        },
+        "/^powershell -Command \"Get-ChildItem 'e:\\\\Dropbox\\\\FAUSTO\\\\SVILUPPI\\\\MSX\\\\CODE\\\\C\\\\MSXgl\\\\projects\\\\soccerlgSCC' -Filter '\\*scc\\*' -Recurse \\| Select-Object FullName, Length \\| Format-Table -AutoSize\"$/": {
+            "approve": true,
+            "matchCommandLine": true
+        },
+        "/^powershell -Command \"\\(Get-Item 'e:\\\\Dropbox\\\\FAUSTO\\\\SVILUPPI\\\\MSX\\\\CODE\\\\C\\\\MSXgl\\\\projects\\\\soccerlgSCC\\\\scc\\\\scc_001\\.bin'\\)\\.Length\"$/": {
+            "approve": true,
+            "matchCommandLine": true
+        },
+        "/^powershell -Command \"Get-Item 'e:\\\\Dropbox\\\\FAUSTO\\\\SVILUPPI\\\\MSX\\\\CODE\\\\C\\\\MSXgl\\\\projects\\\\soccerlgSCC\\\\out\\\\soccerlg\\.rom' \\| Select-Object Name, Length, LastWriteTime\"$/": {
+            "approve": true,
+            "matchCommandLine": true
+        },
+        "build.bat": true
     }
 }

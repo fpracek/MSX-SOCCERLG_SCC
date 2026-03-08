@@ -111,7 +111,8 @@ RawFiles = [
     { segment:88, file:"vgm/vgm_public_goal.vgm" },
     { segment:92, file:"vgm/vgm_public_presentation.vgm" },
     { segment:96, file:"vgm/vgm_refereer.vgm" },
-    { segment:100, file:"vgm/vgm_victory.vgm" }
+    { segment:100, file:"vgm/vgm_victory.vgm" },
+    { segment:105, file:"scc/scc_presentation.bin" }
 ];
 
 //-- Size of the final disk (.DSK file). Can be "360K" or "720K" (string)
@@ -229,7 +230,7 @@ Emulator = "E:\\Dropbox\\FAUSTO\\SVILUPPI\\MSX\\EMULATORI\\openMSX\\openMSX.exe"
 // General options
 
 // EmulMachine    = true;				//-- Force the MSX version of the emulated machine (boolean)
-// Emul60Hz       = false;				//-- Force the emulated machine to be at 60 Hz (boolean)
+ Emul60Hz         = true;				//-- Force the emulated machine to be at 60 Hz (boolean)
 // EmulFullScreen = false;				//-- Force the emulator to start in fullscreen mode (boolean)
 // EmulMute       = false;				//-- Disable emulator sound (boolean)
 // EmulDebug      = false;				//-- Start emulator debugger with program launch (boolean)

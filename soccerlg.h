@@ -409,6 +409,11 @@ void PlayAyFx(u8 id);
 i32 Math_Abs32(i32 v);
 void CallFnc_VOID_P2(u8 bank, void (*func)(u8, bool), u8 p1, bool p2);
 bool VGMNotification(u8 id);
+void PlaySCC(u8 start_seg, u16 byte_size);
+void SccSearch();
+void SccInit();
+void ReplayerUpdate();
+
 
 // +++ SEGMENT 4 +++
 bool IsTeamJoystickTriggerPressed();
