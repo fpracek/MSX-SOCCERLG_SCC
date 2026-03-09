@@ -556,16 +556,16 @@ void TickTeamJoystick(u8 direction){
             // 1. Move Player
 			switch(moveDir){
 				case DIRECTION_UP:
-					g_Players[playerId].Y -= 2;
+					g_Players[playerId].Y -= 3;
 					break;
 				case DIRECTION_DOWN:
-					g_Players[playerId].Y += 2;
+					g_Players[playerId].Y += 3;
 					break;
 				case DIRECTION_LEFT:
-					g_Players[playerId].X -= 2;
+					g_Players[playerId].X -= 3;
 					break;
 				case DIRECTION_RIGHT:
-					g_Players[playerId].X += 2;
+					g_Players[playerId].X += 3;
 					break;
 				case DIRECTION_UP_RIGHT:
 					g_Players[playerId].Y -= diagStep;

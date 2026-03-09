@@ -191,7 +191,7 @@ void TickCheckBallBoundaries(){
 
 		// Check Goal
 		if((i16)g_Ball.X > (i16)(GOAL_X_MIN - 8) && (i16)g_Ball.X < (i16)(GOAL_X_MAX + 8)){
-			BallInGoal(TEAM_2); // Team 2 attacked down and scored
+			CallFnc_VOID_P1(8,BallInGoal,TEAM_2); // Team 2 attacked down and scored
 		}
 		else{
 			if(teamId == TEAM_2){ // Attacker touched last (Team 2 attacking down)

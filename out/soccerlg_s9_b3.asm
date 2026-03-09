@@ -1146,9 +1146,13 @@ _TickCheckBallBoundaries::
 	rra
 	sbc	a, #0x80
 	jr	NC, 00162$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s9_b3.c:194: BallInGoal(TEAM_2); // Team 2 attacked down and scored
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s9_b3.c:194: CallFnc_VOID_P1(8,BallInGoal,TEAM_2); // Team 2 attacked down and scored
 	ld	a, #0x02
-	call	_BallInGoal
+	push	af
+	inc	sp
+	ld	de, #_BallInGoal
+	ld	a, #0x08
+	call	_CallFnc_VOID_P1
 	jp	00163$
 00162$:
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s9_b3.c:197: if(teamId == TEAM_2){ // Attacker touched last (Team 2 attacking down)

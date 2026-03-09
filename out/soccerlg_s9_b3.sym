@@ -15,9 +15,9 @@ Symbol Table
     _CallFnc_VOID_P1                                                ******** GX
     _CallFnc_VOID_P2                                                ******** GX
     _CornerKick                                                     ******** GX
-  7 _GetBestPassTarget                                              00000E26 GR
+  7 _GetBestPassTarget                                              00000E2D GR
     _GetClosestPlayerToBall                                         ******** GX
-  7 _GetNumberString                                                0000172A GR
+  7 _GetNumberString                                                00001731 GR
   1 _GetNumberString_str_65536_1313                                 00000000 R
     _GetTeamStats                                                   ******** GX
   7 _GoalKick                                                       00000000 GR
@@ -25,38 +25,38 @@ Symbol Table
     _Math_Abs32                                                     ******** GX
     _PerformShot                                                    ******** GX
     _PlayPCM                                                        ******** GX
-  7 _PrintTeamName                                                  0000162A GR
+  7 _PrintTeamName                                                  00001631 GR
     _PutBallOnPlayerFeet                                            ******** GX
-  7 _ResetBallInfo                                                  000019A4 GR
+  7 _ResetBallInfo                                                  000019AB GR
     _ResetPlayersInfo                                               ******** GX
     _SetPlayerBallPossession                                        ******** GX
-  7 _SetPlayerTarget                                                000019C5 GR
-  7 _SetPlayerTarget_k_KO_X_196608_1335                             00001B4F R
-  7 _SetPlayerTarget_k_KO_Y_T1_196608_1335                          00001B56 R
-  7 _SetPlayerTarget_k_KO_Y_T2_196608_1335                          00001B64 R
-  7 _SetTeamsPresentationSpritesPosition                            00001845 GR
-  7 _SetTeamsPresentationSpritesPosition_k_PlayerRoles_65537_132    0000199D R
-  7 _ShowField                                                      00001B72 GR
-  7 _ShowHeaderInfo                                                 00001769 GR
-  7 _TickBallCollision                                              0000124B GR
+  7 _SetPlayerTarget                                                000019CC GR
+  7 _SetPlayerTarget_k_KO_X_196608_1335                             00001B56 R
+  7 _SetPlayerTarget_k_KO_Y_T1_196608_1335                          00001B5D R
+  7 _SetPlayerTarget_k_KO_Y_T2_196608_1335                          00001B6B R
+  7 _SetTeamsPresentationSpritesPosition                            0000184C GR
+  7 _SetTeamsPresentationSpritesPosition_k_PlayerRoles_65537_132    000019A4 R
+  7 _ShowField                                                      00001B79 GR
+  7 _ShowHeaderInfo                                                 00001770 GR
+  7 _TickBallCollision                                              00001252 GR
   7 _TickCheckBallBoundaries                                        0000017F GR
-  7 _TickGoalkeeperAnimation                                        000003D2 GR
-  7 _UpdatePassTarget                                               00000DF3 GR
+  7 _TickGoalkeeperAnimation                                        000003D9 GR
+  7 _UpdatePassTarget                                               00000DFA GR
     _V9990_PrintLayerAStringAtPos                                   ******** GX
     _V9_Poke16_CurrentAddr                                          ******** GX
     _V9_SetWriteAddress                                             ******** GX
   7 ___str_0                                                        0000006D R
   7 ___str_1                                                        00000176 R
-  7 ___str_10                                                       00001841 R
-  7 ___str_11                                                       00001843 R
-  7 ___str_2                                                        0000170E R
-  7 ___str_3                                                        00001712 R
-  7 ___str_4                                                        00001716 R
-  7 ___str_5                                                        0000171A R
-  7 ___str_6                                                        0000171E R
-  7 ___str_7                                                        00001722 R
-  7 ___str_8                                                        00001726 R
-  7 ___str_9                                                        0000183F R
+  7 ___str_10                                                       00001848 R
+  7 ___str_11                                                       0000184A R
+  7 ___str_2                                                        00001715 R
+  7 ___str_3                                                        00001719 R
+  7 ___str_4                                                        0000171D R
+  7 ___str_5                                                        00001721 R
+  7 ___str_6                                                        00001725 R
+  7 ___str_7                                                        00001729 R
+  7 ___str_8                                                        0000172D R
+  7 ___str_9                                                        00001846 R
     __divsint                                                       ******** GX
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180 / ZX-Next / eZ80 / R800)                          Page 2
 Hexadecimal [32-Bits]
@@ -364,7 +364,7 @@ Area Table
    4 _HOME                                      size        0   flags    0
    5 _GSINIT                                    size        0   flags    0
    6 _GSFINAL                                   size        0   flags    0
-   7 _SEG9                                      size     1C42   flags    0
+   7 _SEG9                                      size     1C49   flags    0
    8 _INITIALIZER                               size        0   flags    0
    9 _CABS                                      size        0   flags    8
 

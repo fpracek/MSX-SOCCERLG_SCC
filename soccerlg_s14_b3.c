@@ -24,12 +24,13 @@ void TickReferee(u8 playerId) {
     u16 ballY = g_Ball.Y;
 
     // Target Y: segue direttamente la palla; evita il centro al kick-off
+    // L'arbitro non entra nelle aree di rigore: limitato tra PENALTY_BOX_Y_TOP e PENALTY_BOX_Y_BOTTOM
     u16 targetY = ballY;
     if (ballY > 230 && ballY < 260 && ballX > 110 && ballX < 140) {
-        targetY = (ballY > 40) ? ballY - 40 : FIELD_BOUND_Y_TOP;
+        targetY = (ballY > 40) ? ballY - 40 : PENALTY_BOX_Y_TOP;
     }
-    if (targetY < FIELD_BOUND_Y_TOP) targetY = FIELD_BOUND_Y_TOP;
-    if (targetY > FIELD_BOUND_Y_BOTTOM) targetY = FIELD_BOUND_Y_BOTTOM;
+    if (targetY < PENALTY_BOX_Y_TOP) targetY = PENALTY_BOX_Y_TOP;
+    if (targetY > PENALTY_BOX_Y_BOTTOM) targetY = PENALTY_BOX_Y_BOTTOM;
 
     // Target X: si posiziona di lato rispetto alla palla
     u16 targetX = (ballX < 128) ? ballX + 50 : ballX - 50;
@@ -81,9 +82,9 @@ void TickReferee(u8 playerId) {
         g_Players[playerId].Status = PLAYER_STATUS_POSITIONED;
     }
 
-    // Boundaries
-    if(g_Players[playerId].Y < FIELD_BOUND_Y_TOP) g_Players[playerId].Y = FIELD_BOUND_Y_TOP;
-    if(g_Players[playerId].Y > FIELD_BOUND_Y_BOTTOM) g_Players[playerId].Y = FIELD_BOUND_Y_BOTTOM;
+    // Boundaries (arbitro limitato fuori dalle aree di rigore sull'asse Y)
+    if(g_Players[playerId].Y < PENALTY_BOX_Y_TOP) g_Players[playerId].Y = PENALTY_BOX_Y_TOP;
+    if(g_Players[playerId].Y > PENALTY_BOX_Y_BOTTOM) g_Players[playerId].Y = PENALTY_BOX_Y_BOTTOM;
     if(g_Players[playerId].X < FIELD_BOUND_X_LEFT) g_Players[playerId].X = FIELD_BOUND_X_LEFT;
     if(g_Players[playerId].X > FIELD_BOUND_X_RIGHT) g_Players[playerId].X = FIELD_BOUND_X_RIGHT;
 }

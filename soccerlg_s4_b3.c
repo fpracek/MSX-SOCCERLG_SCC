@@ -255,6 +255,8 @@ void MainGameLoop(){
 		    CallFnc_VOID(8,TickUpdateTime);
 	    }
 		V9990_WaitSynch();
+		CallFnc_VOID(6,UpdateSpritesPositions); // Sprites nel VBlank, prima di tutto
+		{ u8 joyDir=GetJoystickDirection(); CallFnc_VOID_P1(6,TickTeamJoystick,joyDir); } // Joystick subito dopo VBlank
 		
 		if(g_PcmStartPlaying){
 			g_PcmStartPlaying=false;
@@ -364,12 +366,9 @@ void MainGameLoop(){
             }
 		}
 		EnforcePenaltyBoxRestriction();
-		CallFnc_VOID(6,UpdateSpritesPositions);
 		TickShotCursor();
 		
   		TickShowKickOff();
-        u8 joyDir=GetJoystickDirection();
-		CallFnc_VOID_P1(6,TickTeamJoystick,joyDir);
 		if(g_FieldScrollingActionInProgress==NO_VALUE){
 			CallFnc_VOID(9,TickBallCollision);
 			CallFnc_VOID(8,TickBallFlying);

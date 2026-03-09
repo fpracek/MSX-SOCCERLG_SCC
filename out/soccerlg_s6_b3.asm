@@ -2804,29 +2804,34 @@ _TickTeamJoystick::
 	jp	00213$
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s6_b3.c:558: case DIRECTION_UP:
 00208$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s6_b3.c:559: g_Players[playerId].Y -= 2;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s6_b3.c:559: g_Players[playerId].Y -= 3;
 	ld	l, -15 (ix)
 	ld	h, -14 (ix)
 	ld	e, (hl)
 	inc	hl
 	ld	d, (hl)
-	dec	de
-	dec	de
+	ld	a, e
+	add	a, #0xfd
+	ld	b, a
+	ld	a, d
+	adc	a, #0xff
+	ld	e, a
 	ld	l, -15 (ix)
 	ld	h, -14 (ix)
-	ld	(hl), e
+	ld	(hl), b
 	inc	hl
-	ld	(hl), d
+	ld	(hl), e
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s6_b3.c:560: break;
 	jp	00216$
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s6_b3.c:561: case DIRECTION_DOWN:
 00209$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s6_b3.c:562: g_Players[playerId].Y += 2;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s6_b3.c:562: g_Players[playerId].Y += 3;
 	ld	l, -15 (ix)
 	ld	h, -14 (ix)
 	ld	e, (hl)
 	inc	hl
 	ld	d, (hl)
+	inc	de
 	inc	de
 	inc	de
 	ld	l, -15 (ix)
@@ -2838,29 +2843,34 @@ _TickTeamJoystick::
 	jp	00216$
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s6_b3.c:564: case DIRECTION_LEFT:
 00210$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s6_b3.c:565: g_Players[playerId].X -= 2;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s6_b3.c:565: g_Players[playerId].X -= 3;
 	ld	l, -5 (ix)
 	ld	h, -4 (ix)
 	ld	e, (hl)
 	inc	hl
 	ld	d, (hl)
-	dec	de
-	dec	de
+	ld	a, e
+	add	a, #0xfd
+	ld	b, a
+	ld	a, d
+	adc	a, #0xff
+	ld	e, a
 	ld	l, -5 (ix)
 	ld	h, -4 (ix)
-	ld	(hl), e
+	ld	(hl), b
 	inc	hl
-	ld	(hl), d
+	ld	(hl), e
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s6_b3.c:566: break;
 	jp	00216$
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s6_b3.c:567: case DIRECTION_RIGHT:
 00211$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s6_b3.c:568: g_Players[playerId].X += 2;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s6_b3.c:568: g_Players[playerId].X += 3;
 	ld	l, -5 (ix)
 	ld	h, -4 (ix)
 	ld	e, (hl)
 	inc	hl
 	ld	d, (hl)
+	inc	de
 	inc	de
 	inc	de
 	ld	l, -5 (ix)

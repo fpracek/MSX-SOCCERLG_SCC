@@ -441,7 +441,7 @@ void GoalkeeperWithBall(u8 teamId, bool isSteal) {
         if(g_Players[i].TeamId == REFEREE) continue;
         if(g_Players[i].Role == PLAYER_ROLE_GOALKEEPER) continue;
         
-           u16 ty;
+           u16 ty; 
         // Reset current targets (Only Y, let AI handle X)
         ty = g_Players[i].Y;
 
@@ -677,7 +677,6 @@ void TickPlayerToOwnTarget(){
                           g_Players[i].Direction = DIRECTION_DOWN;
                           g_Players[i].PatternId = PLAYER_POSE_FRONT;
                           g_Players[i].Status = PLAYER_STATUS_POSITIONED;
-                          CallFnc_VOID_P1(5,PutPlayerSprite,i);
                      }
                 }
 				
@@ -700,7 +699,6 @@ void TickPlayerToOwnTarget(){
 							if(g_Players[i].TeamId==TEAM_1) g_Players[i].Direction=DIRECTION_UP;
 							else g_Players[i].Direction=DIRECTION_DOWN;
 						}
-						CallFnc_VOID_P1(5,PutPlayerSprite,i);
 					}
 				}
 			}

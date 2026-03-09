@@ -50,13 +50,13 @@ Area                                    Addr        Size        Decimal Bytes (A
      000015A5  l__SEG58                        
      000015D9  l__SEG47                        
      00001609  l__SEG32                        
-     00001624  l__SEG6                         
+     00001632  l__SEG6                         
      00001706  l__SEG12                        
      0000176A  l__SEG51                        
      00001A31  l__SEG4                         
      00001A60  l__SEG8                         
      00001AFD  l__SEG27                        
-     00001B30  l__SEG5                         
+     00001B14  l__SEG5                         
 ASxxxx Linker V03.00 + NoICE + sdld,  page 2.
 Hexadecimal  [32-Bits]
 
@@ -67,7 +67,7 @@ Area                                    Addr        Size        Decimal Bytes (A
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
      00001C00  l__SEG66                        
-     00001C42  l__SEG9                         
+     00001C49  l__SEG9                         
      00001DB0  l__SEG49                        
      00001E9A  l__SEG10                        
      00002000  l__SEG21                        
@@ -823,7 +823,7 @@ Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-_SEG5                               0005A000    00001B30 =        6960. bytes (REL,CON)
+_SEG5                               0005A000    00001B14 =        6932. bytes (REL,CON)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
@@ -833,15 +833,15 @@ _SEG5                               0005A000    00001B30 =        6960. bytes (R
      0005A4E8  _TickGoalKick                      soccerlg_s5_b3
      0005AAA7  _GoalkeeperWithBall                soccerlg_s5_b3
      0005ACC8  _TickPlayerToOwnTarget             soccerlg_s5_b3
-     0005B739  _PutPlayerSprite                   soccerlg_s5_b3
-     0005BA05  _UpdatePlayerPatternByDirection    soccerlg_s5_b3
-     0005BAD2  _GetPatternIdByPoseAndDirection    soccerlg_s5_b3
+     0005B71D  _PutPlayerSprite                   soccerlg_s5_b3
+     0005B9E9  _UpdatePlayerPatternByDirection    soccerlg_s5_b3
+     0005BAB6  _GetPatternIdByPoseAndDirection    soccerlg_s5_b3
 ASxxxx Linker V03.00 + NoICE + sdld,  page 21.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-_SEG6                               0006A000    00001624 =        5668. bytes (REL,CON)
+_SEG6                               0006A000    00001632 =        5682. bytes (REL,CON)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
@@ -906,24 +906,24 @@ Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-_SEG9                               0009A000    00001C42 =        7234. bytes (REL,CON)
+_SEG9                               0009A000    00001C49 =        7241. bytes (REL,CON)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
      0009A000  _GoalKick                          soccerlg_s9_b3
      0009A077  _BallThrowIn                       soccerlg_s9_b3
      0009A17F  _TickCheckBallBoundaries           soccerlg_s9_b3
-     0009A3D2  _TickGoalkeeperAnimation           soccerlg_s9_b3
-     0009ADF3  _UpdatePassTarget                  soccerlg_s9_b3
-     0009AE26  _GetBestPassTarget                 soccerlg_s9_b3
-     0009B24B  _TickBallCollision                 soccerlg_s9_b3
-     0009B62A  _PrintTeamName                     soccerlg_s9_b3
-     0009B72A  _GetNumberString                   soccerlg_s9_b3
-     0009B769  _ShowHeaderInfo                    soccerlg_s9_b3
-     0009B845  _SetTeamsPresentationSpritesPosi   soccerlg_s9_b3
-     0009B9A4  _ResetBallInfo                     soccerlg_s9_b3
-     0009B9C5  _SetPlayerTarget                   soccerlg_s9_b3
-     0009BB72  _ShowField                         soccerlg_s9_b3
+     0009A3D9  _TickGoalkeeperAnimation           soccerlg_s9_b3
+     0009ADFA  _UpdatePassTarget                  soccerlg_s9_b3
+     0009AE2D  _GetBestPassTarget                 soccerlg_s9_b3
+     0009B252  _TickBallCollision                 soccerlg_s9_b3
+     0009B631  _PrintTeamName                     soccerlg_s9_b3
+     0009B731  _GetNumberString                   soccerlg_s9_b3
+     0009B770  _ShowHeaderInfo                    soccerlg_s9_b3
+     0009B84C  _SetTeamsPresentationSpritesPosi   soccerlg_s9_b3
+     0009B9AB  _ResetBallInfo                     soccerlg_s9_b3
+     0009B9CC  _SetPlayerTarget                   soccerlg_s9_b3
+     0009BB79  _ShowField                         soccerlg_s9_b3
 
 ASxxxx Linker V03.00 + NoICE + sdld,  page 25.
 Hexadecimal  [32-Bits]

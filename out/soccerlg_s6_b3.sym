@@ -33,8 +33,8 @@ Symbol Table
   7 _TickGoalCelebration_k_CelebDY_131073_1206                      0000052D R
   7 _TickPonPonGirlsAnimation                                       000006B3 GR
   7 _TickTeamJoystick                                               00000751 GR
-  7 _TickTeamJoystick_k_MoveDX_131075_1321                          00001612 R
-  7 _TickTeamJoystick_k_MoveDY_131075_1321                          0000161B R
+  7 _TickTeamJoystick_k_MoveDX_131075_1321                          00001620 R
+  7 _TickTeamJoystick_k_MoveDY_131075_1321                          00001629 R
   7 _UpdateSpritesPositions                                         00000536 GR
     _V9990_ClearTextFromLayerA                                      ******** GX
   7 _V9990_InitMenuLayers                                           000000D4 GR
@@ -350,7 +350,7 @@ Area Table
    4 _HOME                                      size        0   flags    0
    5 _GSINIT                                    size        8   flags    0
    6 _GSFINAL                                   size        0   flags    0
-   7 _SEG6                                      size     1624   flags    0
+   7 _SEG6                                      size     1632   flags    0
    8 _INITIALIZER                               size        0   flags    0
    9 _CABS                                      size        0   flags    8
 

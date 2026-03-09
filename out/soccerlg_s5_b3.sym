@@ -11,8 +11,8 @@ Symbol Table
     _CallFnc_U8_P2                                                  ******** GX
     _CallFnc_VOID_P1                                                ******** GX
     _GetNoMovingPlayerPatternId                                     ******** GX
-  7 _GetPatternIdByPoseAndDirection                                 00001AD2 GR
-  7 _GetPatternIdByPoseAndDirection_k_MovePats_65537_1380           00001B1E R
+  7 _GetPatternIdByPoseAndDirection                                 00001AB6 GR
+  7 _GetPatternIdByPoseAndDirection_k_MovePats_65537_1380           00001B02 R
     _GetPlayerIdByRole                                              ******** GX
     _GetTeamStats                                                   ******** GX
   7 _GoalkeeperWithBall                                             00000AA7 GR
@@ -23,14 +23,14 @@ Symbol Table
   7 _PerformPass                                                    00000017 GR
     _PlayAyFx                                                       ******** GX
     _PutBallOnPlayerFeet                                            ******** GX
-  7 _PutPlayerSprite                                                00001739 GR
+  7 _PutPlayerSprite                                                0000171D GR
     _SetPlayerBallPossession                                        ******** GX
   7 _TickGoalKick                                                   000004E8 GR
   1 _TickGoalKick_s_SafetyTimeout_65537_1229                        00000000 R
   1 _TickGoalKick_s_SetupDone_65537_1229                            00000002 R
   7 _TickPlayerToOwnTarget                                          00000CC8 GR
   1 _TickPlayerToOwnTarget_s_GkMoveTick_131072_1285                 00000003 R
-  7 _UpdatePlayerPatternByDirection                                 00001A05 GR
+  7 _UpdatePlayerPatternByDirection                                 000019E9 GR
     _V9990_ClearTextFromLayerA                                      ******** GX
     _V9_SetWriteAddress                                             ******** GX
     _V9_WriteVRAM_CurrentAddr                                       ******** GX
@@ -337,7 +337,7 @@ Area Table
    4 _HOME                                      size        0   flags    0
    5 _GSINIT                                    size       16   flags    0
    6 _GSFINAL                                   size        0   flags    0
-   7 _SEG5                                      size     1B30   flags    0
+   7 _SEG5                                      size     1B14   flags    0
    8 _INITIALIZER                               size        0   flags    0
    9 _CABS                                      size        0   flags    8
 
