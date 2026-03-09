@@ -19,7 +19,6 @@
 	.globl _ayFX_InitBank
 	.globl _PCM_Play_11K
 	.globl _PSG_Apply
-	.globl _DEBUG_INIT
 	.globl _MainSub
 	.globl _TickGameFieldScrolling
 	.globl _V9_SetPaletteEntry
@@ -3442,8 +3441,6 @@ _PlaySounds::
 ; Function main
 ; ---------------------------------
 _main::
-;./soccerlg.c:600: DEBUG_INIT();
-	call	_DEBUG_INIT
 ;./soccerlg.c:601: Bios_SetHookDirectCallback(H_KEYI, InterruptHook);
 	ld	bc, #_InterruptHook
 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/bios_hook.h:37: *((u8*)hook) = 0xC3; // JUMP

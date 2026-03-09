@@ -12,7 +12,6 @@
 	.globl _YSCC_Stop
 	.globl _YSCC_PlayLoop
 	.globl _YSCC_Play
-	.globl _DEBUG_LOG
 	.globl _TickAI
 	.globl _SetPlayerTarget
 	.globl _TickBallCollision
@@ -364,11 +363,11 @@ _g_LOGOPR	=	0xfb02
 _g_GRPACX	=	0xfcb7
 _g_GRPACY	=	0xfcb9
 _g_SLTSL	=	0xffff
-_TickCornerKick_s_ForceKickTimer_65537_1397:
+_TickCornerKick_s_ForceKickTimer_65537_1400:
 	.ds 2
-_TickCornerKick_joyMoved_131078_1430:
+_TickCornerKick_joyMoved_131078_1433:
 	.ds 1
-_TickCornerKick_t1Latched_131079_1435:
+_TickCornerKick_t1Latched_131079_1438:
 	.ds 1
 ;--------------------------------------------------------
 ; ram data
@@ -387,12 +386,12 @@ _TickCornerKick_t1Latched_131079_1435:
 	.area _GSINIT
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s4_b3.c:682: static u16 s_ForceKickTimer = 0;
 	ld	hl, #0x0000
-	ld	(_TickCornerKick_s_ForceKickTimer_65537_1397), hl
+	ld	(_TickCornerKick_s_ForceKickTimer_65537_1400), hl
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s4_b3.c:831: static bool joyMoved = false;
-	ld	iy, #_TickCornerKick_joyMoved_131078_1430
+	ld	iy, #_TickCornerKick_joyMoved_131078_1433
 	ld	0 (iy), #0x00
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s4_b3.c:856: static bool t1Latched = false;
-	ld	iy, #_TickCornerKick_t1Latched_131079_1435
+	ld	iy, #_TickCornerKick_t1Latched_131079_1438
 	ld	0 (iy), #0x00
 ;--------------------------------------------------------
 ; Home
@@ -937,14 +936,17 @@ _LoadPresentation::
 	ld	(hl), #0x00
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s4_b3.c:143: g_TimerActive=TRUE;
 	ld	hl, #_g_TimerActive
+;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/v9990.h:574: inline void V9_SetInterrupt(u8 flags) { V9_SetRegister(9, flags); }
 	ld	(hl), #0x01
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s4_b3.c:144: DEBUG_LOG("TEST");
-	ld	hl, #___str_0
-	call	_DEBUG_LOG
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s4_b3.c:145: while (g_Timer!=254)
+	ld	l, (hl)
+;	spillPairReg hl
+;	spillPairReg hl
+	ld	a, #0x09
+	call	_V9_SetRegister
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s4_b3.c:145: while (g_Timer!=200)
 00101$:
 	ld	a, (_g_Timer+0)
-	sub	a, #0xfe
+	sub	a, #0xc8
 	jr	NZ, 00101$
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s4_b3.c:150: g_TimerActive=FALSE;
 	ld	hl, #_g_TimerActive
@@ -972,9 +974,6 @@ _LoadPresentation::
 	pop	af
 	inc	sp
 	ret
-___str_0:
-	.ascii "TEST"
-	.db 0x00
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s4_b3.c:157: void TickGameFieldScrolling(){
 ;	---------------------------------
 ; Function TickGameFieldScrolling
@@ -1194,7 +1193,7 @@ _MainSub::
 	ld	(hl), #0x00
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s4_b3.c:219: Print_DrawText("Soccer League - 2026 Fausto Pracek");
 	push	bc
-	ld	hl, #___str_2
+	ld	hl, #___str_1
 	call	_Print_DrawText
 	pop	bc
 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/print.h:223: g_PrintData.CursorX = x;
@@ -1205,11 +1204,11 @@ _MainSub::
 	ld	(hl), #0x01
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s4_b3.c:221: Print_DrawText("fpracek@gmail.com");
 	push	bc
-	ld	hl, #___str_3
+	ld	hl, #___str_2
 	call	_Print_DrawText
 	pop	bc
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s4_b3.c:223: const c8* str = "V9990 not found!";
-	ld	de, #___str_1
+	ld	de, #___str_0
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s4_b3.c:224: bool v9990IsFound=V9_Detect();
 	push	bc
 	push	de
@@ -1221,7 +1220,7 @@ _MainSub::
 	or	a, a
 	jr	Z, 00102$
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s4_b3.c:227: str = "V9990 found!";
-	ld	de, #___str_4
+	ld	de, #___str_3
 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/print.h:223: g_PrintData.CursorX = x;
 	xor	a, a
 	ld	(bc), a
@@ -1231,7 +1230,7 @@ _MainSub::
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s4_b3.c:229: Print_DrawText("The game is running on V9990 monitor.");
 	push	bc
 	push	de
-	ld	hl, #___str_5
+	ld	hl, #___str_4
 	call	_Print_DrawText
 	pop	de
 	pop	bc
@@ -1280,19 +1279,19 @@ _MainSub::
 	inc	sp
 	pop	ix
 	ret
-___str_1:
+___str_0:
 	.ascii "V9990 not found!"
 	.db 0x00
-___str_2:
+___str_1:
 	.ascii "Soccer League - 2026 Fausto Pracek"
 	.db 0x00
-___str_3:
+___str_2:
 	.ascii "fpracek@gmail.com"
 	.db 0x00
-___str_4:
+___str_3:
 	.ascii "V9990 found!"
 	.db 0x00
-___str_5:
+___str_4:
 	.ascii "The game is running on V9990 monitor."
 	.db 0x00
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s4_b3.c:249: void MainGameLoop(){
@@ -1795,7 +1794,7 @@ _TickShowKickOff::
 	sub	a, #0x07
 	jp	NZ,00114$
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s4_b3.c:403: V9990_PrintLayerAStringAtPos(12,18,"KICK OFF");
-	ld	hl, #___str_6
+	ld	hl, #___str_5
 	push	hl
 	ld	l, #0x12
 ;	spillPairReg hl
@@ -1936,7 +1935,7 @@ _TickShowKickOff::
 	ld	(hl), #0x0c
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s4_b3.c:452: }
 	ret
-___str_6:
+___str_5:
 	.ascii "KICK OFF"
 	.db 0x00
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s4_b3.c:455: void TickShotCursor() {
@@ -3412,7 +3411,7 @@ _TickCornerKick::
 	or	a, a
 	jr	NZ, 00104$
 	ld	hl, #0x0000
-	ld	(_TickCornerKick_s_ForceKickTimer_65537_1397), hl
+	ld	(_TickCornerKick_s_ForceKickTimer_65537_1400), hl
 00104$:
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s4_b3.c:689: if (g_Ball.PossessionPlayerId != NO_VALUE) {
 	ld	a, (#(_g_Ball + 6) + 0)
@@ -4332,9 +4331,9 @@ _TickCornerKick::
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s4_b3.c:805: if (isHuman) s_ForceKickTimer++;
 	or	a, a
 	jr	Z, 00173$
-	ld	hl, (_TickCornerKick_s_ForceKickTimer_65537_1397)
+	ld	hl, (_TickCornerKick_s_ForceKickTimer_65537_1400)
 	inc	hl
-	ld	(_TickCornerKick_s_ForceKickTimer_65537_1397), hl
+	ld	(_TickCornerKick_s_ForceKickTimer_65537_1400), hl
 00173$:
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s4_b3.c:807: if (isHuman) {
 	ld	a, c
@@ -4476,7 +4475,7 @@ _TickCornerKick::
 	ld	-1 (ix), a
 	sub	a, #0x07
 	jr	NZ, 00204$
-	ld	a, (_TickCornerKick_joyMoved_131078_1430+0)
+	ld	a, (_TickCornerKick_joyMoved_131078_1433+0)
 	or	a, a
 	jr	NZ, 00204$
 	ld	a, -7 (ix)
@@ -4485,7 +4484,7 @@ _TickCornerKick::
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s4_b3.c:834: g_CornerKickTargetId = candLeft; joyMoved = true;
 	ld	a, -7 (ix)
 	ld	(_g_CornerKickTargetId+0), a
-	ld	hl, #_TickCornerKick_joyMoved_131078_1430
+	ld	hl, #_TickCornerKick_joyMoved_131078_1433
 	ld	(hl), #0x01
 	jp	00205$
 00204$:
@@ -4493,7 +4492,7 @@ _TickCornerKick::
 	ld	a, -1 (ix)
 	sub	a, #0x03
 	jr	NZ, 00199$
-	ld	a, (_TickCornerKick_joyMoved_131078_1430+0)
+	ld	a, (_TickCornerKick_joyMoved_131078_1433+0)
 	or	a, a
 	jr	NZ, 00199$
 	ld	a, -6 (ix)
@@ -4502,7 +4501,7 @@ _TickCornerKick::
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s4_b3.c:836: g_CornerKickTargetId = candRight; joyMoved = true;
 	ld	a, -6 (ix)
 	ld	(_g_CornerKickTargetId+0), a
-	ld	hl, #_TickCornerKick_joyMoved_131078_1430
+	ld	hl, #_TickCornerKick_joyMoved_131078_1433
 	ld	(hl), #0x01
 	jp	00205$
 00199$:
@@ -4511,7 +4510,7 @@ _TickCornerKick::
 	or	a, a
 	jr	NZ, 00205$
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s4_b3.c:838: joyMoved = false;
-	ld	hl, #_TickCornerKick_joyMoved_131078_1430
+	ld	hl, #_TickCornerKick_joyMoved_131078_1433
 	ld	(hl), #0x00
 00205$:
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s4_b3.c:845: if (kickerId != NO_VALUE) {
@@ -4643,14 +4642,14 @@ _TickCornerKick::
 	ld	a, (_g_Timer+0)
 	sub	a, #0xb4
 	jr	NZ, 00211$
-	ld	hl, #_TickCornerKick_t1Latched_131079_1435
+	ld	hl, #_TickCornerKick_t1Latched_131079_1438
 	ld	(hl), #0x01
 00211$:
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s4_b3.c:858: if (!t1Trigger) t1Latched = false;
 	ld	a, c
 	or	a, a
 	jr	NZ, 00213$
-	ld	hl, #_TickCornerKick_t1Latched_131079_1435
+	ld	hl, #_TickCornerKick_t1Latched_131079_1438
 	ld	(hl), #0x00
 00213$:
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s4_b3.c:861: if (g_CornerKickTargetId != NO_VALUE) {
@@ -4669,11 +4668,11 @@ _TickCornerKick::
 	ld	a, c
 	or	a, a
 	jr	Z, 00219$
-	ld	a, (_TickCornerKick_t1Latched_131079_1435+0)
+	ld	a, (_TickCornerKick_t1Latched_131079_1438+0)
 	or	a, a
 	jr	Z, 00220$
 00219$:
-	ld	hl, (_TickCornerKick_s_ForceKickTimer_65537_1397)
+	ld	hl, (_TickCornerKick_s_ForceKickTimer_65537_1400)
 	ld	a, #0xf0
 	cp	a, l
 	ld	a, #0x00

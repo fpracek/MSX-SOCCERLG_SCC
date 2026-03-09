@@ -301,15 +301,24 @@ void TickAI(u8 playerId){
 
 							i16 advanceScore = (playerTeamId == TEAM_1) ? -dy : dy;
 							
+							// Near own goal line: allow lateral/backward passes to relieve pressure
+							bool nearOwnGoalLine = false;
+							if (playerTeamId == TEAM_1 && g_Players[playerId].Y > FIELD_BOUND_Y_BOTTOM - 80) nearOwnGoalLine = true;
+							if (playerTeamId == TEAM_2 && g_Players[playerId].Y < FIELD_BOUND_Y_TOP + 80) nearOwnGoalLine = true;
+							
 							// If not in trouble, only pass forward!
 							if (!isPanicPass) {
-                                bool highSkill = (stats->PassFreq >= 8);
-                                bool allowSwitch = (highSkill && adx > 60); // Strong teams switch play (easier width)
-                                if (allowSwitch) {
-                                    if (advanceScore < -10) continue; // Allow flat/slight back for wide balls
+                                if (nearOwnGoalLine) {
+                                    if (advanceScore < -60) continue; // Near own goal: allow lateral/slight backward
                                 } else {
-                                    i16 minAdv = highSkill ? 20 : 40;
-								    if (advanceScore < minAdv) continue; // Must gain ground
+                                    bool highSkill = (stats->PassFreq >= 8);
+                                    bool allowSwitch = (highSkill && adx > 60); // Strong teams switch play (easier width)
+                                    if (allowSwitch) {
+                                        if (advanceScore < -10) continue; // Allow flat/slight back for wide balls
+                                    } else {
+                                        i16 minAdv = highSkill ? 20 : 40;
+									    if (advanceScore < minAdv) continue; // Must gain ground
+                                    }
                                 }
 							} else {
 								// Panic? Just don't pass into own goal if possible
@@ -591,9 +600,6 @@ void TickAI(u8 playerId){
 		}
 
 		if (amIEffectiveChaser) {
-            // NERF: Add reaction delay (Skip 25% of frames) to allow zig-zag evasion
-            // This prevents the chaser from tracking perfectly every single frame
-            if ((g_FrameCounter & 3) == 0) return;
 
 			// EFFECTIVE CHASER: GO TO BALL
 			if (g_Ball.PossessionPlayerId == NO_VALUE) {
@@ -653,6 +659,11 @@ void TickAI(u8 playerId){
                          case DIRECTION_DOWN_LEFT: targetY += 24; targetX -= 24; break;
                      }
                 }
+                // Clamp prediction target within field bounds (prevents overshoot near boundaries)
+                if (targetX < FIELD_BOUND_X_LEFT) targetX = FIELD_BOUND_X_LEFT;
+                if (targetX > FIELD_BOUND_X_RIGHT) targetX = FIELD_BOUND_X_RIGHT;
+                if (targetY < FIELD_BOUND_Y_TOP) targetY = FIELD_BOUND_Y_TOP;
+                if (targetY > FIELD_BOUND_Y_BOTTOM) targetY = FIELD_BOUND_Y_BOTTOM;
                 g_Players[playerId].TargetX = targetX;
                 g_Players[playerId].TargetY = targetY;
 

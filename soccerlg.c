@@ -597,7 +597,7 @@ void PlaySounds(){
 // *** MAIN ***
 // ------------
 void main(){
-	DEBUG_INIT();
+	//DEBUG_INIT();
     Bios_SetHookDirectCallback(H_KEYI, InterruptHook);
 	Bios_ClearHook(H_TIMI);
 	SET_BANK_SEGMENT(3,69);

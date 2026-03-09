@@ -180,7 +180,7 @@ BuildLibrary = true;
 // CompileOpt = "";
 
 //-- Skip file if compile data (REL) is newer than the source code (boolean)
-//CompileSkipOld = true;
+CompileSkipOld = true;
 
 //-- Additionnal link options (string)
 // LinkOpt = "";

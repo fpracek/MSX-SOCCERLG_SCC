@@ -138,14 +138,16 @@ void PerformPass(u8 toPlayerId) {
 
     g_Ball.PassStartX = g_Ball.X;
     g_Ball.PassStartY = g_Ball.Y;
-        
+
 	// Prevent immediate re-interaction (Steal) and reset dribble state
     g_ActionCooldown = 20;
     g_Ball.KickMoveState = 0;
 
     dx = (i16)g_Players[toPlayerId].X - (i16)g_Ball.X;
     dy = (i16)g_Players[toPlayerId].Y - (i16)g_Ball.Y;
-    g_Ball.PassTotalDist = (u16)((dx<0?-dx:dx) + (dy<0?-dy:dy)); 
+    g_Ball.PassTotalDist = (u16)((dx<0?-dx:dx) + (dy<0?-dy:dy));
+
+    PlayAyFx(AYFX_BALL);
 }
 // +++ Check offside position +++
 bool IsOffside(u8 playerId) {

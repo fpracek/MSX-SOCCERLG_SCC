@@ -338,13 +338,13 @@ _TickPlayerToOwnTarget_s_GkMoveTick_131072_1285:
 	.area _GSINIT
 	.area _GSFINAL
 	.area _GSINIT
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:191: static u16 s_SafetyTimeout = 0;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:193: static u16 s_SafetyTimeout = 0;
 	ld	hl, #0x0000
 	ld	(_TickGoalKick_s_SafetyTimeout_65537_1229), hl
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:192: static bool s_SetupDone = false;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:194: static bool s_SetupDone = false;
 	ld	iy, #_TickGoalKick_s_SetupDone_65537_1229
 	ld	0 (iy), #0x00
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:485: static u8 s_GkMoveTick = 0;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:487: static u8 s_GkMoveTick = 0;
 	ld	iy, #_TickPlayerToOwnTarget_s_GkMoveTick_131072_1285
 	ld	0 (iy), #0x00
 ;--------------------------------------------------------
@@ -1100,7 +1100,7 @@ _PerformPass::
 	ld	a, d
 	sbc	a, h
 	ld	d, a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:148: g_Ball.PassTotalDist = (u16)((dx<0?-dx:dx) + (dy<0?-dy:dy)); 
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:148: g_Ball.PassTotalDist = (u16)((dx<0?-dx:dx) + (dy<0?-dy:dy));
 ;	spillPairReg hl
 ;	spillPairReg hl
 	ld	h, b
@@ -1133,12 +1133,15 @@ _PerformPass::
 	add	hl, bc
 	ex	de, hl
 	ld	((_g_Ball + 21)), de
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:150: PlayAyFx(AYFX_BALL);
+	ld	a, #0x05
+	call	_PlayAyFx
 00155$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:149: }
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:151: }
 	ld	sp, ix
 	pop	ix
 	ret
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:151: bool IsOffside(u8 playerId) {
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:153: bool IsOffside(u8 playerId) {
 ;	---------------------------------
 ; Function IsOffside
 ; ---------------------------------
@@ -1150,7 +1153,7 @@ _IsOffside::
 	add	hl, sp
 	ld	sp, hl
 	ld	c, a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:152: u8 teamId = g_Players[playerId].TeamId;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:154: u8 teamId = g_Players[playerId].TeamId;
 	ld	b, #0x00
 	ld	l, c
 	ld	h, b
@@ -1168,15 +1171,15 @@ _IsOffside::
 	pop	iy
 	ld	a, 9 (iy)
 	ld	-7 (ix), a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:153: u16 playerY = g_Players[playerId].Y;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:155: u16 playerY = g_Players[playerId].Y;
 	ld	a, (de)
 	ld	-6 (ix), a
 	inc	de
 	ld	a, (de)
 	ld	-5 (ix), a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:154: u8 opponentCount = 0;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:156: u8 opponentCount = 0;
 	ld	-1 (ix), #0x00
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:158: if (teamId == TEAM_1) {
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:160: if (teamId == TEAM_1) {
 	ld	a, -7 (ix)
 	dec	a
 	ld	a, #0x01
@@ -1184,16 +1187,16 @@ _IsOffside::
 	xor	a, a
 00198$:
 	ld	-4 (ix), a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:159: if (playerY >= FIELD_POS_Y_CENTER) return FALSE; // Own half
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:161: if (playerY >= FIELD_POS_Y_CENTER) return FALSE; // Own half
 	ld	a, -6 (ix)
 	ld	-3 (ix), a
 	ld	a, -5 (ix)
 	ld	-2 (ix), a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:158: if (teamId == TEAM_1) {
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:160: if (teamId == TEAM_1) {
 	ld	a, -4 (ix)
 	or	a, a
 	jr	Z, 00106$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:159: if (playerY >= FIELD_POS_Y_CENTER) return FALSE; // Own half
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:161: if (playerY >= FIELD_POS_Y_CENTER) return FALSE; // Own half
 	ld	a, -3 (ix)
 	sub	a, #0xf3
 	ld	a, -2 (ix)
@@ -1202,7 +1205,7 @@ _IsOffside::
 	xor	a, a
 	jp	00129$
 00106$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:161: if (playerY <= FIELD_POS_Y_CENTER) return FALSE; // Own half
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:163: if (playerY <= FIELD_POS_Y_CENTER) return FALSE; // Own half
 	ld	a, #0xf3
 	cp	a, -3 (ix)
 	ld	a, #0x00
@@ -1211,11 +1214,11 @@ _IsOffside::
 	xor	a, a
 	jp	00129$
 00107$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:166: if (teamId == TEAM_1) {
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:168: if (teamId == TEAM_1) {
 	ld	a, -4 (ix)
 	or	a, a
 	jr	Z, 00113$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:167: if (playerY >= g_Ball.Y) return FALSE; 
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:169: if (playerY >= g_Ball.Y) return FALSE; 
 	ld	hl, (#_g_Ball + 0)
 	ld	a, -6 (ix)
 	sub	a, l
@@ -1225,7 +1228,7 @@ _IsOffside::
 	xor	a, a
 	jp	00129$
 00113$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:169: if (playerY <= g_Ball.Y) return FALSE;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:171: if (playerY <= g_Ball.Y) return FALSE;
 	ld	hl, (#_g_Ball + 0)
 	ld	a, l
 	sub	a, -6 (ix)
@@ -1234,11 +1237,11 @@ _IsOffside::
 	jr	C, 00141$
 	xor	a, a
 	jp	00129$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:173: for (i = 0; i < 14; i++) {
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:175: for (i = 0; i < 14; i++) {
 00141$:
 	ld	c, #0x00
 00128$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:174: if (g_Players[i].TeamId == teamId) continue;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:176: if (g_Players[i].TeamId == teamId) continue;
 	ld	b, #0x00
 	ld	l, c
 	ld	h, b
@@ -1263,16 +1266,16 @@ _IsOffside::
 	ld	a,-7 (ix)
 	sub	a,(hl)
 	jr	Z, 00124$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:178: if (g_Players[i].Y <= playerY) opponentCount++;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:180: if (g_Players[i].Y <= playerY) opponentCount++;
 	ex	de,hl
 	ld	e, (hl)
 	inc	hl
 	ld	d, (hl)
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:177: if (teamId == TEAM_1) { // Attacking UP
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:179: if (teamId == TEAM_1) { // Attacking UP
 	ld	a, -4 (ix)
 	or	a, a
 	jr	Z, 00122$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:178: if (g_Players[i].Y <= playerY) opponentCount++;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:180: if (g_Players[i].Y <= playerY) opponentCount++;
 	ld	a, -6 (ix)
 	sub	a, e
 	ld	a, -5 (ix)
@@ -1281,7 +1284,7 @@ _IsOffside::
 	inc	-1 (ix)
 	jp	00124$
 00122$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:180: if (g_Players[i].Y >= playerY) opponentCount++;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:182: if (g_Players[i].Y >= playerY) opponentCount++;
 	ld	a, e
 	sub	a, -6 (ix)
 	ld	a, d
@@ -1289,26 +1292,26 @@ _IsOffside::
 	jr	C, 00124$
 	inc	-1 (ix)
 00124$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:173: for (i = 0; i < 14; i++) {
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:175: for (i = 0; i < 14; i++) {
 	inc	c
 	ld	a, c
 	sub	a, #0x0e
 	jr	C, 00128$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:184: if (opponentCount < 2) return TRUE;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:186: if (opponentCount < 2) return TRUE;
 	ld	a, -1 (ix)
 	sub	a, #0x02
 	jr	NC, 00127$
 	ld	a, #0x01
 	jp	00129$
 00127$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:185: return FALSE;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:187: return FALSE;
 	xor	a, a
 00129$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:186: }
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:188: }
 	ld	sp, ix
 	pop	ix
 	ret
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:188: void TickGoalKick() {
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:190: void TickGoalKick() {
 ;	---------------------------------
 ; Function TickGoalKick
 ; ---------------------------------
@@ -1319,11 +1322,11 @@ _TickGoalKick::
 	ld	hl, #-10
 	add	hl, sp
 	ld	sp, hl
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:189: if (g_MatchStatus != MATCH_BEFORE_GOAL_KICK) return;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:191: if (g_MatchStatus != MATCH_BEFORE_GOAL_KICK) return;
 	ld	a, (_g_MatchStatus+0)
 	sub	a, #0x05
 	jp	NZ,00244$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:196: if (g_RestartKickTeamId == TEAM_1) gkId = CallFnc_U8_P2(4,GetPlayerIdByRole,TEAM_1, PLAYER_ROLE_GOALKEEPER);
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:198: if (g_RestartKickTeamId == TEAM_1) gkId = CallFnc_U8_P2(4,GetPlayerIdByRole,TEAM_1, PLAYER_ROLE_GOALKEEPER);
 	ld	a, (_g_RestartKickTeamId+0)
 	dec	a
 	jr	NZ, 00104$
@@ -1335,7 +1338,7 @@ _TickGoalKick::
 	ld	-10 (ix), a
 	jp	00105$
 00104$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:197: else gkId = CallFnc_U8_P2(4,GetPlayerIdByRole,TEAM_2, PLAYER_ROLE_GOALKEEPER);
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:199: else gkId = CallFnc_U8_P2(4,GetPlayerIdByRole,TEAM_2, PLAYER_ROLE_GOALKEEPER);
 	ld	hl, #0x02
 	push	hl
 	ld	de, #_GetPlayerIdByRole
@@ -1343,83 +1346,83 @@ _TickGoalKick::
 	call	_CallFnc_U8_P2
 	ld	-10 (ix), a
 00105$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:199: if (gkId == NO_VALUE) return; 
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:201: if (gkId == NO_VALUE) return; 
 	ld	a, -10 (ix)
 	inc	a
 	jp	Z,00244$
 	jp	00107$
 00107$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:202: if (g_Timer < 10) {
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:204: if (g_Timer < 10) {
 	ld	a, (_g_Timer+0)
 	sub	a, #0x0a
 	jr	NC, 00109$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:203: s_SetupDone = false;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:205: s_SetupDone = false;
 	ld	hl, #_TickGoalKick_s_SetupDone_65537_1229
 	ld	(hl), #0x00
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:204: s_SafetyTimeout = 0;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:206: s_SafetyTimeout = 0;
 	ld	hl, #0x0000
 	ld	(_TickGoalKick_s_SafetyTimeout_65537_1229), hl
 00109$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:208: if (g_Timer < 60) {
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:210: if (g_Timer < 60) {
 	ld	a, (_g_Timer+0)
 	sub	a, #0x3c
 	jr	NC, 00111$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:209: g_Timer++;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:211: g_Timer++;
 	ld	hl, #_g_Timer
 	inc	(hl)
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:210: return;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:212: return;
 	jp	00244$
 00111$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:212: g_Ball.Size = 1;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:214: g_Ball.Size = 1;
 	ld	hl, #(_g_Ball + 4)
 	ld	(hl), #0x01
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:214: if (!s_SetupDone) {
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:216: if (!s_SetupDone) {
 	ld	a, (_TickGoalKick_s_SetupDone_65537_1229+0)
 	or	a, a
 	jp	NZ, 00177$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:215: s_SetupDone = true;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:217: s_SetupDone = true;
 	ld	hl, #_TickGoalKick_s_SetupDone_65537_1229
 	ld	(hl), #0x01
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:216: s_SafetyTimeout = 0;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:218: s_SafetyTimeout = 0;
 	ld	hl, #0x0000
 	ld	(_TickGoalKick_s_SafetyTimeout_65537_1229), hl
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:219: if (g_GoalKickSide == CORNER_SIDE_LEFT) targetX = GK_BOX_X_MIN;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:221: if (g_GoalKickSide == CORNER_SIDE_LEFT) targetX = GK_BOX_X_MIN;
 	ld	a, (_g_GoalKickSide+0)
 	or	a, a
 	jr	NZ, 00113$
 	ld	bc, #0x0050
 	jp	00114$
 00113$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:220: else targetX = GK_BOX_X_MAX;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:222: else targetX = GK_BOX_X_MAX;
 	ld	bc, #0x00a0
 00114$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:223: if (g_RestartKickTeamId == TEAM_1) { // Bottom Goal
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:225: if (g_RestartKickTeamId == TEAM_1) { // Bottom Goal
 	ld	a, (_g_RestartKickTeamId+0)
 	dec	a
 	jr	NZ, 00116$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:224: ballY = GK_BOX_Y_BOTTOM_MIN; 
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:226: ballY = GK_BOX_Y_BOTTOM_MIN; 
 	ld	de, #0x0195
 	jp	00117$
 00116$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:226: ballY = GK_BOX_Y_TOP_MAX; 
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:228: ballY = GK_BOX_Y_TOP_MAX; 
 	ld	de, #0x004b
 00117$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:230: g_Ball.X = targetX;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:232: g_Ball.X = targetX;
 	ld	((_g_Ball + 2)), bc
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:231: g_Ball.Y = ballY;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:233: g_Ball.Y = ballY;
 	ld	(_g_Ball), de
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:232: g_Ball.PossessionPlayerId = NO_VALUE;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:234: g_Ball.PossessionPlayerId = NO_VALUE;
 	ld	hl, #(_g_Ball + 6)
 	ld	(hl), #0xff
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:237: runStartY = ballY + 32; 
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:236: if (g_RestartKickTeamId == TEAM_1) {
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:239: runStartY = ballY + 32; 
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:238: if (g_RestartKickTeamId == TEAM_1) {
 	ld	a, (_g_RestartKickTeamId+0)
 	dec	a
 	jr	NZ, 00123$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:237: runStartY = ballY + 32; 
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:239: runStartY = ballY + 32; 
 	ld	hl, #0x0020
 	add	hl, de
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:238: if(runStartY > FIELD_BOUND_Y_BOTTOM) runStartY = FIELD_BOUND_Y_BOTTOM;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:240: if(runStartY > FIELD_BOUND_Y_BOTTOM) runStartY = FIELD_BOUND_Y_BOTTOM;
 	ld	-2 (ix), l
 	ld	-1 (ix), h
 	ex	de,hl
@@ -1432,13 +1435,13 @@ _TickGoalKick::
 	ld	-1 (ix), #0x01
 	jp	00124$
 00123$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:240: runStartY = ballY - 32;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:242: runStartY = ballY - 32;
 	ld	a, e
 	add	a, #0xe0
 	ld	e, a
 	ld	a, d
 	adc	a, #0xff
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:241: if(runStartY < FIELD_BOUND_Y_TOP) runStartY = FIELD_BOUND_Y_TOP;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:243: if(runStartY < FIELD_BOUND_Y_TOP) runStartY = FIELD_BOUND_Y_TOP;
 	ld	-2 (ix), e
 	ld	-1 (ix), a
 	ld	d, a
@@ -1450,7 +1453,7 @@ _TickGoalKick::
 	ld	-2 (ix), #0x32
 	ld	-1 (ix), #0
 00124$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:244: g_Players[gkId].TargetX = targetX;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:246: g_Players[gkId].TargetX = targetX;
 	ld	e, -10 (ix)
 	ld	d, #0x00
 	ld	l, e
@@ -1470,7 +1473,7 @@ _TickGoalKick::
 	ld	(hl), c
 	inc	hl
 	ld	(hl), b
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:245: g_Players[gkId].TargetY = runStartY;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:247: g_Players[gkId].TargetY = runStartY;
 	ld	hl, #0x000e
 	add	hl, de
 	ld	a, -2 (ix)
@@ -1478,14 +1481,14 @@ _TickGoalKick::
 	inc	hl
 	ld	a, -1 (ix)
 	ld	(hl), a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:246: g_Players[gkId].Status = PLAYER_STATUS_NONE; 
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:248: g_Players[gkId].Status = PLAYER_STATUS_NONE; 
 	ld	hl, #0x0012
 	add	hl, de
 	xor	a, a
 	ld	(hl), a
 	inc	hl
 	ld	(hl), a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:248: if (g_RestartKickTeamId == TEAM_1) g_Players[gkId].Direction = DIRECTION_UP;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:250: if (g_RestartKickTeamId == TEAM_1) g_Players[gkId].Direction = DIRECTION_UP;
 	ld	hl, #0x000a
 	add	hl, de
 	ld	a, (_g_RestartKickTeamId+0)
@@ -1494,10 +1497,10 @@ _TickGoalKick::
 	ld	(hl), #0x01
 	jp	00127$
 00126$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:249: else g_Players[gkId].Direction = DIRECTION_DOWN;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:251: else g_Players[gkId].Direction = DIRECTION_DOWN;
 	ld	(hl), #0x05
 00127$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:251: if (g_RestartKickTeamId == TEAM_1) g_FieldScrollingActionInProgress=FIELD_SOUTH_ZONE;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:253: if (g_RestartKickTeamId == TEAM_1) g_FieldScrollingActionInProgress=FIELD_SOUTH_ZONE;
 	ld	a, (_g_RestartKickTeamId+0)
 	dec	a
 	jr	NZ, 00129$
@@ -1505,21 +1508,21 @@ _TickGoalKick::
 	ld	(#_g_FieldScrollingActionInProgress), a
 	jp	00287$
 00129$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:252: else g_FieldScrollingActionInProgress=FIELD_NORTH_ZONE;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:254: else g_FieldScrollingActionInProgress=FIELD_NORTH_ZONE;
 	xor	a, a
 	ld	(#_g_FieldScrollingActionInProgress), a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:255: for(u8 i=0; i<14; i++){
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:257: for(u8 i=0; i<14; i++){
 00287$:
 	ld	-1 (ix), #0x00
 00241$:
 	ld	a, -1 (ix)
 	sub	a, #0x0e
 	jp	NC, 00177$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:256: if(i == gkId) continue;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:258: if(i == gkId) continue;
 	ld	a, -10 (ix)
 	sub	a, -1 (ix)
 	jp	Z,00174$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:257: if(g_Players[i].TeamId == REFEREE) continue;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:259: if(g_Players[i].TeamId == REFEREE) continue;
 	ld	c, -1 (ix)
 	ld	b, #0x00
 	ld	l, c
@@ -1541,7 +1544,7 @@ _TickGoalKick::
 	ld	a, 0 (iy)
 	sub	a, #0x0e
 	jp	Z,00174$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:258: if(g_Players[i].Role == PLAYER_ROLE_GOALKEEPER) continue;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:260: if(g_Players[i].Role == PLAYER_ROLE_GOALKEEPER) continue;
 	ld	a, -9 (ix)
 	add	a, #0x0d
 	ld	e, a
@@ -1551,7 +1554,7 @@ _TickGoalKick::
 	ld	a, (de)
 	or	a, a
 	jp	Z, 00174$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:261: g_Players[i].Status = PLAYER_STATUS_NONE;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:263: g_Players[i].Status = PLAYER_STATUS_NONE;
 	ld	l, -9 (ix)
 	ld	h, -8 (ix)
 	ld	bc, #0x0012
@@ -1560,7 +1563,7 @@ _TickGoalKick::
 	ld	(hl), a
 	inc	hl
 	ld	(hl), a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:264: u16 targetX = g_Players[i].X;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:266: u16 targetX = g_Players[i].X;
 	ld	l, -9 (ix)
 ;	spillPairReg hl
 ;	spillPairReg hl
@@ -1574,11 +1577,11 @@ _TickGoalKick::
 	inc	hl
 	ld	a, (hl)
 	ld	-6 (ix), a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:257: if(g_Players[i].TeamId == REFEREE) continue;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:259: if(g_Players[i].TeamId == REFEREE) continue;
 	ld	c, 0 (iy)
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:258: if(g_Players[i].Role == PLAYER_ROLE_GOALKEEPER) continue;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:260: if(g_Players[i].Role == PLAYER_ROLE_GOALKEEPER) continue;
 	ld	a, (de)
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:271: if (g_Players[i].Role == PLAYER_ROLE_LEFT_STRIKER || g_Players[i].Role == PLAYER_ROLE_RIGHT_STRIKER) targetY = 200;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:273: if (g_Players[i].Role == PLAYER_ROLE_LEFT_STRIKER || g_Players[i].Role == PLAYER_ROLE_RIGHT_STRIKER) targetY = 200;
 	ld	-5 (ix), a
 	sub	a, #0x05
 	ld	a, #0x01
@@ -1586,7 +1589,7 @@ _TickGoalKick::
 	xor	a, a
 00583$:
 	ld	e, a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:272: if (g_Players[i].Role == PLAYER_ROLE_LEFT_DEFENDER || g_Players[i].Role == PLAYER_ROLE_RIGHT_DEFENDER) targetY = 320; // Defenders move out of box (Safe < 350)
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:274: if (g_Players[i].Role == PLAYER_ROLE_LEFT_DEFENDER || g_Players[i].Role == PLAYER_ROLE_RIGHT_DEFENDER) targetY = 320; // Defenders move out of box (Safe < 350)
 	ld	a, -5 (ix)
 	dec	a
 	ld	a, #0x01
@@ -1594,17 +1597,17 @@ _TickGoalKick::
 	xor	a, a
 00585$:
 	ld	-4 (ix), a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:266: if (g_RestartKickTeamId == TEAM_1) {
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:268: if (g_RestartKickTeamId == TEAM_1) {
 	ld	a, (_g_RestartKickTeamId+0)
 	dec	a
 	jr	NZ, 00168$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:268: if(g_Players[i].TeamId == TEAM_1) {
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:270: if(g_Players[i].TeamId == TEAM_1) {
 	dec	c
 	jr	NZ, 00150$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:270: targetY = 260; // Midfielders (Closer to center)
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:272: targetY = 260; // Midfielders (Closer to center)
 	ld	-3 (ix), #0x04
 	ld	-2 (ix), #0x01
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:271: if (g_Players[i].Role == PLAYER_ROLE_LEFT_STRIKER || g_Players[i].Role == PLAYER_ROLE_RIGHT_STRIKER) targetY = 200;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:273: if (g_Players[i].Role == PLAYER_ROLE_LEFT_STRIKER || g_Players[i].Role == PLAYER_ROLE_RIGHT_STRIKER) targetY = 200;
 	ld	a, e
 	or	a, a
 	jr	NZ, 00137$
@@ -1615,7 +1618,7 @@ _TickGoalKick::
 	ld	-3 (ix), #0xc8
 	ld	-2 (ix), #0
 00138$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:272: if (g_Players[i].Role == PLAYER_ROLE_LEFT_DEFENDER || g_Players[i].Role == PLAYER_ROLE_RIGHT_DEFENDER) targetY = 320; // Defenders move out of box (Safe < 350)
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:274: if (g_Players[i].Role == PLAYER_ROLE_LEFT_DEFENDER || g_Players[i].Role == PLAYER_ROLE_RIGHT_DEFENDER) targetY = 320; // Defenders move out of box (Safe < 350)
 	ld	a, -4 (ix)
 	or	a, a
 	jr	NZ, 00140$
@@ -1627,10 +1630,10 @@ _TickGoalKick::
 	ld	-2 (ix), #0x01
 	jp	00169$
 00150$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:274: targetY = 250;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:276: targetY = 250;
 	ld	-3 (ix), #0xfa
 	ld	-2 (ix), #0
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:275: if (g_Players[i].Role == PLAYER_ROLE_LEFT_STRIKER || g_Players[i].Role == PLAYER_ROLE_RIGHT_STRIKER) targetY = 240; // Keep distance (Safer < 250)
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:277: if (g_Players[i].Role == PLAYER_ROLE_LEFT_STRIKER || g_Players[i].Role == PLAYER_ROLE_RIGHT_STRIKER) targetY = 240; // Keep distance (Safer < 250)
 	ld	a, e
 	or	a, a
 	jr	NZ, 00143$
@@ -1641,7 +1644,7 @@ _TickGoalKick::
 	ld	-3 (ix), #0xf0
 	ld	-2 (ix), #0
 00144$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:276: if (g_Players[i].Role == PLAYER_ROLE_LEFT_DEFENDER || g_Players[i].Role == PLAYER_ROLE_RIGHT_DEFENDER) targetY = 150;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:278: if (g_Players[i].Role == PLAYER_ROLE_LEFT_DEFENDER || g_Players[i].Role == PLAYER_ROLE_RIGHT_DEFENDER) targetY = 150;
 	ld	a, -4 (ix)
 	or	a, a
 	jr	NZ, 00146$
@@ -1653,14 +1656,14 @@ _TickGoalKick::
 	ld	-2 (ix), #0
 	jp	00169$
 00168$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:280: if(g_Players[i].TeamId == TEAM_2) {
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:282: if(g_Players[i].TeamId == TEAM_2) {
 	ld	a, c
 	sub	a, #0x02
 	jr	NZ, 00165$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:282: targetY = 220; // Midfielders (Closer to center)
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:284: targetY = 220; // Midfielders (Closer to center)
 	ld	-3 (ix), #0xdc
 	ld	-2 (ix), #0
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:283: if (g_Players[i].Role == PLAYER_ROLE_LEFT_STRIKER || g_Players[i].Role == PLAYER_ROLE_RIGHT_STRIKER) targetY = 250;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:285: if (g_Players[i].Role == PLAYER_ROLE_LEFT_STRIKER || g_Players[i].Role == PLAYER_ROLE_RIGHT_STRIKER) targetY = 250;
 	ld	a, e
 	or	a, a
 	jr	NZ, 00152$
@@ -1671,7 +1674,7 @@ _TickGoalKick::
 	ld	-3 (ix), #0xfa
 	ld	-2 (ix), #0
 00153$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:284: if (g_Players[i].Role == PLAYER_ROLE_LEFT_DEFENDER || g_Players[i].Role == PLAYER_ROLE_RIGHT_DEFENDER) targetY = 160; // Defenders move out of box (Safe > 130)
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:286: if (g_Players[i].Role == PLAYER_ROLE_LEFT_DEFENDER || g_Players[i].Role == PLAYER_ROLE_RIGHT_DEFENDER) targetY = 160; // Defenders move out of box (Safe > 130)
 	ld	a, -4 (ix)
 	or	a, a
 	jr	NZ, 00155$
@@ -1683,10 +1686,10 @@ _TickGoalKick::
 	ld	-2 (ix), #0
 	jp	00169$
 00165$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:286: targetY = 240; // Keep distance (Safer > 230)
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:288: targetY = 240; // Keep distance (Safer > 230)
 	ld	-3 (ix), #0xf0
 	ld	-2 (ix), #0
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:287: if (g_Players[i].Role == PLAYER_ROLE_LEFT_STRIKER || g_Players[i].Role == PLAYER_ROLE_RIGHT_STRIKER) targetY = 240; // Keep distance
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:289: if (g_Players[i].Role == PLAYER_ROLE_LEFT_STRIKER || g_Players[i].Role == PLAYER_ROLE_RIGHT_STRIKER) targetY = 240; // Keep distance
 	ld	a, e
 	or	a, a
 	jr	NZ, 00158$
@@ -1697,7 +1700,7 @@ _TickGoalKick::
 	ld	-3 (ix), #0xf0
 	ld	-2 (ix), #0
 00159$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:288: if (g_Players[i].Role == PLAYER_ROLE_LEFT_DEFENDER || g_Players[i].Role == PLAYER_ROLE_RIGHT_DEFENDER) targetY = 300;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:290: if (g_Players[i].Role == PLAYER_ROLE_LEFT_DEFENDER || g_Players[i].Role == PLAYER_ROLE_RIGHT_DEFENDER) targetY = 300;
 	ld	a, -4 (ix)
 	or	a, a
 	jr	NZ, 00161$
@@ -1708,7 +1711,7 @@ _TickGoalKick::
 	ld	-3 (ix), #0x2c
 	ld	-2 (ix), #0x01
 00169$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:293: if (targetX < 30) targetX = 30;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:295: if (targetX < 30) targetX = 30;
 	ld	a, -7 (ix)
 	ld	b, -6 (ix)
 	sub	a, #0x1e
@@ -1718,7 +1721,7 @@ _TickGoalKick::
 	ld	-7 (ix), #0x1e
 	ld	-6 (ix), #0
 00171$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:294: if (targetX > 220) targetX = 220;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:296: if (targetX > 220) targetX = 220;
 	ld	c, -7 (ix)
 	ld	b, -6 (ix)
 	ld	a, #0xdc
@@ -1729,7 +1732,7 @@ _TickGoalKick::
 	ld	-7 (ix), #0xdc
 	ld	-6 (ix), #0
 00173$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:296: g_Players[i].TargetX = targetX;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:298: g_Players[i].TargetX = targetX;
 	ld	l, -9 (ix)
 	ld	h, -8 (ix)
 	ld	de, #0x0010
@@ -1739,7 +1742,7 @@ _TickGoalKick::
 	inc	hl
 	ld	a, -6 (ix)
 	ld	(hl), a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:297: g_Players[i].TargetY = targetY;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:299: g_Players[i].TargetY = targetY;
 	ld	l, -9 (ix)
 	ld	h, -8 (ix)
 	ld	de, #0x000e
@@ -1750,45 +1753,45 @@ _TickGoalKick::
 	ld	a, -2 (ix)
 	ld	(hl), a
 00174$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:255: for(u8 i=0; i<14; i++){
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:257: for(u8 i=0; i<14; i++){
 	inc	-1 (ix)
 	jp	00241$
 00177$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:302: if (g_Timer >= 60 && g_Timer < 115) {
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:304: if (g_Timer >= 60 && g_Timer < 115) {
 	ld	a,(_g_Timer+0)
 	cp	a,#0x3c
 	jr	C, 00185$
 	sub	a, #0x73
 	jr	NC, 00185$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:304: if (g_RestartKickTeamId == TEAM_1) ballY = GK_BOX_Y_BOTTOM_MIN; 
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:306: if (g_RestartKickTeamId == TEAM_1) ballY = GK_BOX_Y_BOTTOM_MIN; 
 	ld	a, (_g_RestartKickTeamId+0)
 	dec	a
 	jr	NZ, 00179$
 	ld	bc, #0x0195
 	jp	00180$
 00179$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:305: else ballY = GK_BOX_Y_TOP_MAX;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:307: else ballY = GK_BOX_Y_TOP_MAX;
 	ld	bc, #0x004b
 00180$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:308: if (g_GoalKickSide == CORNER_SIDE_LEFT) targetX = GK_BOX_X_MIN;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:310: if (g_GoalKickSide == CORNER_SIDE_LEFT) targetX = GK_BOX_X_MIN;
 	ld	a, (_g_GoalKickSide+0)
 	or	a, a
 	jr	NZ, 00182$
 	ld	de, #0x0050
 	jp	00183$
 00182$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:309: else targetX = GK_BOX_X_MAX;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:311: else targetX = GK_BOX_X_MAX;
 	ld	de, #0x00a0
 00183$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:311: g_Ball.X = targetX;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:313: g_Ball.X = targetX;
 	ld	((_g_Ball + 2)), de
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:312: g_Ball.Y = ballY;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:314: g_Ball.Y = ballY;
 	ld	(_g_Ball), bc
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:313: g_Ball.PossessionPlayerId = NO_VALUE; // Ensure no one grabs it
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:315: g_Ball.PossessionPlayerId = NO_VALUE; // Ensure no one grabs it
 	ld	hl, #(_g_Ball + 6)
 	ld	(hl), #0xff
 00185$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:317: i16 dx = (i16)g_Players[gkId].X - (i16)g_Players[gkId].TargetX;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:319: i16 dx = (i16)g_Players[gkId].X - (i16)g_Players[gkId].TargetX;
 	ld	c, -10 (ix)
 	ld	b, #0x00
 	ld	l, c
@@ -1830,7 +1833,7 @@ _TickGoalKick::
 	ld	b, a
 	ld	-4 (ix), c
 	ld	-3 (ix), b
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:318: i16 dy = (i16)g_Players[gkId].Y - (i16)g_Players[gkId].TargetY;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:320: i16 dy = (i16)g_Players[gkId].Y - (i16)g_Players[gkId].TargetY;
 	ld	l, e
 	ld	h, d
 	ld	c, (hl)
@@ -1853,7 +1856,7 @@ _TickGoalKick::
 	ld	a, b
 	sbc	a, h
 	ld	b, a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:320: bool arrived = (dx >= -4 && dx <= 4 && dy >= -4 && dy <= 4);
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:322: bool arrived = (dx >= -4 && dx <= 4 && dy >= -4 && dy <= 4);
 	ld	a, -4 (ix)
 	sub	a, #0xfc
 	ld	a, -3 (ix)
@@ -1898,10 +1901,10 @@ _TickGoalKick::
 00247$:
 	ld	a, #0x01
 00248$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:322: if (arrived) {
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:324: if (arrived) {
 	or	a, a
 	jp	Z, 00238$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:323: g_Players[gkId].X = g_Players[gkId].TargetX;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:325: g_Players[gkId].X = g_Players[gkId].TargetX;
 	pop	bc
 	pop	hl
 	push	hl
@@ -1911,7 +1914,7 @@ _TickGoalKick::
 	inc	hl
 	ld	a, -5 (ix)
 	ld	(hl), a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:324: g_Players[gkId].Y = g_Players[gkId].TargetY;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:326: g_Players[gkId].Y = g_Players[gkId].TargetY;
 	ld	l, -2 (ix)
 	ld	h, -1 (ix)
 	ld	c, (hl)
@@ -1922,7 +1925,7 @@ _TickGoalKick::
 	ld	(hl), c
 	inc	hl
 	ld	(hl), b
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:326: if (g_RestartKickTeamId == TEAM_1) g_Players[gkId].Direction = DIRECTION_UP;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:328: if (g_RestartKickTeamId == TEAM_1) g_Players[gkId].Direction = DIRECTION_UP;
 	ld	hl, #0x000a
 	add	hl, de
 	ld	c, l
@@ -1934,11 +1937,11 @@ _TickGoalKick::
 	ld	(bc), a
 	jp	00189$
 00188$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:327: else g_Players[gkId].Direction = DIRECTION_DOWN;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:329: else g_Players[gkId].Direction = DIRECTION_DOWN;
 	ld	a, #0x05
 	ld	(bc), a
 00189$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:328: g_Players[gkId].PatternId = CallFnc_U8_P1(8,GetNoMovingPlayerPatternId,g_Players[gkId].Direction);
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:330: g_Players[gkId].PatternId = CallFnc_U8_P1(8,GetNoMovingPlayerPatternId,g_Players[gkId].Direction);
 	ld	hl, #0x0008
 	add	hl, de
 	ld	a, (bc)
@@ -1952,7 +1955,7 @@ _TickGoalKick::
 	pop	de
 	pop	hl
 	ld	(hl), a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:329: g_Players[gkId].Status = PLAYER_STATUS_POSITIONED;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:331: g_Players[gkId].Status = PLAYER_STATUS_POSITIONED;
 	ld	hl, #0x0012
 	add	hl, de
 	ld	c,l
@@ -1960,12 +1963,12 @@ _TickGoalKick::
 	ld	(hl), #0x04
 	inc	hl
 	ld	(hl), #0x00
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:318: i16 dy = (i16)g_Players[gkId].Y - (i16)g_Players[gkId].TargetY;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:320: i16 dy = (i16)g_Players[gkId].Y - (i16)g_Players[gkId].TargetY;
 	ex	de,hl
 	ld	e, (hl)
 	inc	hl
 	ld	d, (hl)
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:332: u16 distY = (g_Players[gkId].Y > g_Ball.Y) ? (g_Players[gkId].Y - g_Ball.Y) : (g_Ball.Y - g_Players[gkId].Y);
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:334: u16 distY = (g_Players[gkId].Y > g_Ball.Y) ? (g_Players[gkId].Y - g_Ball.Y) : (g_Ball.Y - g_Players[gkId].Y);
 	ld	hl, #_g_Ball
 	ld	a, (hl)
 	ld	-4 (ix), a
@@ -1990,26 +1993,26 @@ _TickGoalKick::
 	ld	a, -3 (ix)
 	sbc	a, d
 00256$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:334: if (distY > 16) {
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:336: if (distY > 16) {
 	ld	d, a
 	ld	a, #0x10
 	cp	a, e
 	ld	a, #0x00
 	sbc	a, d
 	jp	NC, 00232$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:338: bool areaSafe = true;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:340: bool areaSafe = true;
 	ld	e, #0x01
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:339: for(u8 i=0; i<14; i++) {
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:341: for(u8 i=0; i<14; i++) {
 	ld	-3 (ix), #0x00
 00243$:
 	ld	a, -3 (ix)
 	sub	a, #0x0e
 	jp	NC, 00214$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:340: if (i == gkId) continue;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:342: if (i == gkId) continue;
 	ld	a, -10 (ix)
 	sub	a, -3 (ix)
 	jp	Z,00213$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:341: if (g_Players[i].TeamId == REFEREE) continue;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:343: if (g_Players[i].TeamId == REFEREE) continue;
 	push	de
 	ld	e, -3 (ix)
 	ld	d, #0x00
@@ -2038,16 +2041,16 @@ _TickGoalKick::
 	ld	a, d
 	sub	a, #0x0e
 	jr	Z, 00213$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:343: u16 py = g_Players[i].Y;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:345: u16 py = g_Players[i].Y;
 	ld	a, 0 (iy)
 	ld	-5 (ix), a
 	ld	a, 1 (iy)
 	ld	-4 (ix), a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:345: if (g_RestartKickTeamId == TEAM_1) { // Bottom Goal (Y=430)
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:347: if (g_RestartKickTeamId == TEAM_1) { // Bottom Goal (Y=430)
 	ld	a, (_g_RestartKickTeamId+0)
 	dec	a
 	jr	NZ, 00209$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:347: if (g_Players[i].TeamId == TEAM_1 && py > 350) areaSafe = false;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:349: if (g_Players[i].TeamId == TEAM_1 && py > 350) areaSafe = false;
 	dec	d
 	ld	a, #0x01
 	jr	Z, 00619$
@@ -2070,7 +2073,7 @@ _TickGoalKick::
 	ld	e, #0x00
 	jp	00210$
 00198$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:348: else if (g_Players[i].TeamId != TEAM_1 && py > 280) areaSafe = false; // Relaxed to 280
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:350: else if (g_Players[i].TeamId != TEAM_1 && py > 280) areaSafe = false; // Relaxed to 280
 	bit	0, d
 	jr	NZ, 00210$
 	ld	d, -5 (ix)
@@ -2085,7 +2088,7 @@ _TickGoalKick::
 	ld	e, #0x00
 	jp	00210$
 00209$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:351: if (g_Players[i].TeamId == TEAM_2 && py < 130) areaSafe = false;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:353: if (g_Players[i].TeamId == TEAM_2 && py < 130) areaSafe = false;
 	ld	a, d
 	sub	a, #0x02
 	ld	a, #0x01
@@ -2108,7 +2111,7 @@ _TickGoalKick::
 	ld	e, #0x00
 	jp	00210$
 00205$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:352: else if (g_Players[i].TeamId != TEAM_2 && py < 200) areaSafe = false; // Relaxed to 200
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:354: else if (g_Players[i].TeamId != TEAM_2 && py < 200) areaSafe = false; // Relaxed to 200
 	bit	0, d
 	jr	NZ, 00210$
 	ld	d, -5 (ix)
@@ -2122,40 +2125,40 @@ _TickGoalKick::
 	jr	NC, 00210$
 	ld	e, #0x00
 00210$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:354: if (!areaSafe) break;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:356: if (!areaSafe) break;
 	ld	a, e
 	or	a, a
 	jr	Z, 00214$
 00213$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:339: for(u8 i=0; i<14; i++) {
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:341: for(u8 i=0; i<14; i++) {
 	inc	-3 (ix)
 	jp	00243$
 00214$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:357: if (areaSafe) {
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:359: if (areaSafe) {
 	ld	a, e
 	or	a, a
 	jr	Z, 00222$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:358: g_Timer++;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:360: g_Timer++;
 	ld	hl, #_g_Timer
 	inc	(hl)
 	jp	00223$
 00222$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:360: s_SafetyTimeout++;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:362: s_SafetyTimeout++;
 	ld	hl, (_TickGoalKick_s_SafetyTimeout_65537_1229)
 	inc	hl
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:361: if (s_SafetyTimeout > 240) { // 4 seconds timeout force proceed
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:363: if (s_SafetyTimeout > 240) { // 4 seconds timeout force proceed
 	ld	(_TickGoalKick_s_SafetyTimeout_65537_1229), hl
 	ld	a, #0xf0
 	cp	a, l
 	ld	a, #0x00
 	sbc	a, h
 	jr	NC, 00219$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:362: g_Timer++;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:364: g_Timer++;
 	ld	hl, #_g_Timer
 	inc	(hl)
 	jp	00223$
 00219$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:364: if (g_Timer > 90) g_Timer = 90; // Hold timer until safe
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:366: if (g_Timer > 90) g_Timer = 90; // Hold timer until safe
 	ld	a, #0x5a
 	ld	iy, #_g_Timer
 	sub	a, 0 (iy)
@@ -2163,18 +2166,18 @@ _TickGoalKick::
 	ld	0 (iy), #0x5a
 	jp	00223$
 00216$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:365: else g_Timer++; // Allow advancing up to wait point
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:367: else g_Timer++; // Allow advancing up to wait point
 	ld	hl, #_g_Timer
 	inc	(hl)
 00223$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:369: if (g_Timer > 100) {
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:371: if (g_Timer > 100) {
 	ld	a, #0x64
 	ld	hl, #_g_Timer
 	sub	a, (hl)
 	jr	NC, 00244$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:332: u16 distY = (g_Players[gkId].Y > g_Ball.Y) ? (g_Players[gkId].Y - g_Ball.Y) : (g_Ball.Y - g_Players[gkId].Y);
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:334: u16 distY = (g_Players[gkId].Y > g_Ball.Y) ? (g_Players[gkId].Y - g_Ball.Y) : (g_Ball.Y - g_Players[gkId].Y);
 	ld	de, (#_g_Ball + 0)
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:372: if (g_RestartKickTeamId == TEAM_1) kickY = g_Ball.Y + 4; // Adjusted for perfect foot alignment
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:374: if (g_RestartKickTeamId == TEAM_1) kickY = g_Ball.Y + 4; // Adjusted for perfect foot alignment
 	ld	a, (_g_RestartKickTeamId+0)
 	dec	a
 	jr	NZ, 00225$
@@ -2184,7 +2187,7 @@ _TickGoalKick::
 	inc	de
 	jp	00226$
 00225$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:373: else kickY = g_Ball.Y - 6;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:375: else kickY = g_Ball.Y - 6;
 	ld	a, e
 	add	a, #0xfa
 	ld	e, a
@@ -2192,27 +2195,27 @@ _TickGoalKick::
 	adc	a, #0xff
 	ld	d, a
 00226$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:375: g_Players[gkId].TargetY = kickY;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:377: g_Players[gkId].TargetY = kickY;
 	ld	l, -2 (ix)
 	ld	h, -1 (ix)
 	ld	(hl), e
 	inc	hl
 	ld	(hl), d
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:376: g_Players[gkId].Status = PLAYER_STATUS_NONE;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:378: g_Players[gkId].Status = PLAYER_STATUS_NONE;
 	xor	a, a
 	ld	(bc), a
 	inc	bc
 	ld	(bc), a
 	jp	00244$
 00232$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:380: g_Timer++;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:382: g_Timer++;
 	ld	iy, #_g_Timer
 	inc	0 (iy)
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:381: if (g_Timer > 102) { // Kick immediately upon arrival (was 110)
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:383: if (g_Timer > 102) { // Kick immediately upon arrival (was 110)
 	ld	a, #0x66
 	sub	a, 0 (iy)
 	jr	NC, 00244$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:382: V9990_ClearTextFromLayerA(10, 18, 9); 
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:384: V9990_ClearTextFromLayerA(10, 18, 9); 
 	ld	a, #0x09
 	push	af
 	inc	sp
@@ -2221,18 +2224,18 @@ _TickGoalKick::
 ;	spillPairReg hl
 	ld	a, #0x0a
 	call	_V9990_ClearTextFromLayerA
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:383: GoalkeeperWithBall(g_RestartKickTeamId, true); 
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:385: GoalkeeperWithBall(g_RestartKickTeamId, true); 
 	ld	l, #0x01
 ;	spillPairReg hl
 ;	spillPairReg hl
 	ld	a, (_g_RestartKickTeamId+0)
 	call	_GoalkeeperWithBall
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:384: g_GkRecoilY = 0;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:386: g_GkRecoilY = 0;
 	ld	hl, #_g_GkRecoilY
 	ld	(hl), #0x00
 	jp	00244$
 00238$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:389: if (g_Timer < 100) g_Timer = 61; // Hold at 61 while moving to start
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:391: if (g_Timer < 100) g_Timer = 61; // Hold at 61 while moving to start
 	ld	a, (_g_Timer+0)
 	sub	a, #0x64
 	jr	NC, 00235$
@@ -2240,15 +2243,15 @@ _TickGoalKick::
 	ld	(hl), #0x3d
 	jp	00244$
 00235$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:390: else g_Timer = 101; // Hold at 101 while moving to ball
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:392: else g_Timer = 101; // Hold at 101 while moving to ball
 	ld	hl, #_g_Timer
 	ld	(hl), #0x65
 00244$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:392: }
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:394: }
 	ld	sp, ix
 	pop	ix
 	ret
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:394: void GoalkeeperWithBall(u8 teamId, bool isSteal) {
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:396: void GoalkeeperWithBall(u8 teamId, bool isSteal) {
 ;	---------------------------------
 ; Function GoalkeeperWithBall
 ; ---------------------------------
@@ -2261,7 +2264,7 @@ _GoalkeeperWithBall::
 	ld	sp, iy
 	ld	-2 (ix), a
 	ld	-3 (ix), l
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:395: u8 gkId = CallFnc_U8_P2(4,GetPlayerIdByRole,teamId, PLAYER_ROLE_GOALKEEPER);
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:397: u8 gkId = CallFnc_U8_P2(4,GetPlayerIdByRole,teamId, PLAYER_ROLE_GOALKEEPER);
 	xor	a, a
 	push	af
 	inc	sp
@@ -2271,19 +2274,19 @@ _GoalkeeperWithBall::
 	ld	de, #_GetPlayerIdByRole
 	ld	a, #0x04
 	call	_CallFnc_U8_P2
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:396: if(gkId == NO_VALUE) return;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:398: if(gkId == NO_VALUE) return;
 	ld	-7 (ix), a
 	inc	a
 	jp	Z,00162$
 	jp	00102$
 00102$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:398: g_GkAnimPlayerId = gkId;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:400: g_GkAnimPlayerId = gkId;
 	ld	a, -7 (ix)
 	ld	(_g_GkAnimPlayerId+0), a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:399: g_GkAnimTimer = 0;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:401: g_GkAnimTimer = 0;
 	ld	hl, #_g_GkAnimTimer
 	ld	(hl), #0x00
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:402: if (teamId == TEAM_1) {
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:404: if (teamId == TEAM_1) {
 	ld	a, -2 (ix)
 	dec	a
 	ld	a, #0x01
@@ -2291,7 +2294,7 @@ _GoalkeeperWithBall::
 	xor	a, a
 00283$:
 	ld	-6 (ix), a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:403: if (isSteal) g_Players[gkId].PatternId = PLAYER_POSE_BACK;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:405: if (isSteal) g_Players[gkId].PatternId = PLAYER_POSE_BACK;
 	ld	c, -7 (ix)
 	ld	b, #0x00
 	ld	l, c
@@ -2304,11 +2307,11 @@ _GoalkeeperWithBall::
 	add	hl, bc
 	ld	-5 (ix), l
 	ld	-4 (ix), h
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:402: if (teamId == TEAM_1) {
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:404: if (teamId == TEAM_1) {
 	ld	a, -6 (ix)
 	or	a, a
 	jr	Z, 00107$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:403: if (isSteal) g_Players[gkId].PatternId = PLAYER_POSE_BACK;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:405: if (isSteal) g_Players[gkId].PatternId = PLAYER_POSE_BACK;
 	ld	a, -3 (ix)
 	or	a, a
 	jr	Z, 00104$
@@ -2321,7 +2324,7 @@ _GoalkeeperWithBall::
 	ld	(hl), #0x11
 	jp	00105$
 00104$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:404: else g_Players[gkId].PatternId = PLAYER_POSE_TEAM1_GK_BALL_FRONT;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:406: else g_Players[gkId].PatternId = PLAYER_POSE_TEAM1_GK_BALL_FRONT;
 	ld	a, #<(_g_Players)
 	add	a, -5 (ix)
 	ld	c, a
@@ -2332,7 +2335,7 @@ _GoalkeeperWithBall::
 	add	hl, bc
 	ld	(hl), #0x9e
 00105$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:405: g_Players[gkId].Direction = DIRECTION_UP; // Face Up (Attack Direction)
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:407: g_Players[gkId].Direction = DIRECTION_UP; // Face Up (Attack Direction)
 	ld	bc, #_g_Players+0
 	ld	l, -5 (ix)
 	ld	h, -4 (ix)
@@ -2342,7 +2345,7 @@ _GoalkeeperWithBall::
 	ld	(hl), #0x01
 	jp	00108$
 00107$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:408: g_Players[gkId].PatternId = PLAYER_POSE_FRONT; // Team 2 GK plays like a player (feet)
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:410: g_Players[gkId].PatternId = PLAYER_POSE_FRONT; // Team 2 GK plays like a player (feet)
 	ld	a, -5 (ix)
 	add	a, #<(_g_Players)
 	ld	c, a
@@ -2352,12 +2355,12 @@ _GoalkeeperWithBall::
 	ld	hl, #0x0008
 	add	hl, bc
 	ld	(hl), #0x10
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:409: g_Players[gkId].Direction = DIRECTION_DOWN; // Face Down (Attack Direction)
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:411: g_Players[gkId].Direction = DIRECTION_DOWN; // Face Down (Attack Direction)
 	ld	hl, #0x000a
 	add	hl, bc
 	ld	(hl), #0x05
 00108$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:413: g_Players[gkId].Status = PLAYER_STATUS_POSITIONED;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:415: g_Players[gkId].Status = PLAYER_STATUS_POSITIONED;
 	ld	a, -5 (ix)
 	add	a, #<(_g_Players)
 	ld	c, a
@@ -2368,17 +2371,17 @@ _GoalkeeperWithBall::
 	add	hl, bc
 	ld	(hl), #0x04
 	inc	hl
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:417: bool closeToLine = false;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:419: bool closeToLine = false;
 	ld	(hl), #0x00
 	ld	e, (hl)
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:418: if (teamId == TEAM_2) { // GK 2 (Top)
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:420: if (teamId == TEAM_2) { // GK 2 (Top)
 	ld	a, -2 (ix)
 	sub	a, #0x02
 	jr	NZ, 00114$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:419: g_GkRecoilY = -1;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:421: g_GkRecoilY = -1;
 	ld	hl, #_g_GkRecoilY
 	ld	(hl), #0xff
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:420: if (g_Players[gkId].Y <= FIELD_BOUND_Y_TOP + 4) closeToLine = true;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:422: if (g_Players[gkId].Y <= FIELD_BOUND_Y_TOP + 4) closeToLine = true;
 	ld	l, c
 	ld	h, b
 	ld	c, (hl)
@@ -2392,10 +2395,10 @@ _GoalkeeperWithBall::
 	ld	e, #0x01
 	jp	00115$
 00114$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:422: g_GkRecoilY = 1;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:424: g_GkRecoilY = 1;
 	ld	hl, #_g_GkRecoilY
 	ld	(hl), #0x01
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:423: if (g_Players[gkId].Y >= FIELD_BOUND_Y_BOTTOM - 4) closeToLine = true;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:425: if (g_Players[gkId].Y >= FIELD_BOUND_Y_BOTTOM - 4) closeToLine = true;
 	ld	l, c
 	ld	h, b
 	ld	c, (hl)
@@ -2408,7 +2411,7 @@ _GoalkeeperWithBall::
 	jr	C, 00115$
 	ld	e, #0x01
 00115$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:426: if (closeToLine || isSteal) g_GkRecoilY = 0; // No recoil for Steals
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:428: if (closeToLine || isSteal) g_GkRecoilY = 0; // No recoil for Steals
 	ld	a, e
 	or	a, a
 	jr	NZ, 00116$
@@ -2419,37 +2422,37 @@ _GoalkeeperWithBall::
 	ld	hl, #_g_GkRecoilY
 	ld	(hl), #0x00
 00117$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:427: g_GkIsGroundKick = isSteal; // Track if this is a ground kick (no offset needed)
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:429: g_GkIsGroundKick = isSteal; // Track if this is a ground kick (no offset needed)
 	ld	a, -3 (ix)
 	ld	(_g_GkIsGroundKick+0), a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:430: CallFnc_VOID_P1(4,SetPlayerBallPossession,gkId);
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:432: CallFnc_VOID_P1(4,SetPlayerBallPossession,gkId);
 	ld	a, -7 (ix)
 	push	af
 	inc	sp
 	ld	de, #_SetPlayerBallPossession
 	ld	a, #0x04
 	call	_CallFnc_VOID_P1
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:431: g_Ball.PossessionPlayerId = gkId; // Fix: Ensure AI knows GK has ball immediately to prevent chasing
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:433: g_Ball.PossessionPlayerId = gkId; // Fix: Ensure AI knows GK has ball immediately to prevent chasing
 	ld	hl, #(_g_Ball + 6)
 	ld	a, -7 (ix)
 	ld	(hl), a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:432: g_Ball.ShotActive = 0;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:434: g_Ball.ShotActive = 0;
 	ld	hl, #(_g_Ball + 27)
 	ld	(hl), #0x00
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:434: g_MatchStatus = MATCH_BALL_ON_GOALKEEPER;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:436: g_MatchStatus = MATCH_BALL_ON_GOALKEEPER;
 	ld	hl, #_g_MatchStatus
 	ld	(hl), #0x0d
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:437: for(u8 i=0; i<14; i++) {
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:439: for(u8 i=0; i<14; i++) {
 	ld	-1 (ix), #0x00
 00161$:
 	ld	a, -1 (ix)
 	sub	a, #0x0e
 	jp	NC, 00162$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:438: if(i == gkId) continue;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:440: if(i == gkId) continue;
 	ld	a, -7 (ix)
 	sub	a, -1 (ix)
 	jp	Z,00158$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:439: if(g_Players[i].TeamId == REFEREE) continue;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:441: if(g_Players[i].TeamId == REFEREE) continue;
 	ld	c, -1 (ix)
 	ld	b, #0x00
 	ld	l, c
@@ -2471,7 +2474,7 @@ _GoalkeeperWithBall::
 	ld	a, b
 	sub	a, #0x0e
 	jp	Z,00158$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:440: if(g_Players[i].Role == PLAYER_ROLE_GOALKEEPER) continue;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:442: if(g_Players[i].Role == PLAYER_ROLE_GOALKEEPER) continue;
 	ld	e, -5 (ix)
 	ld	d, -4 (ix)
 	ld	hl, #13
@@ -2480,92 +2483,92 @@ _GoalkeeperWithBall::
 	ld	a, c
 	or	a, a
 	jp	Z, 00158$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:450: if (g_Players[i].Role >= PLAYER_ROLE_LEFT_STRIKER) ty = 160;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:452: if (g_Players[i].Role >= PLAYER_ROLE_LEFT_STRIKER) ty = 160;
 	ld	a, c
 	sub	a, #0x05
 	ld	a, #0x00
 	rla
 	ld	e, a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:446: if(g_Players[i].TeamId == teamId) {
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:448: if(g_Players[i].TeamId == teamId) {
 	ld	a, -2 (ix)
 	sub	a, b
 	jr	NZ, 00156$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:449: if(teamId == TEAM_1) { // Moving UP
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:451: if(teamId == TEAM_1) { // Moving UP
 	ld	a, -6 (ix)
 	or	a, a
 	jr	Z, 00138$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:450: if (g_Players[i].Role >= PLAYER_ROLE_LEFT_STRIKER) ty = 160;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:452: if (g_Players[i].Role >= PLAYER_ROLE_LEFT_STRIKER) ty = 160;
 	bit	0, e
 	jr	NZ, 00129$
 	ld	de, #0x00a0
 	jp	00157$
 00129$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:451: else if (g_Players[i].Role >= PLAYER_ROLE_LEFT_HALFFIELDER) ty = 240;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:453: else if (g_Players[i].Role >= PLAYER_ROLE_LEFT_HALFFIELDER) ty = 240;
 	ld	a, c
 	sub	a, #0x03
 	jr	C, 00126$
 	ld	de, #0x00f0
 	jp	00157$
 00126$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:452: else ty = 350;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:454: else ty = 350;
 	ld	de, #0x015e
 	jp	00157$
 00138$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:454: if (g_Players[i].Role >= PLAYER_ROLE_LEFT_STRIKER) ty = 320;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:456: if (g_Players[i].Role >= PLAYER_ROLE_LEFT_STRIKER) ty = 320;
 	bit	0, e
 	jr	NZ, 00135$
 	ld	de, #0x0140
 	jp	00157$
 00135$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:455: else if (g_Players[i].Role >= PLAYER_ROLE_LEFT_HALFFIELDER) ty = 240;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:457: else if (g_Players[i].Role >= PLAYER_ROLE_LEFT_HALFFIELDER) ty = 240;
 	ld	a, c
 	sub	a, #0x03
 	jr	C, 00132$
 	ld	de, #0x00f0
 	jp	00157$
 00132$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:456: else ty = 130;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:458: else ty = 130;
 	ld	de, #0x0082
 	jp	00157$
 00156$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:461: if(teamId == TEAM_1) { // Opponent is Team 2 (Top) -> Retreat UP? No, Team 2 Defends Top.
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:463: if(teamId == TEAM_1) { // Opponent is Team 2 (Top) -> Retreat UP? No, Team 2 Defends Top.
 	ld	a, -6 (ix)
 	or	a, a
 	jr	Z, 00153$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:463: if (g_Players[i].Role >= PLAYER_ROLE_LEFT_STRIKER) ty = 243; // Midfield
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:465: if (g_Players[i].Role >= PLAYER_ROLE_LEFT_STRIKER) ty = 243; // Midfield
 	bit	0, e
 	jr	NZ, 00144$
 	ld	de, #0x00f3
 	jp	00157$
 00144$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:464: else if (g_Players[i].Role >= PLAYER_ROLE_LEFT_HALFFIELDER) ty = 106;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:466: else if (g_Players[i].Role >= PLAYER_ROLE_LEFT_HALFFIELDER) ty = 106;
 	ld	a, c
 	sub	a, #0x03
 	jr	C, 00141$
 	ld	de, #0x006a
 	jp	00157$
 00141$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:465: else ty = 130;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:467: else ty = 130;
 	ld	de, #0x0082
 	jp	00157$
 00153$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:468: if (g_Players[i].Role >= PLAYER_ROLE_LEFT_STRIKER) ty = 243;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:470: if (g_Players[i].Role >= PLAYER_ROLE_LEFT_STRIKER) ty = 243;
 	bit	0, e
 	jr	NZ, 00150$
 	ld	de, #0x00f3
 	jp	00157$
 00150$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:469: else if (g_Players[i].Role >= PLAYER_ROLE_LEFT_HALFFIELDER) ty = 318;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:471: else if (g_Players[i].Role >= PLAYER_ROLE_LEFT_HALFFIELDER) ty = 318;
 	ld	a, c
 	sub	a, #0x03
 	jr	C, 00147$
 	ld	de, #0x013e
 	jp	00157$
 00147$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:470: else ty = 350;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:472: else ty = 350;
 	ld	de, #0x015e
 00157$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:475: g_Players[i].TargetY = ty;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:477: g_Players[i].TargetY = ty;
 	ld	l, -5 (ix)
 	ld	h, -4 (ix)
 	ld	bc, #0x000e
@@ -2573,7 +2576,7 @@ _GoalkeeperWithBall::
 	ld	(hl), e
 	inc	hl
 	ld	(hl), d
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:476: g_Players[i].Status = PLAYER_STATUS_NONE; // Unlock movement
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:478: g_Players[i].Status = PLAYER_STATUS_NONE; // Unlock movement
 	ld	l, -5 (ix)
 	ld	h, -4 (ix)
 	ld	de, #0x0012
@@ -2583,15 +2586,15 @@ _GoalkeeperWithBall::
 	inc	hl
 	ld	(hl), a
 00158$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:437: for(u8 i=0; i<14; i++) {
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:439: for(u8 i=0; i<14; i++) {
 	inc	-1 (ix)
 	jp	00161$
 00162$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:478: }
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:480: }
 	ld	sp, ix
 	pop	ix
 	ret
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:481: void TickPlayerToOwnTarget(){
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:483: void TickPlayerToOwnTarget(){
 ;	---------------------------------
 ; Function TickPlayerToOwnTarget
 ; ---------------------------------
@@ -2602,22 +2605,22 @@ _TickPlayerToOwnTarget::
 	ld	hl, #-23
 	add	hl, sp
 	ld	sp, hl
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:482: if(g_MatchStatus!=MATCH_NOT_STARTED){
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:484: if(g_MatchStatus!=MATCH_NOT_STARTED){
 	ld	a, (_g_MatchStatus+0)
 	or	a, a
 	jp	Z, 00307$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:483: bool allPlayersInPosition = true;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:485: bool allPlayersInPosition = true;
 	ld	-21 (ix), #0x01
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:486: s_GkMoveTick++;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:488: s_GkMoveTick++;
 	ld	hl, #_TickPlayerToOwnTarget_s_GkMoveTick_131072_1285
 	inc	(hl)
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:487: for(u8 i=0;i<15;i++){
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:489: for(u8 i=0;i<15;i++){
 	ld	-1 (ix), #0x00
 00306$:
 	ld	a, -1 (ix)
 	sub	a, #0x0f
 	jp	NC, 00298$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:488: if (g_MatchStatus == MATCH_IN_ACTION && g_Players[i].Role == PLAYER_ROLE_GOALKEEPER) {
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:490: if (g_MatchStatus == MATCH_IN_ACTION && g_Players[i].Role == PLAYER_ROLE_GOALKEEPER) {
 	ld	a, (_g_MatchStatus+0)
 	sub	a, #0x0c
 	jp	NZ,00117$
@@ -2641,31 +2644,31 @@ _TickPlayerToOwnTarget::
 	ld	a, (hl)
 	or	a, a
 	jp	NZ, 00117$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:489: if (g_Ball.ShotActive) continue; 
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:491: if (g_Ball.ShotActive) continue; 
 	ld	a, (#_g_Ball + 27)
 	or	a, a
 	jp	NZ, 00297$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:491: if ((s_GkMoveTick & 1) == 0) { 
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:493: if ((s_GkMoveTick & 1) == 0) { 
 	ld	a, (_TickPlayerToOwnTarget_s_GkMoveTick_131072_1285+0)
 	ld	c, a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:504: i16 diff = (i16)desiredX - (i16)g_Players[i].X;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:506: i16 diff = (i16)desiredX - (i16)g_Players[i].X;
 	ld	a, -13 (ix)
 	add	a, #0x02
 	ld	-11 (ix), a
 	ld	a, -12 (ix)
 	adc	a, #0x00
 	ld	-10 (ix), a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:491: if ((s_GkMoveTick & 1) == 0) { 
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:493: if ((s_GkMoveTick & 1) == 0) { 
 	bit	0, c
 	jp	NZ,00115$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:494: u16 desiredX = g_Ball.X;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:496: u16 desiredX = g_Ball.X;
 	ld	hl, #(_g_Ball + 2)
 	ld	a, (hl)
 	ld	-3 (ix), a
 	inc	hl
 	ld	a, (hl)
 	ld	-2 (ix), a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:496: const TeamStats* stats = GetTeamStats(g_Players[i].TeamId);
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:498: const TeamStats* stats = GetTeamStats(g_Players[i].TeamId);
 	ld	a, -13 (ix)
 	ld	-5 (ix), a
 	ld	a, -12 (ix)
@@ -2676,7 +2679,7 @@ _TickPlayerToOwnTarget::
 	add	hl, de
 	ld	a, (hl)
 	call	_GetTeamStats
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:497: if (stats->GkSkill >= 15) {
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:499: if (stats->GkSkill >= 15) {
 	ld	-5 (ix), e
 	ld	-4 (ix), d
 	ex	de,hl
@@ -2685,7 +2688,7 @@ _TickPlayerToOwnTarget::
 	ld	a, (hl)
 	sub	a, #0x0f
 	jr	C, 00104$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:498: desiredX = (g_Ball.X + FIELD_POS_X_CENTER) / 2;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:500: desiredX = (g_Ball.X + FIELD_POS_X_CENTER) / 2;
 	ld	hl, #(_g_Ball + 2)
 	ld	a, (hl)
 	ld	-3 (ix), a
@@ -2705,7 +2708,7 @@ _TickPlayerToOwnTarget::
 	srl	-2 (ix)
 	rr	-3 (ix)
 00104$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:501: if (desiredX < minX) desiredX = minX;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:503: if (desiredX < minX) desiredX = minX;
 	ld	a, -3 (ix)
 	sub	a, #0x60
 	ld	a, -2 (ix)
@@ -2714,7 +2717,7 @@ _TickPlayerToOwnTarget::
 	ld	-3 (ix), #0x60
 	ld	-2 (ix), #0
 00106$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:502: if (desiredX > maxX) desiredX = maxX;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:504: if (desiredX > maxX) desiredX = maxX;
 	ld	a, #0x90
 	cp	a, -3 (ix)
 	ld	a, #0x00
@@ -2723,7 +2726,7 @@ _TickPlayerToOwnTarget::
 	ld	-3 (ix), #0x90
 	ld	-2 (ix), #0
 00108$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:504: i16 diff = (i16)desiredX - (i16)g_Players[i].X;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:506: i16 diff = (i16)desiredX - (i16)g_Players[i].X;
 	ld	a, -3 (ix)
 	ld	-9 (ix), a
 	ld	a, -2 (ix)
@@ -2745,7 +2748,7 @@ _TickPlayerToOwnTarget::
 	ld	a, -8 (ix)
 	sbc	a, -4 (ix)
 	ld	-2 (ix), a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:507: if (diff > 2) g_Players[i].X++;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:509: if (diff > 2) g_Players[i].X++;
 	ld	a, -3 (ix)
 	ld	-5 (ix), a
 	ld	a, -2 (ix)
@@ -2768,7 +2771,7 @@ _TickPlayerToOwnTarget::
 	ld	(hl), b
 	jp	00115$
 00112$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:508: else if (diff < -2) g_Players[i].X--;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:510: else if (diff < -2) g_Players[i].X--;
 	ld	a, -3 (ix)
 	sub	a, #0xfe
 	ld	a, -2 (ix)
@@ -2786,7 +2789,7 @@ _TickPlayerToOwnTarget::
 	inc	hl
 	ld	(hl), b
 00115$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:511: g_Players[i].TargetX = g_Players[i].X;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:513: g_Players[i].TargetX = g_Players[i].X;
 	ld	a, -13 (ix)
 	add	a, #0x10
 	ld	c, a
@@ -2804,7 +2807,7 @@ _TickPlayerToOwnTarget::
 	ld	a, d
 	ld	(bc), a
 00117$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:515: if(i != REFEREE) continue;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:517: if(i != REFEREE) continue;
 	ld	a, -1 (ix)
 	sub	a, #0x0e
 	ld	a, #0x01
@@ -2812,14 +2815,14 @@ _TickPlayerToOwnTarget::
 	xor	a, a
 00856$:
 	ld	-6 (ix), a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:514: if(g_MatchStatus == MATCH_AFTER_IN_GOAL) {
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:516: if(g_MatchStatus == MATCH_AFTER_IN_GOAL) {
 	ld	a, (_g_MatchStatus+0)
 	sub	a, #0x06
 	jr	NZ, 00122$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:515: if(i != REFEREE) continue;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:517: if(i != REFEREE) continue;
 	bit	0, -6 (ix)
 	jp	Z, 00297$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:517: g_Players[i].TargetX=FIELD_POS_X_CENTER - 30; 
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:519: g_Players[i].TargetX=FIELD_POS_X_CENTER - 30; 
 	ld	c, -1 (ix)
 	ld	b, #0x00
 	ld	l, c
@@ -2849,7 +2852,7 @@ _TickPlayerToOwnTarget::
 	ld	(hl), #0x5a
 	inc	hl
 	ld	(hl), #0x00
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:518: g_Players[i].TargetY=FIELD_POS_Y_CENTER - 40; 
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:520: g_Players[i].TargetY=FIELD_POS_Y_CENTER - 40; 
 	ld	a, -5 (ix)
 	add	a, #0x0e
 	ld	-3 (ix), a
@@ -2862,7 +2865,7 @@ _TickPlayerToOwnTarget::
 	inc	hl
 	ld	(hl), #0x00
 00122$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:521: if (i == REFEREE && (g_MatchStatus == MATCH_IN_ACTION || g_MatchStatus == MATCH_BALL_ON_GOALKEEPER)) continue;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:523: if (i == REFEREE && (g_MatchStatus == MATCH_IN_ACTION || g_MatchStatus == MATCH_BALL_ON_GOALKEEPER)) continue;
 	ld	a, -6 (ix)
 	or	a, a
 	jr	Z, 00124$
@@ -2872,7 +2875,7 @@ _TickPlayerToOwnTarget::
 	sub	a, #0x0d
 	jp	Z,00297$
 00124$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:524: bool isSetPieceSetup = (g_MatchStatus == MATCH_BEFORE_CORNER_KICK || g_MatchStatus == MATCH_BEFORE_GOAL_KICK || g_MatchStatus == MATCH_BEFORE_OFFSIDE || g_MatchStatus == MATCH_BEFORE_THROW_IN);
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:526: bool isSetPieceSetup = (g_MatchStatus == MATCH_BEFORE_CORNER_KICK || g_MatchStatus == MATCH_BEFORE_GOAL_KICK || g_MatchStatus == MATCH_BEFORE_OFFSIDE || g_MatchStatus == MATCH_BEFORE_THROW_IN);
 	ld	a,(_g_MatchStatus+0)
 	cp	a,#0x02
 	jr	Z, 00310$
@@ -2888,7 +2891,7 @@ _TickPlayerToOwnTarget::
 	ld	a, #0x01
 00311$:
 	ld	-20 (ix), a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:525: bool isGkRestart = (g_MatchStatus == MATCH_BALL_ON_GOALKEEPER);
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:527: bool isGkRestart = (g_MatchStatus == MATCH_BALL_ON_GOALKEEPER);
 	ld	a, (_g_MatchStatus+0)
 	sub	a, #0x0d
 	ld	a, #0x01
@@ -2896,13 +2899,13 @@ _TickPlayerToOwnTarget::
 	xor	a, a
 00866$:
 	ld	c, a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:527: if (!isSetPieceSetup && !isGkRestart) {
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:529: if (!isSetPieceSetup && !isGkRestart) {
 	ld	a, -20 (ix)
 	or	a,a
 	jr	NZ, 00135$
 	or	a,c
 	jr	NZ, 00135$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:528: if (g_Team1ActivePlayer != NO_VALUE && i == g_Team1ActivePlayer) continue;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:530: if (g_Team1ActivePlayer != NO_VALUE && i == g_Team1ActivePlayer) continue;
 	ld	a, (_g_Team1ActivePlayer+0)
 	inc	a
 	jr	Z, 00128$
@@ -2911,7 +2914,7 @@ _TickPlayerToOwnTarget::
 	sub	a, (hl)
 	jp	Z,00297$
 00128$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:529: if (g_GameWith2Players && g_Team2ActivePlayer != NO_VALUE && i == g_Team2ActivePlayer) continue;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:531: if (g_GameWith2Players && g_Team2ActivePlayer != NO_VALUE && i == g_Team2ActivePlayer) continue;
 	ld	a, (_g_GameWith2Players+0)
 	or	a, a
 	jr	Z, 00135$
@@ -2923,7 +2926,7 @@ _TickPlayerToOwnTarget::
 	sub	a, (hl)
 	jp	Z,00297$
 00135$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:533: bool playerInPosition = (g_Players[i].X == g_Players[i].TargetX && g_Players[i].Y == g_Players[i].TargetY);
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:535: bool playerInPosition = (g_Players[i].X == g_Players[i].TargetX && g_Players[i].Y == g_Players[i].TargetY);
 	ld	c, -1 (ix)
 	ld	b, #0x00
 	ld	l, c
@@ -2999,23 +3002,23 @@ _TickPlayerToOwnTarget::
 	ld	a, #0x01
 00320$:
 	ld	-15 (ix), a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:536: if (g_MatchStatus == MATCH_BEFORE_KICK_OFF && !playerInPosition) {
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:538: if (g_MatchStatus == MATCH_BEFORE_KICK_OFF && !playerInPosition) {
 	ld	a, (_g_MatchStatus+0)
 	dec	a
 	jr	NZ, 00138$
 	ld	a, -15 (ix)
 	or	a, a
 	jr	NZ, 00138$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:537: allPlayersInPosition = false;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:539: allPlayersInPosition = false;
 	ld	-21 (ix), #0x00
 00138$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:540: u8 step = 1;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:542: u8 step = 1;
 	ld	-14 (ix), #0x01
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:542: if(g_MatchStatus==MATCH_IN_ACTION){
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:544: if(g_MatchStatus==MATCH_IN_ACTION){
 	ld	a, (_g_MatchStatus+0)
 	sub	a, #0x0c
 	jp	NZ,00181$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:543: u8 countryId = (g_Players[i].TeamId == TEAM_1) ? g_Team1PaletteId : g_Team2PaletteId;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:545: u8 countryId = (g_Players[i].TeamId == TEAM_1) ? g_Team1PaletteId : g_Team2PaletteId;
 	ld	c, -19 (ix)
 	ld	b, -18 (ix)
 	ld	hl, #9
@@ -3028,12 +3031,12 @@ _TickPlayerToOwnTarget::
 00321$:
 	ld	a, (_g_Team2PaletteId+0)
 00322$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:544: const TeamStats* stats = GetTeamStats(countryId);
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:546: const TeamStats* stats = GetTeamStats(countryId);
 	call	_GetTeamStats
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:545: u8 speed = stats->Speed;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:547: u8 speed = stats->Speed;
 	ld	a, (de)
 	ld	c, a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:556: u8 tick = g_FrameCounter % 12; // Common multiple
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:558: u8 tick = g_FrameCounter % 12; // Common multiple
 	ld	a, (_g_FrameCounter+0)
 	ld	l, a
 ;	spillPairReg hl
@@ -3046,9 +3049,9 @@ _TickPlayerToOwnTarget::
 	call	__modsint
 	pop	bc
 	ld	-4 (ix), e
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:557: bool move = false;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:559: bool move = false;
 	ld	-6 (ix), #0x00
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:558: if (speed == 0) { if ((tick % 4) == 0) move = true; }
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:560: if (speed == 0) { if ((tick % 4) == 0) move = true; }
 	ld	a, c
 	or	a, a
 	jr	NZ, 00170$
@@ -3058,7 +3061,7 @@ _TickPlayerToOwnTarget::
 	ld	-6 (ix), #0x01
 	jp	00171$
 00170$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:559: else if (speed == 1) { if ((tick % 3) == 0) move = true; }
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:561: else if (speed == 1) { if ((tick % 3) == 0) move = true; }
 	ld	a, c
 	dec	a
 	jr	NZ, 00167$
@@ -3076,7 +3079,7 @@ _TickPlayerToOwnTarget::
 	ld	-6 (ix), #0x01
 	jp	00171$
 00167$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:560: else if (speed == 2) { if ((tick % 2) == 0) move = true; }
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:562: else if (speed == 2) { if ((tick % 2) == 0) move = true; }
 	ld	a, c
 	sub	a, #0x02
 	jr	NZ, 00164$
@@ -3085,17 +3088,17 @@ _TickPlayerToOwnTarget::
 	ld	-6 (ix), #0x01
 	jp	00171$
 00164$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:561: else if (speed == 3) { 
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:563: else if (speed == 3) { 
 	ld	a, c
 	sub	a, #0x03
 	jr	NZ, 00161$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:563: move = true; 
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:565: move = true; 
 	ld	-6 (ix), #0x01
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:564: step = 1; 
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:566: step = 1; 
 	ld	-14 (ix), #0x01
 	jp	00171$
 00161$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:566: else if (speed == 4) { if ((tick % 4) != 3) move = true; }
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:568: else if (speed == 4) { if ((tick % 4) != 3) move = true; }
 	ld	a, c
 	sub	a, #0x04
 	jr	NZ, 00158$
@@ -3110,13 +3113,13 @@ _TickPlayerToOwnTarget::
 	ld	-6 (ix), #0x01
 	jp	00171$
 00158$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:567: else if (speed == 6) {
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:569: else if (speed == 6) {
 	ld	a, c
 	sub	a, #0x06
 	jr	NZ, 00155$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:569: move = true;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:571: move = true;
 	ld	-6 (ix), #0x01
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:570: step = ((tick % 4) == 0) ? 2 : 1;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:572: step = ((tick % 4) == 0) ? 2 : 1;
 	ld	a, -4 (ix)
 	and	a, #0x03
 	jr	NZ, 00323$
@@ -3131,13 +3134,13 @@ _TickPlayerToOwnTarget::
 	ld	-14 (ix), a
 	jp	00171$
 00155$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:572: else if (speed == 7) {
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:574: else if (speed == 7) {
 	ld	a, c
 	sub	a, #0x07
 	jr	NZ, 00152$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:574: move = true;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:576: move = true;
 	ld	-6 (ix), #0x01
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:575: step = ((tick % 3) == 0) ? 2 : 1;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:577: step = ((tick % 3) == 0) ? 2 : 1;
 	ld	l, -4 (ix)
 ;	spillPairReg hl
 ;	spillPairReg hl
@@ -3157,13 +3160,13 @@ _TickPlayerToOwnTarget::
 	ld	-14 (ix), c
 	jp	00171$
 00152$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:577: else if (speed >= 8) { 
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:579: else if (speed >= 8) { 
 	ld	a, c
 	sub	a, #0x08
 	jr	C, 00149$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:579: move = true;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:581: move = true;
 	ld	-6 (ix), #0x01
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:580: step = ((tick % 2) == 0) ? 2 : 1;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:582: step = ((tick % 2) == 0) ? 2 : 1;
 	bit	0, -4 (ix)
 	jr	NZ, 00327$
 	ld	bc, #0x0002
@@ -3174,44 +3177,44 @@ _TickPlayerToOwnTarget::
 	ld	-14 (ix), c
 	jp	00171$
 00149$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:582: else move = true;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:584: else move = true;
 	ld	-6 (ix), #0x01
 00171$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:584: if (!move) continue;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:586: if (!move) continue;
 	ld	a, -6 (ix)
 	or	a, a
 	jr	NZ, 00182$
 	jp	00297$
 00181$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:586: g_Players[i].AiTickCounter=0;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:588: g_Players[i].AiTickCounter=0;
 	ld	l, -19 (ix)
 	ld	h, -18 (ix)
 	ld	de, #0x0014
 	add	hl, de
 	ld	(hl), #0x00
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:588: if (g_MatchStatus == MATCH_BEFORE_GOAL_KICK || g_MatchStatus == MATCH_BEFORE_CORNER_KICK || 
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:590: if (g_MatchStatus == MATCH_BEFORE_GOAL_KICK || g_MatchStatus == MATCH_BEFORE_CORNER_KICK || 
 	ld	a,(_g_MatchStatus+0)
 	cp	a,#0x05
 	jr	Z, 00174$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:589: g_MatchStatus == MATCH_BEFORE_THROW_IN || g_MatchStatus == MATCH_BEFORE_OFFSIDE ||
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:591: g_MatchStatus == MATCH_BEFORE_THROW_IN || g_MatchStatus == MATCH_BEFORE_OFFSIDE ||
 	cp	a,#0x02
 	jr	Z, 00174$
 	cp	a,#0x03
 	jr	Z, 00174$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:590: g_MatchStatus == MATCH_BALL_ON_GOALKEEPER) {
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:592: g_MatchStatus == MATCH_BALL_ON_GOALKEEPER) {
 	cp	a,#0x0e
 	jr	Z, 00174$
 	sub	a, #0x0d
 	jr	NZ, 00182$
 00174$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:591: step = 2;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:593: step = 2;
 	ld	-14 (ix), #0x02
 00182$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:595: if(!playerInPosition){
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:597: if(!playerInPosition){
 	ld	a, -15 (ix)
 	or	a, a
 	jp	NZ, 00241$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:596: g_Players[i].Status=PLAYER_STATUS_NONE;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:598: g_Players[i].Status=PLAYER_STATUS_NONE;
 	ld	l, -19 (ix)
 	ld	h, -18 (ix)
 	ld	de, #0x0012
@@ -3220,7 +3223,7 @@ _TickPlayerToOwnTarget::
 	ld	(hl), a
 	inc	hl
 	ld	(hl), a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:598: i16 dx = (i16)g_Players[i].TargetX - (i16)g_Players[i].X;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:600: i16 dx = (i16)g_Players[i].TargetX - (i16)g_Players[i].X;
 	ld	l, -3 (ix)
 	ld	h, -2 (ix)
 	ld	a, (hl)
@@ -3246,7 +3249,7 @@ _TickPlayerToOwnTarget::
 	sbc	a, d
 	ld	-3 (ix), c
 	ld	-2 (ix), a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:599: i16 dy = (i16)g_Players[i].TargetY - (i16)g_Players[i].Y;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:601: i16 dy = (i16)g_Players[i].TargetY - (i16)g_Players[i].Y;
 	ld	a, -19 (ix)
 	add	a, #0x0e
 	ld	-13 (ix), a
@@ -3270,7 +3273,7 @@ _TickPlayerToOwnTarget::
 	sbc	a, d
 	ld	-11 (ix), c
 	ld	-10 (ix), a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:601: if (dx > 0) {
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:603: if (dx > 0) {
 	ld	a, -3 (ix)
 	ld	-9 (ix), a
 	ld	a, -2 (ix)
@@ -3286,7 +3289,7 @@ _TickPlayerToOwnTarget::
 	ld	-7 (ix), a
 	or	a, a
 	jr	Z, 00192$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:602: if (dx < step) g_Players[i].X = g_Players[i].TargetX;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:604: if (dx < step) g_Players[i].X = g_Players[i].TargetX;
 	ld	c, -14 (ix)
 	ld	b, #0x00
 	ld	a, -3 (ix)
@@ -3306,7 +3309,7 @@ _TickPlayerToOwnTarget::
 	ld	(hl), a
 	jp	00193$
 00184$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:603: else g_Players[i].X += step;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:605: else g_Players[i].X += step;
 	ld	c, -14 (ix)
 	ld	b, #0x00
 	ld	l, -5 (ix)
@@ -3324,10 +3327,10 @@ _TickPlayerToOwnTarget::
 	ld	(hl), d
 	jp	00193$
 00192$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:604: } else if (dx < 0) {
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:606: } else if (dx < 0) {
 	bit	7, -8 (ix)
 	jr	Z, 00193$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:605: if (-dx < step) g_Players[i].X = g_Players[i].TargetX;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:607: if (-dx < step) g_Players[i].X = g_Players[i].TargetX;
 	xor	a, a
 	sub	a, -3 (ix)
 	ld	c, a
@@ -3353,7 +3356,7 @@ _TickPlayerToOwnTarget::
 	ld	(hl), a
 	jp	00193$
 00187$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:606: else g_Players[i].X -= step;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:608: else g_Players[i].X -= step;
 	ld	c, -14 (ix)
 	ld	b, #0x00
 	ld	l, -5 (ix)
@@ -3371,7 +3374,7 @@ _TickPlayerToOwnTarget::
 	inc	hl
 	ld	(hl), d
 00193$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:609: if (dy > 0) {
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:611: if (dy > 0) {
 	ld	a, -11 (ix)
 	ld	-6 (ix), a
 	ld	a, -10 (ix)
@@ -3387,7 +3390,7 @@ _TickPlayerToOwnTarget::
 	ld	-4 (ix), a
 	or	a, a
 	jp	Z, 00203$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:610: if (dy < step) g_Players[i].Y = g_Players[i].TargetY;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:612: if (dy < step) g_Players[i].Y = g_Players[i].TargetY;
 	ld	a, -14 (ix)
 	ld	-3 (ix), a
 	ld	-2 (ix), #0x00
@@ -3415,7 +3418,7 @@ _TickPlayerToOwnTarget::
 	ld	(hl), a
 	jp	00204$
 00195$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:611: else g_Players[i].Y += step;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:613: else g_Players[i].Y += step;
 	ld	l, -19 (ix)
 	ld	h, -18 (ix)
 	ld	a, (hl)
@@ -3445,10 +3448,10 @@ _TickPlayerToOwnTarget::
 	ld	(hl), a
 	jp	00204$
 00203$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:612: } else if (dy < 0) {
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:614: } else if (dy < 0) {
 	bit	7, -5 (ix)
 	jp	Z, 00204$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:613: if (-dy < step) g_Players[i].Y = g_Players[i].TargetY;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:615: if (-dy < step) g_Players[i].Y = g_Players[i].TargetY;
 	xor	a, a
 	sub	a, -11 (ix)
 	ld	-3 (ix), a
@@ -3477,7 +3480,7 @@ _TickPlayerToOwnTarget::
 	ld	(hl), b
 	jp	00204$
 00198$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:614: else g_Players[i].Y -= step;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:616: else g_Players[i].Y -= step;
 	ld	l, -19 (ix)
 	ld	h, -18 (ix)
 	ld	a, (hl)
@@ -3506,7 +3509,7 @@ _TickPlayerToOwnTarget::
 	ld	a, -2 (ix)
 	ld	(hl), a
 00204$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:617: if(dx > 0 && dy < 0) g_Players[i].Direction=DIRECTION_UP_RIGHT;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:619: if(dx > 0 && dy < 0) g_Players[i].Direction=DIRECTION_UP_RIGHT;
 	ld	a, -7 (ix)
 	or	a, a
 	jr	Z, 00229$
@@ -3523,7 +3526,7 @@ _TickPlayerToOwnTarget::
 	ld	(hl), #0x02
 	jp	00230$
 00229$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:618: else if(dx < 0 && dy < 0) g_Players[i].Direction=DIRECTION_UP_LEFT;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:620: else if(dx < 0 && dy < 0) g_Players[i].Direction=DIRECTION_UP_LEFT;
 	ld	a, -8 (ix)
 	rlca
 	and	a,#0x01
@@ -3543,7 +3546,7 @@ _TickPlayerToOwnTarget::
 	ld	(hl), #0x08
 	jp	00230$
 00225$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:619: else if(dx < 0 && dy > 0) g_Players[i].Direction=DIRECTION_DOWN_LEFT;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:621: else if(dx < 0 && dy > 0) g_Players[i].Direction=DIRECTION_DOWN_LEFT;
 	ld	a, -2 (ix)
 	or	a, a
 	jr	Z, 00221$
@@ -3561,7 +3564,7 @@ _TickPlayerToOwnTarget::
 	ld	(hl), #0x06
 	jp	00230$
 00221$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:620: else if(dx > 0 && dy > 0) g_Players[i].Direction=DIRECTION_DOWN_RIGHT;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:622: else if(dx > 0 && dy > 0) g_Players[i].Direction=DIRECTION_DOWN_RIGHT;
 	ld	a, -7 (ix)
 	or	a, a
 	jr	Z, 00217$
@@ -3579,7 +3582,7 @@ _TickPlayerToOwnTarget::
 	ld	(hl), #0x04
 	jp	00230$
 00217$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:621: else if(dy < 0) g_Players[i].Direction=DIRECTION_UP;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:623: else if(dy < 0) g_Players[i].Direction=DIRECTION_UP;
 	bit	7, -5 (ix)
 	jr	Z, 00214$
 	ld	a, -19 (ix)
@@ -3593,7 +3596,7 @@ _TickPlayerToOwnTarget::
 	ld	(hl), #0x01
 	jp	00230$
 00214$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:622: else if(dy > 0) g_Players[i].Direction=DIRECTION_DOWN;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:624: else if(dy > 0) g_Players[i].Direction=DIRECTION_DOWN;
 	ld	a, -4 (ix)
 	or	a, a
 	jr	Z, 00211$
@@ -3608,7 +3611,7 @@ _TickPlayerToOwnTarget::
 	ld	(hl), #0x05
 	jp	00230$
 00211$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:623: else if(dx > 0) g_Players[i].Direction=DIRECTION_RIGHT;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:625: else if(dx > 0) g_Players[i].Direction=DIRECTION_RIGHT;
 	ld	a, -7 (ix)
 	or	a, a
 	jr	Z, 00208$
@@ -3623,7 +3626,7 @@ _TickPlayerToOwnTarget::
 	ld	(hl), #0x03
 	jp	00230$
 00208$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:624: else if(dx < 0) g_Players[i].Direction=DIRECTION_LEFT;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:626: else if(dx < 0) g_Players[i].Direction=DIRECTION_LEFT;
 	ld	a, -2 (ix)
 	or	a, a
 	jr	Z, 00230$
@@ -3637,7 +3640,7 @@ _TickPlayerToOwnTarget::
 	ld	h, -2 (ix)
 	ld	(hl), #0x07
 00230$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:627: if(g_Players[i].Y < FIELD_BOUND_Y_TOP) g_Players[i].Y = FIELD_BOUND_Y_TOP;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:629: if(g_Players[i].Y < FIELD_BOUND_Y_TOP) g_Players[i].Y = FIELD_BOUND_Y_TOP;
 	ld	l, -19 (ix)
 	ld	h, -18 (ix)
 	ld	c, (hl)
@@ -3654,7 +3657,7 @@ _TickPlayerToOwnTarget::
 	inc	hl
 	ld	(hl), #0x00
 00233$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:628: if(g_Players[i].Y > FIELD_BOUND_Y_BOTTOM) g_Players[i].Y = FIELD_BOUND_Y_BOTTOM;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:630: if(g_Players[i].Y > FIELD_BOUND_Y_BOTTOM) g_Players[i].Y = FIELD_BOUND_Y_BOTTOM;
 	ld	l, -19 (ix)
 	ld	h, -18 (ix)
 	ld	c, (hl)
@@ -3671,7 +3674,7 @@ _TickPlayerToOwnTarget::
 	inc	hl
 	ld	(hl), #0x01
 00235$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:629: if(g_Players[i].X < FIELD_BOUND_X_LEFT) g_Players[i].X = FIELD_BOUND_X_LEFT;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:631: if(g_Players[i].X < FIELD_BOUND_X_LEFT) g_Players[i].X = FIELD_BOUND_X_LEFT;
 	ld	l, -17 (ix)
 	ld	h, -16 (ix)
 	ld	c, (hl)
@@ -3688,7 +3691,7 @@ _TickPlayerToOwnTarget::
 	inc	hl
 	ld	(hl), #0x00
 00237$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:630: if(g_Players[i].X > FIELD_BOUND_X_RIGHT) g_Players[i].X = FIELD_BOUND_X_RIGHT;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:632: if(g_Players[i].X > FIELD_BOUND_X_RIGHT) g_Players[i].X = FIELD_BOUND_X_RIGHT;
 	ld	l, -17 (ix)
 	ld	h, -16 (ix)
 	ld	c, (hl)
@@ -3705,14 +3708,14 @@ _TickPlayerToOwnTarget::
 	inc	hl
 	ld	(hl), #0x00
 00241$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:488: if (g_MatchStatus == MATCH_IN_ACTION && g_Players[i].Role == PLAYER_ROLE_GOALKEEPER) {
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:490: if (g_MatchStatus == MATCH_IN_ACTION && g_Players[i].Role == PLAYER_ROLE_GOALKEEPER) {
 	ld	a, (_g_MatchStatus+0)
 	sub	a, #0x0c
 	ld	a, #0x01
 	jr	Z, 00914$
 	xor	a, a
 00914$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:634: if (g_MatchStatus == MATCH_IN_ACTION || (isSetPieceSetup && g_Ball.PossessionPlayerId == i)) {
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:636: if (g_MatchStatus == MATCH_IN_ACTION || (isSetPieceSetup && g_Ball.PossessionPlayerId == i)) {
 	ld	b, a
 	or	a, a
 	jr	NZ, 00254$
@@ -3724,38 +3727,38 @@ _TickPlayerToOwnTarget::
 	sub	a,(hl)
 	jr	NZ, 00255$
 00254$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:635: if (g_Ball.PossessionPlayerId == i) {
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:637: if (g_Ball.PossessionPlayerId == i) {
 	ld	hl, #(_g_Ball + 6)
 	ld	a,-1 (ix)
 	sub	a,(hl)
 	jr	NZ, 00255$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:638: if (g_Ball.KickMoveState == NO_VALUE) g_Ball.KickMoveState = 0;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:640: if (g_Ball.KickMoveState == NO_VALUE) g_Ball.KickMoveState = 0;
 	ld	de, #_g_Ball + 13
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:637: if (!playerInPosition && g_MatchStatus == MATCH_IN_ACTION) {
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:639: if (!playerInPosition && g_MatchStatus == MATCH_IN_ACTION) {
 	ld	a, -15 (ix)
 	or	a,a
 	jr	NZ, 00249$
 	or	a,b
 	jr	Z, 00249$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:638: if (g_Ball.KickMoveState == NO_VALUE) g_Ball.KickMoveState = 0;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:640: if (g_Ball.KickMoveState == NO_VALUE) g_Ball.KickMoveState = 0;
 	ld	a, (de)
 	inc	a
 	jr	NZ, 00243$
 	ld	(de), a
 00243$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:639: g_Ball.KickMoveState++;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:641: g_Ball.KickMoveState++;
 	ld	a, (de)
 	inc	a
 	ld	c, a
 	ld	(de), a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:640: if (g_Ball.KickMoveState > 3) g_Ball.KickMoveState = 0;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:642: if (g_Ball.KickMoveState > 3) g_Ball.KickMoveState = 0;
 	ld	a, #0x03
 	sub	a, c
 	jr	NC, 00245$
 	xor	a, a
 	ld	(de), a
 00245$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:641: if (g_Ball.KickMoveState == 1) PlayAyFx(AYFX_BALL);
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:643: if (g_Ball.KickMoveState == 1) PlayAyFx(AYFX_BALL);
 	ld	a, (de)
 	dec	a
 	jr	NZ, 00250$
@@ -3763,11 +3766,11 @@ _TickPlayerToOwnTarget::
 	call	_PlayAyFx
 	jp	00250$
 00249$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:643: g_Ball.KickMoveState = 0;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:645: g_Ball.KickMoveState = 0;
 	xor	a, a
 	ld	(de), a
 00250$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:645: CallFnc_VOID_P1(4,PutBallOnPlayerFeet,i);
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:647: CallFnc_VOID_P1(4,PutBallOnPlayerFeet,i);
 	ld	a, -1 (ix)
 	push	af
 	inc	sp
@@ -3775,15 +3778,15 @@ _TickPlayerToOwnTarget::
 	ld	a, #0x04
 	call	_CallFnc_VOID_P1
 00255$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:649: if (playerInPosition) {
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:651: if (playerInPosition) {
 	ld	a, -15 (ix)
 	or	a, a
 	jp	Z, 00297$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:650: if (g_MatchStatus == MATCH_BEFORE_CORNER_KICK || g_MatchStatus == MATCH_BEFORE_GOAL_KICK || 
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:652: if (g_MatchStatus == MATCH_BEFORE_CORNER_KICK || g_MatchStatus == MATCH_BEFORE_GOAL_KICK || 
 	ld	a,(_g_MatchStatus+0)
 	cp	a,#0x02
 	jr	Z, 00268$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:651: g_MatchStatus == MATCH_BEFORE_OFFSIDE || g_MatchStatus == MATCH_BEFORE_THROW_IN) {
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:653: g_MatchStatus == MATCH_BEFORE_OFFSIDE || g_MatchStatus == MATCH_BEFORE_THROW_IN) {
 	cp	a,#0x05
 	jr	Z, 00268$
 	cp	a,#0x0e
@@ -3791,7 +3794,7 @@ _TickPlayerToOwnTarget::
 	sub	a, #0x03
 	jr	NZ, 00269$
 00268$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:652: if (g_Players[i].Status != PLAYER_STATUS_POSITIONED) {
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:654: if (g_Players[i].Status != PLAYER_STATUS_POSITIONED) {
 	ld	l, -19 (ix)
 	ld	h, -18 (ix)
 	ld	de, #0x0012
@@ -3804,31 +3807,31 @@ _TickPlayerToOwnTarget::
 	sub	a, #0x04
 	or	a, b
 	jr	Z, 00269$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:653: g_Players[i].Status = PLAYER_STATUS_POSITIONED;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:655: g_Players[i].Status = PLAYER_STATUS_POSITIONED;
 	ld	(hl), #0x04
 	inc	hl
 	ld	(hl), #0x00
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:654: g_Players[i].Direction = DIRECTION_NONE;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:656: g_Players[i].Direction = DIRECTION_NONE;
 	ld	l, -19 (ix)
 	ld	h, -18 (ix)
 	ld	de, #0x000a
 	add	hl, de
 	ld	(hl), #0x00
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:655: u8 useDir = g_Players[i].PreviousDirection;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:657: u8 useDir = g_Players[i].PreviousDirection;
 	ld	c, -19 (ix)
 	ld	b, -18 (ix)
 	ld	hl, #11
 	add	hl, bc
 	ld	a, (hl)
 	ld	c, a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:656: if (useDir == DIRECTION_NONE) {
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:658: if (useDir == DIRECTION_NONE) {
 	or	a, a
 	jr	NZ, 00265$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:658: if(g_MatchStatus == MATCH_BEFORE_THROW_IN) {
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:660: if(g_MatchStatus == MATCH_BEFORE_THROW_IN) {
 	ld	a, (_g_MatchStatus+0)
 	sub	a, #0x03
 	jr	NZ, 00262$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:660: if(g_Ball.X < 128) useDir = DIRECTION_RIGHT; else useDir = DIRECTION_LEFT;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:662: if(g_Ball.X < 128) useDir = DIRECTION_RIGHT; else useDir = DIRECTION_LEFT;
 	ld	hl, (#_g_Ball + 2)
 	ld	de, #0x0080
 	cp	a, a
@@ -3840,10 +3843,10 @@ _TickPlayerToOwnTarget::
 	ld	c, #0x07
 	jp	00265$
 00262$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:662: useDir = DIRECTION_DOWN; 
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:664: useDir = DIRECTION_DOWN; 
 	ld	c, #0x05
 00265$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:665: g_Players[i].PatternId =CallFnc_U8_P1(8,GetNoMovingPlayerPatternId,useDir);
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:667: g_Players[i].PatternId =CallFnc_U8_P1(8,GetNoMovingPlayerPatternId,useDir);
 	ld	l, -19 (ix)
 	ld	h, -18 (ix)
 	ld	de, #0x0008
@@ -3858,11 +3861,11 @@ _TickPlayerToOwnTarget::
 	pop	hl
 	ld	(hl), a
 00269$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:669: if(g_MatchStatus==MATCH_IN_ACTION){
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:671: if(g_MatchStatus==MATCH_IN_ACTION){
 	ld	a, (_g_MatchStatus+0)
 	sub	a, #0x0c
 	jr	NZ, 00274$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:670: g_Players[i].Status=PLAYER_STATUS_POSITIONED;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:672: g_Players[i].Status=PLAYER_STATUS_POSITIONED;
 	ld	l, -19 (ix)
 	ld	h, -18 (ix)
 	ld	de, #0x0012
@@ -3871,7 +3874,7 @@ _TickPlayerToOwnTarget::
 	inc	hl
 	ld	(hl), #0x00
 00274$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:673: if (g_Players[i].TeamId == REFEREE) {
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:675: if (g_Players[i].TeamId == REFEREE) {
 	ld	a, -19 (ix)
 	add	a, #0x09
 	ld	-3 (ix), a
@@ -3883,7 +3886,7 @@ _TickPlayerToOwnTarget::
 	ld	a, (hl)
 	sub	a, #0x0e
 	jr	NZ, 00279$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:674: if(g_MatchStatus == MATCH_BEFORE_KICK_OFF || g_MatchStatus == MATCH_AFTER_IN_GOAL) {
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:676: if(g_MatchStatus == MATCH_BEFORE_KICK_OFF || g_MatchStatus == MATCH_AFTER_IN_GOAL) {
 	ld	a, (_g_MatchStatus+0)
 	dec	a
 	jr	Z, 00275$
@@ -3891,19 +3894,19 @@ _TickPlayerToOwnTarget::
 	sub	a, #0x06
 	jr	NZ, 00279$
 00275$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:675: g_Players[i].Direction = DIRECTION_DOWN;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:677: g_Players[i].Direction = DIRECTION_DOWN;
 	ld	l, -19 (ix)
 	ld	h, -18 (ix)
 	ld	de, #0x000a
 	add	hl, de
 	ld	(hl), #0x05
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:676: g_Players[i].PatternId = PLAYER_POSE_FRONT;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:678: g_Players[i].PatternId = PLAYER_POSE_FRONT;
 	ld	l, -19 (ix)
 	ld	h, -18 (ix)
 	ld	de, #0x0008
 	add	hl, de
 	ld	(hl), #0x10
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:677: g_Players[i].Status = PLAYER_STATUS_POSITIONED;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:679: g_Players[i].Status = PLAYER_STATUS_POSITIONED;
 	ld	l, -19 (ix)
 	ld	h, -18 (ix)
 	ld	de, #0x0012
@@ -3911,7 +3914,7 @@ _TickPlayerToOwnTarget::
 	ld	(hl), #0x04
 	inc	hl
 	ld	(hl), #0x00
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:678: CallFnc_VOID_P1(5,PutPlayerSprite,i);
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:680: CallFnc_VOID_P1(5,PutPlayerSprite,i);
 	ld	a, -1 (ix)
 	push	af
 	inc	sp
@@ -3919,11 +3922,11 @@ _TickPlayerToOwnTarget::
 	ld	a, #0x05
 	call	_CallFnc_VOID_P1
 00279$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:684: if(g_MatchStatus==MATCH_BEFORE_KICK_OFF){
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:686: if(g_MatchStatus==MATCH_BEFORE_KICK_OFF){
 	ld	a, (_g_MatchStatus+0)
 	dec	a
 	jp	NZ,00297$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:686: if(g_Players[i].TeamId!=REFEREE && g_Players[i].PatternId!=PLAYER_POSE_BACK && g_Players[i].PatternId!=PLAYER_POSE_FRONT){
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:688: if(g_Players[i].TeamId!=REFEREE && g_Players[i].PatternId!=PLAYER_POSE_BACK && g_Players[i].PatternId!=PLAYER_POSE_FRONT){
 	ld	l, -3 (ix)
 	ld	h, -2 (ix)
 	ld	a, (hl)
@@ -3940,7 +3943,7 @@ _TickPlayerToOwnTarget::
 	jr	Z, 00297$
 	sub	a, #0x10
 	jr	Z, 00297$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:687: g_Players[i].Status=PLAYER_STATUS_POSITIONED;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:689: g_Players[i].Status=PLAYER_STATUS_POSITIONED;
 	ld	l, -19 (ix)
 	ld	h, -18 (ix)
 	ld	de, #0x0012
@@ -3948,50 +3951,50 @@ _TickPlayerToOwnTarget::
 	ld	(hl), #0x04
 	inc	hl
 	ld	(hl), #0x00
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:617: if(dx > 0 && dy < 0) g_Players[i].Direction=DIRECTION_UP_RIGHT;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:619: if(dx > 0 && dy < 0) g_Players[i].Direction=DIRECTION_UP_RIGHT;
 	ld	a, -19 (ix)
 	add	a, #0x0a
 	ld	e, a
 	ld	a, -18 (ix)
 	adc	a, #0x00
 	ld	d, a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:673: if (g_Players[i].TeamId == REFEREE) {
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:675: if (g_Players[i].TeamId == REFEREE) {
 	ld	l, -3 (ix)
 	ld	h, -2 (ix)
 	ld	a, (hl)
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:689: if(g_Players[i].TeamId==TEAM_1){
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:691: if(g_Players[i].TeamId==TEAM_1){
 	dec	a
 	ld	a, #0x01
 	jr	Z, 00944$
 	xor	a, a
 00944$:
 	ld	-2 (ix), a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:688: if (i != g_GoalScorerId) {
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:690: if (i != g_GoalScorerId) {
 	ld	a, -1 (ix)
 	ld	hl, #_g_GoalScorerId
 	sub	a, (hl)
 	jr	Z, 00287$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:689: if(g_Players[i].TeamId==TEAM_1){
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:691: if(g_Players[i].TeamId==TEAM_1){
 	ld	a, -2 (ix)
 	or	a, a
 	jr	Z, 00281$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:690: g_Players[i].PatternId=PLAYER_POSE_BACK;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:692: g_Players[i].PatternId=PLAYER_POSE_BACK;
 	ld	a, #0x11
 	ld	(bc), a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:691: g_Players[i].Direction=DIRECTION_UP;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:693: g_Players[i].Direction=DIRECTION_UP;
 	ld	a, #0x01
 	ld	(de), a
 	jp	00288$
 00281$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:694: g_Players[i].PatternId=PLAYER_POSE_FRONT;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:696: g_Players[i].PatternId=PLAYER_POSE_FRONT;
 	ld	a, #0x10
 	ld	(bc), a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:695: g_Players[i].Direction=DIRECTION_DOWN;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:697: g_Players[i].Direction=DIRECTION_DOWN;
 	ld	a, #0x05
 	ld	(de), a
 	jp	00288$
 00287$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:698: if(g_Players[i].TeamId==TEAM_1) g_Players[i].Direction=DIRECTION_UP;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:700: if(g_Players[i].TeamId==TEAM_1) g_Players[i].Direction=DIRECTION_UP;
 	ld	a, -2 (ix)
 	or	a, a
 	jr	Z, 00284$
@@ -3999,11 +4002,11 @@ _TickPlayerToOwnTarget::
 	ld	(de), a
 	jp	00288$
 00284$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:699: else g_Players[i].Direction=DIRECTION_DOWN;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:701: else g_Players[i].Direction=DIRECTION_DOWN;
 	ld	a, #0x05
 	ld	(de), a
 00288$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:701: CallFnc_VOID_P1(5,PutPlayerSprite,i);
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:703: CallFnc_VOID_P1(5,PutPlayerSprite,i);
 	ld	a, -1 (ix)
 	push	af
 	inc	sp
@@ -4011,11 +4014,11 @@ _TickPlayerToOwnTarget::
 	ld	a, #0x05
 	call	_CallFnc_VOID_P1
 00297$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:487: for(u8 i=0;i<15;i++){
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:489: for(u8 i=0;i<15;i++){
 	inc	-1 (ix)
 	jp	00306$
 00298$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:708: if(g_MatchStatus==MATCH_BEFORE_KICK_OFF && allPlayersInPosition && g_FieldScrollingActionInProgress==NO_VALUE){
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:710: if(g_MatchStatus==MATCH_BEFORE_KICK_OFF && allPlayersInPosition && g_FieldScrollingActionInProgress==NO_VALUE){
 	ld	a, (_g_MatchStatus+0)
 	dec	a
 	jr	NZ, 00307$
@@ -4025,30 +4028,30 @@ _TickPlayerToOwnTarget::
 	ld	a, (_g_FieldScrollingActionInProgress+0)
 	inc	a
 	jr	NZ, 00307$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:710: g_Ball.Size=1;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:712: g_Ball.Size=1;
 	ld	hl, #(_g_Ball + 4)
 	ld	(hl), #0x01
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:712: g_FieldScrollSpeed=FIELD_SCROLL_GAME_SPEED;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:714: g_FieldScrollSpeed=FIELD_SCROLL_GAME_SPEED;
 	ld	hl, #_g_FieldScrollSpeed
 	ld	(hl), #0x05
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:713: g_MatchStatus=MATCH_KICK_OFF;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:715: g_MatchStatus=MATCH_KICK_OFF;
 	ld	hl, #_g_MatchStatus
 	ld	(hl), #0x07
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:715: g_Timer=0;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:717: g_Timer=0;
 	ld	hl, #_g_Timer
 	ld	(hl), #0x00
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:716: g_TimerActive=TRUE;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:718: g_TimerActive=TRUE;
 	ld	hl, #_g_TimerActive
 	ld	(hl), #0x01
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:717: g_GoalScorerId = NO_VALUE; 
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:719: g_GoalScorerId = NO_VALUE; 
 	ld	hl, #_g_GoalScorerId
 	ld	(hl), #0xff
 00307$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:721: }
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:723: }
 	ld	sp, ix
 	pop	ix
 	ret
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:723: void PutPlayerSprite(u8 playerId){
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:725: void PutPlayerSprite(u8 playerId){
 ;	---------------------------------
 ; Function PutPlayerSprite
 ; ---------------------------------
@@ -4060,18 +4063,18 @@ _PutPlayerSprite::
 	add	hl, sp
 	ld	sp, hl
 	ld	c, a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:725: attr.D=0;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:727: attr.D=0;
 	ld	hl, #3
 	add	hl, sp
 	res	4, (hl)
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:726: attr.SC=2;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:728: attr.SC=2;
 	ld	hl, #3
 	add	hl, sp
 	ld	a, (hl)
 	and	a, #0x3f
 	or	a, #0x80
 	ld	(hl), a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:727: u16 minY = (g_FieldCurrentYPosition > 32) ? (u16)(g_FieldCurrentYPosition - 32) : 0;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:729: u16 minY = (g_FieldCurrentYPosition > 32) ? (u16)(g_FieldCurrentYPosition - 32) : 0;
 	ld	a, #0x20
 	ld	iy, #_g_FieldCurrentYPosition
 	cp	a, 0 (iy)
@@ -4093,13 +4096,13 @@ _PutPlayerSprite::
 00146$:
 	ld	-4 (ix), e
 	ld	-3 (ix), d
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:728: u16 maxY = g_FieldCurrentYPosition + 244;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:730: u16 maxY = g_FieldCurrentYPosition + 244;
 	ld	hl, (_g_FieldCurrentYPosition)
 	ld	de, #0x00f4
 	add	hl, de
 	ld	-2 (ix), l
 	ld	-1 (ix), h
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:730: attr.Y = g_Players[playerId].Y-g_FieldCurrentYPosition;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:732: attr.Y = g_Players[playerId].Y-g_FieldCurrentYPosition;
 	ld	de, #_g_Players+0
 	ld	b, #0x00
 	ld	l, c
@@ -4121,7 +4124,7 @@ _PutPlayerSprite::
 	ld	a, l
 	sub	a, b
 	ld	-18 (ix), a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:731: if(g_Players[playerId].TeamId==TEAM_2){
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:733: if(g_Players[playerId].TeamId==TEAM_2){
 	ld	hl, #0x0009
 	add	hl, de
 	ld	-14 (ix), l
@@ -4129,20 +4132,20 @@ _PutPlayerSprite::
 	ld	a, (hl)
 	sub	a, #0x02
 	jr	NZ, 00102$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:732: attr.SC=3;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:734: attr.SC=3;
 	ld	hl, #3
 	add	hl, sp
 	ld	a, (hl)
 	or	a, #0xc0
 	ld	(hl), a
 00102$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:735: if(g_Players[playerId].TeamId==REFEREE){
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:737: if(g_Players[playerId].TeamId==REFEREE){
 	ld	l, -14 (ix)
 	ld	h, -13 (ix)
 	ld	a, (hl)
 	sub	a, #0x0e
 	jr	NZ, 00104$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:736: attr.SC=1;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:738: attr.SC=1;
 	ld	hl, #3
 	add	hl, sp
 	ld	a, (hl)
@@ -4150,7 +4153,7 @@ _PutPlayerSprite::
 	or	a, #0x40
 	ld	(hl), a
 00104$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:739: if(g_Players[playerId].Y>maxY){
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:741: if(g_Players[playerId].Y>maxY){
 	ld	l, e
 	ld	h, d
 	ld	b, (hl)
@@ -4162,12 +4165,12 @@ _PutPlayerSprite::
 	ld	a, -1 (ix)
 	sbc	a, l
 	jr	NC, 00106$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:740: attr.D=1;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:742: attr.D=1;
 	ld	hl, #3
 	add	hl, sp
 	set	4, (hl)
 00106$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:742: if(g_Players[playerId].Y<minY){
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:744: if(g_Players[playerId].Y<minY){
 	ld	l, e
 	ld	h, d
 	ld	b, (hl)
@@ -4179,30 +4182,30 @@ _PutPlayerSprite::
 	ld	a, l
 	sbc	a, -3 (ix)
 	jr	NC, 00108$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:743: attr.D=1;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:745: attr.D=1;
 	ld	hl, #3
 	add	hl, sp
 	set	4, (hl)
 00108$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:746: if(g_Players[playerId].Role!=PLAYER_ROLE_GOALKEEPER){
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:748: if(g_Players[playerId].Role!=PLAYER_ROLE_GOALKEEPER){
 	ld	hl, #0x000d
 	add	hl, de
 	ld	-12 (ix), l
 	ld	-11 (ix), h
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:745: if(g_MatchStatus!=MATCH_NOT_STARTED && g_MatchStatus!=MATCH_KICK_OFF){
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:747: if(g_MatchStatus!=MATCH_NOT_STARTED && g_MatchStatus!=MATCH_KICK_OFF){
 	ld	a, (_g_MatchStatus+0)
 	or	a, a
 	jr	Z, 00112$
 	ld	a, (_g_MatchStatus+0)
 	sub	a, #0x07
 	jr	Z, 00112$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:746: if(g_Players[playerId].Role!=PLAYER_ROLE_GOALKEEPER){
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:748: if(g_Players[playerId].Role!=PLAYER_ROLE_GOALKEEPER){
 	ld	l, -12 (ix)
 	ld	h, -11 (ix)
 	ld	a, (hl)
 	or	a, a
 	jr	Z, 00112$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:747: CallFnc_VOID_P1(5,UpdatePlayerPatternByDirection,playerId);
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:749: CallFnc_VOID_P1(5,UpdatePlayerPatternByDirection,playerId);
 	push	bc
 	push	de
 	ld	a, c
@@ -4214,48 +4217,48 @@ _PutPlayerSprite::
 	pop	de
 	pop	bc
 00112$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:750: if(g_Players[playerId].Role==PLAYER_ROLE_GOALKEEPER){
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:752: if(g_Players[playerId].Role==PLAYER_ROLE_GOALKEEPER){
 	ld	l, -12 (ix)
 	ld	h, -11 (ix)
 	ld	b, (hl)
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:758: if(g_Players[playerId].OldX!=g_Players[playerId].X || g_Players[playerId].OldY!=g_Players[playerId].Y){
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:760: if(g_Players[playerId].OldX!=g_Players[playerId].X || g_Players[playerId].OldY!=g_Players[playerId].Y){
 	ld	hl, #0x0002
 	add	hl, de
 	ld	-10 (ix), l
 	ld	-9 (ix), h
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:760: g_Players[playerId].PatternId = (team == TEAM_1) ? PLAYER_POSE_GK_H_MOVE_BACK_1 : PLAYER_POSE_GK_H_MOVE_FRONT_1;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:762: g_Players[playerId].PatternId = (team == TEAM_1) ? PLAYER_POSE_GK_H_MOVE_BACK_1 : PLAYER_POSE_GK_H_MOVE_FRONT_1;
 	ld	hl, #0x0008
 	add	hl, de
 	ld	-8 (ix), l
 	ld	-7 (ix), h
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:750: if(g_Players[playerId].Role==PLAYER_ROLE_GOALKEEPER){
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:752: if(g_Players[playerId].Role==PLAYER_ROLE_GOALKEEPER){
 	ld	a, b
 	or	a, a
 	jp	NZ, 00125$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:751: attr.SC=0;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:753: attr.SC=0;
 	ld	hl, #3
 	add	hl, sp
 	ld	a, (hl)
 	and	a, #0x3f
 	ld	(hl), a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:754: if (g_MatchStatus == MATCH_IN_ACTION || g_MatchStatus == MATCH_BALL_ON_GOALKEEPER) {
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:756: if (g_MatchStatus == MATCH_IN_ACTION || g_MatchStatus == MATCH_BALL_ON_GOALKEEPER) {
 	ld	a,(_g_MatchStatus+0)
 	cp	a,#0x0c
 	jr	Z, 00120$
 	sub	a, #0x0d
 	jp	NZ,00121$
 00120$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:755: g_Players[playerId].Status=PLAYER_STATUS_POSITIONED;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:757: g_Players[playerId].Status=PLAYER_STATUS_POSITIONED;
 	ld	hl, #0x0012
 	add	hl, de
 	ld	(hl), #0x04
 	inc	hl
 	ld	(hl), #0x00
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:756: u8 team = g_Players[playerId].TeamId;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:758: u8 team = g_Players[playerId].TeamId;
 	ld	l, -14 (ix)
 	ld	h, -13 (ix)
 	ld	b, (hl)
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:758: if(g_Players[playerId].OldX!=g_Players[playerId].X || g_Players[playerId].OldY!=g_Players[playerId].Y){
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:760: if(g_Players[playerId].OldX!=g_Players[playerId].X || g_Players[playerId].OldY!=g_Players[playerId].Y){
 	ld	hl, #0x0004
 	add	hl, de
 	ld	-6 (ix), l
@@ -4308,23 +4311,23 @@ _PutPlayerSprite::
 	jp	Z,00125$
 00293$:
 00117$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:759: if(g_Players[playerId].LastPose==0){
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:761: if(g_Players[playerId].LastPose==0){
 	ld	hl, #0x000c
 	add	hl, de
 	ld	-2 (ix), l
 	ld	-1 (ix), h
 	ld	l, (hl)
 ;	spillPairReg hl
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:760: g_Players[playerId].PatternId = (team == TEAM_1) ? PLAYER_POSE_GK_H_MOVE_BACK_1 : PLAYER_POSE_GK_H_MOVE_FRONT_1;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:762: g_Players[playerId].PatternId = (team == TEAM_1) ? PLAYER_POSE_GK_H_MOVE_BACK_1 : PLAYER_POSE_GK_H_MOVE_FRONT_1;
 	dec	b
 	ld	a, #0x01
 	jr	Z, 00295$
 	xor	a, a
 00295$:
 	ld	b, a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:759: if(g_Players[playerId].LastPose==0){
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:761: if(g_Players[playerId].LastPose==0){
 	ld	a, l
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:760: g_Players[playerId].PatternId = (team == TEAM_1) ? PLAYER_POSE_GK_H_MOVE_BACK_1 : PLAYER_POSE_GK_H_MOVE_FRONT_1;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:762: g_Players[playerId].PatternId = (team == TEAM_1) ? PLAYER_POSE_GK_H_MOVE_BACK_1 : PLAYER_POSE_GK_H_MOVE_FRONT_1;
 	or	a,a
 	jr	NZ, 00115$
 	or	a,b
@@ -4335,13 +4338,13 @@ _PutPlayerSprite::
 	ld	l, -8 (ix)
 	ld	h, -7 (ix)
 	ld	(hl), a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:761: g_Players[playerId].LastPose=1;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:763: g_Players[playerId].LastPose=1;
 	ld	l, -2 (ix)
 	ld	h, -1 (ix)
 	ld	(hl), #0x01
 	jp	00116$
 00115$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:764: g_Players[playerId].PatternId = (team == TEAM_1) ? PLAYER_POSE_GK_H_MOVE_BACK_2 : PLAYER_POSE_GK_H_MOVE_FRONT_2;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:766: g_Players[playerId].PatternId = (team == TEAM_1) ? PLAYER_POSE_GK_H_MOVE_BACK_2 : PLAYER_POSE_GK_H_MOVE_FRONT_2;
 	ld	a, b
 	or	a, a
 	jr	Z, 00149$
@@ -4354,12 +4357,12 @@ _PutPlayerSprite::
 	ld	l, -8 (ix)
 	ld	h, -7 (ix)
 	ld	(hl), a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:765: g_Players[playerId].LastPose=0;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:767: g_Players[playerId].LastPose=0;
 	ld	l, -2 (ix)
 	ld	h, -1 (ix)
 	ld	(hl), #0x00
 00116$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:767: g_Players[playerId].OldX=g_Players[playerId].X;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:769: g_Players[playerId].OldX=g_Players[playerId].X;
 	ld	l, -10 (ix)
 	ld	h, -9 (ix)
 	ld	a, (hl)
@@ -4374,7 +4377,7 @@ _PutPlayerSprite::
 	inc	hl
 	ld	a, -1 (ix)
 	ld	(hl), a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:768: g_Players[playerId].OldY=g_Players[playerId].Y;	
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:770: g_Players[playerId].OldY=g_Players[playerId].Y;	
 	ld	l, e
 	ld	h, d
 	ld	b, (hl)
@@ -4387,7 +4390,7 @@ _PutPlayerSprite::
 	ld	(hl), e
 	jp	00125$
 00121$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:773: CallFnc_VOID_P1(5,UpdatePlayerPatternByDirection,playerId);
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:775: CallFnc_VOID_P1(5,UpdatePlayerPatternByDirection,playerId);
 	push	bc
 	ld	a, c
 	push	af
@@ -4397,7 +4400,7 @@ _PutPlayerSprite::
 	call	_CallFnc_VOID_P1
 	pop	bc
 00125$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:776: attr.Pattern = g_Players[playerId].PatternId;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:778: attr.Pattern = g_Players[playerId].PatternId;
 	ld	hl, #0+1
 	add	hl, sp
 	ex	de, hl
@@ -4405,7 +4408,7 @@ _PutPlayerSprite::
 	ld	h, -7 (ix)
 	ld	a, (hl)
 	ld	(de), a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:779: if(g_Players[playerId].TeamId != REFEREE && g_MatchStatus != MATCH_PENALTY_SHOOTOUT && g_MatchStatus != MATCH_PENALTY_SETUP && g_MatchStatus != MATCH_VICTORY_LAP)
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:781: if(g_Players[playerId].TeamId != REFEREE && g_MatchStatus != MATCH_PENALTY_SHOOTOUT && g_MatchStatus != MATCH_PENALTY_SETUP && g_MatchStatus != MATCH_VICTORY_LAP)
 	ld	l, -14 (ix)
 	ld	h, -13 (ix)
 	ld	b, (hl)
@@ -4419,7 +4422,7 @@ _PutPlayerSprite::
 	jr	Z, 00137$
 	sub	a, #0x10
 	jr	Z, 00137$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:781: bool isHumanTeam = (g_Players[playerId].TeamId == TEAM_1) || (g_GameWith2Players && g_Players[playerId].TeamId == TEAM_2);
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:783: bool isHumanTeam = (g_Players[playerId].TeamId == TEAM_1) || (g_GameWith2Players && g_Players[playerId].TeamId == TEAM_2);
 	ld	a, b
 	dec	a
 	jr	Z, 00152$
@@ -4435,16 +4438,16 @@ _PutPlayerSprite::
 00152$:
 	ld	a, #0x01
 00153$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:783: if (isHumanTeam) {
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:785: if (isHumanTeam) {
 	or	a, a
 	jr	Z, 00137$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:785: if (g_Players[playerId].Role != PLAYER_ROLE_GOALKEEPER) {
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:787: if (g_Players[playerId].Role != PLAYER_ROLE_GOALKEEPER) {
 	ld	l, -12 (ix)
 	ld	h, -11 (ix)
 	ld	a, (hl)
 	or	a, a
 	jr	Z, 00131$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:786: if (playerId==g_Team1ActivePlayer || (g_GameWith2Players && playerId==g_Team2ActivePlayer)) {
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:788: if (playerId==g_Team1ActivePlayer || (g_GameWith2Players && playerId==g_Team2ActivePlayer)) {
 	ld	a, (_g_Team1ActivePlayer+0)
 	sub	a, c
 	jr	Z, 00126$
@@ -4455,21 +4458,21 @@ _PutPlayerSprite::
 	sub	a, c
 	jr	NZ, 00131$
 00126$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:788: attr.Pattern=(u8)(attr.Pattern+64);
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:790: attr.Pattern=(u8)(attr.Pattern+64);
 	ld	a, (de)
 	add	a, #0x40
 	ld	(de), a
 00131$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:793: if (playerId == g_PassTargetPlayer) {
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:795: if (playerId == g_PassTargetPlayer) {
 	ld	a, (_g_PassTargetPlayer+0)
 	sub	a, c
 	jr	NZ, 00137$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:794: attr.Pattern=(u8)(attr.Pattern+64);
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:796: attr.Pattern=(u8)(attr.Pattern+64);
 	ld	a, (de)
 	add	a, #0x40
 	ld	(de), a
 00137$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:800: attr.X = g_Players[playerId].X;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:802: attr.X = g_Players[playerId].X;
 	ld	l, -10 (ix)
 	ld	h, -9 (ix)
 	ld	b, (hl)
@@ -4488,11 +4491,11 @@ _PutPlayerSprite::
 	or	a, c
 	pop	bc
 	ld	(hl), a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:801: attr.P = 1;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:803: attr.P = 1;
 	ld	hl, #3
 	add	hl, sp
 	set	5, (hl)
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:802: V9_SetSpriteP1(playerId, &attr);
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:804: V9_SetSpriteP1(playerId, &attr);
 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/v9990.h:781: inline void V9_SetSpriteP1(u8 id, const V9_Sprite* attr) { V9_WriteVRAM(V9_P1_SPAT + (id * 4), (const u8*)attr, 4); }
 	ld	h, #0x00
 ;	spillPairReg hl
@@ -4523,12 +4526,12 @@ _PutPlayerSprite::
 	ld	hl, #0
 	add	hl, sp
 	call	_V9_WriteVRAM_CurrentAddr
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:802: V9_SetSpriteP1(playerId, &attr);
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:804: }
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:804: V9_SetSpriteP1(playerId, &attr);
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:806: }
 	ld	sp, ix
 	pop	ix
 	ret
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:806: void UpdatePlayerPatternByDirection(u8 playerId){
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:808: void UpdatePlayerPatternByDirection(u8 playerId){
 ;	---------------------------------
 ; Function UpdatePlayerPatternByDirection
 ; ---------------------------------
@@ -4540,7 +4543,7 @@ _UpdatePlayerPatternByDirection::
 	add	hl, sp
 	ld	sp, hl
 	ld	-1 (ix), a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:807: if(g_Players[playerId].Status==PLAYER_STATUS_POSITIONED){
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:809: if(g_Players[playerId].Status==PLAYER_STATUS_POSITIONED){
 	ld	bc, #_g_Players+0
 	ld	e, -1 (ix)
 	ld	d, #0x00
@@ -4565,10 +4568,10 @@ _UpdatePlayerPatternByDirection::
 	sub	a, #0x04
 	or	a, b
 	jp	Z,00122$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:808: return;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:810: return;
 	jp	00102$
 00102$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:812: if(g_Players[playerId].Direction!=g_Players[playerId].PreviousDirection){
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:814: if(g_Players[playerId].Direction!=g_Players[playerId].PreviousDirection){
 	ld	hl, #0x000a
 	add	hl, de
 	ex	(sp), hl
@@ -4580,13 +4583,13 @@ _UpdatePlayerPatternByDirection::
 	ld	-3 (ix), l
 	ld	-2 (ix), h
 	ld	b, (hl)
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:813: if(g_Players[playerId].Direction==DIRECTION_NONE){
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:815: if(g_Players[playerId].Direction==DIRECTION_NONE){
 	ld	a,c
 	cp	a,b
 	jr	Z, 00112$
 	or	a, a
 	jr	NZ, 00104$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:814: g_Players[playerId].PatternId=CallFnc_U8_P1(8,GetNoMovingPlayerPatternId,g_Players[playerId].PreviousDirection); 
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:816: g_Players[playerId].PatternId=CallFnc_U8_P1(8,GetNoMovingPlayerPatternId,g_Players[playerId].PreviousDirection); 
 	ld	hl, #0x0008
 	add	hl, de
 	push	hl
@@ -4599,7 +4602,7 @@ _UpdatePlayerPatternByDirection::
 	pop	de
 	pop	hl
 	ld	(hl), a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:815: g_Players[playerId].PreviousDirection=g_Players[playerId].Direction;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:817: g_Players[playerId].PreviousDirection=g_Players[playerId].Direction;
 	pop	hl
 	push	hl
 	ld	a, (hl)
@@ -4610,54 +4613,54 @@ _UpdatePlayerPatternByDirection::
 	ld	(hl), a
 	jp	00113$
 00104$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:818: g_Players[playerId].PreviousDirection=g_Players[playerId].Direction;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:820: g_Players[playerId].PreviousDirection=g_Players[playerId].Direction;
 	ld	l, -3 (ix)
 	ld	h, -2 (ix)
 	ld	(hl), c
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:819: g_Players[playerId].LastPose=0;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:821: g_Players[playerId].LastPose=0;
 	ld	hl, #0x000c
 	add	hl, de
 	ld	(hl), #0x00
 	jp	00113$
 00112$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:825: if(g_Players[playerId].Direction!=DIRECTION_NONE){
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:827: if(g_Players[playerId].Direction!=DIRECTION_NONE){
 	ld	a, c
 	or	a, a
 	jr	Z, 00113$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:826: if(g_Players[playerId].LastPose==1){
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:828: if(g_Players[playerId].LastPose==1){
 	ld	hl, #0x000c
 	add	hl, de
 	ld	a, (hl)
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:827: g_Players[playerId].LastPose=0;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:829: g_Players[playerId].LastPose=0;
 	dec	a
 	jr	NZ, 00107$
 	ld	(hl),a
 	jp	00113$
 00107$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:830: g_Players[playerId].LastPose=1;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:832: g_Players[playerId].LastPose=1;
 	ld	(hl), #0x01
 00113$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:836: if(g_Players[playerId].TeamId==REFEREE && g_MatchStatus==MATCH_BEFORE_KICK_OFF ){
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:838: if(g_Players[playerId].TeamId==REFEREE && g_MatchStatus==MATCH_BEFORE_KICK_OFF ){
 	ld	c, e
 	ld	b, d
 	ld	hl, #9
 	add	hl, bc
 	ld	a, (hl)
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:812: if(g_Players[playerId].Direction!=g_Players[playerId].PreviousDirection){
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:814: if(g_Players[playerId].Direction!=g_Players[playerId].PreviousDirection){
 	pop	hl
 	push	hl
 	ld	c, (hl)
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:836: if(g_Players[playerId].TeamId==REFEREE && g_MatchStatus==MATCH_BEFORE_KICK_OFF ){
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:838: if(g_Players[playerId].TeamId==REFEREE && g_MatchStatus==MATCH_BEFORE_KICK_OFF ){
 	sub	a, #0x0e
 	jr	NZ, 00119$
 	ld	a, (_g_MatchStatus+0)
 	dec	a
 	jr	NZ, 00119$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:839: if(g_Players[playerId].Direction!=DIRECTION_NONE){
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:841: if(g_Players[playerId].Direction!=DIRECTION_NONE){
 	ld	a, c
 	or	a, a
 	jr	Z, 00122$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:840: g_Players[playerId].PatternId=GetPatternIdByPoseAndDirection(playerId);
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:842: g_Players[playerId].PatternId=GetPatternIdByPoseAndDirection(playerId);
 	ld	hl, #0x0008
 	add	hl, de
 	push	hl
@@ -4667,11 +4670,11 @@ _UpdatePlayerPatternByDirection::
 	ld	(de), a
 	jp	00122$
 00119$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:844: if(g_Players[playerId].Direction!=DIRECTION_NONE){
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:846: if(g_Players[playerId].Direction!=DIRECTION_NONE){
 	ld	a, c
 	or	a, a
 	jr	Z, 00122$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:845: g_Players[playerId].PatternId=GetPatternIdByPoseAndDirection(playerId);
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:847: g_Players[playerId].PatternId=GetPatternIdByPoseAndDirection(playerId);
 	ld	hl, #0x0008
 	add	hl, de
 	push	hl
@@ -4680,17 +4683,17 @@ _UpdatePlayerPatternByDirection::
 	pop	hl
 	ld	(hl), a
 00122$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:848: }
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:850: }
 	ld	sp, ix
 	pop	ix
 	ret
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:850: u8 GetPatternIdByPoseAndDirection(u8 playerId){
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:852: u8 GetPatternIdByPoseAndDirection(u8 playerId){
 ;	---------------------------------
 ; Function GetPatternIdByPoseAndDirection
 ; ---------------------------------
 _GetPatternIdByPoseAndDirection::
 	ld	e, a
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:851: u8 pose = g_Players[playerId].LastPose;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:853: u8 pose = g_Players[playerId].LastPose;
 	ld	bc, #_g_Players+0
 	ld	d, #0x00
 	ld	l, e
@@ -4706,21 +4709,21 @@ _GetPatternIdByPoseAndDirection::
 	push	de
 	pop	iy
 	ld	c, 12 (iy)
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:852: u8 dir = g_Players[playerId].Direction;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:854: u8 dir = g_Players[playerId].Direction;
 	ld	hl, #10
 	add	hl, de
 	ld	e, (hl)
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:855: if (dir > 8) dir = DIRECTION_NONE;
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:857: if (dir > 8) dir = DIRECTION_NONE;
 	ld	a, #0x08
 	sub	a, e
 	jr	NC, 00102$
 	ld	e, #0x00
 00102$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:857: if (dir == DIRECTION_NONE) {
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:859: if (dir == DIRECTION_NONE) {
 	ld	a, e
 	or	a, a
 	jr	NZ, 00104$
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:858: return CallFnc_U8_P1(8,GetNoMovingPlayerPatternId,dir); // Assuming logic for NONE inside
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:860: return CallFnc_U8_P1(8,GetNoMovingPlayerPatternId,dir); // Assuming logic for NONE inside
 	ld	a, e
 	push	af
 	inc	sp
@@ -4729,7 +4732,7 @@ _GetPatternIdByPoseAndDirection::
 	call	_CallFnc_U8_P1
 	ret
 00104$:
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:876: return k_MovePats[dir * 2 + (pose ? 1 : 0)];
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:878: return k_MovePats[dir * 2 + (pose ? 1 : 0)];
 	sla	e
 	ld	a, c
 	or	a, a
@@ -4749,7 +4752,7 @@ _GetPatternIdByPoseAndDirection::
 	ld	de, #_GetPatternIdByPoseAndDirection_k_MovePats_65537_1380
 	add	hl, de
 	ld	a, (hl)
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:877: }
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:879: }
 	ret
 _GetPatternIdByPoseAndDirection_k_MovePats_65537_1380:
 	.db #0x00	; 0

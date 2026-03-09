@@ -493,7 +493,8 @@ void TickTeamJoystick(u8 direction){
 			}
 		}
 
-		if((g_FrameCounter % 2)!=0){ 
+		// Apply frame skip only if direction unchanged (immediate response on new direction press)
+		if((g_FrameCounter % 2)!=0 && direction == g_Players[playerId].PreviousDirection){
 			return;
 		}
 

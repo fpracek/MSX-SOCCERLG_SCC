@@ -2,7 +2,8 @@
   "permissions": {
     "allow": [
       "Bash(git -C \"e:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/projects/soccerlgSCC\" diff HEAD soccerlg.h)",
-      "Bash(xxd \"e:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/projects/soccerlgSCC/scc/scc_001.bin\")"
+      "Bash(xxd \"e:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/projects/soccerlgSCC/scc/scc_001.bin\")",
+      "Bash(python3 -c \":*)"
     ]
   }
 }

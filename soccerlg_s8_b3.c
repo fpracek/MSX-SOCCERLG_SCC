@@ -144,12 +144,12 @@ const unsigned char g_Data_Palette_Team_BRA[] =
 // -------------------------------------
 
 static const struct { u16 x; u16 y; } g_TeamPos[6] = {
-    { 33, 109 }, { 114, 109 }, { 197, 109 },   // Row 1
-    { 33, 192 }, { 114, 192 }, { 197, 192 } // Row 2
+    { 33, 101 }, { 114, 101 }, { 197, 101 },   // Row 1
+    { 33, 184 }, { 114, 184 }, { 197, 184 } // Row 2
 };
 static const struct { u16 x; u16 y; } g_TeamGrayPos[6] = {
-    { 1, 5 }, { 11, 5 }, { 21, 5 },   // Row 1
-    { 1, 15}, { 11, 15 }, { 21, 15 } // Row 2
+    { 1, 4 }, { 11, 4 }, { 21, 4 },   // Row 1
+    { 1, 14}, { 11, 14 }, { 21, 14 } // Row 2
 };
 
 // -----------------
@@ -314,11 +314,11 @@ void ShowMenu(){
 			V9_Poke16(V9_CellAddrP1A(x,y), 32);
 		}
 	}
-    for (u8 y=5;y<25;y++){
+    for (u8 y=4;y<25;y++){
 		u16 tileId=256+32*(y-5);
 		for (u8 x=1;x<31;x++){
-            V9_Poke16(V9_CellAddrP1A(x,y), tileId);
-            V9_Poke16(V9_CellAddrP1B(x,y), tileId);
+            V9_Poke16(V9_CellAddrP1A(x,y-1), tileId);
+            V9_Poke16(V9_CellAddrP1B(x,y-1), tileId);
 			tileId++;
 		}
 	}
@@ -573,6 +573,7 @@ void PerformShot(u16 targetX, u16 targetY) {
 		arcDy = (i16)FIELD_BOUND_Y_BOTTOM - (i16)g_Players[fromId].Y;
 	}
     g_Ball.PassTotalDist = (u16)(Math_Abs32(dx) + Math_Abs32(arcDy));
+    PlayAyFx(AYFX_BALL);
 }
 // +++ Tick ball flying +++
 void TickBallFlying() {

@@ -141,8 +141,8 @@ void LoadPresentation(){
     YSCC_Play(SCC_PRESENTATION_BIN_SEG,(u32)SCC_PRESENTATION_BIN_SIZE);
     g_Timer=0;
 	g_TimerActive=TRUE;
-    DEBUG_LOG("TEST");
-    while (g_Timer!=254)
+    V9_SetInterrupt(V9_INT_VBLANK);
+    while (g_Timer!=200)
     {
         
     }
