@@ -8,7 +8,7 @@ Area                                    Addr        Size        Decimal Bytes (A
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
      00000000  .__.ABS.                           
-     00000000  _g_SUBRID                          soccerlg_s14_b3
+     00000000  _g_SUBRID                          soccerlg_s15_b3
      00000000  l__BSEG                         
      00000000  l__BSS                          
      00000000  l__CABS                         
@@ -22,7 +22,7 @@ Area                                    Addr        Size        Decimal Bytes (A
      00000000  s__DABS                         
      00000000  s__HEADER                       
      00000000  s__HEADER0                      
-     00000002  _g_STRSRC                          soccerlg_s14_b3
+     00000002  _g_STRSRC                          soccerlg_s15_b3
      00000004  _g_CGTABL                          print
      00000006  _g_VDP_DR                          print
      00000007  _g_VDP_DW                          print
@@ -40,6 +40,7 @@ Area                                    Addr        Size        Decimal Bytes (A
      00000247  l__DATA                         
      000003F7  l__SEG14                        
      00000604  l__SEG20                        
+     00000776  l__SEG15                        
      000007EF  l__SEG13                        
      000008A4  l__SEG45                        
      000008F4  l__SEG57                        
@@ -53,10 +54,9 @@ Area                                    Addr        Size        Decimal Bytes (A
      0000162F  l__SEG6                         
      00001706  l__SEG12                        
      0000176A  l__SEG51                        
-     00001A31  l__SEG4                         
+     000018EA  l__SEG10                        
+     00001A5E  l__SEG4                         
      00001A60  l__SEG8                         
-     00001AFD  l__SEG27                        
-     00001B14  l__SEG5                         
 ASxxxx Linker V03.00 + NoICE + sdld,  page 2.
 Hexadecimal  [32-Bits]
 
@@ -66,10 +66,11 @@ Area                                    Addr        Size        Decimal Bytes (A
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
+     00001AFD  l__SEG27                        
+     00001B14  l__SEG5                         
      00001C00  l__SEG66                        
      00001C49  l__SEG9                         
      00001DB0  l__SEG49                        
-     00001E9A  l__SEG10                        
      00002000  l__SEG21                        
      00002000  l__SEG22                        
      00002000  l__SEG23                        
@@ -116,7 +117,6 @@ Area                                    Addr        Size        Decimal Bytes (A
      0000C000  s__DATA                         
      0000C247  s__INITIALIZED                  
      0000C29F  s__BSEG                         
-     0000C29F  s__BSS                          
 ASxxxx Linker V03.00 + NoICE + sdld,  page 3.
 Hexadecimal  [32-Bits]
 
@@ -126,16 +126,17 @@ Area                                    Addr        Size        Decimal Bytes (A
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
+     0000C29F  s__BSS                          
      0000C29F  s__HEAP                         
-     0000F30F  _g_KANJTABLE                       soccerlg_s14_b3
-     0000F323  _g_DISKVE                          soccerlg_s14_b3
-     0000F325  _g_BREAKV                          soccerlg_s14_b3
-     0000F341  _g_RAMAD0                          soccerlg_s14_b3
-     0000F342  _g_RAMAD1                          soccerlg_s14_b3
-     0000F343  _g_RAMAD2                          soccerlg_s14_b3
-     0000F344  _g_RAMAD3                          soccerlg_s14_b3
-     0000F348  _g_MASTER                          soccerlg_s14_b3
-     0000F37D  _g_BDOS                            soccerlg_s14_b3
+     0000F30F  _g_KANJTABLE                       soccerlg_s15_b3
+     0000F323  _g_DISKVE                          soccerlg_s15_b3
+     0000F325  _g_BREAKV                          soccerlg_s15_b3
+     0000F341  _g_RAMAD0                          soccerlg_s15_b3
+     0000F342  _g_RAMAD1                          soccerlg_s15_b3
+     0000F343  _g_RAMAD2                          soccerlg_s15_b3
+     0000F344  _g_RAMAD3                          soccerlg_s15_b3
+     0000F348  _g_MASTER                          soccerlg_s15_b3
+     0000F37D  _g_BDOS                            soccerlg_s15_b3
      0000F380  _g_RDPRIM                          print
      0000F385  _g_WRPRIM                          print
      0000F38C  _g_CLPRIM                          print
@@ -176,7 +177,6 @@ Area                                    Addr        Size        Decimal Bytes (A
      0000F3E3  _g_RG4SAV                          print
      0000F3E4  _g_RG5SAV                          print
      0000F3E5  _g_RG6SAV                          print
-     0000F3E6  _g_RG7SAV                          print
 ASxxxx Linker V03.00 + NoICE + sdld,  page 4.
 Hexadecimal  [32-Bits]
 
@@ -186,6 +186,7 @@ Area                                    Addr        Size        Decimal Bytes (A
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
+     0000F3E6  _g_RG7SAV                          print
      0000F3E7  _g_STATFL                          print
      0000F3E8  _g_TRGFLG                          print
      0000F3E9  _g_FORCLR                          print
@@ -236,7 +237,6 @@ Area                                    Addr        Size        Decimal Bytes (A
      0000FB0C  _g_OLDSTT                          print
      0000FB16  _g_DEVNUM                          print
      0000FB17  _g_DATCNT                          print
-     0000FB1A  _g_ERRORS                          print
 ASxxxx Linker V03.00 + NoICE + sdld,  page 5.
 Hexadecimal  [32-Bits]
 
@@ -246,6 +246,7 @@ Area                                    Addr        Size        Decimal Bytes (A
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
+     0000FB1A  _g_ERRORS                          print
      0000FB1B  _g_FLAGS                           print
      0000FB1C  _g_ESTBLS                          print
      0000FB1D  _g_COMMSK                          print
@@ -296,7 +297,6 @@ Area                                    Addr        Size        Decimal Bytes (A
      0000FCAA  _g_CSTYLE                          print
      0000FCAB  _g_CAPST                           print
      0000FCAC  _g_KANAST                          print
-     0000FCAD  _g_KANAMD                          print
 ASxxxx Linker V03.00 + NoICE + sdld,  page 6.
 Hexadecimal  [32-Bits]
 
@@ -306,6 +306,7 @@ Area                                    Addr        Size        Decimal Bytes (A
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
+     0000FCAD  _g_KANAMD                          print
      0000FCAE  _g_FLBMEM                          print
      0000FCAF  _g_SCRMOD                          print
      0000FCB0  _g_OLDSCR                          print
@@ -356,7 +357,6 @@ Area                                    Addr        Size        Decimal Bytes (A
      000AA000  s__SEG10                        
      000BA000  s__SEG11                        
      000CA000  s__SEG12                        
-     000DA000  s__SEG13                        
 ASxxxx Linker V03.00 + NoICE + sdld,  page 7.
 Hexadecimal  [32-Bits]
 
@@ -366,7 +366,9 @@ Area                                    Addr        Size        Decimal Bytes (A
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
+     000DA000  s__SEG13                        
      000EA000  s__SEG14                        
+     000FA000  s__SEG15                        
      0014A000  s__SEG20                        
      0015A000  s__SEG21                        
      0016A000  s__SEG22                        
@@ -415,10 +417,19 @@ Area                                    Addr        Size        Decimal Bytes (A
      0041A000  s__SEG65                        
      0042A000  s__SEG66                        
      0043A000  s__SEG67                        
+ASxxxx Linker V03.00 + NoICE + sdld,  page 8.
+Hexadecimal  [32-Bits]
+
+Area                                    Addr        Size        Decimal Bytes (Attributes)
+--------------------------------        ----        ----        ------- ----- ------------
+.  .ABS.                            00000000    00000000 =           0. bytes (ABS,CON)
+
+      Value  Global                              Global Defined In Module
+      -----  --------------------------------   ------------------------
      0044A000  s__SEG68                        
      0045A000  s__SEG69                        
 
-ASxxxx Linker V03.00 + NoICE + sdld,  page 8.
+ASxxxx Linker V03.00 + NoICE + sdld,  page 9.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
@@ -473,11 +484,11 @@ _CODE                               00004000    00002C66 =       11366. bytes (R
      000051C0  _YSCC_Play                         yscc_player
      0000521E  _YSCC_PlayLoop                     yscc_player
      00005243  _YSCC_Decode                       yscc_player
-     000052AF  _YSCC_CopyPCMBlock                 yscc_player
+     000052AF  __YSCC_CopyPCMBlock                yscc_player
      0000537D  _PCM_Reset                         pcmenc
      000053AB  _PCM_Play_8K                       pcmenc
      0000542A  _PCM_Play_11K                      pcmenc
-ASxxxx Linker V03.00 + NoICE + sdld,  page 9.
+ASxxxx Linker V03.00 + NoICE + sdld,  page 10.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
@@ -537,7 +548,7 @@ _CODE                               00004000    00002C66 =       11366. bytes (R
      00005A22  _VDP_RegWrite                      vdp
      00005A2E  _VDP_RegWriteBak                   vdp
      00005A41  _VDP_RegWriteBakMask               vdp
-ASxxxx Linker V03.00 + NoICE + sdld,  page 10.
+ASxxxx Linker V03.00 + NoICE + sdld,  page 11.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
@@ -597,7 +608,7 @@ _CODE                               00004000    00002C66 =       11366. bytes (R
      000066DA  _Print_DrawBin8                    print
      000066FD  _Print_DrawHex8                    print
      00006723  _Print_DrawHex16                   print
-ASxxxx Linker V03.00 + NoICE + sdld,  page 11.
+ASxxxx Linker V03.00 + NoICE + sdld,  page 12.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
@@ -634,7 +645,7 @@ _CODE                               00004000    00002C66 =       11366. bytes (R
      00006C36  __divsint                          
      00006C5C  __get_remainder                    
 
-ASxxxx Linker V03.00 + NoICE + sdld,  page 12.
+ASxxxx Linker V03.00 + NoICE + sdld,  page 13.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
@@ -646,7 +657,7 @@ _HOME                               00006C66    000001F5 =         501. bytes (R
      00006C66  __divslong                         _divslong
      00006CF6  __divulong                         _divulong
      00006D70  __mullong                          _mullong
-ASxxxx Linker V03.00 + NoICE + sdld,  page 13.
+ASxxxx Linker V03.00 + NoICE + sdld,  page 14.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
@@ -655,7 +666,7 @@ _INITIALIZER                        00006E5B    00000058 =          88. bytes (R
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
-ASxxxx Linker V03.00 + NoICE + sdld,  page 14.
+ASxxxx Linker V03.00 + NoICE + sdld,  page 15.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
@@ -664,7 +675,7 @@ _GSINIT                             00006EB3    00000047 =          71. bytes (R
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
-ASxxxx Linker V03.00 + NoICE + sdld,  page 15.
+ASxxxx Linker V03.00 + NoICE + sdld,  page 16.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
@@ -675,7 +686,7 @@ _GSFINAL                            00006EFA    00000000 =           0. bytes (R
       -----  --------------------------------   ------------------------
      00006EFA  _g_LastAddr                        crt0
 
-ASxxxx Linker V03.00 + NoICE + sdld,  page 16.
+ASxxxx Linker V03.00 + NoICE + sdld,  page 17.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
@@ -734,7 +745,7 @@ _DATA                               0000C000    00000247 =         583. bytes (R
      0000C200  _ayFX_Noise                        ayfx_player
      0000C201  _ayFX_Volume                       ayfx_player
      0000C202  _g_PrintData                       print
-ASxxxx Linker V03.00 + NoICE + sdld,  page 17.
+ASxxxx Linker V03.00 + NoICE + sdld,  page 18.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
@@ -746,7 +757,7 @@ _DATA                               0000C000    00000247 =         583. bytes (R
      0000C234  _g_PSG_Regs                        psg
      0000C244  _g_PSG_VolumeBackup                psg
 
-ASxxxx Linker V03.00 + NoICE + sdld,  page 18.
+ASxxxx Linker V03.00 + NoICE + sdld,  page 19.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
@@ -794,12 +805,12 @@ _INITIALIZED                        0000C247    00000058 =          88. bytes (R
      0000C295  _ayFX_Finish                       ayfx_player
      0000C297  _g_PrintInvalid                    print
 
-ASxxxx Linker V03.00 + NoICE + sdld,  page 19.
+ASxxxx Linker V03.00 + NoICE + sdld,  page 20.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-_SEG4                               0004A000    00001A31 =        6705. bytes (REL,CON)
+_SEG4                               0004A000    00001A5E =        6750. bytes (REL,CON)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
@@ -812,13 +823,13 @@ _SEG4                               0004A000    00001A31 =        6705. bytes (R
      0004A435  _MainGameLoop                      soccerlg_s4_b3
      0004A718  _TickShowKickOff                   soccerlg_s4_b3
      0004A7EB  _TickShotCursor                    soccerlg_s4_b3
-     0004A8CE  _EnforcePenaltyBoxRestriction      soccerlg_s4_b3
-     0004A980  _GetPlayerIdByRole                 soccerlg_s4_b3
-     0004A9DB  _GetClosestPlayerToBall            soccerlg_s4_b3
-     0004AAFE  _SetPlayerBallPossession           soccerlg_s4_b3
-     0004AB3C  _PutBallOnPlayerFeet               soccerlg_s4_b3
-     0004B03B  _TickCornerKick                    soccerlg_s4_b3
-ASxxxx Linker V03.00 + NoICE + sdld,  page 20.
+     0004A8FB  _EnforcePenaltyBoxRestriction      soccerlg_s4_b3
+     0004A9AD  _GetPlayerIdByRole                 soccerlg_s4_b3
+     0004AA08  _GetClosestPlayerToBall            soccerlg_s4_b3
+     0004AB2B  _SetPlayerBallPossession           soccerlg_s4_b3
+     0004AB69  _PutBallOnPlayerFeet               soccerlg_s4_b3
+     0004B068  _TickCornerKick                    soccerlg_s4_b3
+ASxxxx Linker V03.00 + NoICE + sdld,  page 21.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
@@ -836,7 +847,7 @@ _SEG5                               0005A000    00001B14 =        6932. bytes (R
      0005B71D  _PutPlayerSprite                   soccerlg_s5_b3
      0005B9E9  _UpdatePlayerPatternByDirection    soccerlg_s5_b3
      0005BAB6  _GetPatternIdByPoseAndDirection    soccerlg_s5_b3
-ASxxxx Linker V03.00 + NoICE + sdld,  page 21.
+ASxxxx Linker V03.00 + NoICE + sdld,  page 22.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
@@ -857,7 +868,7 @@ _SEG6                               0006A000    0000162F =        5679. bytes (R
      0006A54B  _PutBallSprite                     soccerlg_s6_b3
      0006A6B0  _TickPonPonGirlsAnimation          soccerlg_s6_b3
      0006A74E  _TickTeamJoystick                  soccerlg_s6_b3
-ASxxxx Linker V03.00 + NoICE + sdld,  page 22.
+ASxxxx Linker V03.00 + NoICE + sdld,  page 23.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
@@ -871,7 +882,7 @@ _SEG7                               0007A000    00001262 =        4706. bytes (R
      0007A4ED  _PutPonPonGirlSprite               soccerlg_s7_b3
      0007A5C1  _TickThrowIn                       soccerlg_s7_b3
 
-ASxxxx Linker V03.00 + NoICE + sdld,  page 23.
+ASxxxx Linker V03.00 + NoICE + sdld,  page 24.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
@@ -901,7 +912,7 @@ _SEG8                               0008A000    00001A60 =        6752. bytes (R
      0008B948  _TickUpdateTime                    soccerlg_s8_b3
      0008B99B  _BallInGoal                        soccerlg_s8_b3
 
-ASxxxx Linker V03.00 + NoICE + sdld,  page 24.
+ASxxxx Linker V03.00 + NoICE + sdld,  page 25.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
@@ -925,18 +936,18 @@ _SEG9                               0009A000    00001C49 =        7241. bytes (R
      0009B9CC  _SetPlayerTarget                   soccerlg_s9_b3
      0009BB79  _ShowField                         soccerlg_s9_b3
 
-ASxxxx Linker V03.00 + NoICE + sdld,  page 25.
+ASxxxx Linker V03.00 + NoICE + sdld,  page 26.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-_SEG10                              000AA000    00001E9A =        7834. bytes (REL,CON)
+_SEG10                              000AA000    000018EA =        6378. bytes (REL,CON)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
      000AA000  _TickAI                            soccerlg_s10_b3
 
-ASxxxx Linker V03.00 + NoICE + sdld,  page 26.
+ASxxxx Linker V03.00 + NoICE + sdld,  page 27.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
@@ -948,7 +959,7 @@ _SEG11                              000BA000    00000183 =         387. bytes (R
      000BA000  _TimeUp                            soccerlg_s11_b3
      000BA0A2  _GetOffsideLineY                   soccerlg_s11_b3
 
-ASxxxx Linker V03.00 + NoICE + sdld,  page 27.
+ASxxxx Linker V03.00 + NoICE + sdld,  page 28.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
@@ -959,7 +970,7 @@ _SEG12                              000CA000    00001706 =        5894. bytes (R
       -----  --------------------------------   ------------------------
      000CA000  _PenaltyShots                      soccerlg_s12_b3
 
-ASxxxx Linker V03.00 + NoICE + sdld,  page 28.
+ASxxxx Linker V03.00 + NoICE + sdld,  page 29.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
@@ -970,7 +981,7 @@ _SEG13                              000DA000    000007EF =        2031. bytes (R
       -----  --------------------------------   ------------------------
      000DA000  _TeamVictory                       soccerlg_s13_b3
 
-ASxxxx Linker V03.00 + NoICE + sdld,  page 29.
+ASxxxx Linker V03.00 + NoICE + sdld,  page 30.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
@@ -981,7 +992,18 @@ _SEG14                              000EA000    000003F7 =        1015. bytes (R
       -----  --------------------------------   ------------------------
      000EA000  _TickReferee                       soccerlg_s14_b3
 
-ASxxxx Linker V03.00 + NoICE + sdld,  page 30.
+ASxxxx Linker V03.00 + NoICE + sdld,  page 31.
+Hexadecimal  [32-Bits]
+
+Area                                    Addr        Size        Decimal Bytes (Attributes)
+--------------------------------        ----        ----        ------- ----- ------------
+_SEG15                              000FA000    00000776 =        1910. bytes (REL,CON)
+
+      Value  Global                              Global Defined In Module
+      -----  --------------------------------   ------------------------
+     000FA000  _TickAIDefensiveSupport            soccerlg_s15_b3
+
+ASxxxx Linker V03.00 + NoICE + sdld,  page 32.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
@@ -992,7 +1014,7 @@ _SEG20                              0014A000    00000604 =        1540. bytes (R
       -----  --------------------------------   ------------------------
      0014A000  _g_Data_Fonts                      soccerlg_s20_b3
 
-ASxxxx Linker V03.00 + NoICE + sdld,  page 31.
+ASxxxx Linker V03.00 + NoICE + sdld,  page 33.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
@@ -1003,7 +1025,7 @@ _SEG21                              0015A000    00002000 =        8192. bytes (R
       -----  --------------------------------   ------------------------
      0015A000  _g_Data_Img_Presentation_Part1a    soccerlg_s21_b3
 
-ASxxxx Linker V03.00 + NoICE + sdld,  page 32.
+ASxxxx Linker V03.00 + NoICE + sdld,  page 34.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
@@ -1014,7 +1036,7 @@ _SEG22                              0016A000    00002000 =        8192. bytes (R
       -----  --------------------------------   ------------------------
      0016A000  _g_Data_Img_Presentation_Part1b    soccerlg_s22_b3
 
-ASxxxx Linker V03.00 + NoICE + sdld,  page 33.
+ASxxxx Linker V03.00 + NoICE + sdld,  page 35.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
@@ -1025,7 +1047,7 @@ _SEG23                              0017A000    00002000 =        8192. bytes (R
       -----  --------------------------------   ------------------------
      0017A000  _g_Data_Img_Presentation_Part2a    soccerlg_s23_b3
 
-ASxxxx Linker V03.00 + NoICE + sdld,  page 34.
+ASxxxx Linker V03.00 + NoICE + sdld,  page 36.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
@@ -1036,7 +1058,7 @@ _SEG24                              0018A000    00002000 =        8192. bytes (R
       -----  --------------------------------   ------------------------
      0018A000  _g_Data_Img_Presentation_Part2b    soccerlg_s24_b3
 
-ASxxxx Linker V03.00 + NoICE + sdld,  page 35.
+ASxxxx Linker V03.00 + NoICE + sdld,  page 37.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
@@ -1047,7 +1069,7 @@ _SEG25                              0019A000    00002000 =        8192. bytes (R
       -----  --------------------------------   ------------------------
      0019A000  _g_Data_Img_Presentation_Part3a    soccerlg_s25_b3
 
-ASxxxx Linker V03.00 + NoICE + sdld,  page 36.
+ASxxxx Linker V03.00 + NoICE + sdld,  page 38.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
@@ -1058,7 +1080,7 @@ _SEG26                              001AA000    00002000 =        8192. bytes (R
       -----  --------------------------------   ------------------------
      001AA000  _g_Data_Img_Presentation_Part3b    soccerlg_s26_b3
 
-ASxxxx Linker V03.00 + NoICE + sdld,  page 37.
+ASxxxx Linker V03.00 + NoICE + sdld,  page 39.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
@@ -1072,7 +1094,7 @@ _SEG27                              001BA000    00001AFD =        6909. bytes (R
      001BBAB0  _g_Data_Sprites_Part1c             soccerlg_s27_b3
      001BBAED  _g_Data_Field_LayerB_Part1c        soccerlg_s27_b3
 
-ASxxxx Linker V03.00 + NoICE + sdld,  page 38.
+ASxxxx Linker V03.00 + NoICE + sdld,  page 40.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
@@ -1083,7 +1105,7 @@ _SEG28                              001CA000    00002000 =        8192. bytes (R
       -----  --------------------------------   ------------------------
      001CA000  _g_Data_P1_LayerA_Stda             soccerlg_s28_b3
 
-ASxxxx Linker V03.00 + NoICE + sdld,  page 39.
+ASxxxx Linker V03.00 + NoICE + sdld,  page 41.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
@@ -1094,7 +1116,7 @@ _SEG29                              001DA000    00002000 =        8192. bytes (R
       -----  --------------------------------   ------------------------
      001DA000  _g_Data_P1_LayerA_Stdb             soccerlg_s29_b3
 
-ASxxxx Linker V03.00 + NoICE + sdld,  page 40.
+ASxxxx Linker V03.00 + NoICE + sdld,  page 42.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
@@ -1105,7 +1127,7 @@ _SEG30                              001EA000    00002000 =        8192. bytes (R
       -----  --------------------------------   ------------------------
      001EA000  _g_Data_LayerA_Menu_Teams_Part1a   soccerlg_s30_b3
 
-ASxxxx Linker V03.00 + NoICE + sdld,  page 41.
+ASxxxx Linker V03.00 + NoICE + sdld,  page 43.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
@@ -1116,7 +1138,7 @@ _SEG31                              001FA000    00002000 =        8192. bytes (R
       -----  --------------------------------   ------------------------
      001FA000  _g_Data_LayerA_Menu_Teams_Part1b   soccerlg_s31_b3
 
-ASxxxx Linker V03.00 + NoICE + sdld,  page 42.
+ASxxxx Linker V03.00 + NoICE + sdld,  page 44.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
@@ -1128,7 +1150,7 @@ _SEG32                              0020A000    00001609 =        5641. bytes (R
      0020A000  _g_Data_LayerA_Menu_Teams_Part2    soccerlg_s32_b3
      0020B000  _g_MusicMatch                      soccerlg_s32_b3
      0020B5D9  _g_Data_Palette_Teams_Colors       soccerlg_s32_b3
-ASxxxx Linker V03.00 + NoICE + sdld,  page 43.
+ASxxxx Linker V03.00 + NoICE + sdld,  page 45.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
@@ -1139,7 +1161,7 @@ _SEG33                              0021A000    00002000 =        8192. bytes (R
       -----  --------------------------------   ------------------------
      0021A000  _g_Data_Teams_Gray_Part1a          soccerlg_s33_b3
 
-ASxxxx Linker V03.00 + NoICE + sdld,  page 44.
+ASxxxx Linker V03.00 + NoICE + sdld,  page 46.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
@@ -1150,7 +1172,7 @@ _SEG34                              0022A000    00002000 =        8192. bytes (R
       -----  --------------------------------   ------------------------
      0022A000  _g_Data_Teams_Gray_Part1b          soccerlg_s34_b3
 
-ASxxxx Linker V03.00 + NoICE + sdld,  page 45.
+ASxxxx Linker V03.00 + NoICE + sdld,  page 47.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
@@ -1162,7 +1184,7 @@ _SEG35                              0023A000    00001060 =        4192. bytes (R
      0023A000  _g_Data_Teams_Gray_Part2           soccerlg_s35_b3
      0023B000  _g_Data_Palette_Gray_Scale         soccerlg_s35_b3
      0023B030  _g_Data_Palette_Buttons            soccerlg_s35_b3
-ASxxxx Linker V03.00 + NoICE + sdld,  page 46.
+ASxxxx Linker V03.00 + NoICE + sdld,  page 48.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
@@ -1173,7 +1195,7 @@ _SEG36                              0024A000    00002000 =        8192. bytes (R
       -----  --------------------------------   ------------------------
      0024A000  _g_Data_Sprites_Part1a             soccerlg_s36_b3
 
-ASxxxx Linker V03.00 + NoICE + sdld,  page 47.
+ASxxxx Linker V03.00 + NoICE + sdld,  page 49.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
@@ -1184,7 +1206,7 @@ _SEG37                              0025A000    00002000 =        8192. bytes (R
       -----  --------------------------------   ------------------------
      0025A000  _g_Data_Sprites_Part1b             soccerlg_s37_b3
 
-ASxxxx Linker V03.00 + NoICE + sdld,  page 48.
+ASxxxx Linker V03.00 + NoICE + sdld,  page 50.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
@@ -1195,7 +1217,7 @@ _SEG38                              0026A000    00002000 =        8192. bytes (R
       -----  --------------------------------   ------------------------
      0026A000  _g_Data_Sprites_Part2a             soccerlg_s38_b3
 
-ASxxxx Linker V03.00 + NoICE + sdld,  page 49.
+ASxxxx Linker V03.00 + NoICE + sdld,  page 51.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
@@ -1206,7 +1228,7 @@ _SEG39                              0027A000    00002000 =        8192. bytes (R
       -----  --------------------------------   ------------------------
      0027A000  _g_Data_Sprites_Part2b             soccerlg_s39_b3
 
-ASxxxx Linker V03.00 + NoICE + sdld,  page 50.
+ASxxxx Linker V03.00 + NoICE + sdld,  page 52.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
@@ -1217,7 +1239,7 @@ _SEG40                              0028A000    00002000 =        8192. bytes (R
       -----  --------------------------------   ------------------------
      0028A000  _g_Data_Img_Buttons_Presentation   soccerlg_s40_b3
 
-ASxxxx Linker V03.00 + NoICE + sdld,  page 51.
+ASxxxx Linker V03.00 + NoICE + sdld,  page 53.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
@@ -1228,7 +1250,7 @@ _SEG41                              0029A000    00002000 =        8192. bytes (R
       -----  --------------------------------   ------------------------
      0029A000  _g_Data_Img_Buttons_Presentation   soccerlg_s41_b3
 
-ASxxxx Linker V03.00 + NoICE + sdld,  page 52.
+ASxxxx Linker V03.00 + NoICE + sdld,  page 54.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
@@ -1239,7 +1261,7 @@ _SEG42                              002AA000    00002000 =        8192. bytes (R
       -----  --------------------------------   ------------------------
      002AA000  _g_Data_Img_Buttons_Presentation   soccerlg_s42_b3
 
-ASxxxx Linker V03.00 + NoICE + sdld,  page 53.
+ASxxxx Linker V03.00 + NoICE + sdld,  page 55.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
@@ -1250,7 +1272,7 @@ _SEG43                              002BA000    00002000 =        8192. bytes (R
       -----  --------------------------------   ------------------------
      002BA000  _g_Data_Img_Buttons_Presentation   soccerlg_s43_b3
 
-ASxxxx Linker V03.00 + NoICE + sdld,  page 54.
+ASxxxx Linker V03.00 + NoICE + sdld,  page 56.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
@@ -1261,7 +1283,7 @@ _SEG44                              002C8000    00002000 =        8192. bytes (R
       -----  --------------------------------   ------------------------
      002C8000  _g_Data_PCM_CornerKicka            soccerlg_s44_b2
 
-ASxxxx Linker V03.00 + NoICE + sdld,  page 55.
+ASxxxx Linker V03.00 + NoICE + sdld,  page 57.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
@@ -1272,7 +1294,7 @@ _SEG45                              002DA000    000008A4 =        2212. bytes (R
       -----  --------------------------------   ------------------------
      002DA000  _g_Data_PCM_CornerKickb            soccerlg_s45_b3
 
-ASxxxx Linker V03.00 + NoICE + sdld,  page 56.
+ASxxxx Linker V03.00 + NoICE + sdld,  page 58.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
@@ -1283,7 +1305,7 @@ _SEG46                              002E8000    00002000 =        8192. bytes (R
       -----  --------------------------------   ------------------------
      002E8000  _g_Data_PCM_KickOffa               soccerlg_s46_b2
 
-ASxxxx Linker V03.00 + NoICE + sdld,  page 57.
+ASxxxx Linker V03.00 + NoICE + sdld,  page 59.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
@@ -1294,7 +1316,7 @@ _SEG47                              002FA000    000015D9 =        5593. bytes (R
       -----  --------------------------------   ------------------------
      002FA000  _g_Data_PCM_KickOffb               soccerlg_s47_b3
 
-ASxxxx Linker V03.00 + NoICE + sdld,  page 58.
+ASxxxx Linker V03.00 + NoICE + sdld,  page 60.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
@@ -1305,7 +1327,7 @@ _SEG48                              00308000    00002000 =        8192. bytes (R
       -----  --------------------------------   ------------------------
      00308000  _g_Data_PCM_InGoal_1a              soccerlg_s48_b2
 
-ASxxxx Linker V03.00 + NoICE + sdld,  page 59.
+ASxxxx Linker V03.00 + NoICE + sdld,  page 61.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
@@ -1316,7 +1338,7 @@ _SEG49                              0031A000    00001DB0 =        7600. bytes (R
       -----  --------------------------------   ------------------------
      0031A000  _g_Data_PCM_InGoal_1b              soccerlg_s49_b3
 
-ASxxxx Linker V03.00 + NoICE + sdld,  page 60.
+ASxxxx Linker V03.00 + NoICE + sdld,  page 62.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
@@ -1327,7 +1349,7 @@ _SEG50                              00328000    00002000 =        8192. bytes (R
       -----  --------------------------------   ------------------------
      00328000  _g_Data_PCM_InGoal_2a              soccerlg_s50_b2
 
-ASxxxx Linker V03.00 + NoICE + sdld,  page 61.
+ASxxxx Linker V03.00 + NoICE + sdld,  page 63.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
@@ -1338,7 +1360,7 @@ _SEG51                              0033A000    0000176A =        5994. bytes (R
       -----  --------------------------------   ------------------------
      0033A000  _g_Data_PCM_InGoal_2b              soccerlg_s51_b3
 
-ASxxxx Linker V03.00 + NoICE + sdld,  page 62.
+ASxxxx Linker V03.00 + NoICE + sdld,  page 64.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
@@ -1349,7 +1371,7 @@ _SEG52                              00348000    00002000 =        8192. bytes (R
       -----  --------------------------------   ------------------------
      00348000  _g_Data_PCM_InGoal_3a              soccerlg_s52_b2
 
-ASxxxx Linker V03.00 + NoICE + sdld,  page 63.
+ASxxxx Linker V03.00 + NoICE + sdld,  page 65.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
@@ -1360,7 +1382,7 @@ _SEG53                              0035A000    00001320 =        4896. bytes (R
       -----  --------------------------------   ------------------------
      0035A000  _g_Data_PCM_InGoal_3b              soccerlg_s53_b3
 
-ASxxxx Linker V03.00 + NoICE + sdld,  page 64.
+ASxxxx Linker V03.00 + NoICE + sdld,  page 66.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
@@ -1371,7 +1393,7 @@ _SEG54                              00368000    00002000 =        8192. bytes (R
       -----  --------------------------------   ------------------------
      00368000  _g_Data_PCM_ThrowIna               soccerlg_s54_b2
 
-ASxxxx Linker V03.00 + NoICE + sdld,  page 65.
+ASxxxx Linker V03.00 + NoICE + sdld,  page 67.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
@@ -1382,7 +1404,7 @@ _SEG55                              0037A000    0000159A =        5530. bytes (R
       -----  --------------------------------   ------------------------
      0037A000  _g_Data_PCM_ThrowInb               soccerlg_s55_b3
 
-ASxxxx Linker V03.00 + NoICE + sdld,  page 66.
+ASxxxx Linker V03.00 + NoICE + sdld,  page 68.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
@@ -1393,7 +1415,7 @@ _SEG56                              00388000    00002000 =        8192. bytes (R
       -----  --------------------------------   ------------------------
      00388000  _g_Data_PCM_GoalKicka              soccerlg_s56_b2
 
-ASxxxx Linker V03.00 + NoICE + sdld,  page 67.
+ASxxxx Linker V03.00 + NoICE + sdld,  page 69.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
@@ -1404,7 +1426,7 @@ _SEG57                              0039A000    000008F4 =        2292. bytes (R
       -----  --------------------------------   ------------------------
      0039A000  _g_Data_PCM_GoalKickb              soccerlg_s57_b3
 
-ASxxxx Linker V03.00 + NoICE + sdld,  page 68.
+ASxxxx Linker V03.00 + NoICE + sdld,  page 70.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
@@ -1415,7 +1437,7 @@ _SEG58                              003AA000    000015A5 =        5541. bytes (R
       -----  --------------------------------   ------------------------
      003AA000  _g_Data_PCM_Refereer               soccerlg_s58_b3
 
-ASxxxx Linker V03.00 + NoICE + sdld,  page 69.
+ASxxxx Linker V03.00 + NoICE + sdld,  page 71.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
@@ -1426,7 +1448,7 @@ _SEG59                              003BA000    00002000 =        8192. bytes (R
       -----  --------------------------------   ------------------------
      003BA000  _g_Data_Field_LayerB_Part1a        soccerlg_s59_b3
 
-ASxxxx Linker V03.00 + NoICE + sdld,  page 70.
+ASxxxx Linker V03.00 + NoICE + sdld,  page 72.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
@@ -1437,7 +1459,7 @@ _SEG60                              003CA000    00002000 =        8192. bytes (R
       -----  --------------------------------   ------------------------
      003CA000  _g_Data_Field_LayerB_Part1b        soccerlg_s60_b3
 
-ASxxxx Linker V03.00 + NoICE + sdld,  page 71.
+ASxxxx Linker V03.00 + NoICE + sdld,  page 73.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
@@ -1448,7 +1470,7 @@ _SEG61                              003DA000    00002000 =        8192. bytes (R
       -----  --------------------------------   ------------------------
      003DA000  _g_Data_Field_LayerB_Part2a        soccerlg_s61_b3
 
-ASxxxx Linker V03.00 + NoICE + sdld,  page 72.
+ASxxxx Linker V03.00 + NoICE + sdld,  page 74.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
@@ -1459,7 +1481,7 @@ _SEG62                              003EA000    00002000 =        8192. bytes (R
       -----  --------------------------------   ------------------------
      003EA000  _g_Data_Field_LayerB_Part2b        soccerlg_s62_b3
 
-ASxxxx Linker V03.00 + NoICE + sdld,  page 73.
+ASxxxx Linker V03.00 + NoICE + sdld,  page 75.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
@@ -1470,7 +1492,7 @@ _SEG63                              003FA000    00002000 =        8192. bytes (R
       -----  --------------------------------   ------------------------
      003FA000  _g_Data_Field_LayerB_Part3a        soccerlg_s63_b3
 
-ASxxxx Linker V03.00 + NoICE + sdld,  page 74.
+ASxxxx Linker V03.00 + NoICE + sdld,  page 76.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
@@ -1481,7 +1503,7 @@ _SEG64                              0040A000    00002000 =        8192. bytes (R
       -----  --------------------------------   ------------------------
      0040A000  _g_Data_Field_LayerB_Part3b        soccerlg_s64_b3
 
-ASxxxx Linker V03.00 + NoICE + sdld,  page 75.
+ASxxxx Linker V03.00 + NoICE + sdld,  page 77.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
@@ -1492,7 +1514,7 @@ _SEG65                              0041A000    00002000 =        8192. bytes (R
       -----  --------------------------------   ------------------------
      0041A000  _g_Data_Field_LayerB_Part4a        soccerlg_s65_b3
 
-ASxxxx Linker V03.00 + NoICE + sdld,  page 76.
+ASxxxx Linker V03.00 + NoICE + sdld,  page 78.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
@@ -1503,7 +1525,7 @@ _SEG66                              0042A000    00001C00 =        7168. bytes (R
       -----  --------------------------------   ------------------------
      0042A000  _g_Data_Field_LayerB_Part4b        soccerlg_s66_b3
 
-ASxxxx Linker V03.00 + NoICE + sdld,  page 77.
+ASxxxx Linker V03.00 + NoICE + sdld,  page 79.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
@@ -1514,7 +1536,7 @@ _SEG67                              0043A000    00002000 =        8192. bytes (R
       -----  --------------------------------   ------------------------
      0043A000  _g_Data_Field_LayerB_Part5a        soccerlg_s67_b3
 
-ASxxxx Linker V03.00 + NoICE + sdld,  page 78.
+ASxxxx Linker V03.00 + NoICE + sdld,  page 80.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
@@ -1525,7 +1547,7 @@ _SEG68                              0044A000    00002000 =        8192. bytes (R
       -----  --------------------------------   ------------------------
      0044A000  _g_Data_Field_LayerB_Part5b        soccerlg_s68_b3
 
-ASxxxx Linker V03.00 + NoICE + sdld,  page 79.
+ASxxxx Linker V03.00 + NoICE + sdld,  page 81.
 Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
@@ -1536,7 +1558,7 @@ _SEG69                              0045A000    0000014E =         334. bytes (R
       -----  --------------------------------   ------------------------
      0045A000  _g_Data_AYFX_Bank                  soccerlg_s69_b3
 
-ASxxxx Linker V03.00 + NoICE + sdld,  page 80.
+ASxxxx Linker V03.00 + NoICE + sdld,  page 82.
 
 Files Linked                              [ module(s) ]
 
@@ -1568,6 +1590,8 @@ E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/out/soccerlg_s1
                                           [ soccerlg_s13_b3 ]
 E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/out/soccerlg_s14_b3.rel
                                           [ soccerlg_s14_b3 ]
+E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/out/soccerlg_s15_b3.rel
+                                          [ soccerlg_s15_b3 ]
 E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/out/soccerlg_s20_b3.rel
                                           [ soccerlg_s20_b3 ]
 E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/out/soccerlg_s21_b3.rel
@@ -1707,7 +1731,7 @@ E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\tools/sdcc/lib/z80/z80.lib
 E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\tools/sdcc/lib/z80/z80.lib
                                           [ divsigned.rel ]
 
-ASxxxx Linker V03.00 + NoICE + sdld,  page 81.
+ASxxxx Linker V03.00 + NoICE + sdld,  page 83.
 
 User Base Address Definitions
 
@@ -1724,6 +1748,7 @@ _SEG11=0x000BA000
 _SEG12=0x000CA000
 _SEG13=0x000DA000
 _SEG14=0x000EA000
+_SEG15=0x000FA000
 _SEG20=0x0014A000
 _SEG21=0x0015A000
 _SEG22=0x0016A000

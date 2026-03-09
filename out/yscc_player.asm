@@ -226,7 +226,7 @@
 	.globl _YSCC_Play
 	.globl _YSCC_PlayLoop
 	.globl _YSCC_Decode
-	.globl _YSCC_CopyPCMBlock
+	.globl __YSCC_CopyPCMBlock
 ;--------------------------------------------------------
 ; special function registers
 ;--------------------------------------------------------
@@ -339,11 +339,11 @@ _g_currentSCCPlayingSegment::
 ; code
 ;--------------------------------------------------------
 	.area _CODE
-;./libs/yscc/yscc_player.c:18: static void s_YSCC_Silence() {
+;./libs/yscc/yscc_player.c:18: static void _YSCC_Silence() {
 ;	---------------------------------
-; Function s_YSCC_Silence
+; Function _YSCC_Silence
 ; ---------------------------------
-_s_YSCC_Silence:
+__YSCC_Silence:
 ;./libs/yscc/yscc_player.c:27: __endasm;
 	xor	a
 	ld	(0x988F), a ; CH_ENABLE = 0 (tutti i canali off)
@@ -572,38 +572,38 @@ _YSCC_Init::
 	pop	af
 ;./libs/yscc/yscc_player.c:64: }
 	ret
-;./libs/yscc/yscc_player.c:66: u16 YSCC_GetFirstSegmentOfCurrentPlaying(){
+;./libs/yscc/yscc_player.c:67: u16 YSCC_GetFirstSegmentOfCurrentPlaying(){
 ;	---------------------------------
 ; Function YSCC_GetFirstSegmentOfCurrentPlaying
 ; ---------------------------------
 _YSCC_GetFirstSegmentOfCurrentPlaying::
-;./libs/yscc/yscc_player.c:67: return g_currentSCCPlayingSegment; 
+;./libs/yscc/yscc_player.c:68: return g_currentSCCPlayingSegment; 
 	ld	de, (_g_currentSCCPlayingSegment)
-;./libs/yscc/yscc_player.c:68: }
+;./libs/yscc/yscc_player.c:69: }
 	ret
-;./libs/yscc/yscc_player.c:69: void YSCC_Stop() {
+;./libs/yscc/yscc_player.c:70: void YSCC_Stop() {
 ;	---------------------------------
 ; Function YSCC_Stop
 ; ---------------------------------
 _YSCC_Stop::
-;./libs/yscc/yscc_player.c:70: g_currentSCCPlayingSegment=0xFFFF;
+;./libs/yscc/yscc_player.c:71: g_currentSCCPlayingSegment=0xFFFF;
 	ld	hl, #0xffff
 	ld	(_g_currentSCCPlayingSegment), hl
-;./libs/yscc/yscc_player.c:71: g_YSCC_NumBlocksToPlay = 0;
+;./libs/yscc/yscc_player.c:72: g_YSCC_NumBlocksToPlay = 0;
 	ld	hl, #0x0000
 	ld	(_g_YSCC_NumBlocksToPlay), hl
-;./libs/yscc/yscc_player.c:72: s_YSCC_Paused = FALSE;
+;./libs/yscc/yscc_player.c:73: s_YSCC_Paused = FALSE;
 	ld	iy, #_s_YSCC_Paused
 	ld	0 (iy), #0x00
-;./libs/yscc/yscc_player.c:73: s_YSCC_Silence();
-;./libs/yscc/yscc_player.c:74: }
-	jp	_s_YSCC_Silence
-;./libs/yscc/yscc_player.c:77: void YSCC_Pause() {
+;./libs/yscc/yscc_player.c:74: _YSCC_Silence();
+;./libs/yscc/yscc_player.c:75: }
+	jp	__YSCC_Silence
+;./libs/yscc/yscc_player.c:78: void YSCC_Pause() {
 ;	---------------------------------
 ; Function YSCC_Pause
 ; ---------------------------------
 _YSCC_Pause::
-;./libs/yscc/yscc_player.c:78: if (!s_YSCC_Paused && g_YSCC_NumBlocksToPlay > 0) {
+;./libs/yscc/yscc_player.c:79: if (!s_YSCC_Paused && g_YSCC_NumBlocksToPlay > 0) {
 	ld	a, (_s_YSCC_Paused+0)
 	or	a, a
 	ret	NZ
@@ -611,30 +611,30 @@ _YSCC_Pause::
 	ld	iy, #_g_YSCC_NumBlocksToPlay
 	or	a, 0 (iy)
 	ret	Z
-;./libs/yscc/yscc_player.c:79: s_YSCC_Paused = TRUE;
+;./libs/yscc/yscc_player.c:80: s_YSCC_Paused = TRUE;
 	ld	iy, #_s_YSCC_Paused
 	ld	0 (iy), #0x01
-;./libs/yscc/yscc_player.c:83: __endasm;
+;./libs/yscc/yscc_player.c:84: __endasm;
 	xor	a
 	ld	(0x988F), a ; CH_ENABLE = 0
-;./libs/yscc/yscc_player.c:85: }
+;./libs/yscc/yscc_player.c:86: }
 	ret
-;./libs/yscc/yscc_player.c:88: void YSCC_Resume() {
+;./libs/yscc/yscc_player.c:89: void YSCC_Resume() {
 ;	---------------------------------
 ; Function YSCC_Resume
 ; ---------------------------------
 _YSCC_Resume::
-;./libs/yscc/yscc_player.c:89: s_YSCC_Paused = FALSE;
+;./libs/yscc/yscc_player.c:90: s_YSCC_Paused = FALSE;
 	ld	hl, #_s_YSCC_Paused
 	ld	(hl), #0x00
-;./libs/yscc/yscc_player.c:90: }
+;./libs/yscc/yscc_player.c:91: }
 	ret
-;./libs/yscc/yscc_player.c:93: bool YSCC_IsPlaying() {
+;./libs/yscc/yscc_player.c:94: bool YSCC_IsPlaying() {
 ;	---------------------------------
 ; Function YSCC_IsPlaying
 ; ---------------------------------
 _YSCC_IsPlaying::
-;./libs/yscc/yscc_player.c:94: return (g_YSCC_NumBlocksToPlay > 0) && !s_YSCC_Paused;
+;./libs/yscc/yscc_player.c:95: return (g_YSCC_NumBlocksToPlay > 0) && !s_YSCC_Paused;
 	ld	a, (_g_YSCC_NumBlocksToPlay+1)
 	ld	hl, #_g_YSCC_NumBlocksToPlay
 	or	a, (hl)
@@ -647,18 +647,18 @@ _YSCC_IsPlaying::
 	ret
 00104$:
 	ld	a, #0x01
-;./libs/yscc/yscc_player.c:95: }
+;./libs/yscc/yscc_player.c:96: }
 	ret
-;./libs/yscc/yscc_player.c:98: bool YSCC_IsPaused() {
+;./libs/yscc/yscc_player.c:99: bool YSCC_IsPaused() {
 ;	---------------------------------
 ; Function YSCC_IsPaused
 ; ---------------------------------
 _YSCC_IsPaused::
-;./libs/yscc/yscc_player.c:99: return s_YSCC_Paused;
+;./libs/yscc/yscc_player.c:100: return s_YSCC_Paused;
 	ld	a, (_s_YSCC_Paused+0)
-;./libs/yscc/yscc_player.c:100: }
+;./libs/yscc/yscc_player.c:101: }
 	ret
-;./libs/yscc/yscc_player.c:103: void YSCC_Play(u8 start_seg, u32 byte_size) {
+;./libs/yscc/yscc_player.c:104: void YSCC_Play(u8 start_seg, u32 byte_size) {
 ;	---------------------------------
 ; Function YSCC_Play
 ; ---------------------------------
@@ -667,11 +667,11 @@ _YSCC_Play::
 	ld	ix,#0
 	add	ix,sp
 	ld	c, a
-;./libs/yscc/yscc_player.c:104: YSCC_Stop();
+;./libs/yscc/yscc_player.c:105: YSCC_Stop();
 	push	bc
 	call	_YSCC_Stop
 	pop	bc
-;./libs/yscc/yscc_player.c:105: g_currentSCCPlayingSegment=start_seg;
+;./libs/yscc/yscc_player.c:106: g_currentSCCPlayingSegment=start_seg;
 	ld	l, c
 ;	spillPairReg hl
 ;	spillPairReg hl
@@ -679,10 +679,10 @@ _YSCC_Play::
 ;	spillPairReg hl
 ;	spillPairReg hl
 	ld	(_g_currentSCCPlayingSegment), hl
-;./libs/yscc/yscc_player.c:106: s_YSCC_StartSeg    = start_seg;
+;./libs/yscc/yscc_player.c:107: s_YSCC_StartSeg    = start_seg;
 	ld	a, c
 	ld	(#_s_YSCC_StartSeg), a
-;./libs/yscc/yscc_player.c:107: s_YSCC_TotalBlocks = (u16)((byte_size + 127) / 128);
+;./libs/yscc/yscc_player.c:108: s_YSCC_TotalBlocks = (u16)((byte_size + 127) / 128);
 	ld	a, 4 (ix)
 	add	a, #0x7f
 	ld	c, a
@@ -704,30 +704,30 @@ _YSCC_Play::
 	dec	a
 	jr	NZ, 00103$
 	ld	(_s_YSCC_TotalBlocks), bc
-;./libs/yscc/yscc_player.c:108: s_YSCC_Loop        = FALSE;
+;./libs/yscc/yscc_player.c:109: s_YSCC_Loop        = FALSE;
 	ld	iy, #_s_YSCC_Loop
 	ld	0 (iy), #0x00
-;./libs/yscc/yscc_player.c:109: g_YSCC_SamplePage  = start_seg;
+;./libs/yscc/yscc_player.c:110: g_YSCC_SamplePage  = start_seg;
 	ld	(_g_YSCC_SamplePage), hl
-;./libs/yscc/yscc_player.c:110: g_YSCC_SamplePos   = 0;
+;./libs/yscc/yscc_player.c:111: g_YSCC_SamplePos   = 0;
 	ld	hl, #0x0000
 	ld	(_g_YSCC_SamplePos), hl
-;./libs/yscc/yscc_player.c:111: g_YSCC_NumBlocksToPlay = s_YSCC_TotalBlocks;
+;./libs/yscc/yscc_player.c:112: g_YSCC_NumBlocksToPlay = s_YSCC_TotalBlocks;
 	ld	hl, (_s_YSCC_TotalBlocks)
 	ld	(_g_YSCC_NumBlocksToPlay), hl
-;./libs/yscc/yscc_player.c:112: }
+;./libs/yscc/yscc_player.c:113: }
 	pop	ix
 	pop	hl
 	pop	af
 	pop	af
 	jp	(hl)
-;./libs/yscc/yscc_player.c:115: void YSCC_PlayLoop(u8 start_seg, u32 byte_size) {
+;./libs/yscc/yscc_player.c:116: void YSCC_PlayLoop(u8 start_seg, u32 byte_size) {
 ;	---------------------------------
 ; Function YSCC_PlayLoop
 ; ---------------------------------
 _YSCC_PlayLoop::
 	ld	c, a
-;./libs/yscc/yscc_player.c:116: YSCC_Play(start_seg, byte_size);
+;./libs/yscc/yscc_player.c:117: YSCC_Play(start_seg, byte_size);
 	ld	iy, #2
 	add	iy, sp
 ;	spillPairReg hl
@@ -746,10 +746,10 @@ _YSCC_PlayLoop::
 	push	hl
 	ld	a, c
 	call	_YSCC_Play
-;./libs/yscc/yscc_player.c:117: s_YSCC_Loop = TRUE;
+;./libs/yscc/yscc_player.c:118: s_YSCC_Loop = TRUE;
 	ld	iy, #_s_YSCC_Loop
 	ld	0 (iy), #0x01
-;./libs/yscc/yscc_player.c:118: }
+;./libs/yscc/yscc_player.c:119: }
 	pop	hl
 	pop	af
 	pop	af
@@ -773,7 +773,7 @@ _YSCC_Decode::
 	ret
 00102$:
 ;./libs/yscc/yscc_player.c:131: __endasm;
-	call	_YSCC_CopyPCMBlock
+	call	__YSCC_CopyPCMBlock
 	ld	a, #0x0F
 	ld	(0x988F), a ; abilita canali 1-4
 ;./libs/yscc/yscc_player.c:133: g_YSCC_NumBlocksToPlay--;
@@ -816,8 +816,8 @@ _YSCC_Decode::
 	ld	hl, #0xffff
 	ld	(_g_currentSCCPlayingSegment), hl
 00105$:
-;./libs/yscc/yscc_player.c:146: s_YSCC_Silence();   // fine brano: azzera wave table e disabilita canali
-	call	_s_YSCC_Silence
+;./libs/yscc/yscc_player.c:146: _YSCC_Silence();   // fine brano: azzera wave table e disabilita canali
+	call	__YSCC_Silence
 00108$:
 ;./libs/yscc/yscc_player.c:148: return TRUE;            // segnala fine ciclo al chiamante
 	ld	a, #0x01
@@ -827,11 +827,11 @@ _YSCC_Decode::
 	xor	a, a
 ;./libs/yscc/yscc_player.c:151: }
 	ret
-;./libs/yscc/yscc_player.c:154: void YSCC_CopyPCMBlock() {
+;./libs/yscc/yscc_player.c:154: void _YSCC_CopyPCMBlock() {
 ;	---------------------------------
-; Function YSCC_CopyPCMBlock
+; Function _YSCC_CopyPCMBlock
 ; ---------------------------------
-_YSCC_CopyPCMBlock::
+__YSCC_CopyPCMBlock::
 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/rom_mapper.h:212: inline u16 GET_BANK_SEGMENT(u8 b) { return g_Bank0Segment[b]; }
 	ld	hl, #(_g_Bank0Segment + 6)
 	ld	a, (hl)

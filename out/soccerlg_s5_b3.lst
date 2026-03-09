@@ -317,11 +317,11 @@
                          0000FCB7   317 _g_GRPACX	=	0xfcb7
                          0000FCB9   318 _g_GRPACY	=	0xfcb9
                          0000FFFF   319 _g_SLTSL	=	0xffff
-    00000000                        320 _TickGoalKick_s_SafetyTimeout_65537_1229:
+    00000000                        320 _TickGoalKick_s_SafetyTimeout_65537_1230:
     00000000                        321 	.ds 2
-    00000002                        322 _TickGoalKick_s_SetupDone_65537_1229:
+    00000002                        322 _TickGoalKick_s_SetupDone_65537_1230:
     00000002                        323 	.ds 1
-    00000003                        324 _TickPlayerToOwnTarget_s_GkMoveTick_131072_1285:
+    00000003                        324 _TickPlayerToOwnTarget_s_GkMoveTick_131072_1286:
     00000003                        325 	.ds 1
                                     326 ;--------------------------------------------------------
                                     327 ; ram data
@@ -340,12 +340,12 @@
                                     340 	.area _GSINIT
                                     341 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:193: static u16 s_SafetyTimeout = 0;
     00000000 21 00 00         [10]  342 	ld	hl, #0x0000
-    00000003 22r00r00         [16]  343 	ld	(_TickGoalKick_s_SafetyTimeout_65537_1229), hl
+    00000003 22r00r00         [16]  343 	ld	(_TickGoalKick_s_SafetyTimeout_65537_1230), hl
                                     344 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:194: static bool s_SetupDone = false;
-    00000006 FD 21r02r00      [14]  345 	ld	iy, #_TickGoalKick_s_SetupDone_65537_1229
+    00000006 FD 21r02r00      [14]  345 	ld	iy, #_TickGoalKick_s_SetupDone_65537_1230
     0000000A FD 36 00 00      [19]  346 	ld	0 (iy), #0x00
                                     347 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:487: static u8 s_GkMoveTick = 0;
-    0000000E FD 21r03r00      [14]  348 	ld	iy, #_TickPlayerToOwnTarget_s_GkMoveTick_131072_1285
+    0000000E FD 21r03r00      [14]  348 	ld	iy, #_TickPlayerToOwnTarget_s_GkMoveTick_131072_1286
     00000012 FD 36 00 00      [19]  349 	ld	0 (iy), #0x00
                                     350 ;--------------------------------------------------------
                                     351 ; Home
@@ -1357,11 +1357,11 @@
     00000531 D6 0A            [ 7] 1357 	sub	a, #0x0a
     00000533 30 0B            [12] 1358 	jr	NC, 00109$
                                    1359 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:205: s_SetupDone = false;
-    00000535 21r02r00         [10] 1360 	ld	hl, #_TickGoalKick_s_SetupDone_65537_1229
+    00000535 21r02r00         [10] 1360 	ld	hl, #_TickGoalKick_s_SetupDone_65537_1230
     00000538 36 00            [10] 1361 	ld	(hl), #0x00
                                    1362 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:206: s_SafetyTimeout = 0;
     0000053A 21 00 00         [10] 1363 	ld	hl, #0x0000
-    0000053D 22r00r00         [16] 1364 	ld	(_TickGoalKick_s_SafetyTimeout_65537_1229), hl
+    0000053D 22r00r00         [16] 1364 	ld	(_TickGoalKick_s_SafetyTimeout_65537_1230), hl
     00000540                       1365 00109$:
                                    1366 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:210: if (g_Timer < 60) {
     00000540 3Ar00r00         [13] 1367 	ld	a, (_g_Timer+0)
@@ -1377,15 +1377,15 @@
     0000054E 21r04r00         [10] 1377 	ld	hl, #(_g_Ball + 4)
     00000551 36 01            [10] 1378 	ld	(hl), #0x01
                                    1379 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:216: if (!s_SetupDone) {
-    00000553 3Ar02r00         [13] 1380 	ld	a, (_TickGoalKick_s_SetupDone_65537_1229+0)
+    00000553 3Ar02r00         [13] 1380 	ld	a, (_TickGoalKick_s_SetupDone_65537_1230+0)
     00000556 B7               [ 4] 1381 	or	a, a
     00000557 C2rDEr07         [10] 1382 	jp	NZ, 00177$
                                    1383 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:217: s_SetupDone = true;
-    0000055A 21r02r00         [10] 1384 	ld	hl, #_TickGoalKick_s_SetupDone_65537_1229
+    0000055A 21r02r00         [10] 1384 	ld	hl, #_TickGoalKick_s_SetupDone_65537_1230
     0000055D 36 01            [10] 1385 	ld	(hl), #0x01
                                    1386 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:218: s_SafetyTimeout = 0;
     0000055F 21 00 00         [10] 1387 	ld	hl, #0x0000
-    00000562 22r00r00         [16] 1388 	ld	(_TickGoalKick_s_SafetyTimeout_65537_1229), hl
+    00000562 22r00r00         [16] 1388 	ld	(_TickGoalKick_s_SafetyTimeout_65537_1230), hl
                                    1389 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:221: if (g_GoalKickSide == CORNER_SIDE_LEFT) targetX = GK_BOX_X_MIN;
     00000565 3Ar00r00         [13] 1390 	ld	a, (_g_GoalKickSide+0)
     00000568 B7               [ 4] 1391 	or	a, a
@@ -2144,10 +2144,10 @@
     00000A05 C3r34r0A         [10] 2144 	jp	00223$
     00000A08                       2145 00222$:
                                    2146 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:362: s_SafetyTimeout++;
-    00000A08 2Ar00r00         [16] 2147 	ld	hl, (_TickGoalKick_s_SafetyTimeout_65537_1229)
+    00000A08 2Ar00r00         [16] 2147 	ld	hl, (_TickGoalKick_s_SafetyTimeout_65537_1230)
     00000A0B 23               [ 6] 2148 	inc	hl
                                    2149 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:363: if (s_SafetyTimeout > 240) { // 4 seconds timeout force proceed
-    00000A0C 22r00r00         [16] 2150 	ld	(_TickGoalKick_s_SafetyTimeout_65537_1229), hl
+    00000A0C 22r00r00         [16] 2150 	ld	(_TickGoalKick_s_SafetyTimeout_65537_1230), hl
     00000A0F 3E F0            [ 7] 2151 	ld	a, #0xf0
     00000A11 BD               [ 4] 2152 	cp	a, l
     00000A12 3E 00            [ 7] 2153 	ld	a, #0x00
@@ -2612,7 +2612,7 @@
                                    2612 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:485: bool allPlayersInPosition = true;
     00000CDC DD 36 EB 01      [19] 2613 	ld	-21 (ix), #0x01
                                    2614 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:488: s_GkMoveTick++;
-    00000CE0 21r03r00         [10] 2615 	ld	hl, #_TickPlayerToOwnTarget_s_GkMoveTick_131072_1285
+    00000CE0 21r03r00         [10] 2615 	ld	hl, #_TickPlayerToOwnTarget_s_GkMoveTick_131072_1286
     00000CE3 34               [11] 2616 	inc	(hl)
                                    2617 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:489: for(u8 i=0;i<15;i++){
     00000CE4 DD 36 FF 00      [19] 2618 	ld	-1 (ix), #0x00
@@ -2649,7 +2649,7 @@
     00000D1C B7               [ 4] 2649 	or	a, a
     00000D1D C2rE2r16         [10] 2650 	jp	NZ, 00297$
                                    2651 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:493: if ((s_GkMoveTick & 1) == 0) { 
-    00000D20 3Ar03r00         [13] 2652 	ld	a, (_TickPlayerToOwnTarget_s_GkMoveTick_131072_1285+0)
+    00000D20 3Ar03r00         [13] 2652 	ld	a, (_TickPlayerToOwnTarget_s_GkMoveTick_131072_1286+0)
     00000D23 4F               [ 4] 2653 	ld	c, a
                                    2654 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:506: i16 diff = (i16)desiredX - (i16)g_Players[i].X;
     00000D24 DD 7E F3         [19] 2655 	ld	a, -13 (ix)
@@ -4734,12 +4734,12 @@
     00001AFB 67               [ 4] 4734 	ld	h, a
                                    4735 ;	spillPairReg hl
                                    4736 ;	spillPairReg hl
-    00001AFC 11r02r1B         [10] 4737 	ld	de, #_GetPatternIdByPoseAndDirection_k_MovePats_65537_1380
+    00001AFC 11r02r1B         [10] 4737 	ld	de, #_GetPatternIdByPoseAndDirection_k_MovePats_65537_1381
     00001AFF 19               [11] 4738 	add	hl, de
     00001B00 7E               [ 7] 4739 	ld	a, (hl)
                                    4740 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s5_b3.c:877: }
     00001B01 C9               [10] 4741 	ret
-    00001B02                       4742 _GetPatternIdByPoseAndDirection_k_MovePats_65537_1380:
+    00001B02                       4742 _GetPatternIdByPoseAndDirection_k_MovePats_65537_1381:
     00001B02 00                    4743 	.db #0x00	; 0
     00001B03 00                    4744 	.db #0x00	; 0
     00001B04 02                    4745 	.db #0x02	; 2

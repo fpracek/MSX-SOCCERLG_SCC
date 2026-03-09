@@ -327,7 +327,7 @@ _g_LOGOPR	=	0xfb02
 _g_GRPACX	=	0xfcb7
 _g_GRPACY	=	0xfcb9
 _g_SLTSL	=	0xffff
-_GetNumberString_str_65536_1313:
+_GetNumberString_str_65536_1314:
 	.ds 5
 ;--------------------------------------------------------
 ; ram data
@@ -3978,7 +3978,7 @@ _GetNumberString::
 	sbc	a, #0x00
 	jr	NC, 00102$
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s9_b3.c:725: str[0] = '0' + value;
-	ld	bc, #_GetNumberString_str_65536_1313+0
+	ld	bc, #_GetNumberString_str_65536_1314+0
 	ld	a, e
 	add	a, #0x30
 	ld	(bc), a
@@ -4001,7 +4001,7 @@ _GetNumberString::
 	pop	bc
 	ld	a, e
 	add	a, #0x30
-	ld	(#_GetNumberString_str_65536_1313),a
+	ld	(#_GetNumberString_str_65536_1314),a
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s9_b3.c:729: str[1] = '0' + (value % 10);
 	ld	de, #0x000a
 	ld	l, c
@@ -4013,13 +4013,13 @@ _GetNumberString::
 	call	__moduint
 	ld	a, e
 	add	a, #0x30
-	ld	(#(_GetNumberString_str_65536_1313 + 1)),a
+	ld	(#(_GetNumberString_str_65536_1314 + 1)),a
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s9_b3.c:730: str[2] = '\0';
-	ld	hl, #(_GetNumberString_str_65536_1313 + 2)
+	ld	hl, #(_GetNumberString_str_65536_1314 + 2)
 	ld	(hl), #0x00
 00103$:
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s9_b3.c:733: return str;
-	ld	de, #_GetNumberString_str_65536_1313
+	ld	de, #_GetNumberString_str_65536_1314
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s9_b3.c:734: }
 	ret
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s9_b3.c:736: void ShowHeaderInfo(){
@@ -4422,7 +4422,7 @@ _SetTeamsPresentationSpritesPosition::
 	ld	de, #0x0007
 	call	__modsint
 	pop	bc
-	ld	hl, #_SetTeamsPresentationSpritesPosition_k_PlayerRoles_65537_1325
+	ld	hl, #_SetTeamsPresentationSpritesPosition_k_PlayerRoles_65537_1326
 	add	hl, de
 	ld	a, (hl)
 	pop	de
@@ -4450,7 +4450,7 @@ _SetTeamsPresentationSpritesPosition::
 	ld	sp, ix
 	pop	ix
 	ret
-_SetTeamsPresentationSpritesPosition_k_PlayerRoles_65537_1325:
+_SetTeamsPresentationSpritesPosition_k_PlayerRoles_65537_1326:
 	.db #0x00	; 0
 	.db #0x01	; 1
 	.db #0x04	; 4
@@ -4582,7 +4582,7 @@ _SetPlayerTarget::
 00193$:
 	ld	-7 (ix), a
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s9_b3.c:852: u16 tx = k_KO_X[role];
-	ld	bc, #_SetPlayerTarget_k_KO_X_196608_1335+0
+	ld	bc, #_SetPlayerTarget_k_KO_X_196608_1336+0
 	ld	l, -8 (ix)
 	ld	h, #0x00
 	add	hl, bc
@@ -4599,7 +4599,7 @@ _SetPlayerTarget::
 	ld	a, -7 (ix)
 	or	a, a
 	jr	Z, 00123$
-	ld	bc, #_SetPlayerTarget_k_KO_Y_T1_196608_1335+0
+	ld	bc, #_SetPlayerTarget_k_KO_Y_T1_196608_1336+0
 	ld	l, -3 (ix)
 	ld	h, -2 (ix)
 	add	hl, bc
@@ -4611,10 +4611,10 @@ _SetPlayerTarget::
 	jp	00124$
 00123$:
 	ld	a, -3 (ix)
-	add	a, #<(_SetPlayerTarget_k_KO_Y_T2_196608_1335)
+	add	a, #<(_SetPlayerTarget_k_KO_Y_T2_196608_1336)
 	ld	c, a
 	ld	a, -2 (ix)
-	adc	a, #>(_SetPlayerTarget_k_KO_Y_T2_196608_1335)
+	adc	a, #>(_SetPlayerTarget_k_KO_Y_T2_196608_1336)
 	ld	b, a
 	ld	a, (bc)
 	ld	-15 (ix), a
@@ -4700,7 +4700,7 @@ _SetPlayerTarget::
 	ld	sp, ix
 	pop	ix
 	ret
-_SetPlayerTarget_k_KO_X_196608_1335:
+_SetPlayerTarget_k_KO_X_196608_1336:
 	.db #0x78	; 120	'x'
 	.db #0x28	; 40
 	.db #0xc6	; 198
@@ -4708,7 +4708,7 @@ _SetPlayerTarget_k_KO_X_196608_1335:
 	.db #0x62	; 98	'b'
 	.db #0x28	; 40
 	.db #0xc6	; 198
-_SetPlayerTarget_k_KO_Y_T1_196608_1335:
+_SetPlayerTarget_k_KO_Y_T1_196608_1336:
 	.dw #0x01a8
 	.dw #0x0176
 	.dw #0x0176
@@ -4716,7 +4716,7 @@ _SetPlayerTarget_k_KO_Y_T1_196608_1335:
 	.dw #0x0144
 	.dw #0x011c
 	.dw #0x011c
-_SetPlayerTarget_k_KO_Y_T2_196608_1335:
+_SetPlayerTarget_k_KO_Y_T2_196608_1336:
 	.dw #0x0032
 	.dw #0x0082
 	.dw #0x0082

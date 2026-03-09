@@ -892,7 +892,7 @@ void BallInGoal(u8 teamScored){
 	
     PlayPCM(PCM_INGOAL);
 	YSCC_Stop();
-    YSCC_Play(SCC_PUBLIC_GOAL_BIN_SEG,SCC_PUBLIC_GOAL_BIN_SIZE);
+    YSCC_PlayLoop(SCC_PUBLIC_GOAL_BIN_SEG,SCC_PUBLIC_GOAL_BIN_SIZE);
 	
 	g_MatchStatus=MATCH_AFTER_IN_GOAL;
 	g_RestartKickTeamId = (teamScored == TEAM_1) ? TEAM_2 : TEAM_1;

@@ -502,3 +502,6 @@ void TeamVictory(u8 teamId);
 
 // +++ SEGMENT 14 +++
 void TickReferee(u8 playerId) ;
+
+// +++ SEGMENT 15 +++
+void TickAIDefensiveSupport(u8 playerId);

@@ -6,6 +6,6 @@ void YSCC_Pause();
 void YSCC_Resume();
 bool YSCC_IsPlaying();
 bool YSCC_IsPaused();
-bool YSCC_Decode();          // chiamare ogni VBlank; ritorna TRUE al termine del ciclo
-void YSCC_CopyPCMBlock();
+bool YSCC_Decode();          
+void _YSCC_CopyPCMBlock();
 u16 YSCC_GetFirstSegmentOfCurrentPlaying();

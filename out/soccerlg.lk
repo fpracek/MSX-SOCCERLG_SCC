@@ -13,6 +13,7 @@
 -b_SEG12=0x000CA000
 -b_SEG13=0x000DA000
 -b_SEG14=0x000EA000
+-b_SEG15=0x000FA000
 -b_SEG20=0x0014A000
 -b_SEG21=0x0015A000
 -b_SEG22=0x0016A000
@@ -81,6 +82,7 @@ E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/out/soccerlg_s1
 E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/out/soccerlg_s12_b3.rel
 E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/out/soccerlg_s13_b3.rel
 E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/out/soccerlg_s14_b3.rel
+E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/out/soccerlg_s15_b3.rel
 E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/out/soccerlg_s20_b3.rel
 E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/out/soccerlg_s21_b3.rel
 E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/out/soccerlg_s22_b3.rel

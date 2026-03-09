@@ -11,11 +11,11 @@ Symbol Table
     _CallFnc_U8_P1                                                  ******** GX
     _CallFnc_VOID                                                   ******** GX
     _CallFnc_VOID_P1                                                ******** GX
-  7 _EnforcePenaltyBoxRestriction                                   000008CE GR
-  7 _GetClosestPlayerToBall                                         000009DB GR
+  7 _EnforcePenaltyBoxRestriction                                   000008FB GR
+  7 _GetClosestPlayerToBall                                         00000A08 GR
   7 _GetJoystickDirection                                           00000017 GR
     _GetNoMovingPlayerPatternId                                     ******** GX
-  7 _GetPlayerIdByRole                                              00000980 GR
+  7 _GetPlayerIdByRole                                              000009AD GR
   7 _InitVariables                                                  00000117 GR
     _IsJoystickTriggerPressed                                       ******** GX
   7 _IsTeamJoystickTriggerPressed                                   00000000 GR
@@ -29,9 +29,9 @@ Symbol Table
     _PlayPCM                                                        ******** GX
     _Print_DrawText                                                 ******** GX
     _Print_SetColor                                                 ******** GX
-  7 _PutBallOnPlayerFeet                                            00000B3C GR
+  7 _PutBallOnPlayerFeet                                            00000B69 GR
     _PutPonPonGirlSprite                                            ******** GX
-  7 _SetPlayerBallPossession                                        00000AFE GR
+  7 _SetPlayerBallPossession                                        00000B2B GR
     _SetPlayerTarget                                                ******** GX
     _ShowMenu                                                       ******** GX
     _TickAI                                                         ******** GX
@@ -39,10 +39,10 @@ Symbol Table
     _TickBallCollision                                              ******** GX
     _TickBallFlying                                                 ******** GX
     _TickCheckBallBoundaries                                        ******** GX
-  7 _TickCornerKick                                                 0000103B GR
-  1 _TickCornerKick_joyMoved_131078_1433                            00000002 R
-  1 _TickCornerKick_s_ForceKickTimer_65537_1400                     00000000 R
-  1 _TickCornerKick_t1Latched_131079_1438                           00000003 R
+  7 _TickCornerKick                                                 00001068 GR
+  1 _TickCornerKick_joyMoved_131078_1434                            00000002 R
+  1 _TickCornerKick_s_ForceKickTimer_65537_1401                     00000000 R
+  1 _TickCornerKick_t1Latched_131079_1439                           00000003 R
   7 _TickGameFieldScrolling                                         000001F6 GR
     _TickGoalCelebration                                            ******** GX
     _TickGoalKick                                                   ******** GX
@@ -396,7 +396,7 @@ Area Table
    4 _HOME                                      size        0   flags    0
    5 _GSINIT                                    size       16   flags    0
    6 _GSFINAL                                   size        0   flags    0
-   7 _SEG4                                      size     1A31   flags    0
+   7 _SEG4                                      size     1A5E   flags    0
    8 _INITIALIZER                               size        0   flags    0
    9 _CABS                                      size        0   flags    8
 

@@ -212,13 +212,13 @@ S _YSCC_IsPlaying Def000000B2
 S _YSCC_Init Def00000011
 S _YSCC_Play Def000000CA
 S _YSCC_IsPaused Def000000C6
-S _YSCC_CopyPCMBlock Def000001B9
 S _YSCC_Stop Def00000078
 S _YSCC_GetFirstSegmentOfCurrentPlaying Def00000073
 S _YSCC_PlayLoop Def00000128
 S _YSCC_Resume Def000000AC
 S _YSCC_Pause Def0000008F
 S _YSCC_Decode Def0000014D
+S __YSCC_CopyPCMBlock Def000001B9
 A _DATA size F flags 0 addr 0
 S _g_YSCC_SamplePos Def00000000
 S _g_YSCC_SamplePage Def00000002

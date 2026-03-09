@@ -4878,13 +4878,13 @@ _BallInGoal::
 	call	_PlayPCM
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s8_b3.c:894: YSCC_Stop();
 	call	_YSCC_Stop
-;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s8_b3.c:895: YSCC_Play(SCC_PUBLIC_GOAL_BIN_SEG,SCC_PUBLIC_GOAL_BIN_SIZE);
+;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s8_b3.c:895: YSCC_PlayLoop(SCC_PUBLIC_GOAL_BIN_SEG,SCC_PUBLIC_GOAL_BIN_SIZE);
 	ld	hl, #0x0000
 	push	hl
 	ld	hl, #0xab80
 	push	hl
 	ld	a, #0x4b
-	call	_YSCC_Play
+	call	_YSCC_PlayLoop
 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s8_b3.c:897: g_MatchStatus=MATCH_AFTER_IN_GOAL;
 	ld	hl, #_g_MatchStatus
 	ld	(hl), #0x06

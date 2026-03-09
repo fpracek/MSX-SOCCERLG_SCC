@@ -23,18 +23,18 @@ Symbol Table
     _PlayAyFx                                                       ******** GX
     _PutBallOnPlayerFeet                                            ******** GX
   7 _PutBallSprite                                                  0000054B GR
-  7 _PutBallSprite_k_BallPatterns_65539_1237                        000006A8 R
-  1 _PutBallSprite_s_StopCooldown_65538_1234                        00000000 R
+  7 _PutBallSprite_k_BallPatterns_65539_1238                        000006A8 R
+  1 _PutBallSprite_s_StopCooldown_65538_1235                        00000000 R
     _PutPlayerSprite                                                ******** GX
     _PutPonPonGirlSprite                                            ******** GX
     _SetPlayerTarget                                                ******** GX
   7 _TickGoalCelebration                                            00000153 GR
-  7 _TickGoalCelebration_k_CelebDX_131073_1206                      00000521 R
-  7 _TickGoalCelebration_k_CelebDY_131073_1206                      0000052A R
+  7 _TickGoalCelebration_k_CelebDX_131073_1207                      00000521 R
+  7 _TickGoalCelebration_k_CelebDY_131073_1207                      0000052A R
   7 _TickPonPonGirlsAnimation                                       000006B0 GR
   7 _TickTeamJoystick                                               0000074E GR
-  7 _TickTeamJoystick_k_MoveDX_131075_1321                          0000161D R
-  7 _TickTeamJoystick_k_MoveDY_131075_1321                          00001626 R
+  7 _TickTeamJoystick_k_MoveDX_131075_1322                          0000161D R
+  7 _TickTeamJoystick_k_MoveDY_131075_1322                          00001626 R
   7 _UpdateSpritesPositions                                         00000533 GR
     _V9990_ClearTextFromLayerA                                      ******** GX
   7 _V9990_InitMenuLayers                                           000000D4 GR

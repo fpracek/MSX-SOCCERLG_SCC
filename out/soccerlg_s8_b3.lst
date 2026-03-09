@@ -4884,13 +4884,13 @@
     00001A0E CDr00r00         [17] 4878 	call	_PlayPCM
                                    4879 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s8_b3.c:894: YSCC_Stop();
     00001A11 CDr00r00         [17] 4880 	call	_YSCC_Stop
-                                   4881 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s8_b3.c:895: YSCC_Play(SCC_PUBLIC_GOAL_BIN_SEG,SCC_PUBLIC_GOAL_BIN_SIZE);
+                                   4881 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s8_b3.c:895: YSCC_PlayLoop(SCC_PUBLIC_GOAL_BIN_SEG,SCC_PUBLIC_GOAL_BIN_SIZE);
     00001A14 21 00 00         [10] 4882 	ld	hl, #0x0000
     00001A17 E5               [11] 4883 	push	hl
     00001A18 21 80 AB         [10] 4884 	ld	hl, #0xab80
     00001A1B E5               [11] 4885 	push	hl
     00001A1C 3E 4B            [ 7] 4886 	ld	a, #0x4b
-    00001A1E CDr00r00         [17] 4887 	call	_YSCC_Play
+    00001A1E CDr00r00         [17] 4887 	call	_YSCC_PlayLoop
                                    4888 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s8_b3.c:897: g_MatchStatus=MATCH_AFTER_IN_GOAL;
     00001A21 21r00r00         [10] 4889 	ld	hl, #_g_MatchStatus
     00001A24 36 06            [10] 4890 	ld	(hl), #0x06

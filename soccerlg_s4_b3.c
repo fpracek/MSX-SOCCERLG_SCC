@@ -483,13 +483,14 @@ void TickShotCursor() {
         
         attr.X = (u8)g_ShotCursorX;
         attr.Pattern = SPRITE_UP_ARROW;
-        attr.P = 1; 
-        attr.SC = 0; 
-        
+        attr.P = 1;
+        attr.SC = 0;
+        attr.D = 0;
         V9_SetSpriteP1(16, &attr);
     } else {
         // Hide
         attr.Y = 216;
+        attr.X = 0; attr.Pattern = 0; attr.P = 0; attr.SC = 0; attr.D = 0;
         V9_SetSpriteP1(16, &attr);
     }
 }

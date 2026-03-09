@@ -18,7 +18,7 @@ Symbol Table
   7 _GetBestPassTarget                                              00000E2D GR
     _GetClosestPlayerToBall                                         ******** GX
   7 _GetNumberString                                                00001731 GR
-  1 _GetNumberString_str_65536_1313                                 00000000 R
+  1 _GetNumberString_str_65536_1314                                 00000000 R
     _GetTeamStats                                                   ******** GX
   7 _GoalKick                                                       00000000 GR
     _GoalkeeperWithBall                                             ******** GX
@@ -31,9 +31,9 @@ Symbol Table
     _ResetPlayersInfo                                               ******** GX
     _SetPlayerBallPossession                                        ******** GX
   7 _SetPlayerTarget                                                000019CC GR
-  7 _SetPlayerTarget_k_KO_X_196608_1335                             00001B56 R
-  7 _SetPlayerTarget_k_KO_Y_T1_196608_1335                          00001B5D R
-  7 _SetPlayerTarget_k_KO_Y_T2_196608_1335                          00001B6B R
+  7 _SetPlayerTarget_k_KO_X_196608_1336                             00001B56 R
+  7 _SetPlayerTarget_k_KO_Y_T1_196608_1336                          00001B5D R
+  7 _SetPlayerTarget_k_KO_Y_T2_196608_1336                          00001B6B R
   7 _SetTeamsPresentationSpritesPosition                            0000184C GR
   7 _SetTeamsPresentationSpritesPosition_k_PlayerRoles_65537_132    000019A4 R
   7 _ShowField                                                      00001B79 GR

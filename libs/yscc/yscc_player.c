@@ -8,14 +8,14 @@ volatile u16 g_YSCC_NumBlocksToPlay;
 u16          g_YSCC_Period;
 static u16   s_YSCC_SavedSeg3;
 u16           g_currentSCCPlayingSegment=0xFFFF;
-static u8    s_YSCC_StartSeg;      // segmento iniziale (per loop/restart)
-static u16   s_YSCC_TotalBlocks;   // numero totale di blocchi (per loop/restart)
-static bool  s_YSCC_Loop;          // TRUE = loop infinito
+static u8    s_YSCC_StartSeg;      // start segment (for loop/restart)
+static u16   s_YSCC_TotalBlocks;   // Blocks amount (for loop/restart)
+static bool  s_YSCC_Loop;          // TRUE = Infinite loop
 static bool  s_YSCC_Paused;        // TRUE = riproduzione in pausa
 
 
-// Azzera le wave table SCC e disabilita tutti i canali
-static void s_YSCC_Silence() {
+// INTERNAL Wave SCC table SCC reset and channels deactivating
+static void _YSCC_Silence() {
     __asm
         xor  a
         ld   (0x988F), a        ; CH_ENABLE = 0 (tutti i canali off)
@@ -27,7 +27,7 @@ static void s_YSCC_Silence() {
     __endasm;
 }
 
-
+// Module initialization
 void YSCC_Init() {
     g_YSCC_Period  = 0x0749;
     s_YSCC_Loop    = FALSE;
@@ -63,6 +63,7 @@ void YSCC_Init() {
     __endasm;
 }
 
+// Get the first segment of active song
 u16 YSCC_GetFirstSegmentOfCurrentPlaying(){
     return g_currentSCCPlayingSegment; 
 }
@@ -70,10 +71,10 @@ void YSCC_Stop() {
     g_currentSCCPlayingSegment=0xFFFF;
     g_YSCC_NumBlocksToPlay = 0;
     s_YSCC_Paused = FALSE;
-    s_YSCC_Silence();
+    _YSCC_Silence();
 }
 
-
+// Palying pause
 void YSCC_Pause() {
     if (!s_YSCC_Paused && g_YSCC_NumBlocksToPlay > 0) {
         s_YSCC_Paused = TRUE;
@@ -84,22 +85,22 @@ void YSCC_Pause() {
     }
 }
 
-
+// Playing resume
 void YSCC_Resume() {
     s_YSCC_Paused = FALSE;
 }
 
-
+// Check if playing is active
 bool YSCC_IsPlaying() {
     return (g_YSCC_NumBlocksToPlay > 0) && !s_YSCC_Paused;
 }
 
-
+// Check if playing is paused
 bool YSCC_IsPaused() {
     return s_YSCC_Paused;
 }
 
-
+// Play
 void YSCC_Play(u8 start_seg, u32 byte_size) {
     YSCC_Stop();
     g_currentSCCPlayingSegment=start_seg;
@@ -111,21 +112,20 @@ void YSCC_Play(u8 start_seg, u32 byte_size) {
     g_YSCC_NumBlocksToPlay = s_YSCC_TotalBlocks;
 }
 
-
+// Play with loop
 void YSCC_PlayLoop(u8 start_seg, u32 byte_size) {
     YSCC_Play(start_seg, byte_size);
     s_YSCC_Loop = TRUE;
 }
 
 
-// Chiamare ad ogni VBlank.
-// Ritorna TRUE al completamento di un ciclo (fine brano o fine iterazione loop).
+// Decode data
 bool YSCC_Decode() {
     if (s_YSCC_Paused || g_YSCC_NumBlocksToPlay == 0)
         return FALSE;
 
     __asm
-        call _YSCC_CopyPCMBlock
+        call __YSCC_CopyPCMBlock
         ld   a, #0x0F
         ld   (0x988F), a        ; abilita canali 1-4
     __endasm;
@@ -143,15 +143,15 @@ bool YSCC_Decode() {
                 g_currentSCCPlayingSegment=0xFFFF;
             }
              
-            s_YSCC_Silence();   // fine brano: azzera wave table e disabilita canali
+            _YSCC_Silence();   // fine brano: azzera wave table e disabilita canali
         }
         return TRUE;            // segnala fine ciclo al chiamante
     }
     return FALSE;
 }
 
-
-void YSCC_CopyPCMBlock() {
+// INTERNAL Copy block
+void _YSCC_CopyPCMBlock() {
     s_YSCC_SavedSeg3 = GET_BANK_SEGMENT(3);
     SET_BANK_SEGMENT(3, g_YSCC_SamplePage);
 
