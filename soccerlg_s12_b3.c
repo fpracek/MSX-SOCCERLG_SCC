@@ -89,7 +89,9 @@ void PenaltyShots() {
     }
     
     g_MatchStatus = MATCH_PENALTY_SHOOTOUT;
+    if (g_modernAudio) YSCC_PlayLoop(SCC_MODERN_PENALTIES_BIN_SEG, SCC_MODERN_PENALTIES_BIN_SIZE);
 
+    YSCC_State penaltiesSavedState;
     u8 turn = 0;
     u8 shots1 = 0;
     u8 shots2 = 0;
@@ -369,9 +371,15 @@ void PenaltyShots() {
             resChar = 'O'; // Uppercase for visibility
             if (kickingTeam == TEAM_1) goals1++; else goals2++;
             V9990_PrintLayerAStringAtPos(12, 10, "IN  GOAL");
-            PlayPCM(PCM_INGOAL);
-            YSCC_Stop();
-            YSCC_Play(SCC_PUBLIC_GOAL_BIN_SEG,SCC_PUBLIC_GOAL_BIN_SIZE);
+            if (g_modernAudio) {
+                YSCC_SaveState(&penaltiesSavedState);
+                YSCC_Stop();
+                YSCC_Play(SCC_MODERN_INGOAL_BIN_SEG, SCC_MODERN_INGOAL_BIN_SIZE);
+            } else {
+                PlayPCM(PCM_INGOAL);
+                YSCC_Stop();
+                YSCC_Play(SCC_PUBLIC_GOAL_BIN_SEG, SCC_PUBLIC_GOAL_BIN_SIZE);
+            }
             g_peopleState=!g_peopleState;
 	        CallFnc_VOID_P1(7,PeopleMoving,g_peopleState);
         } else {
@@ -399,6 +407,7 @@ void PenaltyShots() {
 
         V9990_ClearTextFromLayerA(12, 10, 10);
         g_BallIsVisible=FALSE;
+        if (goal && g_modernAudio) YSCC_LoadState(&penaltiesSavedState);
 
         // --- WALK BACK LOOP ---
         g_VblankSuspended=FALSE;

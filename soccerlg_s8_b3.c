@@ -482,7 +482,13 @@ void GameStart(){
     CallFnc_VOID(6,InitPonPonGirls);
     V9_SetDisplayEnable(TRUE);
     V9_SetInterrupt(V9_INT_VBLANK);
-	YSCC_Play(SCC_PUBLIC_PRESENTATION_BIN_SEG,SCC_PUBLIC_PRESENTATION_BIN_SIZE);
+	if(g_modernAudio){
+		YSCC_Play(SCC_MODERN_PRESENTATION_BIN_SEG,SCC_MODERN_PRESENTATION_BIN_SIZE);
+	}
+	else{
+		YSCC_Play(SCC_PUBLIC_PRESENTATION_BIN_SEG,SCC_PUBLIC_PRESENTATION_BIN_SIZE);
+	}
+	
 }
 // Get no moving plaer pattern id +++
 u8 GetNoMovingPlayerPatternId(u8 direction){
@@ -890,9 +896,14 @@ void BallInGoal(u8 teamScored){
 	CallFnc_VOID(9,ShowHeaderInfo);
     CallFnc_VOID(6,PutBallSprite);
 	
-    PlayPCM(PCM_INGOAL);
-	YSCC_Stop();
-    YSCC_PlayLoop(SCC_PUBLIC_GOAL_BIN_SEG,SCC_PUBLIC_GOAL_BIN_SIZE);
+    if (g_modernAudio) {
+        YSCC_Stop();
+        YSCC_Play(SCC_MODERN_INGOAL_BIN_SEG, SCC_MODERN_INGOAL_BIN_SIZE);
+    } else {
+        PlayPCM(PCM_INGOAL);
+        YSCC_Stop();
+        YSCC_PlayLoop(SCC_PUBLIC_GOAL_BIN_SEG, SCC_PUBLIC_GOAL_BIN_SIZE);
+    }
 	
 	g_MatchStatus=MATCH_AFTER_IN_GOAL;
 	g_RestartKickTeamId = (teamScored == TEAM_1) ? TEAM_2 : TEAM_1;

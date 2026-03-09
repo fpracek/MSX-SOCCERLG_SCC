@@ -112,6 +112,13 @@ RawFiles = [
     { segment:234, file:"scc/scc_players.bin" },
     { segment:244, file:"scc/scc_public_presentation.bin" },
     { segment:252, file:"scc/scc_victory.bin" },
+    { segment:290, file:"scc/scc_stadium.bin" },
+    { segment:390, file:"scc/scc_modern_presentation.bin" },
+    { segment:500, file:"scc/scc_modern_penalties.bin" },
+    { segment:650, file:"scc/scc_modern_ingoal.bin" },
+    { segment:730, file:"scc/scc_modern_victory.bin" },
+    { segment:760, file:"scc/scc_modern_goalkick.bin" },
+    { segment:770, file:"scc/scc_modern_referee.bin" }
    // { segment:289, file:"scc/scc_public_goal.bin" }
 ];
 

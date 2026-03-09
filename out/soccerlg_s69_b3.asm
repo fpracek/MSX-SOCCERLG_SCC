@@ -42,20 +42,22 @@
 	.area _SEG69
 	.area _SEG69
 _g_Data_AYFX_Bank:
-	.db #0x07	; 7
-	.db #0x0d	; 13
+	.db #0x08	; 8
+	.db #0x0f	; 15
 	.db #0x00	; 0
-	.db #0x49	; 73	'I'
+	.db #0x4b	; 75	'K'
 	.db #0x00	; 0
-	.db #0x70	; 112	'p'
+	.db #0x72	; 114	'r'
 	.db #0x00	; 0
-	.db #0x94	; 148
+	.db #0x96	; 150
 	.db #0x00	; 0
-	.db #0xae	; 174
+	.db #0xb0	; 176
 	.db #0x00	; 0
-	.db #0xd6	; 214
+	.db #0xd8	; 216
 	.db #0x00	; 0
-	.db #0x0d	; 13
+	.db #0x0f	; 15
+	.db #0x01	; 1
+	.db #0x40	; 64
 	.db #0x01	; 1
 	.db #0x6f	; 111	'o'
 	.db #0xe9	; 233
@@ -374,6 +376,16 @@ _g_Data_AYFX_Bank:
 	.db #0x78	; 120	'x'
 	.db #0x00	; 0
 	.db #0x87	; 135
+	.db #0xd0	; 208
+	.db #0x20	; 32
+	.db #0xeb	; 235
+	.db #0x01	; 1
+	.db #0x0a	; 10
+	.db #0x07	; 7
+	.db #0xec	; 236
+	.db #0x00	; 0
+	.db #0x00	; 0
+	.db #0x00	; 0
 	.db #0xd0	; 208
 	.db #0x20	; 32
 	.area _INITIALIZER

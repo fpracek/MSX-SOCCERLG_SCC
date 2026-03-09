@@ -33,8 +33,8 @@ Symbol Table
   7 _TickGoalCelebration_k_CelebDY_131073_1207                      0000052A R
   7 _TickPonPonGirlsAnimation                                       000006B0 GR
   7 _TickTeamJoystick                                               0000074E GR
-  7 _TickTeamJoystick_k_MoveDX_131075_1322                          0000161D R
-  7 _TickTeamJoystick_k_MoveDY_131075_1322                          00001626 R
+  7 _TickTeamJoystick_k_MoveDX_131075_1322                          00001623 R
+  7 _TickTeamJoystick_k_MoveDY_131075_1322                          0000162C R
   7 _UpdateSpritesPositions                                         00000533 GR
     _V9990_ClearTextFromLayerA                                      ******** GX
   7 _V9990_InitMenuLayers                                           000000D4 GR
@@ -333,10 +333,10 @@ Symbol Table
     _g_WRPRIM                                                   =   0000F385 G
     _g_XSAVE                                                    =   0000FAFE G
     _g_YSAVE                                                    =   0000FB00 G
+    _g_modernAudio                                                  ******** GX
     _g_peopleState                                                  ******** GX
     _g_ponPonGirlsInitailized                                       ******** GX
     _g_ponPonPatternIndex                                           ******** GX
-
 
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180 / ZX-Next / eZ80 / R800)                          Page 7
 Hexadecimal [32-Bits]
@@ -350,7 +350,7 @@ Area Table
    4 _HOME                                      size        0   flags    0
    5 _GSINIT                                    size        8   flags    0
    6 _GSFINAL                                   size        0   flags    0
-   7 _SEG6                                      size     162F   flags    0
+   7 _SEG6                                      size     1635   flags    0
    8 _INITIALIZER                               size        0   flags    0
    9 _CABS                                      size        0   flags    8
 

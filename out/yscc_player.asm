@@ -227,6 +227,8 @@
 	.globl _YSCC_PlayLoop
 	.globl _YSCC_Decode
 	.globl __YSCC_CopyPCMBlock
+	.globl _YSCC_SaveState
+	.globl _YSCC_LoadState
 ;--------------------------------------------------------
 ; special function registers
 ;--------------------------------------------------------
@@ -306,7 +308,7 @@ _g_YSCC_Period::
 _s_YSCC_SavedSeg3:
 	.ds 2
 _s_YSCC_StartSeg:
-	.ds 1
+	.ds 2
 _s_YSCC_TotalBlocks:
 	.ds 2
 _s_YSCC_Loop:
@@ -658,7 +660,7 @@ _YSCC_IsPaused::
 	ld	a, (_s_YSCC_Paused+0)
 ;./libs/yscc/yscc_player.c:101: }
 	ret
-;./libs/yscc/yscc_player.c:104: void YSCC_Play(u8 start_seg, u32 byte_size) {
+;./libs/yscc/yscc_player.c:104: void YSCC_Play(u16 start_seg, u32 byte_size) {
 ;	---------------------------------
 ; Function YSCC_Play
 ; ---------------------------------
@@ -666,22 +668,14 @@ _YSCC_Play::
 	push	ix
 	ld	ix,#0
 	add	ix,sp
-	ld	c, a
 ;./libs/yscc/yscc_player.c:105: YSCC_Stop();
-	push	bc
+	push	hl
 	call	_YSCC_Stop
-	pop	bc
+	pop	hl
 ;./libs/yscc/yscc_player.c:106: g_currentSCCPlayingSegment=start_seg;
-	ld	l, c
-;	spillPairReg hl
-;	spillPairReg hl
-	ld	h, #0x00
-;	spillPairReg hl
-;	spillPairReg hl
 	ld	(_g_currentSCCPlayingSegment), hl
 ;./libs/yscc/yscc_player.c:107: s_YSCC_StartSeg    = start_seg;
-	ld	a, c
-	ld	(#_s_YSCC_StartSeg), a
+	ld	(_s_YSCC_StartSeg), hl
 ;./libs/yscc/yscc_player.c:108: s_YSCC_TotalBlocks = (u16)((byte_size + 127) / 128);
 	ld	a, 4 (ix)
 	add	a, #0x7f
@@ -721,12 +715,12 @@ _YSCC_Play::
 	pop	af
 	pop	af
 	jp	(hl)
-;./libs/yscc/yscc_player.c:116: void YSCC_PlayLoop(u8 start_seg, u32 byte_size) {
+;./libs/yscc/yscc_player.c:116: void YSCC_PlayLoop(u16 start_seg, u32 byte_size) {
 ;	---------------------------------
 ; Function YSCC_PlayLoop
 ; ---------------------------------
 _YSCC_PlayLoop::
-	ld	c, a
+	ex	de, hl
 ;./libs/yscc/yscc_player.c:117: YSCC_Play(start_seg, byte_size);
 	ld	iy, #2
 	add	iy, sp
@@ -743,8 +737,8 @@ _YSCC_PlayLoop::
 	ld	h, 1 (iy)
 ;	spillPairReg hl
 ;	spillPairReg hl
-	push	hl
-	ld	a, c
+	ex	de, hl
+	push	de
 	call	_YSCC_Play
 ;./libs/yscc/yscc_player.c:118: s_YSCC_Loop = TRUE;
 	ld	iy, #_s_YSCC_Loop
@@ -788,18 +782,16 @@ _YSCC_Decode::
 	ld	(hl), a
 ;./libs/yscc/yscc_player.c:135: if (g_YSCC_NumBlocksToPlay == 0) {
 	ld	a, (_g_YSCC_NumBlocksToPlay+1)
-	ld	iy, #_g_YSCC_NumBlocksToPlay
-	or	a, 0 (iy)
+	ld	hl, #_g_YSCC_NumBlocksToPlay
+	or	a, (hl)
 	jr	NZ, 00110$
 ;./libs/yscc/yscc_player.c:136: if (s_YSCC_Loop) {
 	ld	a, (_s_YSCC_Loop+0)
 	or	a, a
 	jr	Z, 00107$
 ;./libs/yscc/yscc_player.c:138: g_YSCC_SamplePage      = s_YSCC_StartSeg;
-	ld	a, (_s_YSCC_StartSeg+0)
-	ld	(_g_YSCC_SamplePage+0), a
-	ld	hl, #_g_YSCC_SamplePage + 1
-	ld	(hl), #0x00
+	ld	hl, (_s_YSCC_StartSeg)
+	ld	(_g_YSCC_SamplePage), hl
 ;./libs/yscc/yscc_player.c:139: g_YSCC_SamplePos       = 0;
 	ld	hl, #0x0000
 	ld	(_g_YSCC_SamplePos), hl
@@ -956,6 +948,149 @@ __YSCC_CopyPCMBlock::
 	ld	hl, #0x0000
 	ld	(_g_YSCC_SamplePos), hl
 ;./libs/yscc/yscc_player.c:237: }
+	ret
+;./libs/yscc/yscc_player.c:240: void YSCC_SaveState(YSCC_State* out) {
+;	---------------------------------
+; Function YSCC_SaveState
+; ---------------------------------
+_YSCC_SaveState::
+;./libs/yscc/yscc_player.c:241: out->SamplePos       = g_YSCC_SamplePos;
+	ld	e, l
+	ld	d, h
+	ld	a, (_g_YSCC_SamplePos+0)
+	ld	(hl), a
+	inc	hl
+	ld	a, (_g_YSCC_SamplePos+1)
+	ld	(hl), a
+;./libs/yscc/yscc_player.c:242: out->SamplePage      = g_YSCC_SamplePage;
+	ld	c, e
+	ld	b, d
+	inc	bc
+	inc	bc
+	ld	a, (_g_YSCC_SamplePage+0)
+	ld	(bc), a
+	inc	bc
+	ld	a, (_g_YSCC_SamplePage+1)
+	ld	(bc), a
+;./libs/yscc/yscc_player.c:243: out->NumBlocksToPlay = g_YSCC_NumBlocksToPlay;
+	ld	hl, #0x0004
+	add	hl, de
+	ld	a, (_g_YSCC_NumBlocksToPlay+0)
+	ld	(hl), a
+	inc	hl
+	ld	a, (_g_YSCC_NumBlocksToPlay+1)
+	ld	(hl), a
+;./libs/yscc/yscc_player.c:244: out->CurrentSegment  = g_currentSCCPlayingSegment;
+	ld	hl, #0x0006
+	add	hl, de
+	ld	a, (_g_currentSCCPlayingSegment+0)
+	ld	(hl), a
+	inc	hl
+	ld	a, (_g_currentSCCPlayingSegment+1)
+	ld	(hl), a
+;./libs/yscc/yscc_player.c:245: out->StartSeg        = s_YSCC_StartSeg;
+	ld	hl, #0x0008
+	add	hl, de
+	ld	a, (_s_YSCC_StartSeg+0)
+	ld	(hl), a
+	inc	hl
+	ld	a, (_s_YSCC_StartSeg+1)
+	ld	(hl), a
+;./libs/yscc/yscc_player.c:246: out->TotalBlocks     = s_YSCC_TotalBlocks;
+	ld	hl, #0x000a
+	add	hl, de
+	ld	a, (_s_YSCC_TotalBlocks+0)
+	ld	(hl), a
+	inc	hl
+	ld	a, (_s_YSCC_TotalBlocks+1)
+	ld	(hl), a
+;./libs/yscc/yscc_player.c:247: out->Loop            = s_YSCC_Loop;
+	ld	hl, #0x000c
+	add	hl, de
+	ld	a, (_s_YSCC_Loop+0)
+	ld	(hl), a
+;./libs/yscc/yscc_player.c:248: }
+	ret
+;./libs/yscc/yscc_player.c:253: void YSCC_LoadState(const YSCC_State* in) {
+;	---------------------------------
+; Function YSCC_LoadState
+; ---------------------------------
+_YSCC_LoadState::
+	ex	de, hl
+;./libs/yscc/yscc_player.c:257: __endasm;
+	xor	a
+	ld	(0x988F), a ; CH_ENABLE = 0 (silence during state switch)
+;./libs/yscc/yscc_player.c:258: g_YSCC_SamplePos           = in->SamplePos;
+	ld	l, e
+	ld	h, d
+	ld	a, (hl)
+	inc	hl
+	ld	(_g_YSCC_SamplePos+0), a
+	ld	a, (hl)
+	ld	(_g_YSCC_SamplePos+1), a
+;./libs/yscc/yscc_player.c:259: g_YSCC_SamplePage          = in->SamplePage;
+	ld	l, e
+;	spillPairReg hl
+;	spillPairReg hl
+	ld	h, d
+;	spillPairReg hl
+;	spillPairReg hl
+	inc	hl
+	inc	hl
+	ld	a, (hl)
+	inc	hl
+	ld	(_g_YSCC_SamplePage+0), a
+	ld	a, (hl)
+	ld	(_g_YSCC_SamplePage+1), a
+;./libs/yscc/yscc_player.c:260: g_YSCC_NumBlocksToPlay     = in->NumBlocksToPlay;
+	ld	c, e
+	ld	b, d
+	ld	hl, #4
+	add	hl, bc
+	ld	a, (hl)
+	inc	hl
+	ld	(_g_YSCC_NumBlocksToPlay+0), a
+	ld	a, (hl)
+	ld	(_g_YSCC_NumBlocksToPlay+1), a
+;./libs/yscc/yscc_player.c:261: g_currentSCCPlayingSegment = in->CurrentSegment;
+	ld	c, e
+	ld	b, d
+	ld	hl, #6
+	add	hl, bc
+	ld	a, (hl)
+	inc	hl
+	ld	(_g_currentSCCPlayingSegment+0), a
+	ld	a, (hl)
+	ld	(_g_currentSCCPlayingSegment+1), a
+;./libs/yscc/yscc_player.c:262: s_YSCC_StartSeg            = in->StartSeg;
+	ld	c, e
+	ld	b, d
+	ld	hl, #8
+	add	hl, bc
+	ld	a, (hl)
+	inc	hl
+	ld	(_s_YSCC_StartSeg+0), a
+	ld	a, (hl)
+	ld	(_s_YSCC_StartSeg+1), a
+;./libs/yscc/yscc_player.c:263: s_YSCC_TotalBlocks         = in->TotalBlocks;
+	ld	c, e
+	ld	b, d
+	ld	hl, #10
+	add	hl, bc
+	ld	a, (hl)
+	inc	hl
+	ld	(_s_YSCC_TotalBlocks+0), a
+	ld	a, (hl)
+	ld	(_s_YSCC_TotalBlocks+1), a
+;./libs/yscc/yscc_player.c:264: s_YSCC_Loop                = in->Loop;
+	ld	hl, #12
+	add	hl, de
+	ld	a, (hl)
+	ld	(_s_YSCC_Loop+0), a
+;./libs/yscc/yscc_player.c:265: s_YSCC_Paused              = FALSE;
+	ld	hl, #_s_YSCC_Paused
+	ld	(hl), #0x00
+;./libs/yscc/yscc_player.c:266: }
 	ret
 	.area _CODE
 	.area _INITIALIZER

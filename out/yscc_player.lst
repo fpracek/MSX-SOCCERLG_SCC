@@ -227,738 +227,873 @@
                                     227 	.globl _YSCC_PlayLoop
                                     228 	.globl _YSCC_Decode
                                     229 	.globl __YSCC_CopyPCMBlock
-                                    230 ;--------------------------------------------------------
-                                    231 ; special function registers
+                                    230 	.globl _YSCC_SaveState
+                                    231 	.globl _YSCC_LoadState
                                     232 ;--------------------------------------------------------
-                         000000A8   233 _g_PortPrimarySlot	=	0x00a8
-                         000000A9   234 _g_PortReadKeyboard	=	0x00a9
-                         000000AA   235 _g_PortAccessKeyboard	=	0x00aa
-                         000000AB   236 _g_PortControl	=	0x00ab
-                         00000098   237 _g_VDP_DataPort	=	0x0098
-                         00000099   238 _g_VDP_RegPort	=	0x0099
-                         00000099   239 _g_VDP_AddrPort	=	0x0099
-                         00000099   240 _g_VDP_StatPort	=	0x0099
-                         000000A0   241 _g_PSG_RegPort	=	0x00a0
-                         000000A1   242 _g_PSG_DataPort	=	0x00a1
-                         000000A2   243 _g_PSG_StatPort	=	0x00a2
-                         00000010   244 _g_PSG_Ext_RegPort	=	0x0010
-                         00000011   245 _g_PSG_Ext_DataPort	=	0x0011
-                         00000012   246 _g_PSG_Ext_StatPort	=	0x0012
-                         0000007C   247 _g_MSXMusic_IndexPort	=	0x007c
-                         0000007D   248 _g_MSXMusic_DataPort	=	0x007d
-                         000000C0   249 _g_MSXAudio_IndexPort	=	0x00c0
-                         000000C1   250 _g_MSXAudio_DataPort	=	0x00c1
-                         000000C2   251 _g_MSXAudio_IndexPort2	=	0x00c2
-                         000000C3   252 _g_MSXAudio_DataPort2	=	0x00c3
-                         000000B4   253 _g_RTC_AddrPort	=	0x00b4
-                         000000B5   254 _g_RTC_DataPort	=	0x00b5
-                                    255 ;--------------------------------------------------------
-                                    256 ; ram data
+                                    233 ; special function registers
+                                    234 ;--------------------------------------------------------
+                         000000A8   235 _g_PortPrimarySlot	=	0x00a8
+                         000000A9   236 _g_PortReadKeyboard	=	0x00a9
+                         000000AA   237 _g_PortAccessKeyboard	=	0x00aa
+                         000000AB   238 _g_PortControl	=	0x00ab
+                         00000098   239 _g_VDP_DataPort	=	0x0098
+                         00000099   240 _g_VDP_RegPort	=	0x0099
+                         00000099   241 _g_VDP_AddrPort	=	0x0099
+                         00000099   242 _g_VDP_StatPort	=	0x0099
+                         000000A0   243 _g_PSG_RegPort	=	0x00a0
+                         000000A1   244 _g_PSG_DataPort	=	0x00a1
+                         000000A2   245 _g_PSG_StatPort	=	0x00a2
+                         00000010   246 _g_PSG_Ext_RegPort	=	0x0010
+                         00000011   247 _g_PSG_Ext_DataPort	=	0x0011
+                         00000012   248 _g_PSG_Ext_StatPort	=	0x0012
+                         0000007C   249 _g_MSXMusic_IndexPort	=	0x007c
+                         0000007D   250 _g_MSXMusic_DataPort	=	0x007d
+                         000000C0   251 _g_MSXAudio_IndexPort	=	0x00c0
+                         000000C1   252 _g_MSXAudio_DataPort	=	0x00c1
+                         000000C2   253 _g_MSXAudio_IndexPort2	=	0x00c2
+                         000000C3   254 _g_MSXAudio_DataPort2	=	0x00c3
+                         000000B4   255 _g_RTC_AddrPort	=	0x00b4
+                         000000B5   256 _g_RTC_DataPort	=	0x00b5
                                     257 ;--------------------------------------------------------
-                                    258 	.area _DATA
-                         0000F3AE   259 _g_LINL40	=	0xf3ae
-                         0000F3AF   260 _g_LINL32	=	0xf3af
-                         0000F3B0   261 _g_LINLEN	=	0xf3b0
-                         0000F3B1   262 _g_CRTCNT	=	0xf3b1
-                         0000F3B2   263 _g_CLMLST	=	0xf3b2
-                         0000F3B3   264 _g_TXTNAM	=	0xf3b3
-                         0000F3B5   265 _g_TXTCOL	=	0xf3b5
-                         0000F3B7   266 _g_TXTCGP	=	0xf3b7
-                         0000F3B9   267 _g_TXTATR	=	0xf3b9
-                         0000F3BB   268 _g_TXTPAT	=	0xf3bb
-                         0000F3BD   269 _g_T32NAM	=	0xf3bd
-                         0000F3BF   270 _g_T32COL	=	0xf3bf
-                         0000F3C1   271 _g_T32CGP	=	0xf3c1
-                         0000F3C3   272 _g_T32ATR	=	0xf3c3
-                         0000F3C5   273 _g_T32PAT	=	0xf3c5
-                         0000F3C7   274 _g_GRPNAM	=	0xf3c7
-                         0000F3C9   275 _g_GRPCOL	=	0xf3c9
-                         0000F3CB   276 _g_GRPCGP	=	0xf3cb
-                         0000F3CD   277 _g_GRPATR	=	0xf3cd
-                         0000F3CF   278 _g_GRPPAT	=	0xf3cf
-                         0000F3D1   279 _g_MLTNAM	=	0xf3d1
-                         0000F3D3   280 _g_MLTCOL	=	0xf3d3
-                         0000F3D5   281 _g_MLTCGP	=	0xf3d5
-                         0000F3D7   282 _g_MLTATR	=	0xf3d7
-                         0000F3D9   283 _g_MLTPAT	=	0xf3d9
-                         0000F3DB   284 _g_CLIKSW	=	0xf3db
-                         0000F3DC   285 _g_CSRY	=	0xf3dc
-                         0000F3DD   286 _g_CSRX	=	0xf3dd
-                         0000F3E9   287 _g_FORCLR	=	0xf3e9
-                         0000F3EA   288 _g_BAKCLR	=	0xf3ea
-                         0000F3EB   289 _g_BDRCLR	=	0xf3eb
-                         0000F3F2   290 _g_ATRBYT	=	0xf3f2
-                         0000F87F   291 _g_FNKSTR	=	0xf87f
-                         0000F92A   292 _g_CLOC	=	0xf92a
-                         0000F92C   293 _g_CMASK	=	0xf92c
-                         0000FB02   294 _g_LOGOPR	=	0xfb02
-                         0000FCB7   295 _g_GRPACX	=	0xfcb7
-                         0000FCB9   296 _g_GRPACY	=	0xfcb9
-                         0000FFFF   297 _g_SLTSL	=	0xffff
-    00000000                        298 _g_YSCC_SamplePos::
-    00000000                        299 	.ds 2
-    00000002                        300 _g_YSCC_SamplePage::
-    00000002                        301 	.ds 2
-    00000004                        302 _g_YSCC_NumBlocksToPlay::
-    00000004                        303 	.ds 2
-    00000006                        304 _g_YSCC_Period::
-    00000006                        305 	.ds 2
-    00000008                        306 _s_YSCC_SavedSeg3:
-    00000008                        307 	.ds 2
-    0000000A                        308 _s_YSCC_StartSeg:
-    0000000A                        309 	.ds 1
-    0000000B                        310 _s_YSCC_TotalBlocks:
-    0000000B                        311 	.ds 2
-    0000000D                        312 _s_YSCC_Loop:
-    0000000D                        313 	.ds 1
-    0000000E                        314 _s_YSCC_Paused:
+                                    258 ; ram data
+                                    259 ;--------------------------------------------------------
+                                    260 	.area _DATA
+                         0000F3AE   261 _g_LINL40	=	0xf3ae
+                         0000F3AF   262 _g_LINL32	=	0xf3af
+                         0000F3B0   263 _g_LINLEN	=	0xf3b0
+                         0000F3B1   264 _g_CRTCNT	=	0xf3b1
+                         0000F3B2   265 _g_CLMLST	=	0xf3b2
+                         0000F3B3   266 _g_TXTNAM	=	0xf3b3
+                         0000F3B5   267 _g_TXTCOL	=	0xf3b5
+                         0000F3B7   268 _g_TXTCGP	=	0xf3b7
+                         0000F3B9   269 _g_TXTATR	=	0xf3b9
+                         0000F3BB   270 _g_TXTPAT	=	0xf3bb
+                         0000F3BD   271 _g_T32NAM	=	0xf3bd
+                         0000F3BF   272 _g_T32COL	=	0xf3bf
+                         0000F3C1   273 _g_T32CGP	=	0xf3c1
+                         0000F3C3   274 _g_T32ATR	=	0xf3c3
+                         0000F3C5   275 _g_T32PAT	=	0xf3c5
+                         0000F3C7   276 _g_GRPNAM	=	0xf3c7
+                         0000F3C9   277 _g_GRPCOL	=	0xf3c9
+                         0000F3CB   278 _g_GRPCGP	=	0xf3cb
+                         0000F3CD   279 _g_GRPATR	=	0xf3cd
+                         0000F3CF   280 _g_GRPPAT	=	0xf3cf
+                         0000F3D1   281 _g_MLTNAM	=	0xf3d1
+                         0000F3D3   282 _g_MLTCOL	=	0xf3d3
+                         0000F3D5   283 _g_MLTCGP	=	0xf3d5
+                         0000F3D7   284 _g_MLTATR	=	0xf3d7
+                         0000F3D9   285 _g_MLTPAT	=	0xf3d9
+                         0000F3DB   286 _g_CLIKSW	=	0xf3db
+                         0000F3DC   287 _g_CSRY	=	0xf3dc
+                         0000F3DD   288 _g_CSRX	=	0xf3dd
+                         0000F3E9   289 _g_FORCLR	=	0xf3e9
+                         0000F3EA   290 _g_BAKCLR	=	0xf3ea
+                         0000F3EB   291 _g_BDRCLR	=	0xf3eb
+                         0000F3F2   292 _g_ATRBYT	=	0xf3f2
+                         0000F87F   293 _g_FNKSTR	=	0xf87f
+                         0000F92A   294 _g_CLOC	=	0xf92a
+                         0000F92C   295 _g_CMASK	=	0xf92c
+                         0000FB02   296 _g_LOGOPR	=	0xfb02
+                         0000FCB7   297 _g_GRPACX	=	0xfcb7
+                         0000FCB9   298 _g_GRPACY	=	0xfcb9
+                         0000FFFF   299 _g_SLTSL	=	0xffff
+    00000000                        300 _g_YSCC_SamplePos::
+    00000000                        301 	.ds 2
+    00000002                        302 _g_YSCC_SamplePage::
+    00000002                        303 	.ds 2
+    00000004                        304 _g_YSCC_NumBlocksToPlay::
+    00000004                        305 	.ds 2
+    00000006                        306 _g_YSCC_Period::
+    00000006                        307 	.ds 2
+    00000008                        308 _s_YSCC_SavedSeg3:
+    00000008                        309 	.ds 2
+    0000000A                        310 _s_YSCC_StartSeg:
+    0000000A                        311 	.ds 2
+    0000000C                        312 _s_YSCC_TotalBlocks:
+    0000000C                        313 	.ds 2
+    0000000E                        314 _s_YSCC_Loop:
     0000000E                        315 	.ds 1
-                                    316 ;--------------------------------------------------------
-                                    317 ; ram data
+    0000000F                        316 _s_YSCC_Paused:
+    0000000F                        317 	.ds 1
                                     318 ;--------------------------------------------------------
-                                    319 	.area _INITIALIZED
-    00000000                        320 _g_currentSCCPlayingSegment::
-    00000000                        321 	.ds 2
-                                    322 ;--------------------------------------------------------
-                                    323 ; absolute external ram data
+                                    319 ; ram data
+                                    320 ;--------------------------------------------------------
+                                    321 	.area _INITIALIZED
+    00000000                        322 _g_currentSCCPlayingSegment::
+    00000000                        323 	.ds 2
                                     324 ;--------------------------------------------------------
-                                    325 	.area _DABS (ABS)
+                                    325 ; absolute external ram data
                                     326 ;--------------------------------------------------------
-                                    327 ; global & static initialisations
+                                    327 	.area _DABS (ABS)
                                     328 ;--------------------------------------------------------
-                                    329 	.area _HOME
-                                    330 	.area _GSINIT
-                                    331 	.area _GSFINAL
+                                    329 ; global & static initialisations
+                                    330 ;--------------------------------------------------------
+                                    331 	.area _HOME
                                     332 	.area _GSINIT
-                                    333 ;--------------------------------------------------------
-                                    334 ; Home
+                                    333 	.area _GSFINAL
+                                    334 	.area _GSINIT
                                     335 ;--------------------------------------------------------
-                                    336 	.area _HOME
-                                    337 	.area _HOME
-                                    338 ;--------------------------------------------------------
-                                    339 ; code
+                                    336 ; Home
+                                    337 ;--------------------------------------------------------
+                                    338 	.area _HOME
+                                    339 	.area _HOME
                                     340 ;--------------------------------------------------------
-                                    341 	.area _CODE
-                                    342 ;./libs/yscc/yscc_player.c:18: static void _YSCC_Silence() {
-                                    343 ;	---------------------------------
-                                    344 ; Function _YSCC_Silence
-                                    345 ; ---------------------------------
-    00000000                        346 __YSCC_Silence:
-                                    347 ;./libs/yscc/yscc_player.c:27: __endasm;
-    00000000 AF               [ 4]  348 	xor	a
-    00000001 32 8F 98         [13]  349 	ld	(0x988F), a ; CH_ENABLE = 0 (tutti i canali off)
-    00000004 21 00 98         [10]  350 	ld	hl, #0x9800
-    00000007 11 01 98         [10]  351 	ld	de, #0x9801
-    0000000A 01 7F 00         [10]  352 	ld	bc, #0x007F
-    0000000D 77               [ 7]  353 	ld	(hl), a ; 0x9800 = 0
-    0000000E ED B0            [21]  354 	ldir	; 0x9801-0x987F = 0
-                                    355 ;./libs/yscc/yscc_player.c:28: }
-    00000010 C9               [10]  356 	ret
-                         0000F380   357 _g_RDPRIM	=	0xf380
-                         0000F385   358 _g_WRPRIM	=	0xf385
-                         0000F38C   359 _g_CLPRIM	=	0xf38c
-                         0000F39A   360 _g_USRTAB	=	0xf39a
-                         0000F3DE   361 _g_CNSDFG	=	0xf3de
-                         0000F3DF   362 _g_RG0SAV	=	0xf3df
-                         0000F3E0   363 _g_RG1SAV	=	0xf3e0
-                         0000F3E1   364 _g_RG2SAV	=	0xf3e1
-                         0000F3E2   365 _g_RG3SAV	=	0xf3e2
-                         0000F3E3   366 _g_RG4SAV	=	0xf3e3
-                         0000F3E4   367 _g_RG5SAV	=	0xf3e4
-                         0000F3E5   368 _g_RG6SAV	=	0xf3e5
-                         0000F3E6   369 _g_RG7SAV	=	0xf3e6
-                         0000F3E7   370 _g_STATFL	=	0xf3e7
-                         0000F3E8   371 _g_TRGFLG	=	0xf3e8
-                         0000F3EC   372 _g_MAXUPD	=	0xf3ec
-                         0000F3EF   373 _g_MINUPD	=	0xf3ef
-                         0000F3F3   374 _g_QUEUES	=	0xf3f3
-                         0000F3F5   375 _g_FRCNEW	=	0xf3f5
-                         0000F3F6   376 _g_SCNCNT	=	0xf3f6
-                         0000F3F7   377 _g_REPCNT	=	0xf3f7
-                         0000F3F8   378 _g_PUTPNT	=	0xf3f8
-                         0000F3FA   379 _g_GETPNT	=	0xf3fa
-                         0000F3FC   380 _g_CS120	=	0xf3fc
-                         0000F401   381 _g_CS240	=	0xf401
-                         0000F406   382 _g_LOW	=	0xf406
-                         0000F408   383 _g_HIGH	=	0xf408
-                         0000F40A   384 _g_HEADER	=	0xf40a
-                         0000F40B   385 _g_ASPCT1	=	0xf40b
-                         0000F40D   386 _g_ASPCT2	=	0xf40d
-                         0000F959   387 _g_QUETAB	=	0xf959
-                         0000F971   388 _g_QUEBAK	=	0xf971
-                         0000F975   389 _g_VOICAQ	=	0xf975
-                         0000F9F5   390 _g_VOICBQ	=	0xf9f5
-                         0000FA75   391 _g_VOICCQ	=	0xfa75
-                         0000FAF5   392 _g_RS2IQ	=	0xfaf5
-                         0000FAF5   393 _g_DPPAGE	=	0xfaf5
-                         0000FAF6   394 _g_ACPAGE	=	0xfaf6
-                         0000FAF7   395 _g_AVCSAV	=	0xfaf7
-                         0000FAF8   396 _g_EXBRSA	=	0xfaf8
-                         0000FAF9   397 _g_CHRCNT	=	0xfaf9
-                         0000FAFA   398 _g_ROMA	=	0xfafa
-                         0000FAFC   399 _g_MODE	=	0xfafc
-                         0000FAFD   400 _g_NORUSE	=	0xfafd
-                         0000FAFE   401 _g_XSAVE	=	0xfafe
-                         0000FB00   402 _g_YSAVE	=	0xfb00
-                         0000FB03   403 _g_RSTMP	=	0xfb03
-                         0000FB03   404 _g_TOCNT	=	0xfb03
-                         0000FB04   405 _g_RSFCB	=	0xfb04
-                         0000FB06   406 _g_RSIQLN	=	0xfb06
-                         0000FB07   407 _g_MEXBIh	=	0xfb07
-                         0000FB0C   408 _g_OLDSTT	=	0xfb0c
-                         0000FB0C   409 _g_OLDINT	=	0xfb0c
-                         0000FB16   410 _g_DEVNUM	=	0xfb16
-                         0000FB17   411 _g_DATCNT	=	0xfb17
-                         0000FB1A   412 _g_ERRORS	=	0xfb1a
-                         0000FB1B   413 _g_FLAGS	=	0xfb1b
-                         0000FB1C   414 _g_ESTBLS	=	0xfb1c
-                         0000FB1D   415 _g_COMMSK	=	0xfb1d
-                         0000FB1E   416 _g_LSTCOM	=	0xfb1e
-                         0000FB1F   417 _g_LSTMOD	=	0xfb1f
-                         0000FB35   418 _g_PRSCNT	=	0xfb35
-                         0000FB36   419 _g_SAVSP	=	0xfb36
-                         0000FB38   420 _g_VOICEN	=	0xfb38
-                         0000FB39   421 _g_SAVVOL	=	0xfb39
-                         0000FB3B   422 _g_MCLLEN	=	0xfb3b
-                         0000FB3C   423 _g_MCLPTR	=	0xfb3c
-                         0000FB3E   424 _g_QUEUEN	=	0xfb3e
-                         0000FB3F   425 _g_MUSICF	=	0xfb3f
-                         0000FB40   426 _g_PLYCNT	=	0xfb40
-                         0000FB41   427 _g_VCBA	=	0xfb41
-                         0000FB66   428 _g_VCBB	=	0xfb66
-                         0000FB8B   429 _g_VCBC	=	0xfb8b
-                         0000FBB0   430 _g_ENSTOP	=	0xfbb0
-                         0000FBB1   431 _g_BASROM	=	0xfbb1
-                         0000FBB2   432 _g_LINTTB	=	0xfbb2
-                         0000FBCA   433 _g_FSTPOS	=	0xfbca
-                         0000FBCC   434 _g_CODSAV	=	0xfbcc
-                         0000FBCD   435 _g_FNKSWI	=	0xfbcd
-                         0000FBCE   436 _g_FNKFLG	=	0xfbce
-                         0000FBD8   437 _g_ONGSBF	=	0xfbd8
-                         0000FBD9   438 _g_CLIKFL	=	0xfbd9
-                         0000FBDA   439 _g_OLDKEY	=	0xfbda
-                         0000FBE5   440 _g_NEWKEY	=	0xfbe5
-                         0000FBF0   441 _g_KEYBUF	=	0xfbf0
-                         0000FC18   442 _g_LINWRK	=	0xfc18
-                         0000FC40   443 _g_PATWRK	=	0xfc40
-                         0000FC48   444 _g_BOTTOM	=	0xfc48
-                         0000FC4A   445 _g_HIMEM	=	0xfc4a
-                         0000FC4C   446 _g_TRPTBL	=	0xfc4c
-                         0000FC9A   447 _g_RTYCNT	=	0xfc9a
-                         0000FC9B   448 _g_INTFLG	=	0xfc9b
-                         0000FC9C   449 _g_PADY	=	0xfc9c
-                         0000FC9D   450 _g_PADX	=	0xfc9d
-                         0000FC9E   451 _g_JIFFY	=	0xfc9e
-                         0000FCA0   452 _g_INTVAL	=	0xfca0
-                         0000FCA2   453 _g_INTCNT	=	0xfca2
-                         0000FCA4   454 _g_LOWLIM	=	0xfca4
-                         0000FCA5   455 _g_WINWID	=	0xfca5
-                         0000FCA6   456 _g_GRPHED	=	0xfca6
-                         0000FCA7   457 _g_ESCCNT	=	0xfca7
-                         0000FCA8   458 _g_INSFLG	=	0xfca8
-                         0000FCA9   459 _g_CSRSW	=	0xfca9
-                         0000FCAA   460 _g_CSTYLE	=	0xfcaa
-                         0000FCAB   461 _g_CAPST	=	0xfcab
-                         0000FCAC   462 _g_KANAST	=	0xfcac
-                         0000FCAD   463 _g_KANAMD	=	0xfcad
-                         0000FCAE   464 _g_FLBMEM	=	0xfcae
-                         0000FCAF   465 _g_SCRMOD	=	0xfcaf
-                         0000FCB0   466 _g_OLDSCR	=	0xfcb0
-                         0000FCB1   467 _g_CASPRV	=	0xfcb1
-                         0000FCB2   468 _g_BRDATR	=	0xfcb2
-                         0000FCB3   469 _g_GXPOS	=	0xfcb3
-                         0000FCB5   470 _g_GYPOS	=	0xfcb5
-                         0000FCBB   471 _g_DRWFLG	=	0xfcbb
-                         0000FCBC   472 _g_DRWSCL	=	0xfcbc
-                         0000FCBD   473 _g_DRWANG	=	0xfcbd
-                         0000FCC1   474 _g_MNROM	=	0xfcc1
-                         0000FCC1   475 _g_EXPTBL	=	0xfcc1
-                         0000FCC5   476 _g_SLTTBL	=	0xfcc5
-                         0000FCC9   477 _g_SLTATR	=	0xfcc9
-                         0000FD09   478 _g_SLTWRK	=	0xfd09
-                         0000FD89   479 _g_PROCNM	=	0xfd89
-                         0000FFE7   480 _g_RG08SAV	=	0xffe7
-                         0000FFE8   481 _g_RG09SAV	=	0xffe8
-                         0000FFE9   482 _g_RG10SAV	=	0xffe9
-                         0000FFEA   483 _g_RG11SAV	=	0xffea
-                         0000FFEB   484 _g_RG12SAV	=	0xffeb
-                         0000FFEC   485 _g_RG13SAV	=	0xffec
-                         0000FFED   486 _g_RG14SAV	=	0xffed
-                         0000FFEE   487 _g_RG15SAV	=	0xffee
-                         0000FFEF   488 _g_RG16SAV	=	0xffef
-                         0000FFF0   489 _g_RG17SAV	=	0xfff0
-                         0000FFF1   490 _g_RG18SAV	=	0xfff1
-                         0000FFF2   491 _g_RG19SAV	=	0xfff2
-                         0000FFF3   492 _g_RG20SAV	=	0xfff3
-                         0000FFF4   493 _g_RG21SAV	=	0xfff4
-                         0000FFF5   494 _g_RG22SAV	=	0xfff5
-                         0000FFF6   495 _g_RG23SAV	=	0xfff6
-                         0000FFF7   496 _g_MINROM	=	0xfff7
-                         0000FFF8   497 _g_SVFFF8	=	0xfff8
-                         0000FFFA   498 _g_RG25SAV	=	0xfffa
-                         0000FFFB   499 _g_RG26SAV	=	0xfffb
-                         0000FFFC   500 _g_RG27SAV	=	0xfffc
-                         0000FFFD   501 _g_SVFFFD	=	0xfffd
-                         00000004   502 _g_CGTABL	=	0x0004
-                         00000006   503 _g_VDP_DR	=	0x0006
-                         00000007   504 _g_VDP_DW	=	0x0007
-                         0000002B   505 _g_BASRVN	=	0x002b
-                         0000002B   506 _g_ROMVersion	=	0x002b
-                         0000002D   507 _g_MSXVER	=	0x002d
-                         0000002E   508 _g_MSXMID	=	0x002e
-                         00000034   509 _g_CHAR_16	=	0x0034
-                         00000000   510 _g_SUBRID	=	0x0000
-                         00000002   511 _g_STRSRC	=	0x0002
-                         0000F30F   512 _g_KANJTABLE	=	0xf30f
-                         0000F323   513 _g_DISKVE	=	0xf323
-                         0000F325   514 _g_BREAKV	=	0xf325
-                         0000F341   515 _g_RAMAD0	=	0xf341
-                         0000F342   516 _g_RAMAD1	=	0xf342
-                         0000F343   517 _g_RAMAD2	=	0xf343
-                         0000F344   518 _g_RAMAD3	=	0xf344
-                         0000F348   519 _g_MASTER	=	0xf348
-                         0000F37D   520 _g_BDOS	=	0xf37d
-                                    521 ;./libs/yscc/yscc_player.c:31: void YSCC_Init() {
-                                    522 ;	---------------------------------
-                                    523 ; Function YSCC_Init
-                                    524 ; ---------------------------------
-    00000011                        525 _YSCC_Init::
-                                    526 ;./libs/yscc/yscc_player.c:32: g_YSCC_Period  = 0x0749;
-    00000011 21 49 07         [10]  527 	ld	hl, #0x0749
-    00000014 22r06r00         [16]  528 	ld	(_g_YSCC_Period), hl
-                                    529 ;./libs/yscc/yscc_player.c:33: s_YSCC_Loop    = FALSE;
-    00000017 21r0Dr00         [10]  530 	ld	hl, #_s_YSCC_Loop
-    0000001A 36 00            [10]  531 	ld	(hl), #0x00
-                                    532 ;./libs/yscc/yscc_player.c:34: s_YSCC_Paused  = FALSE;
-    0000001C FD 21r0Er00      [14]  533 	ld	iy, #_s_YSCC_Paused
-    00000020 FD 36 00 00      [19]  534 	ld	0 (iy), #0x00
-                                    535 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/rom_mapper.h:190: g_Bank0Segment[b] = s;
-    00000024 21 3F 00         [10]  536 	ld	hl, #0x003f
-    00000027 22r04r00         [16]  537 	ld	((_g_Bank0Segment + 4)), hl
-                                    538 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/rom_mapper.h:191: Poke(YAMANOOTO_OFFR, (s >> 2) & 0xC0);
-    0000002A 3E 0F            [ 7]  539 	ld	a, #0x0f
-    0000002C E6 C0            [ 7]  540 	and	a, #0xc0
-                                    541 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/system.h:101: inline void Poke(u16 addr, u8 val) { *(u8*)addr = val; }
-    0000002E 32 FE 7F         [13]  542 	ld	(#0x7ffe),a
-                                    543 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/rom_mapper.h:194: else if (b == 2)	Poke(ADDR_BANK_2, s & 0xFF);
-    00000031 3E 3F            [ 7]  544 	ld	a, #0x3f
-                                    545 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/system.h:101: inline void Poke(u16 addr, u8 val) { *(u8*)addr = val; }
-    00000033 21 00 90         [10]  546 	ld	hl, #0x9000
-    00000036 77               [ 7]  547 	ld	(hl), a
-                                    548 ;./libs/yscc/yscc_player.c:63: __endasm;
-    00000037 21 00 90         [10]  549 	ld	hl, #0x9000
-    0000003A 36 3F            [10]  550 	ld	(hl), #0x3F ; attiva SCC
-    0000003C F5               [11]  551 	push	af
-    0000003D E5               [11]  552 	push	hl
-    0000003E 3E 20            [ 7]  553 	ld	a, #0x20
-    00000040 32 E0 98         [13]  554 	ld	(0x98E0), a ; deformation register
-    00000043 32 C0 98         [13]  555 	ld	(0x98C0), a ; SCC+ compat
-    00000046 AF               [ 4]  556 	xor	a
-    00000047 32 8E 98         [13]  557 	ld	(0x988E), a ; vol ch5 = 0
-    0000004A 32 8F 98         [13]  558 	ld	(0x988F), a ; CH_ENABLE = 0
-    0000004D 3E 0F            [ 7]  559 	ld	a, #0x0F
-    0000004F 32 8A 98         [13]  560 	ld	(0x988A), a ; vol ch1 = max
-    00000052 32 8B 98         [13]  561 	ld	(0x988B), a ; vol ch2 = max
-    00000055 32 8C 98         [13]  562 	ld	(0x988C), a ; vol ch3 = max
-    00000058 32 8D 98         [13]  563 	ld	(0x988D), a ; vol ch4 = max
-    0000005B 2Ar06r00         [16]  564 	ld	hl, (_g_YSCC_Period)
-    0000005E 22 80 98         [16]  565 	ld	(0x9880), hl ; periodo ch1
-    00000061 22 82 98         [16]  566 	ld	(0x9882), hl ; periodo ch2
-    00000064 22 84 98         [16]  567 	ld	(0x9884), hl ; periodo ch3
-    00000067 22 86 98         [16]  568 	ld	(0x9886), hl ; periodo ch4
-    0000006A 21 00 00         [10]  569 	ld	hl, #0
-    0000006D 22 88 98         [16]  570 	ld	(0x9888), hl ; periodo ch5 = 0
-    00000070 E1               [10]  571 	pop	hl
-    00000071 F1               [10]  572 	pop	af
-                                    573 ;./libs/yscc/yscc_player.c:64: }
-    00000072 C9               [10]  574 	ret
-                                    575 ;./libs/yscc/yscc_player.c:67: u16 YSCC_GetFirstSegmentOfCurrentPlaying(){
-                                    576 ;	---------------------------------
-                                    577 ; Function YSCC_GetFirstSegmentOfCurrentPlaying
-                                    578 ; ---------------------------------
-    00000073                        579 _YSCC_GetFirstSegmentOfCurrentPlaying::
-                                    580 ;./libs/yscc/yscc_player.c:68: return g_currentSCCPlayingSegment; 
-    00000073 ED 5Br00r00      [20]  581 	ld	de, (_g_currentSCCPlayingSegment)
-                                    582 ;./libs/yscc/yscc_player.c:69: }
-    00000077 C9               [10]  583 	ret
-                                    584 ;./libs/yscc/yscc_player.c:70: void YSCC_Stop() {
-                                    585 ;	---------------------------------
-                                    586 ; Function YSCC_Stop
-                                    587 ; ---------------------------------
-    00000078                        588 _YSCC_Stop::
-                                    589 ;./libs/yscc/yscc_player.c:71: g_currentSCCPlayingSegment=0xFFFF;
-    00000078 21 FF FF         [10]  590 	ld	hl, #0xffff
-    0000007B 22r00r00         [16]  591 	ld	(_g_currentSCCPlayingSegment), hl
-                                    592 ;./libs/yscc/yscc_player.c:72: g_YSCC_NumBlocksToPlay = 0;
-    0000007E 21 00 00         [10]  593 	ld	hl, #0x0000
-    00000081 22r04r00         [16]  594 	ld	(_g_YSCC_NumBlocksToPlay), hl
-                                    595 ;./libs/yscc/yscc_player.c:73: s_YSCC_Paused = FALSE;
-    00000084 FD 21r0Er00      [14]  596 	ld	iy, #_s_YSCC_Paused
-    00000088 FD 36 00 00      [19]  597 	ld	0 (iy), #0x00
-                                    598 ;./libs/yscc/yscc_player.c:74: _YSCC_Silence();
-                                    599 ;./libs/yscc/yscc_player.c:75: }
-    0000008C C3r00r00         [10]  600 	jp	__YSCC_Silence
-                                    601 ;./libs/yscc/yscc_player.c:78: void YSCC_Pause() {
-                                    602 ;	---------------------------------
-                                    603 ; Function YSCC_Pause
-                                    604 ; ---------------------------------
-    0000008F                        605 _YSCC_Pause::
-                                    606 ;./libs/yscc/yscc_player.c:79: if (!s_YSCC_Paused && g_YSCC_NumBlocksToPlay > 0) {
-    0000008F 3Ar0Er00         [13]  607 	ld	a, (_s_YSCC_Paused+0)
-    00000092 B7               [ 4]  608 	or	a, a
-    00000093 C0               [11]  609 	ret	NZ
-    00000094 3Ar05r00         [13]  610 	ld	a, (_g_YSCC_NumBlocksToPlay+1)
-    00000097 FD 21r04r00      [14]  611 	ld	iy, #_g_YSCC_NumBlocksToPlay
-    0000009B FD B6 00         [19]  612 	or	a, 0 (iy)
-    0000009E C8               [11]  613 	ret	Z
-                                    614 ;./libs/yscc/yscc_player.c:80: s_YSCC_Paused = TRUE;
-    0000009F FD 21r0Er00      [14]  615 	ld	iy, #_s_YSCC_Paused
-    000000A3 FD 36 00 01      [19]  616 	ld	0 (iy), #0x01
-                                    617 ;./libs/yscc/yscc_player.c:84: __endasm;
-    000000A7 AF               [ 4]  618 	xor	a
-    000000A8 32 8F 98         [13]  619 	ld	(0x988F), a ; CH_ENABLE = 0
-                                    620 ;./libs/yscc/yscc_player.c:86: }
-    000000AB C9               [10]  621 	ret
-                                    622 ;./libs/yscc/yscc_player.c:89: void YSCC_Resume() {
-                                    623 ;	---------------------------------
-                                    624 ; Function YSCC_Resume
-                                    625 ; ---------------------------------
-    000000AC                        626 _YSCC_Resume::
-                                    627 ;./libs/yscc/yscc_player.c:90: s_YSCC_Paused = FALSE;
-    000000AC 21r0Er00         [10]  628 	ld	hl, #_s_YSCC_Paused
-    000000AF 36 00            [10]  629 	ld	(hl), #0x00
-                                    630 ;./libs/yscc/yscc_player.c:91: }
-    000000B1 C9               [10]  631 	ret
-                                    632 ;./libs/yscc/yscc_player.c:94: bool YSCC_IsPlaying() {
-                                    633 ;	---------------------------------
-                                    634 ; Function YSCC_IsPlaying
-                                    635 ; ---------------------------------
-    000000B2                        636 _YSCC_IsPlaying::
-                                    637 ;./libs/yscc/yscc_player.c:95: return (g_YSCC_NumBlocksToPlay > 0) && !s_YSCC_Paused;
-    000000B2 3Ar05r00         [13]  638 	ld	a, (_g_YSCC_NumBlocksToPlay+1)
-    000000B5 21r04r00         [10]  639 	ld	hl, #_g_YSCC_NumBlocksToPlay
-    000000B8 B6               [ 7]  640 	or	a, (hl)
-    000000B9 28 06            [12]  641 	jr	Z, 00103$
-    000000BB 3Ar0Er00         [13]  642 	ld	a, (_s_YSCC_Paused+0)
-    000000BE B7               [ 4]  643 	or	a, a
-    000000BF 28 02            [12]  644 	jr	Z, 00104$
-    000000C1                        645 00103$:
-    000000C1 AF               [ 4]  646 	xor	a, a
-    000000C2 C9               [10]  647 	ret
-    000000C3                        648 00104$:
-    000000C3 3E 01            [ 7]  649 	ld	a, #0x01
-                                    650 ;./libs/yscc/yscc_player.c:96: }
-    000000C5 C9               [10]  651 	ret
-                                    652 ;./libs/yscc/yscc_player.c:99: bool YSCC_IsPaused() {
-                                    653 ;	---------------------------------
-                                    654 ; Function YSCC_IsPaused
-                                    655 ; ---------------------------------
-    000000C6                        656 _YSCC_IsPaused::
-                                    657 ;./libs/yscc/yscc_player.c:100: return s_YSCC_Paused;
-    000000C6 3Ar0Er00         [13]  658 	ld	a, (_s_YSCC_Paused+0)
-                                    659 ;./libs/yscc/yscc_player.c:101: }
-    000000C9 C9               [10]  660 	ret
-                                    661 ;./libs/yscc/yscc_player.c:104: void YSCC_Play(u8 start_seg, u32 byte_size) {
-                                    662 ;	---------------------------------
-                                    663 ; Function YSCC_Play
-                                    664 ; ---------------------------------
-    000000CA                        665 _YSCC_Play::
-    000000CA DD E5            [15]  666 	push	ix
-    000000CC DD 21 00 00      [14]  667 	ld	ix,#0
-    000000D0 DD 39            [15]  668 	add	ix,sp
-    000000D2 4F               [ 4]  669 	ld	c, a
-                                    670 ;./libs/yscc/yscc_player.c:105: YSCC_Stop();
-    000000D3 C5               [11]  671 	push	bc
-    000000D4 CDr78r00         [17]  672 	call	_YSCC_Stop
-    000000D7 C1               [10]  673 	pop	bc
-                                    674 ;./libs/yscc/yscc_player.c:106: g_currentSCCPlayingSegment=start_seg;
-    000000D8 69               [ 4]  675 	ld	l, c
-                                    676 ;	spillPairReg hl
-                                    677 ;	spillPairReg hl
-    000000D9 26 00            [ 7]  678 	ld	h, #0x00
-                                    679 ;	spillPairReg hl
-                                    680 ;	spillPairReg hl
-    000000DB 22r00r00         [16]  681 	ld	(_g_currentSCCPlayingSegment), hl
-                                    682 ;./libs/yscc/yscc_player.c:107: s_YSCC_StartSeg    = start_seg;
-    000000DE 79               [ 4]  683 	ld	a, c
-    000000DF 32r0Ar00         [13]  684 	ld	(#_s_YSCC_StartSeg), a
-                                    685 ;./libs/yscc/yscc_player.c:108: s_YSCC_TotalBlocks = (u16)((byte_size + 127) / 128);
-    000000E2 DD 7E 04         [19]  686 	ld	a, 4 (ix)
-    000000E5 C6 7F            [ 7]  687 	add	a, #0x7f
-    000000E7 4F               [ 4]  688 	ld	c, a
-    000000E8 DD 7E 05         [19]  689 	ld	a, 5 (ix)
-    000000EB CE 00            [ 7]  690 	adc	a, #0x00
-    000000ED 47               [ 4]  691 	ld	b, a
-    000000EE DD 7E 06         [19]  692 	ld	a, 6 (ix)
-    000000F1 CE 00            [ 7]  693 	adc	a, #0x00
-    000000F3 5F               [ 4]  694 	ld	e, a
-    000000F4 DD 7E 07         [19]  695 	ld	a, 7 (ix)
-    000000F7 CE 00            [ 7]  696 	adc	a, #0x00
-    000000F9 57               [ 4]  697 	ld	d, a
-    000000FA 3E 07            [ 7]  698 	ld	a, #0x07
-    000000FC                        699 00103$:
-    000000FC CB 3A            [ 8]  700 	srl	d
-    000000FE CB 1B            [ 8]  701 	rr	e
-    00000100 CB 18            [ 8]  702 	rr	b
-    00000102 CB 19            [ 8]  703 	rr	c
-    00000104 3D               [ 4]  704 	dec	a
-    00000105 20 F5            [12]  705 	jr	NZ, 00103$
-    00000107 ED 43r0Br00      [20]  706 	ld	(_s_YSCC_TotalBlocks), bc
-                                    707 ;./libs/yscc/yscc_player.c:109: s_YSCC_Loop        = FALSE;
-    0000010B FD 21r0Dr00      [14]  708 	ld	iy, #_s_YSCC_Loop
-    0000010F FD 36 00 00      [19]  709 	ld	0 (iy), #0x00
-                                    710 ;./libs/yscc/yscc_player.c:110: g_YSCC_SamplePage  = start_seg;
-    00000113 22r02r00         [16]  711 	ld	(_g_YSCC_SamplePage), hl
-                                    712 ;./libs/yscc/yscc_player.c:111: g_YSCC_SamplePos   = 0;
-    00000116 21 00 00         [10]  713 	ld	hl, #0x0000
-    00000119 22r00r00         [16]  714 	ld	(_g_YSCC_SamplePos), hl
-                                    715 ;./libs/yscc/yscc_player.c:112: g_YSCC_NumBlocksToPlay = s_YSCC_TotalBlocks;
-    0000011C 2Ar0Br00         [16]  716 	ld	hl, (_s_YSCC_TotalBlocks)
-    0000011F 22r04r00         [16]  717 	ld	(_g_YSCC_NumBlocksToPlay), hl
-                                    718 ;./libs/yscc/yscc_player.c:113: }
-    00000122 DD E1            [14]  719 	pop	ix
-    00000124 E1               [10]  720 	pop	hl
-    00000125 F1               [10]  721 	pop	af
-    00000126 F1               [10]  722 	pop	af
-    00000127 E9               [ 4]  723 	jp	(hl)
-                                    724 ;./libs/yscc/yscc_player.c:116: void YSCC_PlayLoop(u8 start_seg, u32 byte_size) {
-                                    725 ;	---------------------------------
-                                    726 ; Function YSCC_PlayLoop
-                                    727 ; ---------------------------------
-    00000128                        728 _YSCC_PlayLoop::
-    00000128 4F               [ 4]  729 	ld	c, a
-                                    730 ;./libs/yscc/yscc_player.c:117: YSCC_Play(start_seg, byte_size);
-    00000129 FD 21 02 00      [14]  731 	ld	iy, #2
-    0000012D FD 39            [15]  732 	add	iy, sp
-                                    733 ;	spillPairReg hl
+                                    341 ; code
+                                    342 ;--------------------------------------------------------
+                                    343 	.area _CODE
+                                    344 ;./libs/yscc/yscc_player.c:18: static void _YSCC_Silence() {
+                                    345 ;	---------------------------------
+                                    346 ; Function _YSCC_Silence
+                                    347 ; ---------------------------------
+    00000000                        348 __YSCC_Silence:
+                                    349 ;./libs/yscc/yscc_player.c:27: __endasm;
+    00000000 AF               [ 4]  350 	xor	a
+    00000001 32 8F 98         [13]  351 	ld	(0x988F), a ; CH_ENABLE = 0 (tutti i canali off)
+    00000004 21 00 98         [10]  352 	ld	hl, #0x9800
+    00000007 11 01 98         [10]  353 	ld	de, #0x9801
+    0000000A 01 7F 00         [10]  354 	ld	bc, #0x007F
+    0000000D 77               [ 7]  355 	ld	(hl), a ; 0x9800 = 0
+    0000000E ED B0            [21]  356 	ldir	; 0x9801-0x987F = 0
+                                    357 ;./libs/yscc/yscc_player.c:28: }
+    00000010 C9               [10]  358 	ret
+                         0000F380   359 _g_RDPRIM	=	0xf380
+                         0000F385   360 _g_WRPRIM	=	0xf385
+                         0000F38C   361 _g_CLPRIM	=	0xf38c
+                         0000F39A   362 _g_USRTAB	=	0xf39a
+                         0000F3DE   363 _g_CNSDFG	=	0xf3de
+                         0000F3DF   364 _g_RG0SAV	=	0xf3df
+                         0000F3E0   365 _g_RG1SAV	=	0xf3e0
+                         0000F3E1   366 _g_RG2SAV	=	0xf3e1
+                         0000F3E2   367 _g_RG3SAV	=	0xf3e2
+                         0000F3E3   368 _g_RG4SAV	=	0xf3e3
+                         0000F3E4   369 _g_RG5SAV	=	0xf3e4
+                         0000F3E5   370 _g_RG6SAV	=	0xf3e5
+                         0000F3E6   371 _g_RG7SAV	=	0xf3e6
+                         0000F3E7   372 _g_STATFL	=	0xf3e7
+                         0000F3E8   373 _g_TRGFLG	=	0xf3e8
+                         0000F3EC   374 _g_MAXUPD	=	0xf3ec
+                         0000F3EF   375 _g_MINUPD	=	0xf3ef
+                         0000F3F3   376 _g_QUEUES	=	0xf3f3
+                         0000F3F5   377 _g_FRCNEW	=	0xf3f5
+                         0000F3F6   378 _g_SCNCNT	=	0xf3f6
+                         0000F3F7   379 _g_REPCNT	=	0xf3f7
+                         0000F3F8   380 _g_PUTPNT	=	0xf3f8
+                         0000F3FA   381 _g_GETPNT	=	0xf3fa
+                         0000F3FC   382 _g_CS120	=	0xf3fc
+                         0000F401   383 _g_CS240	=	0xf401
+                         0000F406   384 _g_LOW	=	0xf406
+                         0000F408   385 _g_HIGH	=	0xf408
+                         0000F40A   386 _g_HEADER	=	0xf40a
+                         0000F40B   387 _g_ASPCT1	=	0xf40b
+                         0000F40D   388 _g_ASPCT2	=	0xf40d
+                         0000F959   389 _g_QUETAB	=	0xf959
+                         0000F971   390 _g_QUEBAK	=	0xf971
+                         0000F975   391 _g_VOICAQ	=	0xf975
+                         0000F9F5   392 _g_VOICBQ	=	0xf9f5
+                         0000FA75   393 _g_VOICCQ	=	0xfa75
+                         0000FAF5   394 _g_RS2IQ	=	0xfaf5
+                         0000FAF5   395 _g_DPPAGE	=	0xfaf5
+                         0000FAF6   396 _g_ACPAGE	=	0xfaf6
+                         0000FAF7   397 _g_AVCSAV	=	0xfaf7
+                         0000FAF8   398 _g_EXBRSA	=	0xfaf8
+                         0000FAF9   399 _g_CHRCNT	=	0xfaf9
+                         0000FAFA   400 _g_ROMA	=	0xfafa
+                         0000FAFC   401 _g_MODE	=	0xfafc
+                         0000FAFD   402 _g_NORUSE	=	0xfafd
+                         0000FAFE   403 _g_XSAVE	=	0xfafe
+                         0000FB00   404 _g_YSAVE	=	0xfb00
+                         0000FB03   405 _g_RSTMP	=	0xfb03
+                         0000FB03   406 _g_TOCNT	=	0xfb03
+                         0000FB04   407 _g_RSFCB	=	0xfb04
+                         0000FB06   408 _g_RSIQLN	=	0xfb06
+                         0000FB07   409 _g_MEXBIh	=	0xfb07
+                         0000FB0C   410 _g_OLDSTT	=	0xfb0c
+                         0000FB0C   411 _g_OLDINT	=	0xfb0c
+                         0000FB16   412 _g_DEVNUM	=	0xfb16
+                         0000FB17   413 _g_DATCNT	=	0xfb17
+                         0000FB1A   414 _g_ERRORS	=	0xfb1a
+                         0000FB1B   415 _g_FLAGS	=	0xfb1b
+                         0000FB1C   416 _g_ESTBLS	=	0xfb1c
+                         0000FB1D   417 _g_COMMSK	=	0xfb1d
+                         0000FB1E   418 _g_LSTCOM	=	0xfb1e
+                         0000FB1F   419 _g_LSTMOD	=	0xfb1f
+                         0000FB35   420 _g_PRSCNT	=	0xfb35
+                         0000FB36   421 _g_SAVSP	=	0xfb36
+                         0000FB38   422 _g_VOICEN	=	0xfb38
+                         0000FB39   423 _g_SAVVOL	=	0xfb39
+                         0000FB3B   424 _g_MCLLEN	=	0xfb3b
+                         0000FB3C   425 _g_MCLPTR	=	0xfb3c
+                         0000FB3E   426 _g_QUEUEN	=	0xfb3e
+                         0000FB3F   427 _g_MUSICF	=	0xfb3f
+                         0000FB40   428 _g_PLYCNT	=	0xfb40
+                         0000FB41   429 _g_VCBA	=	0xfb41
+                         0000FB66   430 _g_VCBB	=	0xfb66
+                         0000FB8B   431 _g_VCBC	=	0xfb8b
+                         0000FBB0   432 _g_ENSTOP	=	0xfbb0
+                         0000FBB1   433 _g_BASROM	=	0xfbb1
+                         0000FBB2   434 _g_LINTTB	=	0xfbb2
+                         0000FBCA   435 _g_FSTPOS	=	0xfbca
+                         0000FBCC   436 _g_CODSAV	=	0xfbcc
+                         0000FBCD   437 _g_FNKSWI	=	0xfbcd
+                         0000FBCE   438 _g_FNKFLG	=	0xfbce
+                         0000FBD8   439 _g_ONGSBF	=	0xfbd8
+                         0000FBD9   440 _g_CLIKFL	=	0xfbd9
+                         0000FBDA   441 _g_OLDKEY	=	0xfbda
+                         0000FBE5   442 _g_NEWKEY	=	0xfbe5
+                         0000FBF0   443 _g_KEYBUF	=	0xfbf0
+                         0000FC18   444 _g_LINWRK	=	0xfc18
+                         0000FC40   445 _g_PATWRK	=	0xfc40
+                         0000FC48   446 _g_BOTTOM	=	0xfc48
+                         0000FC4A   447 _g_HIMEM	=	0xfc4a
+                         0000FC4C   448 _g_TRPTBL	=	0xfc4c
+                         0000FC9A   449 _g_RTYCNT	=	0xfc9a
+                         0000FC9B   450 _g_INTFLG	=	0xfc9b
+                         0000FC9C   451 _g_PADY	=	0xfc9c
+                         0000FC9D   452 _g_PADX	=	0xfc9d
+                         0000FC9E   453 _g_JIFFY	=	0xfc9e
+                         0000FCA0   454 _g_INTVAL	=	0xfca0
+                         0000FCA2   455 _g_INTCNT	=	0xfca2
+                         0000FCA4   456 _g_LOWLIM	=	0xfca4
+                         0000FCA5   457 _g_WINWID	=	0xfca5
+                         0000FCA6   458 _g_GRPHED	=	0xfca6
+                         0000FCA7   459 _g_ESCCNT	=	0xfca7
+                         0000FCA8   460 _g_INSFLG	=	0xfca8
+                         0000FCA9   461 _g_CSRSW	=	0xfca9
+                         0000FCAA   462 _g_CSTYLE	=	0xfcaa
+                         0000FCAB   463 _g_CAPST	=	0xfcab
+                         0000FCAC   464 _g_KANAST	=	0xfcac
+                         0000FCAD   465 _g_KANAMD	=	0xfcad
+                         0000FCAE   466 _g_FLBMEM	=	0xfcae
+                         0000FCAF   467 _g_SCRMOD	=	0xfcaf
+                         0000FCB0   468 _g_OLDSCR	=	0xfcb0
+                         0000FCB1   469 _g_CASPRV	=	0xfcb1
+                         0000FCB2   470 _g_BRDATR	=	0xfcb2
+                         0000FCB3   471 _g_GXPOS	=	0xfcb3
+                         0000FCB5   472 _g_GYPOS	=	0xfcb5
+                         0000FCBB   473 _g_DRWFLG	=	0xfcbb
+                         0000FCBC   474 _g_DRWSCL	=	0xfcbc
+                         0000FCBD   475 _g_DRWANG	=	0xfcbd
+                         0000FCC1   476 _g_MNROM	=	0xfcc1
+                         0000FCC1   477 _g_EXPTBL	=	0xfcc1
+                         0000FCC5   478 _g_SLTTBL	=	0xfcc5
+                         0000FCC9   479 _g_SLTATR	=	0xfcc9
+                         0000FD09   480 _g_SLTWRK	=	0xfd09
+                         0000FD89   481 _g_PROCNM	=	0xfd89
+                         0000FFE7   482 _g_RG08SAV	=	0xffe7
+                         0000FFE8   483 _g_RG09SAV	=	0xffe8
+                         0000FFE9   484 _g_RG10SAV	=	0xffe9
+                         0000FFEA   485 _g_RG11SAV	=	0xffea
+                         0000FFEB   486 _g_RG12SAV	=	0xffeb
+                         0000FFEC   487 _g_RG13SAV	=	0xffec
+                         0000FFED   488 _g_RG14SAV	=	0xffed
+                         0000FFEE   489 _g_RG15SAV	=	0xffee
+                         0000FFEF   490 _g_RG16SAV	=	0xffef
+                         0000FFF0   491 _g_RG17SAV	=	0xfff0
+                         0000FFF1   492 _g_RG18SAV	=	0xfff1
+                         0000FFF2   493 _g_RG19SAV	=	0xfff2
+                         0000FFF3   494 _g_RG20SAV	=	0xfff3
+                         0000FFF4   495 _g_RG21SAV	=	0xfff4
+                         0000FFF5   496 _g_RG22SAV	=	0xfff5
+                         0000FFF6   497 _g_RG23SAV	=	0xfff6
+                         0000FFF7   498 _g_MINROM	=	0xfff7
+                         0000FFF8   499 _g_SVFFF8	=	0xfff8
+                         0000FFFA   500 _g_RG25SAV	=	0xfffa
+                         0000FFFB   501 _g_RG26SAV	=	0xfffb
+                         0000FFFC   502 _g_RG27SAV	=	0xfffc
+                         0000FFFD   503 _g_SVFFFD	=	0xfffd
+                         00000004   504 _g_CGTABL	=	0x0004
+                         00000006   505 _g_VDP_DR	=	0x0006
+                         00000007   506 _g_VDP_DW	=	0x0007
+                         0000002B   507 _g_BASRVN	=	0x002b
+                         0000002B   508 _g_ROMVersion	=	0x002b
+                         0000002D   509 _g_MSXVER	=	0x002d
+                         0000002E   510 _g_MSXMID	=	0x002e
+                         00000034   511 _g_CHAR_16	=	0x0034
+                         00000000   512 _g_SUBRID	=	0x0000
+                         00000002   513 _g_STRSRC	=	0x0002
+                         0000F30F   514 _g_KANJTABLE	=	0xf30f
+                         0000F323   515 _g_DISKVE	=	0xf323
+                         0000F325   516 _g_BREAKV	=	0xf325
+                         0000F341   517 _g_RAMAD0	=	0xf341
+                         0000F342   518 _g_RAMAD1	=	0xf342
+                         0000F343   519 _g_RAMAD2	=	0xf343
+                         0000F344   520 _g_RAMAD3	=	0xf344
+                         0000F348   521 _g_MASTER	=	0xf348
+                         0000F37D   522 _g_BDOS	=	0xf37d
+                                    523 ;./libs/yscc/yscc_player.c:31: void YSCC_Init() {
+                                    524 ;	---------------------------------
+                                    525 ; Function YSCC_Init
+                                    526 ; ---------------------------------
+    00000011                        527 _YSCC_Init::
+                                    528 ;./libs/yscc/yscc_player.c:32: g_YSCC_Period  = 0x0749;
+    00000011 21 49 07         [10]  529 	ld	hl, #0x0749
+    00000014 22r06r00         [16]  530 	ld	(_g_YSCC_Period), hl
+                                    531 ;./libs/yscc/yscc_player.c:33: s_YSCC_Loop    = FALSE;
+    00000017 21r0Er00         [10]  532 	ld	hl, #_s_YSCC_Loop
+    0000001A 36 00            [10]  533 	ld	(hl), #0x00
+                                    534 ;./libs/yscc/yscc_player.c:34: s_YSCC_Paused  = FALSE;
+    0000001C FD 21r0Fr00      [14]  535 	ld	iy, #_s_YSCC_Paused
+    00000020 FD 36 00 00      [19]  536 	ld	0 (iy), #0x00
+                                    537 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/rom_mapper.h:190: g_Bank0Segment[b] = s;
+    00000024 21 3F 00         [10]  538 	ld	hl, #0x003f
+    00000027 22r04r00         [16]  539 	ld	((_g_Bank0Segment + 4)), hl
+                                    540 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/rom_mapper.h:191: Poke(YAMANOOTO_OFFR, (s >> 2) & 0xC0);
+    0000002A 3E 0F            [ 7]  541 	ld	a, #0x0f
+    0000002C E6 C0            [ 7]  542 	and	a, #0xc0
+                                    543 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/system.h:101: inline void Poke(u16 addr, u8 val) { *(u8*)addr = val; }
+    0000002E 32 FE 7F         [13]  544 	ld	(#0x7ffe),a
+                                    545 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/rom_mapper.h:194: else if (b == 2)	Poke(ADDR_BANK_2, s & 0xFF);
+    00000031 3E 3F            [ 7]  546 	ld	a, #0x3f
+                                    547 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/system.h:101: inline void Poke(u16 addr, u8 val) { *(u8*)addr = val; }
+    00000033 21 00 90         [10]  548 	ld	hl, #0x9000
+    00000036 77               [ 7]  549 	ld	(hl), a
+                                    550 ;./libs/yscc/yscc_player.c:63: __endasm;
+    00000037 21 00 90         [10]  551 	ld	hl, #0x9000
+    0000003A 36 3F            [10]  552 	ld	(hl), #0x3F ; attiva SCC
+    0000003C F5               [11]  553 	push	af
+    0000003D E5               [11]  554 	push	hl
+    0000003E 3E 20            [ 7]  555 	ld	a, #0x20
+    00000040 32 E0 98         [13]  556 	ld	(0x98E0), a ; deformation register
+    00000043 32 C0 98         [13]  557 	ld	(0x98C0), a ; SCC+ compat
+    00000046 AF               [ 4]  558 	xor	a
+    00000047 32 8E 98         [13]  559 	ld	(0x988E), a ; vol ch5 = 0
+    0000004A 32 8F 98         [13]  560 	ld	(0x988F), a ; CH_ENABLE = 0
+    0000004D 3E 0F            [ 7]  561 	ld	a, #0x0F
+    0000004F 32 8A 98         [13]  562 	ld	(0x988A), a ; vol ch1 = max
+    00000052 32 8B 98         [13]  563 	ld	(0x988B), a ; vol ch2 = max
+    00000055 32 8C 98         [13]  564 	ld	(0x988C), a ; vol ch3 = max
+    00000058 32 8D 98         [13]  565 	ld	(0x988D), a ; vol ch4 = max
+    0000005B 2Ar06r00         [16]  566 	ld	hl, (_g_YSCC_Period)
+    0000005E 22 80 98         [16]  567 	ld	(0x9880), hl ; periodo ch1
+    00000061 22 82 98         [16]  568 	ld	(0x9882), hl ; periodo ch2
+    00000064 22 84 98         [16]  569 	ld	(0x9884), hl ; periodo ch3
+    00000067 22 86 98         [16]  570 	ld	(0x9886), hl ; periodo ch4
+    0000006A 21 00 00         [10]  571 	ld	hl, #0
+    0000006D 22 88 98         [16]  572 	ld	(0x9888), hl ; periodo ch5 = 0
+    00000070 E1               [10]  573 	pop	hl
+    00000071 F1               [10]  574 	pop	af
+                                    575 ;./libs/yscc/yscc_player.c:64: }
+    00000072 C9               [10]  576 	ret
+                                    577 ;./libs/yscc/yscc_player.c:67: u16 YSCC_GetFirstSegmentOfCurrentPlaying(){
+                                    578 ;	---------------------------------
+                                    579 ; Function YSCC_GetFirstSegmentOfCurrentPlaying
+                                    580 ; ---------------------------------
+    00000073                        581 _YSCC_GetFirstSegmentOfCurrentPlaying::
+                                    582 ;./libs/yscc/yscc_player.c:68: return g_currentSCCPlayingSegment; 
+    00000073 ED 5Br00r00      [20]  583 	ld	de, (_g_currentSCCPlayingSegment)
+                                    584 ;./libs/yscc/yscc_player.c:69: }
+    00000077 C9               [10]  585 	ret
+                                    586 ;./libs/yscc/yscc_player.c:70: void YSCC_Stop() {
+                                    587 ;	---------------------------------
+                                    588 ; Function YSCC_Stop
+                                    589 ; ---------------------------------
+    00000078                        590 _YSCC_Stop::
+                                    591 ;./libs/yscc/yscc_player.c:71: g_currentSCCPlayingSegment=0xFFFF;
+    00000078 21 FF FF         [10]  592 	ld	hl, #0xffff
+    0000007B 22r00r00         [16]  593 	ld	(_g_currentSCCPlayingSegment), hl
+                                    594 ;./libs/yscc/yscc_player.c:72: g_YSCC_NumBlocksToPlay = 0;
+    0000007E 21 00 00         [10]  595 	ld	hl, #0x0000
+    00000081 22r04r00         [16]  596 	ld	(_g_YSCC_NumBlocksToPlay), hl
+                                    597 ;./libs/yscc/yscc_player.c:73: s_YSCC_Paused = FALSE;
+    00000084 FD 21r0Fr00      [14]  598 	ld	iy, #_s_YSCC_Paused
+    00000088 FD 36 00 00      [19]  599 	ld	0 (iy), #0x00
+                                    600 ;./libs/yscc/yscc_player.c:74: _YSCC_Silence();
+                                    601 ;./libs/yscc/yscc_player.c:75: }
+    0000008C C3r00r00         [10]  602 	jp	__YSCC_Silence
+                                    603 ;./libs/yscc/yscc_player.c:78: void YSCC_Pause() {
+                                    604 ;	---------------------------------
+                                    605 ; Function YSCC_Pause
+                                    606 ; ---------------------------------
+    0000008F                        607 _YSCC_Pause::
+                                    608 ;./libs/yscc/yscc_player.c:79: if (!s_YSCC_Paused && g_YSCC_NumBlocksToPlay > 0) {
+    0000008F 3Ar0Fr00         [13]  609 	ld	a, (_s_YSCC_Paused+0)
+    00000092 B7               [ 4]  610 	or	a, a
+    00000093 C0               [11]  611 	ret	NZ
+    00000094 3Ar05r00         [13]  612 	ld	a, (_g_YSCC_NumBlocksToPlay+1)
+    00000097 FD 21r04r00      [14]  613 	ld	iy, #_g_YSCC_NumBlocksToPlay
+    0000009B FD B6 00         [19]  614 	or	a, 0 (iy)
+    0000009E C8               [11]  615 	ret	Z
+                                    616 ;./libs/yscc/yscc_player.c:80: s_YSCC_Paused = TRUE;
+    0000009F FD 21r0Fr00      [14]  617 	ld	iy, #_s_YSCC_Paused
+    000000A3 FD 36 00 01      [19]  618 	ld	0 (iy), #0x01
+                                    619 ;./libs/yscc/yscc_player.c:84: __endasm;
+    000000A7 AF               [ 4]  620 	xor	a
+    000000A8 32 8F 98         [13]  621 	ld	(0x988F), a ; CH_ENABLE = 0
+                                    622 ;./libs/yscc/yscc_player.c:86: }
+    000000AB C9               [10]  623 	ret
+                                    624 ;./libs/yscc/yscc_player.c:89: void YSCC_Resume() {
+                                    625 ;	---------------------------------
+                                    626 ; Function YSCC_Resume
+                                    627 ; ---------------------------------
+    000000AC                        628 _YSCC_Resume::
+                                    629 ;./libs/yscc/yscc_player.c:90: s_YSCC_Paused = FALSE;
+    000000AC 21r0Fr00         [10]  630 	ld	hl, #_s_YSCC_Paused
+    000000AF 36 00            [10]  631 	ld	(hl), #0x00
+                                    632 ;./libs/yscc/yscc_player.c:91: }
+    000000B1 C9               [10]  633 	ret
+                                    634 ;./libs/yscc/yscc_player.c:94: bool YSCC_IsPlaying() {
+                                    635 ;	---------------------------------
+                                    636 ; Function YSCC_IsPlaying
+                                    637 ; ---------------------------------
+    000000B2                        638 _YSCC_IsPlaying::
+                                    639 ;./libs/yscc/yscc_player.c:95: return (g_YSCC_NumBlocksToPlay > 0) && !s_YSCC_Paused;
+    000000B2 3Ar05r00         [13]  640 	ld	a, (_g_YSCC_NumBlocksToPlay+1)
+    000000B5 21r04r00         [10]  641 	ld	hl, #_g_YSCC_NumBlocksToPlay
+    000000B8 B6               [ 7]  642 	or	a, (hl)
+    000000B9 28 06            [12]  643 	jr	Z, 00103$
+    000000BB 3Ar0Fr00         [13]  644 	ld	a, (_s_YSCC_Paused+0)
+    000000BE B7               [ 4]  645 	or	a, a
+    000000BF 28 02            [12]  646 	jr	Z, 00104$
+    000000C1                        647 00103$:
+    000000C1 AF               [ 4]  648 	xor	a, a
+    000000C2 C9               [10]  649 	ret
+    000000C3                        650 00104$:
+    000000C3 3E 01            [ 7]  651 	ld	a, #0x01
+                                    652 ;./libs/yscc/yscc_player.c:96: }
+    000000C5 C9               [10]  653 	ret
+                                    654 ;./libs/yscc/yscc_player.c:99: bool YSCC_IsPaused() {
+                                    655 ;	---------------------------------
+                                    656 ; Function YSCC_IsPaused
+                                    657 ; ---------------------------------
+    000000C6                        658 _YSCC_IsPaused::
+                                    659 ;./libs/yscc/yscc_player.c:100: return s_YSCC_Paused;
+    000000C6 3Ar0Fr00         [13]  660 	ld	a, (_s_YSCC_Paused+0)
+                                    661 ;./libs/yscc/yscc_player.c:101: }
+    000000C9 C9               [10]  662 	ret
+                                    663 ;./libs/yscc/yscc_player.c:104: void YSCC_Play(u16 start_seg, u32 byte_size) {
+                                    664 ;	---------------------------------
+                                    665 ; Function YSCC_Play
+                                    666 ; ---------------------------------
+    000000CA                        667 _YSCC_Play::
+    000000CA DD E5            [15]  668 	push	ix
+    000000CC DD 21 00 00      [14]  669 	ld	ix,#0
+    000000D0 DD 39            [15]  670 	add	ix,sp
+                                    671 ;./libs/yscc/yscc_player.c:105: YSCC_Stop();
+    000000D2 E5               [11]  672 	push	hl
+    000000D3 CDr78r00         [17]  673 	call	_YSCC_Stop
+    000000D6 E1               [10]  674 	pop	hl
+                                    675 ;./libs/yscc/yscc_player.c:106: g_currentSCCPlayingSegment=start_seg;
+    000000D7 22r00r00         [16]  676 	ld	(_g_currentSCCPlayingSegment), hl
+                                    677 ;./libs/yscc/yscc_player.c:107: s_YSCC_StartSeg    = start_seg;
+    000000DA 22r0Ar00         [16]  678 	ld	(_s_YSCC_StartSeg), hl
+                                    679 ;./libs/yscc/yscc_player.c:108: s_YSCC_TotalBlocks = (u16)((byte_size + 127) / 128);
+    000000DD DD 7E 04         [19]  680 	ld	a, 4 (ix)
+    000000E0 C6 7F            [ 7]  681 	add	a, #0x7f
+    000000E2 4F               [ 4]  682 	ld	c, a
+    000000E3 DD 7E 05         [19]  683 	ld	a, 5 (ix)
+    000000E6 CE 00            [ 7]  684 	adc	a, #0x00
+    000000E8 47               [ 4]  685 	ld	b, a
+    000000E9 DD 7E 06         [19]  686 	ld	a, 6 (ix)
+    000000EC CE 00            [ 7]  687 	adc	a, #0x00
+    000000EE 5F               [ 4]  688 	ld	e, a
+    000000EF DD 7E 07         [19]  689 	ld	a, 7 (ix)
+    000000F2 CE 00            [ 7]  690 	adc	a, #0x00
+    000000F4 57               [ 4]  691 	ld	d, a
+    000000F5 3E 07            [ 7]  692 	ld	a, #0x07
+    000000F7                        693 00103$:
+    000000F7 CB 3A            [ 8]  694 	srl	d
+    000000F9 CB 1B            [ 8]  695 	rr	e
+    000000FB CB 18            [ 8]  696 	rr	b
+    000000FD CB 19            [ 8]  697 	rr	c
+    000000FF 3D               [ 4]  698 	dec	a
+    00000100 20 F5            [12]  699 	jr	NZ, 00103$
+    00000102 ED 43r0Cr00      [20]  700 	ld	(_s_YSCC_TotalBlocks), bc
+                                    701 ;./libs/yscc/yscc_player.c:109: s_YSCC_Loop        = FALSE;
+    00000106 FD 21r0Er00      [14]  702 	ld	iy, #_s_YSCC_Loop
+    0000010A FD 36 00 00      [19]  703 	ld	0 (iy), #0x00
+                                    704 ;./libs/yscc/yscc_player.c:110: g_YSCC_SamplePage  = start_seg;
+    0000010E 22r02r00         [16]  705 	ld	(_g_YSCC_SamplePage), hl
+                                    706 ;./libs/yscc/yscc_player.c:111: g_YSCC_SamplePos   = 0;
+    00000111 21 00 00         [10]  707 	ld	hl, #0x0000
+    00000114 22r00r00         [16]  708 	ld	(_g_YSCC_SamplePos), hl
+                                    709 ;./libs/yscc/yscc_player.c:112: g_YSCC_NumBlocksToPlay = s_YSCC_TotalBlocks;
+    00000117 2Ar0Cr00         [16]  710 	ld	hl, (_s_YSCC_TotalBlocks)
+    0000011A 22r04r00         [16]  711 	ld	(_g_YSCC_NumBlocksToPlay), hl
+                                    712 ;./libs/yscc/yscc_player.c:113: }
+    0000011D DD E1            [14]  713 	pop	ix
+    0000011F E1               [10]  714 	pop	hl
+    00000120 F1               [10]  715 	pop	af
+    00000121 F1               [10]  716 	pop	af
+    00000122 E9               [ 4]  717 	jp	(hl)
+                                    718 ;./libs/yscc/yscc_player.c:116: void YSCC_PlayLoop(u16 start_seg, u32 byte_size) {
+                                    719 ;	---------------------------------
+                                    720 ; Function YSCC_PlayLoop
+                                    721 ; ---------------------------------
+    00000123                        722 _YSCC_PlayLoop::
+    00000123 EB               [ 4]  723 	ex	de, hl
+                                    724 ;./libs/yscc/yscc_player.c:117: YSCC_Play(start_seg, byte_size);
+    00000124 FD 21 02 00      [14]  725 	ld	iy, #2
+    00000128 FD 39            [15]  726 	add	iy, sp
+                                    727 ;	spillPairReg hl
+                                    728 ;	spillPairReg hl
+    0000012A FD 6E 02         [19]  729 	ld	l, 2 (iy)
+    0000012D FD 66 03         [19]  730 	ld	h, 3 (iy)
+                                    731 ;	spillPairReg hl
+                                    732 ;	spillPairReg hl
+    00000130 E5               [11]  733 	push	hl
                                     734 ;	spillPairReg hl
-    0000012F FD 6E 02         [19]  735 	ld	l, 2 (iy)
-    00000132 FD 66 03         [19]  736 	ld	h, 3 (iy)
-                                    737 ;	spillPairReg hl
+                                    735 ;	spillPairReg hl
+    00000131 FD 6E 00         [19]  736 	ld	l, 0 (iy)
+    00000134 FD 66 01         [19]  737 	ld	h, 1 (iy)
                                     738 ;	spillPairReg hl
-    00000135 E5               [11]  739 	push	hl
-                                    740 ;	spillPairReg hl
-                                    741 ;	spillPairReg hl
-    00000136 FD 6E 00         [19]  742 	ld	l, 0 (iy)
-    00000139 FD 66 01         [19]  743 	ld	h, 1 (iy)
-                                    744 ;	spillPairReg hl
-                                    745 ;	spillPairReg hl
-    0000013C E5               [11]  746 	push	hl
-    0000013D 79               [ 4]  747 	ld	a, c
-    0000013E CDrCAr00         [17]  748 	call	_YSCC_Play
-                                    749 ;./libs/yscc/yscc_player.c:118: s_YSCC_Loop = TRUE;
-    00000141 FD 21r0Dr00      [14]  750 	ld	iy, #_s_YSCC_Loop
-    00000145 FD 36 00 01      [19]  751 	ld	0 (iy), #0x01
-                                    752 ;./libs/yscc/yscc_player.c:119: }
-    00000149 E1               [10]  753 	pop	hl
-    0000014A F1               [10]  754 	pop	af
-    0000014B F1               [10]  755 	pop	af
-    0000014C E9               [ 4]  756 	jp	(hl)
-                                    757 ;./libs/yscc/yscc_player.c:123: bool YSCC_Decode() {
-                                    758 ;	---------------------------------
-                                    759 ; Function YSCC_Decode
-                                    760 ; ---------------------------------
-    0000014D                        761 _YSCC_Decode::
-                                    762 ;./libs/yscc/yscc_player.c:124: if (s_YSCC_Paused || g_YSCC_NumBlocksToPlay == 0)
-    0000014D 3Ar0Er00         [13]  763 	ld	a, (_s_YSCC_Paused+0)
-    00000150 B7               [ 4]  764 	or	a, a
-    00000151 20 0C            [12]  765 	jr	NZ, 00101$
-    00000153 3Ar05r00         [13]  766 	ld	a, (_g_YSCC_NumBlocksToPlay+1)
-    00000156 FD 21r04r00      [14]  767 	ld	iy, #_g_YSCC_NumBlocksToPlay
-    0000015A FD B6 00         [19]  768 	or	a, 0 (iy)
-    0000015D 20 02            [12]  769 	jr	NZ, 00102$
-    0000015F                        770 00101$:
-                                    771 ;./libs/yscc/yscc_player.c:125: return FALSE;
-    0000015F AF               [ 4]  772 	xor	a, a
-    00000160 C9               [10]  773 	ret
-    00000161                        774 00102$:
-                                    775 ;./libs/yscc/yscc_player.c:131: __endasm;
-    00000161 CDrB9r01         [17]  776 	call	__YSCC_CopyPCMBlock
-    00000164 3E 0F            [ 7]  777 	ld	a, #0x0F
-    00000166 32 8F 98         [13]  778 	ld	(0x988F), a ; abilita canali 1-4
-                                    779 ;./libs/yscc/yscc_player.c:133: g_YSCC_NumBlocksToPlay--;
-    00000169 ED 4Br04r00      [20]  780 	ld	bc, (_g_YSCC_NumBlocksToPlay)
-    0000016D 21r04r00         [10]  781 	ld	hl, #_g_YSCC_NumBlocksToPlay
-    00000170 79               [ 4]  782 	ld	a, c
-    00000171 C6 FF            [ 7]  783 	add	a, #0xff
-    00000173 77               [ 7]  784 	ld	(hl), a
-    00000174 23               [ 6]  785 	inc	hl
-    00000175 78               [ 4]  786 	ld	a, b
-    00000176 CE FF            [ 7]  787 	adc	a, #0xff
-    00000178 77               [ 7]  788 	ld	(hl), a
-                                    789 ;./libs/yscc/yscc_player.c:135: if (g_YSCC_NumBlocksToPlay == 0) {
-    00000179 3Ar05r00         [13]  790 	ld	a, (_g_YSCC_NumBlocksToPlay+1)
-    0000017C FD 21r04r00      [14]  791 	ld	iy, #_g_YSCC_NumBlocksToPlay
-    00000180 FD B6 00         [19]  792 	or	a, 0 (iy)
-    00000183 20 32            [12]  793 	jr	NZ, 00110$
-                                    794 ;./libs/yscc/yscc_player.c:136: if (s_YSCC_Loop) {
-    00000185 3Ar0Dr00         [13]  795 	ld	a, (_s_YSCC_Loop+0)
-    00000188 B7               [ 4]  796 	or	a, a
-    00000189 28 1A            [12]  797 	jr	Z, 00107$
-                                    798 ;./libs/yscc/yscc_player.c:138: g_YSCC_SamplePage      = s_YSCC_StartSeg;
-    0000018B 3Ar0Ar00         [13]  799 	ld	a, (_s_YSCC_StartSeg+0)
-    0000018E 32r02r00         [13]  800 	ld	(_g_YSCC_SamplePage+0), a
-    00000191 21r03r00         [10]  801 	ld	hl, #_g_YSCC_SamplePage + 1
-    00000194 36 00            [10]  802 	ld	(hl), #0x00
-                                    803 ;./libs/yscc/yscc_player.c:139: g_YSCC_SamplePos       = 0;
-    00000196 21 00 00         [10]  804 	ld	hl, #0x0000
-    00000199 22r00r00         [16]  805 	ld	(_g_YSCC_SamplePos), hl
-                                    806 ;./libs/yscc/yscc_player.c:140: g_YSCC_NumBlocksToPlay = s_YSCC_TotalBlocks;
-    0000019C 2Ar0Br00         [16]  807 	ld	hl, (_s_YSCC_TotalBlocks)
-    0000019F 22r04r00         [16]  808 	ld	(_g_YSCC_NumBlocksToPlay), hl
-    000001A2 C3rB4r01         [10]  809 	jp	00108$
-    000001A5                        810 00107$:
-                                    811 ;./libs/yscc/yscc_player.c:142: if(!s_YSCC_Loop){
-    000001A5 3Ar0Dr00         [13]  812 	ld	a, (_s_YSCC_Loop+0)
-    000001A8 B7               [ 4]  813 	or	a, a
-    000001A9 20 06            [12]  814 	jr	NZ, 00105$
-                                    815 ;./libs/yscc/yscc_player.c:143: g_currentSCCPlayingSegment=0xFFFF;
-    000001AB 21 FF FF         [10]  816 	ld	hl, #0xffff
-    000001AE 22r00r00         [16]  817 	ld	(_g_currentSCCPlayingSegment), hl
-    000001B1                        818 00105$:
-                                    819 ;./libs/yscc/yscc_player.c:146: _YSCC_Silence();   // fine brano: azzera wave table e disabilita canali
-    000001B1 CDr00r00         [17]  820 	call	__YSCC_Silence
-    000001B4                        821 00108$:
-                                    822 ;./libs/yscc/yscc_player.c:148: return TRUE;            // segnala fine ciclo al chiamante
-    000001B4 3E 01            [ 7]  823 	ld	a, #0x01
-    000001B6 C9               [10]  824 	ret
-    000001B7                        825 00110$:
-                                    826 ;./libs/yscc/yscc_player.c:150: return FALSE;
-    000001B7 AF               [ 4]  827 	xor	a, a
-                                    828 ;./libs/yscc/yscc_player.c:151: }
-    000001B8 C9               [10]  829 	ret
-                                    830 ;./libs/yscc/yscc_player.c:154: void _YSCC_CopyPCMBlock() {
-                                    831 ;	---------------------------------
-                                    832 ; Function _YSCC_CopyPCMBlock
-                                    833 ; ---------------------------------
-    000001B9                        834 __YSCC_CopyPCMBlock::
-                                    835 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/rom_mapper.h:212: inline u16 GET_BANK_SEGMENT(u8 b) { return g_Bank0Segment[b]; }
-    000001B9 21r06r00         [10]  836 	ld	hl, #(_g_Bank0Segment + 6)
-    000001BC 7E               [ 7]  837 	ld	a, (hl)
-    000001BD 23               [ 6]  838 	inc	hl
-    000001BE 32r08r00         [13]  839 	ld	(_s_YSCC_SavedSeg3+0), a
-    000001C1 7E               [ 7]  840 	ld	a, (hl)
-    000001C2 32r09r00         [13]  841 	ld	(_s_YSCC_SavedSeg3+1), a
-                                    842 ;./libs/yscc/yscc_player.c:156: SET_BANK_SEGMENT(3, g_YSCC_SamplePage);
-    000001C5 ED 5Br02r00      [20]  843 	ld	de, (_g_YSCC_SamplePage)
-    000001C9 4B               [ 4]  844 	ld	c, e
-    000001CA 42               [ 4]  845 	ld	b, d
-                                    846 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/rom_mapper.h:190: g_Bank0Segment[b] = s;
-    000001CB ED 53r06r00      [20]  847 	ld	((_g_Bank0Segment + 6)), de
-                                    848 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/rom_mapper.h:191: Poke(YAMANOOTO_OFFR, (s >> 2) & 0xC0);
-    000001CF 59               [ 4]  849 	ld	e, c
-    000001D0 50               [ 4]  850 	ld	d, b
-    000001D1 CB 3A            [ 8]  851 	srl	d
-    000001D3 CB 1B            [ 8]  852 	rr	e
-    000001D5 CB 3A            [ 8]  853 	srl	d
-    000001D7 CB 1B            [ 8]  854 	rr	e
-    000001D9 7B               [ 4]  855 	ld	a, e
-    000001DA E6 C0            [ 7]  856 	and	a, #0xc0
-                                    857 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/system.h:101: inline void Poke(u16 addr, u8 val) { *(u8*)addr = val; }
-    000001DC 32 FE 7F         [13]  858 	ld	(#0x7ffe),a
-                                    859 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/rom_mapper.h:195: else if (b == 3)	Poke(ADDR_BANK_3, s & 0xFF);
-                                    860 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/system.h:101: inline void Poke(u16 addr, u8 val) { *(u8*)addr = val; }
-    000001DF 21 00 B0         [10]  861 	ld	hl, #0xb000
-    000001E2 71               [ 7]  862 	ld	(hl), c
-                                    863 ;./libs/yscc/yscc_player.c:228: __endasm;
-                                    864 ;	HL = 0xA000 + g_YSCC_SamplePos (sorgente diretta in Bank3)
-    000001E3 2Ar00r00         [16]  865 	ld	hl, (_g_YSCC_SamplePos)
-    000001E6 01 00 A0         [10]  866 	ld	bc, #0xA000
-    000001E9 09               [11]  867 	add	hl, bc
-                                    868 ;	--- CH1 PASS1: 21 byte HL → 0x9800 ---
-    000001EA 11 00 98         [10]  869 	ld	de, #0x9800
-    000001ED 01 15 00         [10]  870 	ld	bc, #0x0015
-    000001F0 ED B0            [21]  871 	ldir	; HL = base+21
-    000001F2 E5               [11]  872 	push	hl ; salva per CH1 PASS2
-    000001F3 3Ar07r00         [13]  873 	ld	a, (_g_YSCC_Period + 1)
-    000001F6 32 81 98         [13]  874 	ld	(0x9881), a ; phase reset CH1
-                                    875 ;	salta 11 byte a CH2 (base+32)
-    000001F9 01 0B 00         [10]  876 	ld	bc, #0x000B
-    000001FC 09               [11]  877 	add	hl, bc
-                                    878 ;	--- CH2 PASS1: 21 byte HL → 0x9820 ---
-    000001FD 11 20 98         [10]  879 	ld	de, #0x9820
-    00000200 01 15 00         [10]  880 	ld	bc, #0x0015
-    00000203 ED B0            [21]  881 	ldir	; HL = base+53
-    00000205 E5               [11]  882 	push	hl ; salva per CH2 PASS2
-    00000206 32 83 98         [13]  883 	ld	(0x9883), a ; phase reset CH2 (A ancora valido)
-                                    884 ;	salta 11 byte a CH3 (base+64)
-    00000209 01 0B 00         [10]  885 	ld	bc, #0x000B
-    0000020C 09               [11]  886 	add	hl, bc
-                                    887 ;	--- CH3 PASS1: 21 byte HL → 0x9840 ---
-    0000020D 11 40 98         [10]  888 	ld	de, #0x9840
-    00000210 01 15 00         [10]  889 	ld	bc, #0x0015
-    00000213 ED B0            [21]  890 	ldir	; HL = base+85
-    00000215 E5               [11]  891 	push	hl ; salva per CH3 PASS2
-    00000216 32 85 98         [13]  892 	ld	(0x9885), a ; phase reset CH3
-                                    893 ;	salta 11 byte a CH4 (base+96)
-    00000219 01 0B 00         [10]  894 	ld	bc, #0x000B
-    0000021C 09               [11]  895 	add	hl, bc
-                                    896 ;	--- CH4 PASS1: 21 byte HL → 0x9860 ---
-    0000021D 11 60 98         [10]  897 	ld	de, #0x9860
-    00000220 01 15 00         [10]  898 	ld	bc, #0x0015
-    00000223 ED B0            [21]  899 	ldir	; HL = base+117
-    00000225 32 87 98         [13]  900 	ld	(0x9887), a ; phase reset CH4
-                                    901 ;	--- PASS2: ultimi 11 byte per canale (stack in ordine inverso) ---
-                                    902 ;	CH4 PASS2 (HL = base+117)
-    00000228 11 75 98         [10]  903 	ld	de, #0x9875
-    0000022B 01 0B 00         [10]  904 	ld	bc, #0x000B
-    0000022E ED B0            [21]  905 	ldir
-                                    906 ;	CH3 PASS2
-    00000230 E1               [10]  907 	pop	hl ; HL = base+85
-    00000231 11 55 98         [10]  908 	ld	de, #0x9855
-    00000234 01 0B 00         [10]  909 	ld	bc, #0x000B
-    00000237 ED B0            [21]  910 	ldir
-                                    911 ;	CH2 PASS2
-    00000239 E1               [10]  912 	pop	hl ; HL = base+53
-    0000023A 11 35 98         [10]  913 	ld	de, #0x9835
-    0000023D 01 0B 00         [10]  914 	ld	bc, #0x000B
-    00000240 ED B0            [21]  915 	ldir
-                                    916 ;	CH1 PASS2
-    00000242 E1               [10]  917 	pop	hl ; HL = base+21
-    00000243 11 15 98         [10]  918 	ld	de, #0x9815
-    00000246 01 0B 00         [10]  919 	ld	bc, #0x000B
-    00000249 ED B0            [21]  920 	ldir
-                                    921 ;./libs/yscc/yscc_player.c:230: SET_BANK_SEGMENT(3, s_YSCC_SavedSeg3);
-    0000024B ED 5Br08r00      [20]  922 	ld	de, (_s_YSCC_SavedSeg3)
-    0000024F 4B               [ 4]  923 	ld	c, e
-    00000250 42               [ 4]  924 	ld	b, d
-                                    925 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/rom_mapper.h:190: g_Bank0Segment[b] = s;
-    00000251 ED 53r06r00      [20]  926 	ld	((_g_Bank0Segment + 6)), de
-                                    927 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/rom_mapper.h:191: Poke(YAMANOOTO_OFFR, (s >> 2) & 0xC0);
-    00000255 59               [ 4]  928 	ld	e, c
-    00000256 50               [ 4]  929 	ld	d, b
-    00000257 CB 3A            [ 8]  930 	srl	d
-    00000259 CB 1B            [ 8]  931 	rr	e
-    0000025B CB 3A            [ 8]  932 	srl	d
-    0000025D CB 1B            [ 8]  933 	rr	e
-    0000025F 7B               [ 4]  934 	ld	a, e
-    00000260 E6 C0            [ 7]  935 	and	a, #0xc0
-                                    936 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/system.h:101: inline void Poke(u16 addr, u8 val) { *(u8*)addr = val; }
-    00000262 32 FE 7F         [13]  937 	ld	(#0x7ffe),a
-                                    938 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/rom_mapper.h:195: else if (b == 3)	Poke(ADDR_BANK_3, s & 0xFF);
-                                    939 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/system.h:101: inline void Poke(u16 addr, u8 val) { *(u8*)addr = val; }
-    00000265 21 00 B0         [10]  940 	ld	hl, #0xb000
-    00000268 71               [ 7]  941 	ld	(hl), c
-                                    942 ;./libs/yscc/yscc_player.c:232: g_YSCC_SamplePos += 128;
-    00000269 2Ar00r00         [16]  943 	ld	hl, (_g_YSCC_SamplePos)
-    0000026C 01 80 00         [10]  944 	ld	bc, #0x0080
-    0000026F 09               [11]  945 	add	hl, bc
-    00000270 22r00r00         [16]  946 	ld	(_g_YSCC_SamplePos), hl
-                                    947 ;./libs/yscc/yscc_player.c:233: if (g_YSCC_SamplePos >= (u16)0x2000) {
-    00000273 3Ar01r00         [13]  948 	ld	a, (_g_YSCC_SamplePos+1)
-    00000276 D6 20            [ 7]  949 	sub	a, #0x20
-    00000278 D8               [11]  950 	ret	C
-                                    951 ;./libs/yscc/yscc_player.c:234: g_YSCC_SamplePage++;
-    00000279 2Ar02r00         [16]  952 	ld	hl, (_g_YSCC_SamplePage)
-    0000027C 23               [ 6]  953 	inc	hl
-    0000027D 22r02r00         [16]  954 	ld	(_g_YSCC_SamplePage), hl
-                                    955 ;./libs/yscc/yscc_player.c:235: g_YSCC_SamplePos = 0;
-    00000280 21 00 00         [10]  956 	ld	hl, #0x0000
-    00000283 22r00r00         [16]  957 	ld	(_g_YSCC_SamplePos), hl
-                                    958 ;./libs/yscc/yscc_player.c:237: }
-    00000286 C9               [10]  959 	ret
-                                    960 	.area _CODE
-                                    961 	.area _INITIALIZER
-    00000000                        962 __xinit__g_currentSCCPlayingSegment:
-    00000000 FF FF                  963 	.dw #0xffff
-                                    964 	.area _CABS (ABS)
+                                    739 ;	spillPairReg hl
+    00000137 EB               [ 4]  740 	ex	de, hl
+    00000138 D5               [11]  741 	push	de
+    00000139 CDrCAr00         [17]  742 	call	_YSCC_Play
+                                    743 ;./libs/yscc/yscc_player.c:118: s_YSCC_Loop = TRUE;
+    0000013C FD 21r0Er00      [14]  744 	ld	iy, #_s_YSCC_Loop
+    00000140 FD 36 00 01      [19]  745 	ld	0 (iy), #0x01
+                                    746 ;./libs/yscc/yscc_player.c:119: }
+    00000144 E1               [10]  747 	pop	hl
+    00000145 F1               [10]  748 	pop	af
+    00000146 F1               [10]  749 	pop	af
+    00000147 E9               [ 4]  750 	jp	(hl)
+                                    751 ;./libs/yscc/yscc_player.c:123: bool YSCC_Decode() {
+                                    752 ;	---------------------------------
+                                    753 ; Function YSCC_Decode
+                                    754 ; ---------------------------------
+    00000148                        755 _YSCC_Decode::
+                                    756 ;./libs/yscc/yscc_player.c:124: if (s_YSCC_Paused || g_YSCC_NumBlocksToPlay == 0)
+    00000148 3Ar0Fr00         [13]  757 	ld	a, (_s_YSCC_Paused+0)
+    0000014B B7               [ 4]  758 	or	a, a
+    0000014C 20 0C            [12]  759 	jr	NZ, 00101$
+    0000014E 3Ar05r00         [13]  760 	ld	a, (_g_YSCC_NumBlocksToPlay+1)
+    00000151 FD 21r04r00      [14]  761 	ld	iy, #_g_YSCC_NumBlocksToPlay
+    00000155 FD B6 00         [19]  762 	or	a, 0 (iy)
+    00000158 20 02            [12]  763 	jr	NZ, 00102$
+    0000015A                        764 00101$:
+                                    765 ;./libs/yscc/yscc_player.c:125: return FALSE;
+    0000015A AF               [ 4]  766 	xor	a, a
+    0000015B C9               [10]  767 	ret
+    0000015C                        768 00102$:
+                                    769 ;./libs/yscc/yscc_player.c:131: __endasm;
+    0000015C CDrACr01         [17]  770 	call	__YSCC_CopyPCMBlock
+    0000015F 3E 0F            [ 7]  771 	ld	a, #0x0F
+    00000161 32 8F 98         [13]  772 	ld	(0x988F), a ; abilita canali 1-4
+                                    773 ;./libs/yscc/yscc_player.c:133: g_YSCC_NumBlocksToPlay--;
+    00000164 ED 4Br04r00      [20]  774 	ld	bc, (_g_YSCC_NumBlocksToPlay)
+    00000168 21r04r00         [10]  775 	ld	hl, #_g_YSCC_NumBlocksToPlay
+    0000016B 79               [ 4]  776 	ld	a, c
+    0000016C C6 FF            [ 7]  777 	add	a, #0xff
+    0000016E 77               [ 7]  778 	ld	(hl), a
+    0000016F 23               [ 6]  779 	inc	hl
+    00000170 78               [ 4]  780 	ld	a, b
+    00000171 CE FF            [ 7]  781 	adc	a, #0xff
+    00000173 77               [ 7]  782 	ld	(hl), a
+                                    783 ;./libs/yscc/yscc_player.c:135: if (g_YSCC_NumBlocksToPlay == 0) {
+    00000174 3Ar05r00         [13]  784 	ld	a, (_g_YSCC_NumBlocksToPlay+1)
+    00000177 21r04r00         [10]  785 	ld	hl, #_g_YSCC_NumBlocksToPlay
+    0000017A B6               [ 7]  786 	or	a, (hl)
+    0000017B 20 2D            [12]  787 	jr	NZ, 00110$
+                                    788 ;./libs/yscc/yscc_player.c:136: if (s_YSCC_Loop) {
+    0000017D 3Ar0Er00         [13]  789 	ld	a, (_s_YSCC_Loop+0)
+    00000180 B7               [ 4]  790 	or	a, a
+    00000181 28 15            [12]  791 	jr	Z, 00107$
+                                    792 ;./libs/yscc/yscc_player.c:138: g_YSCC_SamplePage      = s_YSCC_StartSeg;
+    00000183 2Ar0Ar00         [16]  793 	ld	hl, (_s_YSCC_StartSeg)
+    00000186 22r02r00         [16]  794 	ld	(_g_YSCC_SamplePage), hl
+                                    795 ;./libs/yscc/yscc_player.c:139: g_YSCC_SamplePos       = 0;
+    00000189 21 00 00         [10]  796 	ld	hl, #0x0000
+    0000018C 22r00r00         [16]  797 	ld	(_g_YSCC_SamplePos), hl
+                                    798 ;./libs/yscc/yscc_player.c:140: g_YSCC_NumBlocksToPlay = s_YSCC_TotalBlocks;
+    0000018F 2Ar0Cr00         [16]  799 	ld	hl, (_s_YSCC_TotalBlocks)
+    00000192 22r04r00         [16]  800 	ld	(_g_YSCC_NumBlocksToPlay), hl
+    00000195 C3rA7r01         [10]  801 	jp	00108$
+    00000198                        802 00107$:
+                                    803 ;./libs/yscc/yscc_player.c:142: if(!s_YSCC_Loop){
+    00000198 3Ar0Er00         [13]  804 	ld	a, (_s_YSCC_Loop+0)
+    0000019B B7               [ 4]  805 	or	a, a
+    0000019C 20 06            [12]  806 	jr	NZ, 00105$
+                                    807 ;./libs/yscc/yscc_player.c:143: g_currentSCCPlayingSegment=0xFFFF;
+    0000019E 21 FF FF         [10]  808 	ld	hl, #0xffff
+    000001A1 22r00r00         [16]  809 	ld	(_g_currentSCCPlayingSegment), hl
+    000001A4                        810 00105$:
+                                    811 ;./libs/yscc/yscc_player.c:146: _YSCC_Silence();   // fine brano: azzera wave table e disabilita canali
+    000001A4 CDr00r00         [17]  812 	call	__YSCC_Silence
+    000001A7                        813 00108$:
+                                    814 ;./libs/yscc/yscc_player.c:148: return TRUE;            // segnala fine ciclo al chiamante
+    000001A7 3E 01            [ 7]  815 	ld	a, #0x01
+    000001A9 C9               [10]  816 	ret
+    000001AA                        817 00110$:
+                                    818 ;./libs/yscc/yscc_player.c:150: return FALSE;
+    000001AA AF               [ 4]  819 	xor	a, a
+                                    820 ;./libs/yscc/yscc_player.c:151: }
+    000001AB C9               [10]  821 	ret
+                                    822 ;./libs/yscc/yscc_player.c:154: void _YSCC_CopyPCMBlock() {
+                                    823 ;	---------------------------------
+                                    824 ; Function _YSCC_CopyPCMBlock
+                                    825 ; ---------------------------------
+    000001AC                        826 __YSCC_CopyPCMBlock::
+                                    827 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/rom_mapper.h:212: inline u16 GET_BANK_SEGMENT(u8 b) { return g_Bank0Segment[b]; }
+    000001AC 21r06r00         [10]  828 	ld	hl, #(_g_Bank0Segment + 6)
+    000001AF 7E               [ 7]  829 	ld	a, (hl)
+    000001B0 23               [ 6]  830 	inc	hl
+    000001B1 32r08r00         [13]  831 	ld	(_s_YSCC_SavedSeg3+0), a
+    000001B4 7E               [ 7]  832 	ld	a, (hl)
+    000001B5 32r09r00         [13]  833 	ld	(_s_YSCC_SavedSeg3+1), a
+                                    834 ;./libs/yscc/yscc_player.c:156: SET_BANK_SEGMENT(3, g_YSCC_SamplePage);
+    000001B8 ED 5Br02r00      [20]  835 	ld	de, (_g_YSCC_SamplePage)
+    000001BC 4B               [ 4]  836 	ld	c, e
+    000001BD 42               [ 4]  837 	ld	b, d
+                                    838 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/rom_mapper.h:190: g_Bank0Segment[b] = s;
+    000001BE ED 53r06r00      [20]  839 	ld	((_g_Bank0Segment + 6)), de
+                                    840 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/rom_mapper.h:191: Poke(YAMANOOTO_OFFR, (s >> 2) & 0xC0);
+    000001C2 59               [ 4]  841 	ld	e, c
+    000001C3 50               [ 4]  842 	ld	d, b
+    000001C4 CB 3A            [ 8]  843 	srl	d
+    000001C6 CB 1B            [ 8]  844 	rr	e
+    000001C8 CB 3A            [ 8]  845 	srl	d
+    000001CA CB 1B            [ 8]  846 	rr	e
+    000001CC 7B               [ 4]  847 	ld	a, e
+    000001CD E6 C0            [ 7]  848 	and	a, #0xc0
+                                    849 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/system.h:101: inline void Poke(u16 addr, u8 val) { *(u8*)addr = val; }
+    000001CF 32 FE 7F         [13]  850 	ld	(#0x7ffe),a
+                                    851 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/rom_mapper.h:195: else if (b == 3)	Poke(ADDR_BANK_3, s & 0xFF);
+                                    852 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/system.h:101: inline void Poke(u16 addr, u8 val) { *(u8*)addr = val; }
+    000001D2 21 00 B0         [10]  853 	ld	hl, #0xb000
+    000001D5 71               [ 7]  854 	ld	(hl), c
+                                    855 ;./libs/yscc/yscc_player.c:228: __endasm;
+                                    856 ;	HL = 0xA000 + g_YSCC_SamplePos (sorgente diretta in Bank3)
+    000001D6 2Ar00r00         [16]  857 	ld	hl, (_g_YSCC_SamplePos)
+    000001D9 01 00 A0         [10]  858 	ld	bc, #0xA000
+    000001DC 09               [11]  859 	add	hl, bc
+                                    860 ;	--- CH1 PASS1: 21 byte HL → 0x9800 ---
+    000001DD 11 00 98         [10]  861 	ld	de, #0x9800
+    000001E0 01 15 00         [10]  862 	ld	bc, #0x0015
+    000001E3 ED B0            [21]  863 	ldir	; HL = base+21
+    000001E5 E5               [11]  864 	push	hl ; salva per CH1 PASS2
+    000001E6 3Ar07r00         [13]  865 	ld	a, (_g_YSCC_Period + 1)
+    000001E9 32 81 98         [13]  866 	ld	(0x9881), a ; phase reset CH1
+                                    867 ;	salta 11 byte a CH2 (base+32)
+    000001EC 01 0B 00         [10]  868 	ld	bc, #0x000B
+    000001EF 09               [11]  869 	add	hl, bc
+                                    870 ;	--- CH2 PASS1: 21 byte HL → 0x9820 ---
+    000001F0 11 20 98         [10]  871 	ld	de, #0x9820
+    000001F3 01 15 00         [10]  872 	ld	bc, #0x0015
+    000001F6 ED B0            [21]  873 	ldir	; HL = base+53
+    000001F8 E5               [11]  874 	push	hl ; salva per CH2 PASS2
+    000001F9 32 83 98         [13]  875 	ld	(0x9883), a ; phase reset CH2 (A ancora valido)
+                                    876 ;	salta 11 byte a CH3 (base+64)
+    000001FC 01 0B 00         [10]  877 	ld	bc, #0x000B
+    000001FF 09               [11]  878 	add	hl, bc
+                                    879 ;	--- CH3 PASS1: 21 byte HL → 0x9840 ---
+    00000200 11 40 98         [10]  880 	ld	de, #0x9840
+    00000203 01 15 00         [10]  881 	ld	bc, #0x0015
+    00000206 ED B0            [21]  882 	ldir	; HL = base+85
+    00000208 E5               [11]  883 	push	hl ; salva per CH3 PASS2
+    00000209 32 85 98         [13]  884 	ld	(0x9885), a ; phase reset CH3
+                                    885 ;	salta 11 byte a CH4 (base+96)
+    0000020C 01 0B 00         [10]  886 	ld	bc, #0x000B
+    0000020F 09               [11]  887 	add	hl, bc
+                                    888 ;	--- CH4 PASS1: 21 byte HL → 0x9860 ---
+    00000210 11 60 98         [10]  889 	ld	de, #0x9860
+    00000213 01 15 00         [10]  890 	ld	bc, #0x0015
+    00000216 ED B0            [21]  891 	ldir	; HL = base+117
+    00000218 32 87 98         [13]  892 	ld	(0x9887), a ; phase reset CH4
+                                    893 ;	--- PASS2: ultimi 11 byte per canale (stack in ordine inverso) ---
+                                    894 ;	CH4 PASS2 (HL = base+117)
+    0000021B 11 75 98         [10]  895 	ld	de, #0x9875
+    0000021E 01 0B 00         [10]  896 	ld	bc, #0x000B
+    00000221 ED B0            [21]  897 	ldir
+                                    898 ;	CH3 PASS2
+    00000223 E1               [10]  899 	pop	hl ; HL = base+85
+    00000224 11 55 98         [10]  900 	ld	de, #0x9855
+    00000227 01 0B 00         [10]  901 	ld	bc, #0x000B
+    0000022A ED B0            [21]  902 	ldir
+                                    903 ;	CH2 PASS2
+    0000022C E1               [10]  904 	pop	hl ; HL = base+53
+    0000022D 11 35 98         [10]  905 	ld	de, #0x9835
+    00000230 01 0B 00         [10]  906 	ld	bc, #0x000B
+    00000233 ED B0            [21]  907 	ldir
+                                    908 ;	CH1 PASS2
+    00000235 E1               [10]  909 	pop	hl ; HL = base+21
+    00000236 11 15 98         [10]  910 	ld	de, #0x9815
+    00000239 01 0B 00         [10]  911 	ld	bc, #0x000B
+    0000023C ED B0            [21]  912 	ldir
+                                    913 ;./libs/yscc/yscc_player.c:230: SET_BANK_SEGMENT(3, s_YSCC_SavedSeg3);
+    0000023E ED 5Br08r00      [20]  914 	ld	de, (_s_YSCC_SavedSeg3)
+    00000242 4B               [ 4]  915 	ld	c, e
+    00000243 42               [ 4]  916 	ld	b, d
+                                    917 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/rom_mapper.h:190: g_Bank0Segment[b] = s;
+    00000244 ED 53r06r00      [20]  918 	ld	((_g_Bank0Segment + 6)), de
+                                    919 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/rom_mapper.h:191: Poke(YAMANOOTO_OFFR, (s >> 2) & 0xC0);
+    00000248 59               [ 4]  920 	ld	e, c
+    00000249 50               [ 4]  921 	ld	d, b
+    0000024A CB 3A            [ 8]  922 	srl	d
+    0000024C CB 1B            [ 8]  923 	rr	e
+    0000024E CB 3A            [ 8]  924 	srl	d
+    00000250 CB 1B            [ 8]  925 	rr	e
+    00000252 7B               [ 4]  926 	ld	a, e
+    00000253 E6 C0            [ 7]  927 	and	a, #0xc0
+                                    928 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/system.h:101: inline void Poke(u16 addr, u8 val) { *(u8*)addr = val; }
+    00000255 32 FE 7F         [13]  929 	ld	(#0x7ffe),a
+                                    930 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/rom_mapper.h:195: else if (b == 3)	Poke(ADDR_BANK_3, s & 0xFF);
+                                    931 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/system.h:101: inline void Poke(u16 addr, u8 val) { *(u8*)addr = val; }
+    00000258 21 00 B0         [10]  932 	ld	hl, #0xb000
+    0000025B 71               [ 7]  933 	ld	(hl), c
+                                    934 ;./libs/yscc/yscc_player.c:232: g_YSCC_SamplePos += 128;
+    0000025C 2Ar00r00         [16]  935 	ld	hl, (_g_YSCC_SamplePos)
+    0000025F 01 80 00         [10]  936 	ld	bc, #0x0080
+    00000262 09               [11]  937 	add	hl, bc
+    00000263 22r00r00         [16]  938 	ld	(_g_YSCC_SamplePos), hl
+                                    939 ;./libs/yscc/yscc_player.c:233: if (g_YSCC_SamplePos >= (u16)0x2000) {
+    00000266 3Ar01r00         [13]  940 	ld	a, (_g_YSCC_SamplePos+1)
+    00000269 D6 20            [ 7]  941 	sub	a, #0x20
+    0000026B D8               [11]  942 	ret	C
+                                    943 ;./libs/yscc/yscc_player.c:234: g_YSCC_SamplePage++;
+    0000026C 2Ar02r00         [16]  944 	ld	hl, (_g_YSCC_SamplePage)
+    0000026F 23               [ 6]  945 	inc	hl
+    00000270 22r02r00         [16]  946 	ld	(_g_YSCC_SamplePage), hl
+                                    947 ;./libs/yscc/yscc_player.c:235: g_YSCC_SamplePos = 0;
+    00000273 21 00 00         [10]  948 	ld	hl, #0x0000
+    00000276 22r00r00         [16]  949 	ld	(_g_YSCC_SamplePos), hl
+                                    950 ;./libs/yscc/yscc_player.c:237: }
+    00000279 C9               [10]  951 	ret
+                                    952 ;./libs/yscc/yscc_player.c:240: void YSCC_SaveState(YSCC_State* out) {
+                                    953 ;	---------------------------------
+                                    954 ; Function YSCC_SaveState
+                                    955 ; ---------------------------------
+    0000027A                        956 _YSCC_SaveState::
+                                    957 ;./libs/yscc/yscc_player.c:241: out->SamplePos       = g_YSCC_SamplePos;
+    0000027A 5D               [ 4]  958 	ld	e, l
+    0000027B 54               [ 4]  959 	ld	d, h
+    0000027C 3Ar00r00         [13]  960 	ld	a, (_g_YSCC_SamplePos+0)
+    0000027F 77               [ 7]  961 	ld	(hl), a
+    00000280 23               [ 6]  962 	inc	hl
+    00000281 3Ar01r00         [13]  963 	ld	a, (_g_YSCC_SamplePos+1)
+    00000284 77               [ 7]  964 	ld	(hl), a
+                                    965 ;./libs/yscc/yscc_player.c:242: out->SamplePage      = g_YSCC_SamplePage;
+    00000285 4B               [ 4]  966 	ld	c, e
+    00000286 42               [ 4]  967 	ld	b, d
+    00000287 03               [ 6]  968 	inc	bc
+    00000288 03               [ 6]  969 	inc	bc
+    00000289 3Ar02r00         [13]  970 	ld	a, (_g_YSCC_SamplePage+0)
+    0000028C 02               [ 7]  971 	ld	(bc), a
+    0000028D 03               [ 6]  972 	inc	bc
+    0000028E 3Ar03r00         [13]  973 	ld	a, (_g_YSCC_SamplePage+1)
+    00000291 02               [ 7]  974 	ld	(bc), a
+                                    975 ;./libs/yscc/yscc_player.c:243: out->NumBlocksToPlay = g_YSCC_NumBlocksToPlay;
+    00000292 21 04 00         [10]  976 	ld	hl, #0x0004
+    00000295 19               [11]  977 	add	hl, de
+    00000296 3Ar04r00         [13]  978 	ld	a, (_g_YSCC_NumBlocksToPlay+0)
+    00000299 77               [ 7]  979 	ld	(hl), a
+    0000029A 23               [ 6]  980 	inc	hl
+    0000029B 3Ar05r00         [13]  981 	ld	a, (_g_YSCC_NumBlocksToPlay+1)
+    0000029E 77               [ 7]  982 	ld	(hl), a
+                                    983 ;./libs/yscc/yscc_player.c:244: out->CurrentSegment  = g_currentSCCPlayingSegment;
+    0000029F 21 06 00         [10]  984 	ld	hl, #0x0006
+    000002A2 19               [11]  985 	add	hl, de
+    000002A3 3Ar00r00         [13]  986 	ld	a, (_g_currentSCCPlayingSegment+0)
+    000002A6 77               [ 7]  987 	ld	(hl), a
+    000002A7 23               [ 6]  988 	inc	hl
+    000002A8 3Ar01r00         [13]  989 	ld	a, (_g_currentSCCPlayingSegment+1)
+    000002AB 77               [ 7]  990 	ld	(hl), a
+                                    991 ;./libs/yscc/yscc_player.c:245: out->StartSeg        = s_YSCC_StartSeg;
+    000002AC 21 08 00         [10]  992 	ld	hl, #0x0008
+    000002AF 19               [11]  993 	add	hl, de
+    000002B0 3Ar0Ar00         [13]  994 	ld	a, (_s_YSCC_StartSeg+0)
+    000002B3 77               [ 7]  995 	ld	(hl), a
+    000002B4 23               [ 6]  996 	inc	hl
+    000002B5 3Ar0Br00         [13]  997 	ld	a, (_s_YSCC_StartSeg+1)
+    000002B8 77               [ 7]  998 	ld	(hl), a
+                                    999 ;./libs/yscc/yscc_player.c:246: out->TotalBlocks     = s_YSCC_TotalBlocks;
+    000002B9 21 0A 00         [10] 1000 	ld	hl, #0x000a
+    000002BC 19               [11] 1001 	add	hl, de
+    000002BD 3Ar0Cr00         [13] 1002 	ld	a, (_s_YSCC_TotalBlocks+0)
+    000002C0 77               [ 7] 1003 	ld	(hl), a
+    000002C1 23               [ 6] 1004 	inc	hl
+    000002C2 3Ar0Dr00         [13] 1005 	ld	a, (_s_YSCC_TotalBlocks+1)
+    000002C5 77               [ 7] 1006 	ld	(hl), a
+                                   1007 ;./libs/yscc/yscc_player.c:247: out->Loop            = s_YSCC_Loop;
+    000002C6 21 0C 00         [10] 1008 	ld	hl, #0x000c
+    000002C9 19               [11] 1009 	add	hl, de
+    000002CA 3Ar0Er00         [13] 1010 	ld	a, (_s_YSCC_Loop+0)
+    000002CD 77               [ 7] 1011 	ld	(hl), a
+                                   1012 ;./libs/yscc/yscc_player.c:248: }
+    000002CE C9               [10] 1013 	ret
+                                   1014 ;./libs/yscc/yscc_player.c:253: void YSCC_LoadState(const YSCC_State* in) {
+                                   1015 ;	---------------------------------
+                                   1016 ; Function YSCC_LoadState
+                                   1017 ; ---------------------------------
+    000002CF                       1018 _YSCC_LoadState::
+    000002CF EB               [ 4] 1019 	ex	de, hl
+                                   1020 ;./libs/yscc/yscc_player.c:257: __endasm;
+    000002D0 AF               [ 4] 1021 	xor	a
+    000002D1 32 8F 98         [13] 1022 	ld	(0x988F), a ; CH_ENABLE = 0 (silence during state switch)
+                                   1023 ;./libs/yscc/yscc_player.c:258: g_YSCC_SamplePos           = in->SamplePos;
+    000002D4 6B               [ 4] 1024 	ld	l, e
+    000002D5 62               [ 4] 1025 	ld	h, d
+    000002D6 7E               [ 7] 1026 	ld	a, (hl)
+    000002D7 23               [ 6] 1027 	inc	hl
+    000002D8 32r00r00         [13] 1028 	ld	(_g_YSCC_SamplePos+0), a
+    000002DB 7E               [ 7] 1029 	ld	a, (hl)
+    000002DC 32r01r00         [13] 1030 	ld	(_g_YSCC_SamplePos+1), a
+                                   1031 ;./libs/yscc/yscc_player.c:259: g_YSCC_SamplePage          = in->SamplePage;
+    000002DF 6B               [ 4] 1032 	ld	l, e
+                                   1033 ;	spillPairReg hl
+                                   1034 ;	spillPairReg hl
+    000002E0 62               [ 4] 1035 	ld	h, d
+                                   1036 ;	spillPairReg hl
+                                   1037 ;	spillPairReg hl
+    000002E1 23               [ 6] 1038 	inc	hl
+    000002E2 23               [ 6] 1039 	inc	hl
+    000002E3 7E               [ 7] 1040 	ld	a, (hl)
+    000002E4 23               [ 6] 1041 	inc	hl
+    000002E5 32r02r00         [13] 1042 	ld	(_g_YSCC_SamplePage+0), a
+    000002E8 7E               [ 7] 1043 	ld	a, (hl)
+    000002E9 32r03r00         [13] 1044 	ld	(_g_YSCC_SamplePage+1), a
+                                   1045 ;./libs/yscc/yscc_player.c:260: g_YSCC_NumBlocksToPlay     = in->NumBlocksToPlay;
+    000002EC 4B               [ 4] 1046 	ld	c, e
+    000002ED 42               [ 4] 1047 	ld	b, d
+    000002EE 21 04 00         [10] 1048 	ld	hl, #4
+    000002F1 09               [11] 1049 	add	hl, bc
+    000002F2 7E               [ 7] 1050 	ld	a, (hl)
+    000002F3 23               [ 6] 1051 	inc	hl
+    000002F4 32r04r00         [13] 1052 	ld	(_g_YSCC_NumBlocksToPlay+0), a
+    000002F7 7E               [ 7] 1053 	ld	a, (hl)
+    000002F8 32r05r00         [13] 1054 	ld	(_g_YSCC_NumBlocksToPlay+1), a
+                                   1055 ;./libs/yscc/yscc_player.c:261: g_currentSCCPlayingSegment = in->CurrentSegment;
+    000002FB 4B               [ 4] 1056 	ld	c, e
+    000002FC 42               [ 4] 1057 	ld	b, d
+    000002FD 21 06 00         [10] 1058 	ld	hl, #6
+    00000300 09               [11] 1059 	add	hl, bc
+    00000301 7E               [ 7] 1060 	ld	a, (hl)
+    00000302 23               [ 6] 1061 	inc	hl
+    00000303 32r00r00         [13] 1062 	ld	(_g_currentSCCPlayingSegment+0), a
+    00000306 7E               [ 7] 1063 	ld	a, (hl)
+    00000307 32r01r00         [13] 1064 	ld	(_g_currentSCCPlayingSegment+1), a
+                                   1065 ;./libs/yscc/yscc_player.c:262: s_YSCC_StartSeg            = in->StartSeg;
+    0000030A 4B               [ 4] 1066 	ld	c, e
+    0000030B 42               [ 4] 1067 	ld	b, d
+    0000030C 21 08 00         [10] 1068 	ld	hl, #8
+    0000030F 09               [11] 1069 	add	hl, bc
+    00000310 7E               [ 7] 1070 	ld	a, (hl)
+    00000311 23               [ 6] 1071 	inc	hl
+    00000312 32r0Ar00         [13] 1072 	ld	(_s_YSCC_StartSeg+0), a
+    00000315 7E               [ 7] 1073 	ld	a, (hl)
+    00000316 32r0Br00         [13] 1074 	ld	(_s_YSCC_StartSeg+1), a
+                                   1075 ;./libs/yscc/yscc_player.c:263: s_YSCC_TotalBlocks         = in->TotalBlocks;
+    00000319 4B               [ 4] 1076 	ld	c, e
+    0000031A 42               [ 4] 1077 	ld	b, d
+    0000031B 21 0A 00         [10] 1078 	ld	hl, #10
+    0000031E 09               [11] 1079 	add	hl, bc
+    0000031F 7E               [ 7] 1080 	ld	a, (hl)
+    00000320 23               [ 6] 1081 	inc	hl
+    00000321 32r0Cr00         [13] 1082 	ld	(_s_YSCC_TotalBlocks+0), a
+    00000324 7E               [ 7] 1083 	ld	a, (hl)
+    00000325 32r0Dr00         [13] 1084 	ld	(_s_YSCC_TotalBlocks+1), a
+                                   1085 ;./libs/yscc/yscc_player.c:264: s_YSCC_Loop                = in->Loop;
+    00000328 21 0C 00         [10] 1086 	ld	hl, #12
+    0000032B 19               [11] 1087 	add	hl, de
+    0000032C 7E               [ 7] 1088 	ld	a, (hl)
+    0000032D 32r0Er00         [13] 1089 	ld	(_s_YSCC_Loop+0), a
+                                   1090 ;./libs/yscc/yscc_player.c:265: s_YSCC_Paused              = FALSE;
+    00000330 21r0Fr00         [10] 1091 	ld	hl, #_s_YSCC_Paused
+    00000333 36 00            [10] 1092 	ld	(hl), #0x00
+                                   1093 ;./libs/yscc/yscc_player.c:266: }
+    00000335 C9               [10] 1094 	ret
+                                   1095 	.area _CODE
+                                   1096 	.area _INITIALIZER
+    00000000                       1097 __xinit__g_currentSCCPlayingSegment:
+    00000000 FF FF                 1098 	.dw #0xffff
+                                   1099 	.area _CABS (ABS)

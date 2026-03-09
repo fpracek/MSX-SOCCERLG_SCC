@@ -276,11 +276,15 @@ void MainGameLoop(){
                     
                  //No move this ouside of the loop (without it the wait loop doesn't work)
                }
-               YSCC_Stop();
+               if(!g_modernAudio){
+                    YSCC_Stop();
+               }
             }
             
-
-			YSCC_Play(SCC_PLAYERS_BIN_SEG,SCC_PLAYERS_BIN_SIZE);
+            if(!g_modernAudio){
+                YSCC_Play(SCC_PLAYERS_BIN_SEG,SCC_PLAYERS_BIN_SIZE);
+            }
+			
             g_Timer=0;
 
             while (g_Timer!=45)
@@ -430,7 +434,13 @@ void TickShowKickOff(){
 
 			g_MatchStatus=MATCH_IN_ACTION;
 			g_TimerActive=FALSE;
-			YSCC_PlayLoop(SCC_MATCH_BIN_SEG,SCC_MATCH_BIN_SIZE);
+            if(g_modernAudio){
+                YSCC_PlayLoop(SCC_STADIUM_BIN_SEG,SCC_STADIUM_BIN_SIZE);
+            }
+            else{
+                YSCC_PlayLoop(SCC_MATCH_BIN_SEG,SCC_MATCH_BIN_SIZE);
+            }
+			
             
 	}
     if(g_MatchStatus==MATCH_BEFORE_OFFSIDE){

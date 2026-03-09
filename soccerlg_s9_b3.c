@@ -30,7 +30,7 @@ void GoalKick(u8 teamId){
 	// Placeholder for Goal Kick Logic
 	V9990_PrintLayerAStringAtPos(10,18,"GOAL KICK");
 	PlayPCM(PCM_REFEREER);
-    PlayPCM(PCM_GOALKICK);
+    if (!g_modernAudio) PlayPCM(PCM_GOALKICK);
 	g_MatchStatus=MATCH_BEFORE_GOAL_KICK;
 	g_RestartKickTeamId = teamId;
 	g_Timer = 0;
@@ -352,7 +352,8 @@ void TickGoalkeeperAnimation() {
             g_Players[g_GkAnimPlayerId].PatternId = pose;
             g_Players[g_GkAnimPlayerId].Status = PLAYER_STATUS_POSITIONED;
             
-            g_Ball.StealCooldown = 30; 
+            g_Ball.StealCooldown = 30;
+            ResumeAfterGoalkick();
             g_MatchStatus = MATCH_IN_ACTION;
         }
         // If not safe, do nothing (wait for next frame)

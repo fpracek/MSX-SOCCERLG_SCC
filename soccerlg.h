@@ -134,6 +134,7 @@ extern u16				g_LastTimeCounter;
 extern bool             g_BallIsVisible;
 extern bool             g_PonPonGirlsAreVisible;
 extern bool				g_VblankSuspended;
+extern bool             g_modernAudio;
 
 // ---------------
 // *** DEFINES ***
@@ -145,6 +146,7 @@ extern bool				g_VblankSuspended;
 #define AYFX_BALL							5
 #define AYFX_BALL_ON_GOALKEEPER             3
 #define AYFX_TACKLE				            1
+#define AYFX_MODERN_BALL                    7
 
 #define SPRITE_BALL							11
 
@@ -404,6 +406,8 @@ void V9990_StopScrollText();
 void V9990_InitScrollText();
 const TeamStats* GetTeamStats(u8 teamId);
 void PlayAyFx(u8 id);
+void PlayModernGoalkick();
+void ResumeAfterGoalkick();
 i32 Math_Abs32(i32 v);
 void CallFnc_VOID_P2(u8 bank, void (*func)(u8, bool), u8 p1, bool p2);
 bool VGMNotification(u8 id);

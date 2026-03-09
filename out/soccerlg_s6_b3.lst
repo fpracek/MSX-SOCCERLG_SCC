@@ -1859,31 +1859,31 @@
                                    1859 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s6_b3.c:303: if (g_MatchStatus == MATCH_NOT_STARTED || 
     0000075E 3Ar00r00         [13] 1860 	ld	a, (_g_MatchStatus+0)
     00000761 B7               [ 4] 1861 	or	a, a
-    00000762 CAr18r16         [10] 1862 	jp	Z,00291$
+    00000762 CAr1Er16         [10] 1862 	jp	Z,00293$
                                    1863 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s6_b3.c:304: g_MatchStatus == MATCH_PLAYERS_PRESENTATION || 
                                    1864 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s6_b3.c:305: g_MatchStatus == MATCH_AFTER_IN_GOAL || 
     00000765 3Ar00r00         [13] 1865 	ld	a,(_g_MatchStatus+0)
     00000768 FE 0B            [ 7] 1866 	cp	a,#0x0b
-    0000076A CAr18r16         [10] 1867 	jp	Z,00291$
+    0000076A CAr1Er16         [10] 1867 	jp	Z,00293$
                                    1868 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s6_b3.c:306: g_MatchStatus == MATCH_BEFORE_CORNER_KICK || 
                                    1869 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s6_b3.c:307: g_MatchStatus == MATCH_BEFORE_GOAL_KICK || 
     0000076D FE 06            [ 7] 1870 	cp	a,#0x06
-    0000076F CAr18r16         [10] 1871 	jp	Z,00291$
+    0000076F CAr1Er16         [10] 1871 	jp	Z,00293$
     00000772 FE 02            [ 7] 1872 	cp	a,#0x02
-    00000774 CAr18r16         [10] 1873 	jp	Z,00291$
+    00000774 CAr1Er16         [10] 1873 	jp	Z,00293$
                                    1874 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s6_b3.c:308: g_MatchStatus == MATCH_BEFORE_THROW_IN ||
                                    1875 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s6_b3.c:309: g_MatchStatus == MATCH_BEFORE_OFFSIDE) {
     00000777 FE 05            [ 7] 1876 	cp	a,#0x05
-    00000779 CAr18r16         [10] 1877 	jp	Z,00291$
+    00000779 CAr1Er16         [10] 1877 	jp	Z,00293$
     0000077C FE 03            [ 7] 1878 	cp	a,#0x03
-    0000077E CAr18r16         [10] 1879 	jp	Z,00291$
+    0000077E CAr1Er16         [10] 1879 	jp	Z,00293$
     00000781 D6 0E            [ 7] 1880 	sub	a, #0x0e
                                    1881 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s6_b3.c:310: return;
-    00000783 CAr18r16         [10] 1882 	jp	Z,00291$
+    00000783 CAr1Er16         [10] 1882 	jp	Z,00293$
                                    1883 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s6_b3.c:314: if(g_Team1ActivePlayer==NO_VALUE){
     00000786 3Ar00r00         [13] 1884 	ld	a, (_g_Team1ActivePlayer+0)
     00000789 3C               [ 4] 1885 	inc	a
-    0000078A CAr18r16         [10] 1886 	jp	Z,00291$
+    0000078A CAr1Er16         [10] 1886 	jp	Z,00293$
                                    1887 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s6_b3.c:315: return;
     0000078D C3r90r07         [10] 1888 	jp	00110$
     00000790                       1889 00110$:
@@ -2009,14 +2009,14 @@
                                    2009 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s6_b3.c:371: u8 histThreshold = (g_Ball.PossessionPlayerId == NO_VALUE) ? 10 : 30;
     0000084A 3Ar06r00         [13] 2010 	ld	a, (#(_g_Ball + 6) + 0)
     0000084D 3C               [ 4] 2011 	inc	a
-    0000084E 20 0B            [12] 2012 	jr	NZ, 00293$
+    0000084E 20 0B            [12] 2012 	jr	NZ, 00295$
     00000850 DD 36 FC 0A      [19] 2013 	ld	-4 (ix), #0x0a
     00000854 DD 36 FD 00      [19] 2014 	ld	-3 (ix), #0
-    00000858 C3r63r08         [10] 2015 	jp	00294$
-    0000085B                       2016 00293$:
+    00000858 C3r63r08         [10] 2015 	jp	00296$
+    0000085B                       2016 00295$:
     0000085B DD 36 FC 1E      [19] 2017 	ld	-4 (ix), #0x1e
     0000085F DD 36 FD 00      [19] 2018 	ld	-3 (ix), #0
-    00000863                       2019 00294$:
+    00000863                       2019 00296$:
     00000863 DD 7E FC         [19] 2020 	ld	a, -4 (ix)
     00000866 DD 77 F7         [19] 2021 	ld	-9 (ix), a
                                    2022 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s6_b3.c:374: u16 distX_Curr = (g_Players[playerId].X > g_Ball.X) ? (g_Players[playerId].X - g_Ball.X) : (g_Ball.X - g_Players[playerId].X);
@@ -2050,7 +2050,7 @@
     0000088C DD 96 FC         [19] 2050 	sub	a, -4 (ix)
     0000088F 78               [ 4] 2051 	ld	a, b
     00000890 DD 9E FD         [19] 2052 	sbc	a, -3 (ix)
-    00000893 30 0C            [12] 2053 	jr	NC, 00295$
+    00000893 30 0C            [12] 2053 	jr	NC, 00297$
     00000895 DD 7E FC         [19] 2054 	ld	a, -4 (ix)
     00000898 91               [ 4] 2055 	sub	a, c
     00000899 6F               [ 4] 2056 	ld	l, a
@@ -2058,8 +2058,8 @@
                                    2058 ;	spillPairReg hl
     0000089A DD 7E FD         [19] 2059 	ld	a, -3 (ix)
     0000089D 98               [ 4] 2060 	sbc	a, b
-    0000089E C3rAAr08         [10] 2061 	jp	00296$
-    000008A1                       2062 00295$:
+    0000089E C3rAAr08         [10] 2061 	jp	00298$
+    000008A1                       2062 00297$:
     000008A1 79               [ 4] 2063 	ld	a, c
     000008A2 DD 96 FC         [19] 2064 	sub	a, -4 (ix)
     000008A5 6F               [ 4] 2065 	ld	l, a
@@ -2067,7 +2067,7 @@
                                    2067 ;	spillPairReg hl
     000008A6 78               [ 4] 2068 	ld	a, b
     000008A7 DD 9E FD         [19] 2069 	sbc	a, -3 (ix)
-    000008AA                       2070 00296$:
+    000008AA                       2070 00298$:
     000008AA DD 75 FA         [19] 2071 	ld	-6 (ix), l
     000008AD DD 77 FB         [19] 2072 	ld	-5 (ix), a
                                    2073 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s6_b3.c:375: u16 distY_Curr = (g_Players[playerId].Y > g_Ball.Y) ? (g_Players[playerId].Y - g_Ball.Y) : (g_Ball.Y - g_Players[playerId].Y);
@@ -2081,7 +2081,7 @@
     000008BE DD 96 FC         [19] 2081 	sub	a, -4 (ix)
     000008C1 7A               [ 4] 2082 	ld	a, d
     000008C2 DD 9E FD         [19] 2083 	sbc	a, -3 (ix)
-    000008C5 30 0C            [12] 2084 	jr	NC, 00297$
+    000008C5 30 0C            [12] 2084 	jr	NC, 00299$
     000008C7 DD 7E FC         [19] 2085 	ld	a, -4 (ix)
     000008CA 93               [ 4] 2086 	sub	a, e
     000008CB 6F               [ 4] 2087 	ld	l, a
@@ -2089,8 +2089,8 @@
                                    2089 ;	spillPairReg hl
     000008CC DD 7E FD         [19] 2090 	ld	a, -3 (ix)
     000008CF 9A               [ 4] 2091 	sbc	a, d
-    000008D0 C3rDCr08         [10] 2092 	jp	00298$
-    000008D3                       2093 00297$:
+    000008D0 C3rDCr08         [10] 2092 	jp	00300$
+    000008D3                       2093 00299$:
     000008D3 7B               [ 4] 2094 	ld	a, e
     000008D4 DD 96 FC         [19] 2095 	sub	a, -4 (ix)
     000008D7 6F               [ 4] 2096 	ld	l, a
@@ -2098,7 +2098,7 @@
                                    2098 ;	spillPairReg hl
     000008D8 7A               [ 4] 2099 	ld	a, d
     000008D9 DD 9E FD         [19] 2100 	sbc	a, -3 (ix)
-    000008DC                       2101 00298$:
+    000008DC                       2101 00300$:
     000008DC 67               [ 4] 2102 	ld	h, a
                                    2103 ;	spillPairReg hl
                                    2104 ;	spillPairReg hl
@@ -2148,22 +2148,22 @@
     00000919 DD 96 FC         [19] 2148 	sub	a, -4 (ix)
     0000091C 78               [ 4] 2149 	ld	a, b
     0000091D DD 9E FD         [19] 2150 	sbc	a, -3 (ix)
-    00000920 30 0D            [12] 2151 	jr	NC, 00299$
+    00000920 30 0D            [12] 2151 	jr	NC, 00301$
     00000922 DD 7E FC         [19] 2152 	ld	a, -4 (ix)
     00000925 91               [ 4] 2153 	sub	a, c
     00000926 4F               [ 4] 2154 	ld	c, a
     00000927 DD 7E FD         [19] 2155 	ld	a, -3 (ix)
     0000092A 98               [ 4] 2156 	sbc	a, b
     0000092B 47               [ 4] 2157 	ld	b, a
-    0000092C C3r39r09         [10] 2158 	jp	00300$
-    0000092F                       2159 00299$:
+    0000092C C3r39r09         [10] 2158 	jp	00302$
+    0000092F                       2159 00301$:
     0000092F 79               [ 4] 2160 	ld	a, c
     00000930 DD 96 FC         [19] 2161 	sub	a, -4 (ix)
     00000933 4F               [ 4] 2162 	ld	c, a
     00000934 78               [ 4] 2163 	ld	a, b
     00000935 DD 9E FD         [19] 2164 	sbc	a, -3 (ix)
     00000938 47               [ 4] 2165 	ld	b, a
-    00000939                       2166 00300$:
+    00000939                       2166 00302$:
     00000939 DD 71 FC         [19] 2167 	ld	-4 (ix), c
     0000093C DD 70 FD         [19] 2168 	ld	-3 (ix), b
                                    2169 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s6_b3.c:379: u16 distY_New = (g_Players[closestId].Y > g_Ball.Y) ? (g_Players[closestId].Y - g_Ball.Y) : (g_Ball.Y - g_Players[closestId].Y);
@@ -2176,22 +2176,22 @@
     00000949 91               [ 4] 2176 	sub	a, c
     0000094A 7A               [ 4] 2177 	ld	a, d
     0000094B 98               [ 4] 2178 	sbc	a, b
-    0000094C 30 09            [12] 2179 	jr	NC, 00301$
+    0000094C 30 09            [12] 2179 	jr	NC, 00303$
     0000094E 79               [ 4] 2180 	ld	a, c
     0000094F 93               [ 4] 2181 	sub	a, e
     00000950 4F               [ 4] 2182 	ld	c, a
     00000951 78               [ 4] 2183 	ld	a, b
     00000952 9A               [ 4] 2184 	sbc	a, d
     00000953 47               [ 4] 2185 	ld	b, a
-    00000954 C3r5Dr09         [10] 2186 	jp	00302$
-    00000957                       2187 00301$:
+    00000954 C3r5Dr09         [10] 2186 	jp	00304$
+    00000957                       2187 00303$:
     00000957 7B               [ 4] 2188 	ld	a, e
     00000958 91               [ 4] 2189 	sub	a, c
     00000959 4F               [ 4] 2190 	ld	c, a
     0000095A 7A               [ 4] 2191 	ld	a, d
     0000095B 98               [ 4] 2192 	sbc	a, b
     0000095C 47               [ 4] 2193 	ld	b, a
-    0000095D                       2194 00302$:
+    0000095D                       2194 00304$:
                                    2195 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s6_b3.c:380: u16 distNew = distX_New + distY_New;
     0000095D DD 6E FC         [19] 2196 	ld	l, -4 (ix)
     00000960 DD 66 FD         [19] 2197 	ld	h, -3 (ix)
@@ -2249,7 +2249,7 @@
     000009B5 79               [ 4] 2249 	ld	a, c
     000009B6 D6 04            [ 7] 2250 	sub	a, #0x04
     000009B8 B0               [ 4] 2251 	or	a, b
-    000009B9 CAr18r16         [10] 2252 	jp	Z,00291$
+    000009B9 CAr1Er16         [10] 2252 	jp	Z,00293$
     000009BC C3rBFr09         [10] 2253 	jp	00142$
     000009BF                       2254 00142$:
                                    2255 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s6_b3.c:399: if (g_ActionCooldown > 0) frameTriggerPressed = false;
@@ -2323,9 +2323,9 @@
     00000A54 DD BE F6         [19] 2323 	cp	a, -10 (ix)
     00000A57 3E FF            [ 7] 2324 	ld	a, #0xff
     00000A59 DD 9E F7         [19] 2325 	sbc	a, -9 (ix)
-    00000A5C E2r61r0A         [10] 2326 	jp	PO, 00796$
+    00000A5C E2r61r0A         [10] 2326 	jp	PO, 00803$
     00000A5F EE 80            [ 7] 2327 	xor	a, #0x80
-    00000A61                       2328 00796$:
+    00000A61                       2328 00803$:
     00000A61 F2r9Br0A         [10] 2329 	jp	P, 00151$
     00000A64 DD 5E F6         [19] 2330 	ld	e, -10 (ix)
     00000A67 DD 56 F7         [19] 2331 	ld	d, -9 (ix)
@@ -2341,9 +2341,9 @@
     00000A77 B9               [ 4] 2341 	cp	a, c
     00000A78 3E FF            [ 7] 2342 	ld	a, #0xff
     00000A7A 98               [ 4] 2343 	sbc	a, b
-    00000A7B E2r80r0A         [10] 2344 	jp	PO, 00797$
+    00000A7B E2r80r0A         [10] 2344 	jp	PO, 00804$
     00000A7E EE 80            [ 7] 2345 	xor	a, #0x80
-    00000A80                       2346 00797$:
+    00000A80                       2346 00804$:
     00000A80 F2r9Br0A         [10] 2347 	jp	P, 00151$
     00000A83 79               [ 4] 2348 	ld	a, c
     00000A84 D6 10            [ 7] 2349 	sub	a, #0x10
@@ -2365,7 +2365,7 @@
     00000A9B 21r06r00         [10] 2365 	ld	hl, #(_g_Ball + 6)
     00000A9E DD 7E FE         [19] 2366 	ld	a,-2 (ix)
     00000AA1 96               [ 7] 2367 	sub	a,(hl)
-    00000AA2 C2r1Cr13         [10] 2368 	jp	NZ,00289$
+    00000AA2 C2r1Cr13         [10] 2368 	jp	NZ,00291$
                                    2369 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s6_b3.c:413: if (frameTriggerPressed) {
     00000AA5 DD 7E F5         [19] 2370 	ld	a, -11 (ix)
     00000AA8 B7               [ 4] 2371 	or	a, a
@@ -2473,12 +2473,12 @@
                                    2473 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s6_b3.c:469: if (g_ShootCooldown > 0) return; // Prevent shooting if cooldown active
     00000B6F 3Ar00r00         [13] 2474 	ld	a, (_g_ShootCooldown+0)
     00000B72 B7               [ 4] 2475 	or	a, a
-    00000B73 C2r18r16         [10] 2476 	jp	NZ,00291$
+    00000B73 C2r1Er16         [10] 2476 	jp	NZ,00293$
                                    2477 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s6_b3.c:470: g_ActionCooldown = 20;
     00000B76 21r00r00         [10] 2478 	ld	hl, #_g_ActionCooldown
     00000B79 36 14            [10] 2479 	ld	(hl), #0x14
                                    2480 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s6_b3.c:471: return;
-    00000B7B C3r18r16         [10] 2481 	jp	00291$
+    00000B7B C3r1Er16         [10] 2481 	jp	00293$
     00000B7E                       2482 00192$:
                                    2483 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s6_b3.c:480: if(direction != DIRECTION_NONE){
     00000B7E DD 7E FF         [19] 2484 	ld	a, -1 (ix)
@@ -2515,7 +2515,7 @@
     00000BB9 3E 05            [ 7] 2515 	ld	a, #0x05
     00000BBB CDr00r00         [17] 2516 	call	_CallFnc_VOID_P1
                                    2517 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s6_b3.c:492: return; 
-    00000BBE C3r18r16         [10] 2518 	jp	00291$
+    00000BBE C3r1Er16         [10] 2518 	jp	00293$
     00000BC1                       2519 00198$:
                                    2520 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s6_b3.c:497: if((g_FrameCounter % 2)!=0 && direction == g_Players[playerId].PreviousDirection){
     00000BC1 3Ar00r00         [13] 2521 	ld	a, (_g_FrameCounter+0)
@@ -2535,7 +2535,7 @@
     00000BE0 DD 66 F6         [19] 2535 	ld	h, -10 (ix)
     00000BE3 DD 7E FF         [19] 2536 	ld	a,-1 (ix)
     00000BE6 96               [ 7] 2537 	sub	a,(hl)
-    00000BE7 CAr18r16         [10] 2538 	jp	Z,00291$
+    00000BE7 CAr1Er16         [10] 2538 	jp	Z,00293$
                                    2539 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s6_b3.c:498: return;
     00000BEA C3rEDr0B         [10] 2540 	jp	00200$
     00000BED                       2541 00200$:
@@ -2611,7 +2611,7 @@
                                    2611 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s6_b3.c:515: g_Ball.KickMoveState=0;
     00000C70 21r0Dr00         [10] 2612 	ld	hl, #(_g_Ball + 13)
     00000C73 36 00            [10] 2613 	ld	(hl), #0x00
-    00000C75 C3r18r16         [10] 2614 	jp	00291$
+    00000C75 C3r1Er16         [10] 2614 	jp	00293$
     00000C78                       2615 00253$:
                                    2616 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s6_b3.c:521: const u8 BallBaseDistX[] = { 0, 0, 4, 6, 4, 0, 4, 6, 4 };
     00000C78 DD 36 C5 00      [19] 2617 	ld	-59 (ix), #0x00
@@ -2668,12 +2668,12 @@
     00000D2B DD 77 FD         [19] 2668 	ld	-3 (ix), a
                                    2669 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s6_b3.c:548: u8 diagStep = (animStep % 2) ? 1 : 2;
     00000D2E DD CB FD 46      [20] 2670 	bit	0, -3 (ix)
-    00000D32 28 06            [12] 2671 	jr	Z, 00303$
+    00000D32 28 06            [12] 2671 	jr	Z, 00305$
     00000D34 01 01 00         [10] 2672 	ld	bc, #0x0001
-    00000D37 C3r3Dr0D         [10] 2673 	jp	00304$
-    00000D3A                       2674 00303$:
+    00000D37 C3r3Dr0D         [10] 2673 	jp	00306$
+    00000D3A                       2674 00305$:
     00000D3A 01 02 00         [10] 2675 	ld	bc, #0x0002
-    00000D3D                       2676 00304$:
+    00000D3D                       2676 00306$:
     00000D3D DD 71 FE         [19] 2677 	ld	-2 (ix), c
                                    2678 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s6_b3.c:550: u8 currentOffset = DribbleAnimOffsets[animStep];
     00000D40 DD 5E FD         [19] 2679 	ld	e, -3 (ix)
@@ -2704,40 +2704,40 @@
     00000D68 DD 7E F7         [19] 2704 	ld	a, -9 (ix)
     00000D6B 3D               [ 4] 2705 	dec	a
     00000D6C 3E 01            [ 7] 2706 	ld	a, #0x01
-    00000D6E 28 01            [12] 2707 	jr	Z, 00813$
+    00000D6E 28 01            [12] 2707 	jr	Z, 00820$
     00000D70 AF               [ 4] 2708 	xor	a, a
-    00000D71                       2709 00813$:
+    00000D71                       2709 00820$:
     00000D71 4F               [ 4] 2710 	ld	c, a
     00000D72 DD 7E F7         [19] 2711 	ld	a, -9 (ix)
     00000D75 D6 07            [ 7] 2712 	sub	a, #0x07
     00000D77 3E 01            [ 7] 2713 	ld	a, #0x01
-    00000D79 28 01            [12] 2714 	jr	Z, 00815$
+    00000D79 28 01            [12] 2714 	jr	Z, 00822$
     00000D7B AF               [ 4] 2715 	xor	a, a
-    00000D7C                       2716 00815$:
+    00000D7C                       2716 00822$:
     00000D7C DD 77 F8         [19] 2717 	ld	-8 (ix), a
     00000D7F CB 41            [ 8] 2718 	bit	0, c
-    00000D81 20 07            [12] 2719 	jr	NZ, 00308$
+    00000D81 20 07            [12] 2719 	jr	NZ, 00310$
     00000D83 DD 7E F7         [19] 2720 	ld	a, -9 (ix)
     00000D86 D6 05            [ 7] 2721 	sub	a, #0x05
-    00000D88 20 05            [12] 2722 	jr	NZ, 00305$
-    00000D8A                       2723 00308$:
+    00000D88 20 05            [12] 2722 	jr	NZ, 00307$
+    00000D8A                       2723 00310$:
     00000D8A AF               [ 4] 2724 	xor	a, a
     00000D8B 57               [ 4] 2725 	ld	d, a
-    00000D8C C3rA5r0D         [10] 2726 	jp	00306$
-    00000D8F                       2727 00305$:
+    00000D8C C3rA5r0D         [10] 2726 	jp	00308$
+    00000D8F                       2727 00307$:
     00000D8F DD CB F8 46      [20] 2728 	bit	0, -8 (ix)
-    00000D93 20 07            [12] 2729 	jr	NZ, 00313$
+    00000D93 20 07            [12] 2729 	jr	NZ, 00315$
     00000D95 DD 7E F7         [19] 2730 	ld	a, -9 (ix)
     00000D98 D6 03            [ 7] 2731 	sub	a, #0x03
-    00000D9A 20 04            [12] 2732 	jr	NZ, 00310$
-    00000D9C                       2733 00313$:
+    00000D9A 20 04            [12] 2732 	jr	NZ, 00312$
+    00000D9C                       2733 00315$:
     00000D9C 7B               [ 4] 2734 	ld	a, e
-    00000D9D C3rA3r0D         [10] 2735 	jp	00311$
-    00000DA0                       2736 00310$:
+    00000D9D C3rA3r0D         [10] 2735 	jp	00313$
+    00000DA0                       2736 00312$:
     00000DA0 DD 7E FD         [19] 2737 	ld	a, -3 (ix)
-    00000DA3                       2738 00311$:
+    00000DA3                       2738 00313$:
     00000DA3 16 00            [ 7] 2739 	ld	d, #0x00
-    00000DA5                       2740 00306$:
+    00000DA5                       2740 00308$:
     00000DA5 68               [ 4] 2741 	ld	l, b
                                    2742 ;	spillPairReg hl
                                    2743 ;	spillPairReg hl
@@ -2753,22 +2753,22 @@
     00000DB5 D1               [10] 2753 	pop	de
     00000DB6 46               [ 7] 2754 	ld	b, (hl)
     00000DB7 DD CB F8 46      [20] 2755 	bit	0, -8 (ix)
-    00000DBB 20 07            [12] 2756 	jr	NZ, 00318$
+    00000DBB 20 07            [12] 2756 	jr	NZ, 00320$
     00000DBD DD 7E F7         [19] 2757 	ld	a, -9 (ix)
     00000DC0 D6 03            [ 7] 2758 	sub	a, #0x03
-    00000DC2 20 06            [12] 2759 	jr	NZ, 00315$
-    00000DC4                       2760 00318$:
+    00000DC2 20 06            [12] 2759 	jr	NZ, 00317$
+    00000DC4                       2760 00320$:
     00000DC4 11 00 00         [10] 2761 	ld	de, #0x0000
-    00000DC7 C3rD8r0D         [10] 2762 	jp	00316$
-    00000DCA                       2763 00315$:
+    00000DC7 C3rD8r0D         [10] 2762 	jp	00318$
+    00000DCA                       2763 00317$:
     00000DCA CB 41            [ 8] 2764 	bit	0, c
-    00000DCC 20 0A            [12] 2765 	jr	NZ, 00321$
+    00000DCC 20 0A            [12] 2765 	jr	NZ, 00323$
     00000DCE DD 7E F7         [19] 2766 	ld	a, -9 (ix)
     00000DD1 D6 05            [ 7] 2767 	sub	a, #0x05
-    00000DD3 28 03            [12] 2768 	jr	Z, 00321$
+    00000DD3 28 03            [12] 2768 	jr	Z, 00323$
     00000DD5 DD 5E FD         [19] 2769 	ld	e, -3 (ix)
-    00000DD8                       2770 00321$:
-    00000DD8                       2771 00316$:
+    00000DD8                       2770 00323$:
+    00000DD8                       2771 00318$:
     00000DD8 78               [ 4] 2772 	ld	a, b
     00000DD9 83               [ 4] 2773 	add	a, e
     00000DDA DD 77 FA         [19] 2774 	ld	-6 (ix), a
@@ -2785,12 +2785,12 @@
     00000DF2 DAr7Br0F         [10] 2785 	jp	C, 00216$
     00000DF5 DD 5E F7         [19] 2786 	ld	e, -9 (ix)
     00000DF8 16 00            [ 7] 2787 	ld	d, #0x00
-    00000DFA 21r01r0E         [10] 2788 	ld	hl, #00824$
+    00000DFA 21r01r0E         [10] 2788 	ld	hl, #00831$
     00000DFD 19               [11] 2789 	add	hl, de
     00000DFE 19               [11] 2790 	add	hl, de
     00000DFF 19               [11] 2791 	add	hl, de
     00000E00 E9               [ 4] 2792 	jp	(hl)
-    00000E01                       2793 00824$:
+    00000E01                       2793 00831$:
     00000E01 C3r7Br0F         [10] 2794 	jp	00216$
     00000E04 C3r1Cr0E         [10] 2795 	jp	00208$
     00000E07 C3r86r0E         [10] 2796 	jp	00212$
@@ -3730,15 +3730,15 @@
                                    3730 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s6_b3.c:635: if(g_Ball.KickMoveState==1) PlayAyFx(AYFX_BALL);
     0000130D 3Ar0Dr00         [13] 3731 	ld	a, (#(_g_Ball + 13) + 0)
     00001310 3D               [ 4] 3732 	dec	a
-    00001311 C2r18r16         [10] 3733 	jp	NZ,00291$
+    00001311 C2r1Er16         [10] 3733 	jp	NZ,00293$
     00001314 3E 05            [ 7] 3734 	ld	a, #0x05
     00001316 CDr00r00         [17] 3735 	call	_PlayAyFx
-    00001319 C3r18r16         [10] 3736 	jp	00291$
-    0000131C                       3737 00289$:
+    00001319 C3r1Er16         [10] 3736 	jp	00293$
+    0000131C                       3737 00291$:
                                    3738 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s6_b3.c:641: if (frameTriggerPressed) {
     0000131C DD 7E F5         [19] 3739 	ld	a, -11 (ix)
     0000131F B7               [ 4] 3740 	or	a, a
-    00001320 CAr27r14         [10] 3741 	jp	Z, 00274$
+    00001320 CAr2Dr14         [10] 3741 	jp	Z, 00276$
                                    3742 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s6_b3.c:642: i16 dx = (i16)g_Players[playerId].X - (i16)g_Ball.X;
     00001323 DD 6E F1         [19] 3743 	ld	l, -15 (ix)
                                    3744 ;	spillPairReg hl
@@ -3776,10 +3776,10 @@
     0000134B B9               [ 4] 3776 	cp	a, c
     0000134C 3E FF            [ 7] 3777 	ld	a, #0xff
     0000134E 98               [ 4] 3778 	sbc	a, b
-    0000134F E2r54r13         [10] 3779 	jp	PO, 00839$
+    0000134F E2r54r13         [10] 3779 	jp	PO, 00846$
     00001352 EE 80            [ 7] 3780 	xor	a, #0x80
-    00001354                       3781 00839$:
-    00001354 F2r27r14         [10] 3782 	jp	P, 00274$
+    00001354                       3781 00846$:
+    00001354 F2r2Dr14         [10] 3782 	jp	P, 00276$
     00001357 79               [ 4] 3783 	ld	a, c
     00001358 D6 18            [ 7] 3784 	sub	a, #0x18
     0000135A 78               [ 4] 3785 	ld	a, b
@@ -3787,15 +3787,15 @@
     0000135C 3F               [ 4] 3787 	ccf
     0000135D 1F               [ 4] 3788 	rra
     0000135E DE 80            [ 7] 3789 	sbc	a, #0x80
-    00001360 D2r27r14         [10] 3790 	jp	NC, 00274$
+    00001360 D2r2Dr14         [10] 3790 	jp	NC, 00276$
     00001363 3E E8            [ 7] 3791 	ld	a, #0xe8
     00001365 BB               [ 4] 3792 	cp	a, e
     00001366 3E FF            [ 7] 3793 	ld	a, #0xff
     00001368 9A               [ 4] 3794 	sbc	a, d
-    00001369 E2r6Er13         [10] 3795 	jp	PO, 00840$
+    00001369 E2r6Er13         [10] 3795 	jp	PO, 00847$
     0000136C EE 80            [ 7] 3796 	xor	a, #0x80
-    0000136E                       3797 00840$:
-    0000136E F2r27r14         [10] 3798 	jp	P, 00274$
+    0000136E                       3797 00847$:
+    0000136E F2r2Dr14         [10] 3798 	jp	P, 00276$
     00001371 7B               [ 4] 3799 	ld	a, e
     00001372 D6 18            [ 7] 3800 	sub	a, #0x18
     00001374 7A               [ 4] 3801 	ld	a, d
@@ -3803,7 +3803,7 @@
     00001376 3F               [ 4] 3803 	ccf
     00001377 1F               [ 4] 3804 	rra
     00001378 DE 80            [ 7] 3805 	sbc	a, #0x80
-    0000137A D2r27r14         [10] 3806 	jp	NC, 00274$
+    0000137A D2r2Dr14         [10] 3806 	jp	NC, 00276$
                                    3807 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s6_b3.c:658: if (dx < 0) {
     0000137D 78               [ 4] 3808 	ld	a, b
     0000137E 07               [ 4] 3809 	rlca
@@ -3843,325 +3843,329 @@
                                    3843 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s6_b3.c:672: slideDir = DIRECTION_UP_LEFT;
     000013B9 DD 36 FB 08      [19] 3844 	ld	-5 (ix), #0x08
     000013BD                       3845 00263$:
-                                   3846 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s6_b3.c:675: PlayAyFx(AYFX_TACKLE);
-    000013BD 3E 01            [ 7] 3847 	ld	a, #0x01
-    000013BF CDr00r00         [17] 3848 	call	_PlayAyFx
-                                   3849 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s6_b3.c:677: if (slidePose != 0) {
-    000013C2 DD 7E FA         [19] 3850 	ld	a, -6 (ix)
-    000013C5 B7               [ 4] 3851 	or	a, a
-    000013C6 28 34            [12] 3852 	jr	Z, 00265$
-                                   3853 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s6_b3.c:678: g_Players[playerId].PatternId = slidePose;
-    000013C8 DD 7E F1         [19] 3854 	ld	a, -15 (ix)
-    000013CB C6 08            [ 7] 3855 	add	a, #0x08
-    000013CD DD 77 FC         [19] 3856 	ld	-4 (ix), a
-    000013D0 DD 7E F2         [19] 3857 	ld	a, -14 (ix)
-    000013D3 CE 00            [ 7] 3858 	adc	a, #0x00
-    000013D5 DD 77 FD         [19] 3859 	ld	-3 (ix), a
-    000013D8 DD 6E FC         [19] 3860 	ld	l, -4 (ix)
-    000013DB DD 66 FD         [19] 3861 	ld	h, -3 (ix)
-    000013DE DD 7E FA         [19] 3862 	ld	a, -6 (ix)
-    000013E1 77               [ 7] 3863 	ld	(hl), a
-                                   3864 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s6_b3.c:679: g_Players[playerId].Direction = slideDir;
-    000013E2 DD 7E F1         [19] 3865 	ld	a, -15 (ix)
-    000013E5 C6 0A            [ 7] 3866 	add	a, #0x0a
-    000013E7 DD 77 FC         [19] 3867 	ld	-4 (ix), a
-    000013EA DD 7E F2         [19] 3868 	ld	a, -14 (ix)
-    000013ED CE 00            [ 7] 3869 	adc	a, #0x00
-    000013EF DD 77 FD         [19] 3870 	ld	-3 (ix), a
-    000013F2 DD 6E FC         [19] 3871 	ld	l, -4 (ix)
-    000013F5 DD 66 FD         [19] 3872 	ld	h, -3 (ix)
-    000013F8 DD 7E FB         [19] 3873 	ld	a, -5 (ix)
-    000013FB 77               [ 7] 3874 	ld	(hl), a
-    000013FC                       3875 00265$:
-                                   3876 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s6_b3.c:683: CallFnc_VOID_P1(4,PutBallOnPlayerFeet,playerId);
-    000013FC DD 7E FE         [19] 3877 	ld	a, -2 (ix)
-    000013FF F5               [11] 3878 	push	af
-    00001400 33               [ 6] 3879 	inc	sp
-    00001401 11r00r00         [10] 3880 	ld	de, #_PutBallOnPlayerFeet
-    00001404 3E 04            [ 7] 3881 	ld	a, #0x04
-    00001406 CDr00r00         [17] 3882 	call	_CallFnc_VOID_P1
-                                   3883 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s6_b3.c:684: g_Ball.StealCooldown = 45; // Protect possession for 0.75s
-    00001409 21r0Fr00         [10] 3884 	ld	hl, #(_g_Ball + 15)
-    0000140C 36 2D            [10] 3885 	ld	(hl), #0x2d
-                                   3886 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s6_b3.c:686: if (slidePose != 0) {
-    0000140E DD 7E FA         [19] 3887 	ld	a, -6 (ix)
-    00001411 B7               [ 4] 3888 	or	a, a
-    00001412 28 0B            [12] 3889 	jr	Z, 00267$
-                                   3890 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s6_b3.c:687: g_Players[playerId].Status = PLAYER_STATUS_POSITIONED; // Lock visual (Override HAS_BALL)
-    00001414 DD 6E F3         [19] 3891 	ld	l, -13 (ix)
-    00001417 DD 66 F4         [19] 3892 	ld	h, -12 (ix)
-    0000141A 36 04            [10] 3893 	ld	(hl), #0x04
-    0000141C 23               [ 6] 3894 	inc	hl
-    0000141D 36 00            [10] 3895 	ld	(hl), #0x00
-    0000141F                       3896 00267$:
-                                   3897 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s6_b3.c:690: g_ActionCooldown = 15; // Set 15 frames cooldown to avoid immediate pass
-    0000141F 21r00r00         [10] 3898 	ld	hl, #_g_ActionCooldown
-    00001422 36 0F            [10] 3899 	ld	(hl), #0x0f
-                                   3900 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s6_b3.c:691: return;
-    00001424 C3r18r16         [10] 3901 	jp	00291$
-    00001427                       3902 00274$:
-                                   3903 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s6_b3.c:695: if((g_FrameCounter % 2)!=0){ 
-    00001427 21r00r00         [10] 3904 	ld	hl, #_g_FrameCounter
-    0000142A CB 46            [12] 3905 	bit	0, (hl)
-                                   3906 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s6_b3.c:696: return;
-    0000142C C2r18r16         [10] 3907 	jp	NZ,00291$
-                                   3908 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s6_b3.c:402: i16 dx = (i16)g_Players[playerId].X - (i16)g_Ball.X;
-    0000142F DD 7E F1         [19] 3909 	ld	a, -15 (ix)
-    00001432 C6 02            [ 7] 3910 	add	a, #0x02
-    00001434 DD 77 F7         [19] 3911 	ld	-9 (ix), a
-    00001437 DD 7E F2         [19] 3912 	ld	a, -14 (ix)
-    0000143A CE 00            [ 7] 3913 	adc	a, #0x00
-    0000143C DD 77 F8         [19] 3914 	ld	-8 (ix), a
-                                   3915 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s6_b3.c:701: if (direction <= 8) {
-    0000143F 3E 08            [ 7] 3916 	ld	a, #0x08
-    00001441 DD 96 FF         [19] 3917 	sub	a, -1 (ix)
-    00001444 DAr19r15         [10] 3918 	jp	C, 00278$
-                                   3919 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s6_b3.c:702: g_Players[playerId].X += k_MoveDX[direction];
-    00001447 DD 6E F7         [19] 3920 	ld	l, -9 (ix)
-    0000144A DD 66 F8         [19] 3921 	ld	h, -8 (ix)
-    0000144D 7E               [ 7] 3922 	ld	a, (hl)
-    0000144E DD 77 FB         [19] 3923 	ld	-5 (ix), a
-    00001451 23               [ 6] 3924 	inc	hl
-    00001452 7E               [ 7] 3925 	ld	a, (hl)
-    00001453 DD 77 FC         [19] 3926 	ld	-4 (ix), a
-    00001456 DD 7E FF         [19] 3927 	ld	a, -1 (ix)
-    00001459 C6r1D            [ 7] 3928 	add	a, #<(_TickTeamJoystick_k_MoveDX_131075_1322)
-    0000145B DD 77 FD         [19] 3929 	ld	-3 (ix), a
-    0000145E 3E 00            [ 7] 3930 	ld	a, #0x00
-    00001460 CEs16            [ 7] 3931 	adc	a, #>(_TickTeamJoystick_k_MoveDX_131075_1322)
-    00001462 DD 77 FE         [19] 3932 	ld	-2 (ix), a
-    00001465 DD 6E FD         [19] 3933 	ld	l, -3 (ix)
-    00001468 DD 66 FE         [19] 3934 	ld	h, -2 (ix)
-    0000146B 7E               [ 7] 3935 	ld	a, (hl)
-    0000146C DD 77 FE         [19] 3936 	ld	-2 (ix), a
-    0000146F DD 77 FD         [19] 3937 	ld	-3 (ix), a
-    00001472 07               [ 4] 3938 	rlca
-    00001473 9F               [ 4] 3939 	sbc	a, a
-    00001474 DD 77 FE         [19] 3940 	ld	-2 (ix), a
-    00001477 DD 7E FB         [19] 3941 	ld	a, -5 (ix)
-    0000147A DD 77 F9         [19] 3942 	ld	-7 (ix), a
-    0000147D DD 7E FC         [19] 3943 	ld	a, -4 (ix)
-    00001480 DD 77 FA         [19] 3944 	ld	-6 (ix), a
-    00001483 DD 7E FD         [19] 3945 	ld	a, -3 (ix)
-    00001486 DD 77 FB         [19] 3946 	ld	-5 (ix), a
-    00001489 DD 7E FE         [19] 3947 	ld	a, -2 (ix)
-    0000148C DD 77 FC         [19] 3948 	ld	-4 (ix), a
-    0000148F DD 7E F9         [19] 3949 	ld	a, -7 (ix)
-    00001492 DD 86 FB         [19] 3950 	add	a, -5 (ix)
-    00001495 DD 77 FD         [19] 3951 	ld	-3 (ix), a
-    00001498 DD 7E FA         [19] 3952 	ld	a, -6 (ix)
-    0000149B DD 8E FC         [19] 3953 	adc	a, -4 (ix)
-    0000149E DD 77 FE         [19] 3954 	ld	-2 (ix), a
-    000014A1 DD 6E F7         [19] 3955 	ld	l, -9 (ix)
-    000014A4 DD 66 F8         [19] 3956 	ld	h, -8 (ix)
-    000014A7 DD 7E FD         [19] 3957 	ld	a, -3 (ix)
-    000014AA 77               [ 7] 3958 	ld	(hl), a
-    000014AB 23               [ 6] 3959 	inc	hl
-    000014AC DD 7E FE         [19] 3960 	ld	a, -2 (ix)
-    000014AF 77               [ 7] 3961 	ld	(hl), a
-                                   3962 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s6_b3.c:703: g_Players[playerId].Y += k_MoveDY[direction];
-    000014B0 DD 6E F1         [19] 3963 	ld	l, -15 (ix)
-    000014B3 DD 66 F2         [19] 3964 	ld	h, -14 (ix)
-    000014B6 7E               [ 7] 3965 	ld	a, (hl)
-    000014B7 DD 77 FB         [19] 3966 	ld	-5 (ix), a
-    000014BA 23               [ 6] 3967 	inc	hl
-    000014BB 7E               [ 7] 3968 	ld	a, (hl)
-    000014BC DD 77 FC         [19] 3969 	ld	-4 (ix), a
-    000014BF DD 7E FF         [19] 3970 	ld	a, -1 (ix)
-    000014C2 C6r26            [ 7] 3971 	add	a, #<(_TickTeamJoystick_k_MoveDY_131075_1322)
-    000014C4 DD 77 FD         [19] 3972 	ld	-3 (ix), a
-    000014C7 3E 00            [ 7] 3973 	ld	a, #0x00
-    000014C9 CEs16            [ 7] 3974 	adc	a, #>(_TickTeamJoystick_k_MoveDY_131075_1322)
-    000014CB DD 77 FE         [19] 3975 	ld	-2 (ix), a
-    000014CE DD 6E FD         [19] 3976 	ld	l, -3 (ix)
-    000014D1 DD 66 FE         [19] 3977 	ld	h, -2 (ix)
-    000014D4 7E               [ 7] 3978 	ld	a, (hl)
-    000014D5 DD 77 FE         [19] 3979 	ld	-2 (ix), a
-    000014D8 DD 77 FD         [19] 3980 	ld	-3 (ix), a
-    000014DB 07               [ 4] 3981 	rlca
-    000014DC 9F               [ 4] 3982 	sbc	a, a
-    000014DD DD 77 FE         [19] 3983 	ld	-2 (ix), a
-    000014E0 DD 7E FB         [19] 3984 	ld	a, -5 (ix)
-    000014E3 DD 77 F9         [19] 3985 	ld	-7 (ix), a
-    000014E6 DD 7E FC         [19] 3986 	ld	a, -4 (ix)
-    000014E9 DD 77 FA         [19] 3987 	ld	-6 (ix), a
-    000014EC DD 7E FD         [19] 3988 	ld	a, -3 (ix)
-    000014EF DD 77 FB         [19] 3989 	ld	-5 (ix), a
-    000014F2 DD 7E FE         [19] 3990 	ld	a, -2 (ix)
-    000014F5 DD 77 FC         [19] 3991 	ld	-4 (ix), a
-    000014F8 DD 7E F9         [19] 3992 	ld	a, -7 (ix)
-    000014FB DD 86 FB         [19] 3993 	add	a, -5 (ix)
-    000014FE DD 77 FD         [19] 3994 	ld	-3 (ix), a
-    00001501 DD 7E FA         [19] 3995 	ld	a, -6 (ix)
-    00001504 DD 8E FC         [19] 3996 	adc	a, -4 (ix)
-    00001507 DD 77 FE         [19] 3997 	ld	-2 (ix), a
-    0000150A DD 6E F1         [19] 3998 	ld	l, -15 (ix)
-    0000150D DD 66 F2         [19] 3999 	ld	h, -14 (ix)
-    00001510 DD 7E FD         [19] 4000 	ld	a, -3 (ix)
-    00001513 77               [ 7] 4001 	ld	(hl), a
-    00001514 23               [ 6] 4002 	inc	hl
-    00001515 DD 7E FE         [19] 4003 	ld	a, -2 (ix)
-    00001518 77               [ 7] 4004 	ld	(hl), a
-    00001519                       4005 00278$:
-                                   4006 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s6_b3.c:707: if(g_Players[playerId].Y < FIELD_BOUND_Y_TOP) g_Players[playerId].Y = FIELD_BOUND_Y_TOP;
-    00001519 DD 6E F1         [19] 4007 	ld	l, -15 (ix)
-    0000151C DD 66 F2         [19] 4008 	ld	h, -14 (ix)
-    0000151F 4E               [ 7] 4009 	ld	c, (hl)
-    00001520 23               [ 6] 4010 	inc	hl
-    00001521 46               [ 7] 4011 	ld	b, (hl)
-    00001522 79               [ 4] 4012 	ld	a, c
-    00001523 D6 32            [ 7] 4013 	sub	a, #0x32
-    00001525 78               [ 4] 4014 	ld	a, b
-    00001526 DE 00            [ 7] 4015 	sbc	a, #0x00
-    00001528 30 0B            [12] 4016 	jr	NC, 00280$
-    0000152A DD 6E F1         [19] 4017 	ld	l, -15 (ix)
-    0000152D DD 66 F2         [19] 4018 	ld	h, -14 (ix)
-    00001530 36 32            [10] 4019 	ld	(hl), #0x32
-    00001532 23               [ 6] 4020 	inc	hl
-    00001533 36 00            [10] 4021 	ld	(hl), #0x00
-    00001535                       4022 00280$:
-                                   4023 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s6_b3.c:708: if(g_Players[playerId].Y > FIELD_BOUND_Y_BOTTOM) g_Players[playerId].Y = FIELD_BOUND_Y_BOTTOM;
-    00001535 DD 6E F1         [19] 4024 	ld	l, -15 (ix)
-    00001538 DD 66 F2         [19] 4025 	ld	h, -14 (ix)
-    0000153B 4E               [ 7] 4026 	ld	c, (hl)
-    0000153C 23               [ 6] 4027 	inc	hl
-    0000153D 46               [ 7] 4028 	ld	b, (hl)
-    0000153E 3E B3            [ 7] 4029 	ld	a, #0xb3
-    00001540 B9               [ 4] 4030 	cp	a, c
-    00001541 3E 01            [ 7] 4031 	ld	a, #0x01
-    00001543 98               [ 4] 4032 	sbc	a, b
-    00001544 30 0B            [12] 4033 	jr	NC, 00282$
-    00001546 DD 6E F1         [19] 4034 	ld	l, -15 (ix)
-    00001549 DD 66 F2         [19] 4035 	ld	h, -14 (ix)
-    0000154C 36 B3            [10] 4036 	ld	(hl), #0xb3
-    0000154E 23               [ 6] 4037 	inc	hl
-    0000154F 36 01            [10] 4038 	ld	(hl), #0x01
-    00001551                       4039 00282$:
-                                   4040 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s6_b3.c:710: g_Players[playerId].TargetY=g_Players[playerId].Y;
-    00001551 DD 7E F1         [19] 4041 	ld	a, -15 (ix)
-    00001554 C6 0E            [ 7] 4042 	add	a, #0x0e
-    00001556 DD 77 FB         [19] 4043 	ld	-5 (ix), a
-    00001559 DD 7E F2         [19] 4044 	ld	a, -14 (ix)
-    0000155C CE 00            [ 7] 4045 	adc	a, #0x00
-    0000155E DD 77 FC         [19] 4046 	ld	-4 (ix), a
-    00001561 DD 6E F1         [19] 4047 	ld	l, -15 (ix)
-    00001564 DD 66 F2         [19] 4048 	ld	h, -14 (ix)
-    00001567 7E               [ 7] 4049 	ld	a, (hl)
-    00001568 DD 77 FD         [19] 4050 	ld	-3 (ix), a
-    0000156B 23               [ 6] 4051 	inc	hl
-    0000156C 7E               [ 7] 4052 	ld	a, (hl)
-    0000156D DD 77 FE         [19] 4053 	ld	-2 (ix), a
-    00001570 DD 6E FB         [19] 4054 	ld	l, -5 (ix)
-    00001573 DD 66 FC         [19] 4055 	ld	h, -4 (ix)
-    00001576 DD 7E FD         [19] 4056 	ld	a, -3 (ix)
-    00001579 77               [ 7] 4057 	ld	(hl), a
-    0000157A 23               [ 6] 4058 	inc	hl
-    0000157B DD 7E FE         [19] 4059 	ld	a, -2 (ix)
-    0000157E 77               [ 7] 4060 	ld	(hl), a
-                                   4061 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s6_b3.c:711: g_Players[playerId].TargetX=g_Players[playerId].X;
-    0000157F DD 7E F1         [19] 4062 	ld	a, -15 (ix)
-    00001582 C6 10            [ 7] 4063 	add	a, #0x10
-    00001584 DD 77 FD         [19] 4064 	ld	-3 (ix), a
-    00001587 DD 7E F2         [19] 4065 	ld	a, -14 (ix)
-    0000158A CE 00            [ 7] 4066 	adc	a, #0x00
-    0000158C DD 77 FE         [19] 4067 	ld	-2 (ix), a
-    0000158F DD 6E F7         [19] 4068 	ld	l, -9 (ix)
-    00001592 DD 66 F8         [19] 4069 	ld	h, -8 (ix)
-    00001595 4E               [ 7] 4070 	ld	c, (hl)
-    00001596 23               [ 6] 4071 	inc	hl
-    00001597 46               [ 7] 4072 	ld	b, (hl)
-    00001598 DD 6E FD         [19] 4073 	ld	l, -3 (ix)
-    0000159B DD 66 FE         [19] 4074 	ld	h, -2 (ix)
-    0000159E 71               [ 7] 4075 	ld	(hl), c
-    0000159F 23               [ 6] 4076 	inc	hl
-    000015A0 70               [ 7] 4077 	ld	(hl), b
-                                   4078 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s6_b3.c:497: if((g_FrameCounter % 2)!=0 && direction == g_Players[playerId].PreviousDirection){
-    000015A1 DD 7E F1         [19] 4079 	ld	a, -15 (ix)
-    000015A4 C6 0B            [ 7] 4080 	add	a, #0x0b
-    000015A6 DD 77 FD         [19] 4081 	ld	-3 (ix), a
-    000015A9 DD 7E F2         [19] 4082 	ld	a, -14 (ix)
-    000015AC CE 00            [ 7] 4083 	adc	a, #0x00
-    000015AE DD 77 FE         [19] 4084 	ld	-2 (ix), a
-                                   4085 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s6_b3.c:712: if(direction==DIRECTION_NONE){
-    000015B1 DD 7E FF         [19] 4086 	ld	a, -1 (ix)
-    000015B4 B7               [ 4] 4087 	or	a, a
-    000015B5 20 3F            [12] 4088 	jr	NZ, 00286$
-                                   4089 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s6_b3.c:713: g_Players[playerId].Status=PLAYER_STATUS_POSITIONED;
-    000015B7 DD 6E F3         [19] 4090 	ld	l, -13 (ix)
-    000015BA DD 66 F4         [19] 4091 	ld	h, -12 (ix)
-    000015BD 36 04            [10] 4092 	ld	(hl), #0x04
-    000015BF 23               [ 6] 4093 	inc	hl
-    000015C0 36 00            [10] 4094 	ld	(hl), #0x00
-                                   4095 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s6_b3.c:714: if(g_Players[playerId].PreviousDirection!=DIRECTION_NONE){
-    000015C2 DD 6E FD         [19] 4096 	ld	l, -3 (ix)
-    000015C5 DD 66 FE         [19] 4097 	ld	h, -2 (ix)
-    000015C8 7E               [ 7] 4098 	ld	a, (hl)
-    000015C9 DD 77 FA         [19] 4099 	ld	-6 (ix), a
-    000015CC B7               [ 4] 4100 	or	a, a
-    000015CD 28 31            [12] 4101 	jr	Z, 00287$
-                                   4102 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s6_b3.c:715: g_Players[playerId].PatternId=CallFnc_U8_P1(8,GetNoMovingPlayerPatternId,g_Players[playerId].PreviousDirection);
-    000015CF DD 7E F1         [19] 4103 	ld	a, -15 (ix)
-    000015D2 C6 08            [ 7] 4104 	add	a, #0x08
-    000015D4 DD 77 FB         [19] 4105 	ld	-5 (ix), a
-    000015D7 DD 7E F2         [19] 4106 	ld	a, -14 (ix)
-    000015DA CE 00            [ 7] 4107 	adc	a, #0x00
-    000015DC DD 77 FC         [19] 4108 	ld	-4 (ix), a
-    000015DF DD 7E FA         [19] 4109 	ld	a, -6 (ix)
-    000015E2 F5               [11] 4110 	push	af
-    000015E3 33               [ 6] 4111 	inc	sp
-    000015E4 11r00r00         [10] 4112 	ld	de, #_GetNoMovingPlayerPatternId
-    000015E7 3E 08            [ 7] 4113 	ld	a, #0x08
-    000015E9 CDr00r00         [17] 4114 	call	_CallFnc_U8_P1
-    000015EC DD 6E FB         [19] 4115 	ld	l, -5 (ix)
-    000015EF DD 66 FC         [19] 4116 	ld	h, -4 (ix)
-    000015F2 77               [ 7] 4117 	ld	(hl), a
-    000015F3 C3r00r16         [10] 4118 	jp	00287$
-    000015F6                       4119 00286$:
-                                   4120 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s6_b3.c:720: g_Players[playerId].Status=PLAYER_STATUS_NONE;
-    000015F6 DD 6E F3         [19] 4121 	ld	l, -13 (ix)
-    000015F9 DD 66 F4         [19] 4122 	ld	h, -12 (ix)
-    000015FC AF               [ 4] 4123 	xor	a, a
-    000015FD 77               [ 7] 4124 	ld	(hl), a
-    000015FE 23               [ 6] 4125 	inc	hl
-    000015FF 77               [ 7] 4126 	ld	(hl), a
-    00001600                       4127 00287$:
-                                   4128 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s6_b3.c:722: g_Players[playerId].Direction=direction;
-    00001600 DD 6E F1         [19] 4129 	ld	l, -15 (ix)
-    00001603 DD 66 F2         [19] 4130 	ld	h, -14 (ix)
-    00001606 11 0A 00         [10] 4131 	ld	de, #0x000a
-    00001609 19               [11] 4132 	add	hl, de
-    0000160A DD 7E FF         [19] 4133 	ld	a, -1 (ix)
-    0000160D 77               [ 7] 4134 	ld	(hl), a
-                                   4135 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s6_b3.c:723: g_Players[playerId].PreviousDirection=g_Players[playerId].Direction;
-    0000160E DD 6E FD         [19] 4136 	ld	l, -3 (ix)
-    00001611 DD 66 FE         [19] 4137 	ld	h, -2 (ix)
-    00001614 DD 7E FF         [19] 4138 	ld	a, -1 (ix)
-    00001617 77               [ 7] 4139 	ld	(hl), a
-    00001618                       4140 00291$:
-                                   4141 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s6_b3.c:727: }
-    00001618 DD F9            [10] 4142 	ld	sp, ix
-    0000161A DD E1            [14] 4143 	pop	ix
-    0000161C C9               [10] 4144 	ret
-    0000161D                       4145 _TickTeamJoystick_k_MoveDX_131075_1322:
-    0000161D 00                    4146 	.db #0x00	;  0
-    0000161E 00                    4147 	.db #0x00	;  0
-    0000161F 02                    4148 	.db #0x02	;  2
-    00001620 02                    4149 	.db #0x02	;  2
-    00001621 02                    4150 	.db #0x02	;  2
-    00001622 00                    4151 	.db #0x00	;  0
-    00001623 FE                    4152 	.db #0xfe	; -2
-    00001624 FE                    4153 	.db #0xfe	; -2
-    00001625 FE                    4154 	.db #0xfe	; -2
-    00001626                       4155 _TickTeamJoystick_k_MoveDY_131075_1322:
-    00001626 00                    4156 	.db #0x00	;  0
-    00001627 FE                    4157 	.db #0xfe	; -2
-    00001628 FE                    4158 	.db #0xfe	; -2
-    00001629 00                    4159 	.db #0x00	;  0
-    0000162A 02                    4160 	.db #0x02	;  2
-    0000162B 02                    4161 	.db #0x02	;  2
-    0000162C 02                    4162 	.db #0x02	;  2
-    0000162D 00                    4163 	.db #0x00	;  0
-    0000162E FE                    4164 	.db #0xfe	; -2
-                                   4165 	.area _SEG6
-                                   4166 	.area _INITIALIZER
-                                   4167 	.area _CABS (ABS)
+                                   3846 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s6_b3.c:675: if (!g_modernAudio) PlayAyFx(AYFX_TACKLE);
+    000013BD 3Ar00r00         [13] 3847 	ld	a, (_g_modernAudio+0)
+    000013C0 B7               [ 4] 3848 	or	a, a
+    000013C1 20 05            [12] 3849 	jr	NZ, 00265$
+    000013C3 3E 01            [ 7] 3850 	ld	a, #0x01
+    000013C5 CDr00r00         [17] 3851 	call	_PlayAyFx
+    000013C8                       3852 00265$:
+                                   3853 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s6_b3.c:677: if (slidePose != 0) {
+    000013C8 DD 7E FA         [19] 3854 	ld	a, -6 (ix)
+    000013CB B7               [ 4] 3855 	or	a, a
+    000013CC 28 34            [12] 3856 	jr	Z, 00267$
+                                   3857 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s6_b3.c:678: g_Players[playerId].PatternId = slidePose;
+    000013CE DD 7E F1         [19] 3858 	ld	a, -15 (ix)
+    000013D1 C6 08            [ 7] 3859 	add	a, #0x08
+    000013D3 DD 77 FC         [19] 3860 	ld	-4 (ix), a
+    000013D6 DD 7E F2         [19] 3861 	ld	a, -14 (ix)
+    000013D9 CE 00            [ 7] 3862 	adc	a, #0x00
+    000013DB DD 77 FD         [19] 3863 	ld	-3 (ix), a
+    000013DE DD 6E FC         [19] 3864 	ld	l, -4 (ix)
+    000013E1 DD 66 FD         [19] 3865 	ld	h, -3 (ix)
+    000013E4 DD 7E FA         [19] 3866 	ld	a, -6 (ix)
+    000013E7 77               [ 7] 3867 	ld	(hl), a
+                                   3868 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s6_b3.c:679: g_Players[playerId].Direction = slideDir;
+    000013E8 DD 7E F1         [19] 3869 	ld	a, -15 (ix)
+    000013EB C6 0A            [ 7] 3870 	add	a, #0x0a
+    000013ED DD 77 FC         [19] 3871 	ld	-4 (ix), a
+    000013F0 DD 7E F2         [19] 3872 	ld	a, -14 (ix)
+    000013F3 CE 00            [ 7] 3873 	adc	a, #0x00
+    000013F5 DD 77 FD         [19] 3874 	ld	-3 (ix), a
+    000013F8 DD 6E FC         [19] 3875 	ld	l, -4 (ix)
+    000013FB DD 66 FD         [19] 3876 	ld	h, -3 (ix)
+    000013FE DD 7E FB         [19] 3877 	ld	a, -5 (ix)
+    00001401 77               [ 7] 3878 	ld	(hl), a
+    00001402                       3879 00267$:
+                                   3880 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s6_b3.c:683: CallFnc_VOID_P1(4,PutBallOnPlayerFeet,playerId);
+    00001402 DD 7E FE         [19] 3881 	ld	a, -2 (ix)
+    00001405 F5               [11] 3882 	push	af
+    00001406 33               [ 6] 3883 	inc	sp
+    00001407 11r00r00         [10] 3884 	ld	de, #_PutBallOnPlayerFeet
+    0000140A 3E 04            [ 7] 3885 	ld	a, #0x04
+    0000140C CDr00r00         [17] 3886 	call	_CallFnc_VOID_P1
+                                   3887 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s6_b3.c:684: g_Ball.StealCooldown = 45; // Protect possession for 0.75s
+    0000140F 21r0Fr00         [10] 3888 	ld	hl, #(_g_Ball + 15)
+    00001412 36 2D            [10] 3889 	ld	(hl), #0x2d
+                                   3890 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s6_b3.c:686: if (slidePose != 0) {
+    00001414 DD 7E FA         [19] 3891 	ld	a, -6 (ix)
+    00001417 B7               [ 4] 3892 	or	a, a
+    00001418 28 0B            [12] 3893 	jr	Z, 00269$
+                                   3894 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s6_b3.c:687: g_Players[playerId].Status = PLAYER_STATUS_POSITIONED; // Lock visual (Override HAS_BALL)
+    0000141A DD 6E F3         [19] 3895 	ld	l, -13 (ix)
+    0000141D DD 66 F4         [19] 3896 	ld	h, -12 (ix)
+    00001420 36 04            [10] 3897 	ld	(hl), #0x04
+    00001422 23               [ 6] 3898 	inc	hl
+    00001423 36 00            [10] 3899 	ld	(hl), #0x00
+    00001425                       3900 00269$:
+                                   3901 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s6_b3.c:690: g_ActionCooldown = 15; // Set 15 frames cooldown to avoid immediate pass
+    00001425 21r00r00         [10] 3902 	ld	hl, #_g_ActionCooldown
+    00001428 36 0F            [10] 3903 	ld	(hl), #0x0f
+                                   3904 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s6_b3.c:691: return;
+    0000142A C3r1Er16         [10] 3905 	jp	00293$
+    0000142D                       3906 00276$:
+                                   3907 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s6_b3.c:695: if((g_FrameCounter % 2)!=0){ 
+    0000142D 21r00r00         [10] 3908 	ld	hl, #_g_FrameCounter
+    00001430 CB 46            [12] 3909 	bit	0, (hl)
+                                   3910 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s6_b3.c:696: return;
+    00001432 C2r1Er16         [10] 3911 	jp	NZ,00293$
+                                   3912 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s6_b3.c:402: i16 dx = (i16)g_Players[playerId].X - (i16)g_Ball.X;
+    00001435 DD 7E F1         [19] 3913 	ld	a, -15 (ix)
+    00001438 C6 02            [ 7] 3914 	add	a, #0x02
+    0000143A DD 77 F7         [19] 3915 	ld	-9 (ix), a
+    0000143D DD 7E F2         [19] 3916 	ld	a, -14 (ix)
+    00001440 CE 00            [ 7] 3917 	adc	a, #0x00
+    00001442 DD 77 F8         [19] 3918 	ld	-8 (ix), a
+                                   3919 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s6_b3.c:701: if (direction <= 8) {
+    00001445 3E 08            [ 7] 3920 	ld	a, #0x08
+    00001447 DD 96 FF         [19] 3921 	sub	a, -1 (ix)
+    0000144A DAr1Fr15         [10] 3922 	jp	C, 00280$
+                                   3923 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s6_b3.c:702: g_Players[playerId].X += k_MoveDX[direction];
+    0000144D DD 6E F7         [19] 3924 	ld	l, -9 (ix)
+    00001450 DD 66 F8         [19] 3925 	ld	h, -8 (ix)
+    00001453 7E               [ 7] 3926 	ld	a, (hl)
+    00001454 DD 77 FB         [19] 3927 	ld	-5 (ix), a
+    00001457 23               [ 6] 3928 	inc	hl
+    00001458 7E               [ 7] 3929 	ld	a, (hl)
+    00001459 DD 77 FC         [19] 3930 	ld	-4 (ix), a
+    0000145C DD 7E FF         [19] 3931 	ld	a, -1 (ix)
+    0000145F C6r23            [ 7] 3932 	add	a, #<(_TickTeamJoystick_k_MoveDX_131075_1322)
+    00001461 DD 77 FD         [19] 3933 	ld	-3 (ix), a
+    00001464 3E 00            [ 7] 3934 	ld	a, #0x00
+    00001466 CEs16            [ 7] 3935 	adc	a, #>(_TickTeamJoystick_k_MoveDX_131075_1322)
+    00001468 DD 77 FE         [19] 3936 	ld	-2 (ix), a
+    0000146B DD 6E FD         [19] 3937 	ld	l, -3 (ix)
+    0000146E DD 66 FE         [19] 3938 	ld	h, -2 (ix)
+    00001471 7E               [ 7] 3939 	ld	a, (hl)
+    00001472 DD 77 FE         [19] 3940 	ld	-2 (ix), a
+    00001475 DD 77 FD         [19] 3941 	ld	-3 (ix), a
+    00001478 07               [ 4] 3942 	rlca
+    00001479 9F               [ 4] 3943 	sbc	a, a
+    0000147A DD 77 FE         [19] 3944 	ld	-2 (ix), a
+    0000147D DD 7E FB         [19] 3945 	ld	a, -5 (ix)
+    00001480 DD 77 F9         [19] 3946 	ld	-7 (ix), a
+    00001483 DD 7E FC         [19] 3947 	ld	a, -4 (ix)
+    00001486 DD 77 FA         [19] 3948 	ld	-6 (ix), a
+    00001489 DD 7E FD         [19] 3949 	ld	a, -3 (ix)
+    0000148C DD 77 FB         [19] 3950 	ld	-5 (ix), a
+    0000148F DD 7E FE         [19] 3951 	ld	a, -2 (ix)
+    00001492 DD 77 FC         [19] 3952 	ld	-4 (ix), a
+    00001495 DD 7E F9         [19] 3953 	ld	a, -7 (ix)
+    00001498 DD 86 FB         [19] 3954 	add	a, -5 (ix)
+    0000149B DD 77 FD         [19] 3955 	ld	-3 (ix), a
+    0000149E DD 7E FA         [19] 3956 	ld	a, -6 (ix)
+    000014A1 DD 8E FC         [19] 3957 	adc	a, -4 (ix)
+    000014A4 DD 77 FE         [19] 3958 	ld	-2 (ix), a
+    000014A7 DD 6E F7         [19] 3959 	ld	l, -9 (ix)
+    000014AA DD 66 F8         [19] 3960 	ld	h, -8 (ix)
+    000014AD DD 7E FD         [19] 3961 	ld	a, -3 (ix)
+    000014B0 77               [ 7] 3962 	ld	(hl), a
+    000014B1 23               [ 6] 3963 	inc	hl
+    000014B2 DD 7E FE         [19] 3964 	ld	a, -2 (ix)
+    000014B5 77               [ 7] 3965 	ld	(hl), a
+                                   3966 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s6_b3.c:703: g_Players[playerId].Y += k_MoveDY[direction];
+    000014B6 DD 6E F1         [19] 3967 	ld	l, -15 (ix)
+    000014B9 DD 66 F2         [19] 3968 	ld	h, -14 (ix)
+    000014BC 7E               [ 7] 3969 	ld	a, (hl)
+    000014BD DD 77 FB         [19] 3970 	ld	-5 (ix), a
+    000014C0 23               [ 6] 3971 	inc	hl
+    000014C1 7E               [ 7] 3972 	ld	a, (hl)
+    000014C2 DD 77 FC         [19] 3973 	ld	-4 (ix), a
+    000014C5 DD 7E FF         [19] 3974 	ld	a, -1 (ix)
+    000014C8 C6r2C            [ 7] 3975 	add	a, #<(_TickTeamJoystick_k_MoveDY_131075_1322)
+    000014CA DD 77 FD         [19] 3976 	ld	-3 (ix), a
+    000014CD 3E 00            [ 7] 3977 	ld	a, #0x00
+    000014CF CEs16            [ 7] 3978 	adc	a, #>(_TickTeamJoystick_k_MoveDY_131075_1322)
+    000014D1 DD 77 FE         [19] 3979 	ld	-2 (ix), a
+    000014D4 DD 6E FD         [19] 3980 	ld	l, -3 (ix)
+    000014D7 DD 66 FE         [19] 3981 	ld	h, -2 (ix)
+    000014DA 7E               [ 7] 3982 	ld	a, (hl)
+    000014DB DD 77 FE         [19] 3983 	ld	-2 (ix), a
+    000014DE DD 77 FD         [19] 3984 	ld	-3 (ix), a
+    000014E1 07               [ 4] 3985 	rlca
+    000014E2 9F               [ 4] 3986 	sbc	a, a
+    000014E3 DD 77 FE         [19] 3987 	ld	-2 (ix), a
+    000014E6 DD 7E FB         [19] 3988 	ld	a, -5 (ix)
+    000014E9 DD 77 F9         [19] 3989 	ld	-7 (ix), a
+    000014EC DD 7E FC         [19] 3990 	ld	a, -4 (ix)
+    000014EF DD 77 FA         [19] 3991 	ld	-6 (ix), a
+    000014F2 DD 7E FD         [19] 3992 	ld	a, -3 (ix)
+    000014F5 DD 77 FB         [19] 3993 	ld	-5 (ix), a
+    000014F8 DD 7E FE         [19] 3994 	ld	a, -2 (ix)
+    000014FB DD 77 FC         [19] 3995 	ld	-4 (ix), a
+    000014FE DD 7E F9         [19] 3996 	ld	a, -7 (ix)
+    00001501 DD 86 FB         [19] 3997 	add	a, -5 (ix)
+    00001504 DD 77 FD         [19] 3998 	ld	-3 (ix), a
+    00001507 DD 7E FA         [19] 3999 	ld	a, -6 (ix)
+    0000150A DD 8E FC         [19] 4000 	adc	a, -4 (ix)
+    0000150D DD 77 FE         [19] 4001 	ld	-2 (ix), a
+    00001510 DD 6E F1         [19] 4002 	ld	l, -15 (ix)
+    00001513 DD 66 F2         [19] 4003 	ld	h, -14 (ix)
+    00001516 DD 7E FD         [19] 4004 	ld	a, -3 (ix)
+    00001519 77               [ 7] 4005 	ld	(hl), a
+    0000151A 23               [ 6] 4006 	inc	hl
+    0000151B DD 7E FE         [19] 4007 	ld	a, -2 (ix)
+    0000151E 77               [ 7] 4008 	ld	(hl), a
+    0000151F                       4009 00280$:
+                                   4010 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s6_b3.c:707: if(g_Players[playerId].Y < FIELD_BOUND_Y_TOP) g_Players[playerId].Y = FIELD_BOUND_Y_TOP;
+    0000151F DD 6E F1         [19] 4011 	ld	l, -15 (ix)
+    00001522 DD 66 F2         [19] 4012 	ld	h, -14 (ix)
+    00001525 4E               [ 7] 4013 	ld	c, (hl)
+    00001526 23               [ 6] 4014 	inc	hl
+    00001527 46               [ 7] 4015 	ld	b, (hl)
+    00001528 79               [ 4] 4016 	ld	a, c
+    00001529 D6 32            [ 7] 4017 	sub	a, #0x32
+    0000152B 78               [ 4] 4018 	ld	a, b
+    0000152C DE 00            [ 7] 4019 	sbc	a, #0x00
+    0000152E 30 0B            [12] 4020 	jr	NC, 00282$
+    00001530 DD 6E F1         [19] 4021 	ld	l, -15 (ix)
+    00001533 DD 66 F2         [19] 4022 	ld	h, -14 (ix)
+    00001536 36 32            [10] 4023 	ld	(hl), #0x32
+    00001538 23               [ 6] 4024 	inc	hl
+    00001539 36 00            [10] 4025 	ld	(hl), #0x00
+    0000153B                       4026 00282$:
+                                   4027 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s6_b3.c:708: if(g_Players[playerId].Y > FIELD_BOUND_Y_BOTTOM) g_Players[playerId].Y = FIELD_BOUND_Y_BOTTOM;
+    0000153B DD 6E F1         [19] 4028 	ld	l, -15 (ix)
+    0000153E DD 66 F2         [19] 4029 	ld	h, -14 (ix)
+    00001541 4E               [ 7] 4030 	ld	c, (hl)
+    00001542 23               [ 6] 4031 	inc	hl
+    00001543 46               [ 7] 4032 	ld	b, (hl)
+    00001544 3E B3            [ 7] 4033 	ld	a, #0xb3
+    00001546 B9               [ 4] 4034 	cp	a, c
+    00001547 3E 01            [ 7] 4035 	ld	a, #0x01
+    00001549 98               [ 4] 4036 	sbc	a, b
+    0000154A 30 0B            [12] 4037 	jr	NC, 00284$
+    0000154C DD 6E F1         [19] 4038 	ld	l, -15 (ix)
+    0000154F DD 66 F2         [19] 4039 	ld	h, -14 (ix)
+    00001552 36 B3            [10] 4040 	ld	(hl), #0xb3
+    00001554 23               [ 6] 4041 	inc	hl
+    00001555 36 01            [10] 4042 	ld	(hl), #0x01
+    00001557                       4043 00284$:
+                                   4044 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s6_b3.c:710: g_Players[playerId].TargetY=g_Players[playerId].Y;
+    00001557 DD 7E F1         [19] 4045 	ld	a, -15 (ix)
+    0000155A C6 0E            [ 7] 4046 	add	a, #0x0e
+    0000155C DD 77 FB         [19] 4047 	ld	-5 (ix), a
+    0000155F DD 7E F2         [19] 4048 	ld	a, -14 (ix)
+    00001562 CE 00            [ 7] 4049 	adc	a, #0x00
+    00001564 DD 77 FC         [19] 4050 	ld	-4 (ix), a
+    00001567 DD 6E F1         [19] 4051 	ld	l, -15 (ix)
+    0000156A DD 66 F2         [19] 4052 	ld	h, -14 (ix)
+    0000156D 7E               [ 7] 4053 	ld	a, (hl)
+    0000156E DD 77 FD         [19] 4054 	ld	-3 (ix), a
+    00001571 23               [ 6] 4055 	inc	hl
+    00001572 7E               [ 7] 4056 	ld	a, (hl)
+    00001573 DD 77 FE         [19] 4057 	ld	-2 (ix), a
+    00001576 DD 6E FB         [19] 4058 	ld	l, -5 (ix)
+    00001579 DD 66 FC         [19] 4059 	ld	h, -4 (ix)
+    0000157C DD 7E FD         [19] 4060 	ld	a, -3 (ix)
+    0000157F 77               [ 7] 4061 	ld	(hl), a
+    00001580 23               [ 6] 4062 	inc	hl
+    00001581 DD 7E FE         [19] 4063 	ld	a, -2 (ix)
+    00001584 77               [ 7] 4064 	ld	(hl), a
+                                   4065 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s6_b3.c:711: g_Players[playerId].TargetX=g_Players[playerId].X;
+    00001585 DD 7E F1         [19] 4066 	ld	a, -15 (ix)
+    00001588 C6 10            [ 7] 4067 	add	a, #0x10
+    0000158A DD 77 FD         [19] 4068 	ld	-3 (ix), a
+    0000158D DD 7E F2         [19] 4069 	ld	a, -14 (ix)
+    00001590 CE 00            [ 7] 4070 	adc	a, #0x00
+    00001592 DD 77 FE         [19] 4071 	ld	-2 (ix), a
+    00001595 DD 6E F7         [19] 4072 	ld	l, -9 (ix)
+    00001598 DD 66 F8         [19] 4073 	ld	h, -8 (ix)
+    0000159B 4E               [ 7] 4074 	ld	c, (hl)
+    0000159C 23               [ 6] 4075 	inc	hl
+    0000159D 46               [ 7] 4076 	ld	b, (hl)
+    0000159E DD 6E FD         [19] 4077 	ld	l, -3 (ix)
+    000015A1 DD 66 FE         [19] 4078 	ld	h, -2 (ix)
+    000015A4 71               [ 7] 4079 	ld	(hl), c
+    000015A5 23               [ 6] 4080 	inc	hl
+    000015A6 70               [ 7] 4081 	ld	(hl), b
+                                   4082 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s6_b3.c:497: if((g_FrameCounter % 2)!=0 && direction == g_Players[playerId].PreviousDirection){
+    000015A7 DD 7E F1         [19] 4083 	ld	a, -15 (ix)
+    000015AA C6 0B            [ 7] 4084 	add	a, #0x0b
+    000015AC DD 77 FD         [19] 4085 	ld	-3 (ix), a
+    000015AF DD 7E F2         [19] 4086 	ld	a, -14 (ix)
+    000015B2 CE 00            [ 7] 4087 	adc	a, #0x00
+    000015B4 DD 77 FE         [19] 4088 	ld	-2 (ix), a
+                                   4089 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s6_b3.c:712: if(direction==DIRECTION_NONE){
+    000015B7 DD 7E FF         [19] 4090 	ld	a, -1 (ix)
+    000015BA B7               [ 4] 4091 	or	a, a
+    000015BB 20 3F            [12] 4092 	jr	NZ, 00288$
+                                   4093 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s6_b3.c:713: g_Players[playerId].Status=PLAYER_STATUS_POSITIONED;
+    000015BD DD 6E F3         [19] 4094 	ld	l, -13 (ix)
+    000015C0 DD 66 F4         [19] 4095 	ld	h, -12 (ix)
+    000015C3 36 04            [10] 4096 	ld	(hl), #0x04
+    000015C5 23               [ 6] 4097 	inc	hl
+    000015C6 36 00            [10] 4098 	ld	(hl), #0x00
+                                   4099 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s6_b3.c:714: if(g_Players[playerId].PreviousDirection!=DIRECTION_NONE){
+    000015C8 DD 6E FD         [19] 4100 	ld	l, -3 (ix)
+    000015CB DD 66 FE         [19] 4101 	ld	h, -2 (ix)
+    000015CE 7E               [ 7] 4102 	ld	a, (hl)
+    000015CF DD 77 FA         [19] 4103 	ld	-6 (ix), a
+    000015D2 B7               [ 4] 4104 	or	a, a
+    000015D3 28 31            [12] 4105 	jr	Z, 00289$
+                                   4106 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s6_b3.c:715: g_Players[playerId].PatternId=CallFnc_U8_P1(8,GetNoMovingPlayerPatternId,g_Players[playerId].PreviousDirection);
+    000015D5 DD 7E F1         [19] 4107 	ld	a, -15 (ix)
+    000015D8 C6 08            [ 7] 4108 	add	a, #0x08
+    000015DA DD 77 FB         [19] 4109 	ld	-5 (ix), a
+    000015DD DD 7E F2         [19] 4110 	ld	a, -14 (ix)
+    000015E0 CE 00            [ 7] 4111 	adc	a, #0x00
+    000015E2 DD 77 FC         [19] 4112 	ld	-4 (ix), a
+    000015E5 DD 7E FA         [19] 4113 	ld	a, -6 (ix)
+    000015E8 F5               [11] 4114 	push	af
+    000015E9 33               [ 6] 4115 	inc	sp
+    000015EA 11r00r00         [10] 4116 	ld	de, #_GetNoMovingPlayerPatternId
+    000015ED 3E 08            [ 7] 4117 	ld	a, #0x08
+    000015EF CDr00r00         [17] 4118 	call	_CallFnc_U8_P1
+    000015F2 DD 6E FB         [19] 4119 	ld	l, -5 (ix)
+    000015F5 DD 66 FC         [19] 4120 	ld	h, -4 (ix)
+    000015F8 77               [ 7] 4121 	ld	(hl), a
+    000015F9 C3r06r16         [10] 4122 	jp	00289$
+    000015FC                       4123 00288$:
+                                   4124 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s6_b3.c:720: g_Players[playerId].Status=PLAYER_STATUS_NONE;
+    000015FC DD 6E F3         [19] 4125 	ld	l, -13 (ix)
+    000015FF DD 66 F4         [19] 4126 	ld	h, -12 (ix)
+    00001602 AF               [ 4] 4127 	xor	a, a
+    00001603 77               [ 7] 4128 	ld	(hl), a
+    00001604 23               [ 6] 4129 	inc	hl
+    00001605 77               [ 7] 4130 	ld	(hl), a
+    00001606                       4131 00289$:
+                                   4132 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s6_b3.c:722: g_Players[playerId].Direction=direction;
+    00001606 DD 6E F1         [19] 4133 	ld	l, -15 (ix)
+    00001609 DD 66 F2         [19] 4134 	ld	h, -14 (ix)
+    0000160C 11 0A 00         [10] 4135 	ld	de, #0x000a
+    0000160F 19               [11] 4136 	add	hl, de
+    00001610 DD 7E FF         [19] 4137 	ld	a, -1 (ix)
+    00001613 77               [ 7] 4138 	ld	(hl), a
+                                   4139 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s6_b3.c:723: g_Players[playerId].PreviousDirection=g_Players[playerId].Direction;
+    00001614 DD 6E FD         [19] 4140 	ld	l, -3 (ix)
+    00001617 DD 66 FE         [19] 4141 	ld	h, -2 (ix)
+    0000161A DD 7E FF         [19] 4142 	ld	a, -1 (ix)
+    0000161D 77               [ 7] 4143 	ld	(hl), a
+    0000161E                       4144 00293$:
+                                   4145 ;E:\Dropbox\FAUSTO\SVILUPPI\MSX\CODE\C\MSXgl\projects\soccerlgSCC/soccerlg_s6_b3.c:727: }
+    0000161E DD F9            [10] 4146 	ld	sp, ix
+    00001620 DD E1            [14] 4147 	pop	ix
+    00001622 C9               [10] 4148 	ret
+    00001623                       4149 _TickTeamJoystick_k_MoveDX_131075_1322:
+    00001623 00                    4150 	.db #0x00	;  0
+    00001624 00                    4151 	.db #0x00	;  0
+    00001625 02                    4152 	.db #0x02	;  2
+    00001626 02                    4153 	.db #0x02	;  2
+    00001627 02                    4154 	.db #0x02	;  2
+    00001628 00                    4155 	.db #0x00	;  0
+    00001629 FE                    4156 	.db #0xfe	; -2
+    0000162A FE                    4157 	.db #0xfe	; -2
+    0000162B FE                    4158 	.db #0xfe	; -2
+    0000162C                       4159 _TickTeamJoystick_k_MoveDY_131075_1322:
+    0000162C 00                    4160 	.db #0x00	;  0
+    0000162D FE                    4161 	.db #0xfe	; -2
+    0000162E FE                    4162 	.db #0xfe	; -2
+    0000162F 00                    4163 	.db #0x00	;  0
+    00001630 02                    4164 	.db #0x02	;  2
+    00001631 02                    4165 	.db #0x02	;  2
+    00001632 02                    4166 	.db #0x02	;  2
+    00001633 00                    4167 	.db #0x00	;  0
+    00001634 FE                    4168 	.db #0xfe	; -2
+                                   4169 	.area _SEG6
+                                   4170 	.area _INITIALIZER
+                                   4171 	.area _CABS (ABS)

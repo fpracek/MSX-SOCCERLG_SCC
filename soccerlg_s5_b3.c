@@ -434,6 +434,7 @@ void GoalkeeperWithBall(u8 teamId, bool isSteal) {
     g_Ball.ShotActive = 0;
     
     g_MatchStatus = MATCH_BALL_ON_GOALKEEPER;
+    PlayModernGoalkick();
 
     // TACTICAL MOVEMENT: All players move while GK recoils
     for(u8 i=0; i<14; i++) {

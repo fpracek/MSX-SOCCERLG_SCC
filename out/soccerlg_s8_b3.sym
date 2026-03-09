@@ -7,21 +7,21 @@ Symbol Table
     .__.ABS.                                                    =   00000000 G
     .__.CPU.                                                    =   00000000 L
     .__.H$L.                                                    =   00000000 L
-  7 _BallInGoal                                                     0000199B GR
+  7 _BallInGoal                                                     000019B2 GR
     _CallFnc_U8                                                     ******** GX
     _CallFnc_U8_P2                                                  ******** GX
     _CallFnc_VOID                                                   ******** GX
     _CallFnc_VOID_P1                                                ******** GX
-  7 _GameStart                                                      000009E0 GR
+  7 _GameStart                                                      000009E1 GR
     _GetClosestPlayerToBall                                         ******** GX
     _GetJoystickDirection                                           ******** GX
-  7 _GetNoMovingPlayerPatternId                                     00000A8F GR
-  7 _GetTeamPaletteById                                             000009A5 GR
+  7 _GetNoMovingPlayerPatternId                                     00000AA6 GR
+  7 _GetTeamPaletteById                                             000009A6 GR
     _InitPonPonGirls                                                ******** GX
     _IsTeamJoystickTriggerPressed                                   ******** GX
     _Math_Abs32                                                     ******** GX
   7 _MenuSpriteBlinking                                             000002F0 GR
-  7 _PerformShot                                                    00000AE7 GR
+  7 _PerformShot                                                    00000AFE GR
     _PlayAyFx                                                       ******** GX
     _PlayPCM                                                        ******** GX
     _PutBallOnPlayerFeet                                            ******** GX
@@ -29,15 +29,15 @@ Symbol Table
   7 _ResetPlayersInfo                                               00000401 GR
   7 _SelectTeam                                                     00000000 GR
     _SetPlayerBallPossession                                        ******** GX
-  7 _SetTeam1Palette                                                0000094B GR
-  7 _SetTeam2Palette                                                00000978 GR
+  7 _SetTeam1Palette                                                0000094C GR
+  7 _SetTeam2Palette                                                00000979 GR
     _SetTeamsPresentationSpritesPosition                            ******** GX
     _ShowField                                                      ******** GX
     _ShowHeaderInfo                                                 ******** GX
   7 _ShowMenu                                                       00000462 GR
-  7 _TickActiveFieldZone                                            00001792 GR
-  7 _TickBallFlying                                                 00000DC3 GR
-  7 _TickUpdateTime                                                 00001948 GR
+  7 _TickActiveFieldZone                                            000017A9 GR
+  7 _TickBallFlying                                                 00000DDA GR
+  7 _TickUpdateTime                                                 0000195F GR
     _TimeUp                                                         ******** GX
     _V9990_ClearTextFromLayerA                                      ******** GX
     _V9990_InitPalette                                              ******** GX
@@ -70,9 +70,9 @@ Symbol Table
     _YSCC_Play                                                      ******** GX
     _YSCC_PlayLoop                                                  ******** GX
     _YSCC_Stop                                                      ******** GX
-  7 ___str_0                                                        0000091C R
-  7 ___str_1                                                        00000933 R
-  7 ___str_2                                                        00001A57 R
+  7 ___str_0                                                        0000091D R
+  7 ___str_1                                                        00000934 R
+  7 ___str_2                                                        00001A89 R
     __divslong                                                      ******** GX
     __divuint                                                       ******** GX
     __modsint                                                       ******** GX
@@ -378,6 +378,8 @@ Symbol Table
     _g_WRPRIM                                                   =   0000F385 G
     _g_XSAVE                                                    =   0000FAFE G
     _g_YSAVE                                                    =   0000FB00 G
+    _g_modernAudio                                                  ******** GX
+
 
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180 / ZX-Next / eZ80 / R800)                          Page 8
 Hexadecimal [32-Bits]
@@ -391,7 +393,7 @@ Area Table
    4 _HOME                                      size        0   flags    0
    5 _GSINIT                                    size        0   flags    0
    6 _GSFINAL                                   size        0   flags    0
-   7 _SEG8                                      size     1A60   flags    0
+   7 _SEG8                                      size     1A92   flags    0
    8 _INITIALIZER                               size        0   flags    0
    9 _CABS                                      size        0   flags    8
 

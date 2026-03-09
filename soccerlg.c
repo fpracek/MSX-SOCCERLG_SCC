@@ -34,6 +34,7 @@ struct MusicEntry
 // -----------------
 // *** VARIABLES ***
 // -----------------
+bool			g_modernAudio=TRUE;
 bool            g_PonPonGirlsAreVisible=TRUE;
 bool            g_BallIsVisible=TRUE;
 u16             g_TimeCounter=0;
@@ -311,9 +312,22 @@ void PlayAyFx(u8 id){
 	ayFX_SetChannel(PSG_CHANNEL_C);
 	u8 currentSegment = GET_BANK_SEGMENT(3);
 	SET_BANK_SEGMENT(3, 69);
+	if (g_modernAudio && id == AYFX_BALL) id = AYFX_MODERN_BALL;
 	ayFX_PlayBank(id,0);
 	SET_BANK_SEGMENT(3, currentSegment);
+}
 
+static YSCC_State s_GoalkickSavedState;
+
+void PlayModernGoalkick() {
+	if (!g_modernAudio) return;
+	YSCC_SaveState(&s_GoalkickSavedState);
+	YSCC_Play(SCC_MODERN_GOALKICK_BIN_SEG, SCC_MODERN_GOALKICK_BIN_SIZE);
+}
+
+void ResumeAfterGoalkick() {
+	if (!g_modernAudio) return;
+	YSCC_LoadState(&s_GoalkickSavedState);
 }
 
 // ---------------------

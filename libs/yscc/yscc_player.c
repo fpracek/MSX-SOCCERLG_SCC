@@ -8,7 +8,7 @@ volatile u16 g_YSCC_NumBlocksToPlay;
 u16          g_YSCC_Period;
 static u16   s_YSCC_SavedSeg3;
 u16           g_currentSCCPlayingSegment=0xFFFF;
-static u8    s_YSCC_StartSeg;      // start segment (for loop/restart)
+static u16   s_YSCC_StartSeg;      // start segment (for loop/restart)
 static u16   s_YSCC_TotalBlocks;   // Blocks amount (for loop/restart)
 static bool  s_YSCC_Loop;          // TRUE = Infinite loop
 static bool  s_YSCC_Paused;        // TRUE = riproduzione in pausa
@@ -101,7 +101,7 @@ bool YSCC_IsPaused() {
 }
 
 // Play
-void YSCC_Play(u8 start_seg, u32 byte_size) {
+void YSCC_Play(u16 start_seg, u32 byte_size) {
     YSCC_Stop();
     g_currentSCCPlayingSegment=start_seg;
     s_YSCC_StartSeg    = start_seg;
@@ -113,7 +113,7 @@ void YSCC_Play(u8 start_seg, u32 byte_size) {
 }
 
 // Play with loop
-void YSCC_PlayLoop(u8 start_seg, u32 byte_size) {
+void YSCC_PlayLoop(u16 start_seg, u32 byte_size) {
     YSCC_Play(start_seg, byte_size);
     s_YSCC_Loop = TRUE;
 }
@@ -234,4 +234,33 @@ void _YSCC_CopyPCMBlock() {
         g_YSCC_SamplePage++;
         g_YSCC_SamplePos = 0;
     }
+}
+
+// Save all playback state to *out. Playback continues uninterrupted.
+void YSCC_SaveState(YSCC_State* out) {
+    out->SamplePos       = g_YSCC_SamplePos;
+    out->SamplePage      = g_YSCC_SamplePage;
+    out->NumBlocksToPlay = g_YSCC_NumBlocksToPlay;
+    out->CurrentSegment  = g_currentSCCPlayingSegment;
+    out->StartSeg        = s_YSCC_StartSeg;
+    out->TotalBlocks     = s_YSCC_TotalBlocks;
+    out->Loop            = s_YSCC_Loop;
+}
+
+// Restore playback from a saved state.
+// SCC channels are silenced for at most one VBlank; the next YSCC_Decode()
+// writes the correct waveforms and re-enables them automatically.
+void YSCC_LoadState(const YSCC_State* in) {
+    __asm
+        xor a
+        ld  (0x988F), a     ; CH_ENABLE = 0  (silence during state switch)
+    __endasm;
+    g_YSCC_SamplePos           = in->SamplePos;
+    g_YSCC_SamplePage          = in->SamplePage;
+    g_YSCC_NumBlocksToPlay     = in->NumBlocksToPlay;
+    g_currentSCCPlayingSegment = in->CurrentSegment;
+    s_YSCC_StartSeg            = in->StartSeg;
+    s_YSCC_TotalBlocks         = in->TotalBlocks;
+    s_YSCC_Loop                = in->Loop;
+    s_YSCC_Paused              = FALSE;
 }

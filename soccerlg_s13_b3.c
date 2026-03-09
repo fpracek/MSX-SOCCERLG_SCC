@@ -47,7 +47,10 @@ void TeamVictory(u8 teamId) {
 
     u16 timer = 0;
     u16 extraTime = 0;
-    YSCC_Play(SCC_VICTORY_BIN_SEG,SCC_VICTORY_BIN_SIZE);
+    if (g_modernAudio)
+        YSCC_Play(SCC_MODERN_VICTORY_BIN_SEG, SCC_MODERN_VICTORY_BIN_SIZE);
+    else
+        YSCC_Play(SCC_VICTORY_BIN_SEG, SCC_VICTORY_BIN_SIZE);
     while (true) { 
         V9990_WaitSynch();
         timer++;

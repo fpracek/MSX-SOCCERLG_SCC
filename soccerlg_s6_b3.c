@@ -672,7 +672,7 @@ void TickTeamJoystick(u8 direction){
                         slideDir = DIRECTION_UP_LEFT;
                     }
                 }
-				PlayAyFx(AYFX_TACKLE);
+				if (!g_modernAudio) PlayAyFx(AYFX_TACKLE);
 				
                 if (slidePose != 0) {
 					g_Players[playerId].PatternId = slidePose;
