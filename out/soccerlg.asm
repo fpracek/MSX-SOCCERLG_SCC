@@ -3291,55 +3291,57 @@ _V9_InterruptVBlank::
 ;./soccerlg.c:530: g_FrameCounter=0;
 	ld	0 (iy), #0x00
 00102$:
-;./soccerlg.c:532: PlaySounds();
-	call	_PlaySounds
-;./soccerlg.c:533: if (g_MatchStatus == MATCH_SHOW_MENU) {
-	ld	a, (_g_MatchStatus+0)
-	sub	a, #0x13
-	jr	NZ, 00104$
-;./soccerlg.c:534: V9990_TickScrollText();
-	call	_V9990_TickScrollText
-00104$:
-;./soccerlg.c:537: g_Timer++;
-	ld	iy, #_g_Timer
-	inc	0 (iy)
-;./soccerlg.c:541: if (g_FieldScrollingActionInProgress != NO_VALUE) {
+;./soccerlg.c:532: g_Timer++;
+	ld	hl, #_g_Timer
+	inc	(hl)
+;./soccerlg.c:535: if (g_FieldScrollingActionInProgress != NO_VALUE) {
 	ld	a, (_g_FieldScrollingActionInProgress+0)
 	inc	a
-	jr	Z, 00110$
-;./soccerlg.c:542: CallFnc_VOID(4,TickGameFieldScrolling);
+	jr	Z, 00108$
+;./soccerlg.c:536: CallFnc_VOID(4,TickGameFieldScrolling);
 	ld	de, #_TickGameFieldScrolling
 	ld	a, #0x04
-	jp	_CallFnc_VOID
-00110$:
-;./soccerlg.c:545: if(!g_VblankSuspended && g_MatchStatus!=MATCH_BEFORE_KICK_OFF && g_MatchStatus!=MATCH_SHOW_MENU){
+	call	_CallFnc_VOID
+	jp	00109$
+00108$:
+;./soccerlg.c:539: if(!g_VblankSuspended && g_MatchStatus!=MATCH_BEFORE_KICK_OFF && g_MatchStatus!=MATCH_SHOW_MENU){
 	ld	a, (_g_VblankSuspended+0)
 	or	a, a
-	ret	NZ
+	jr	NZ, 00109$
 	ld	a, (_g_MatchStatus+0)
 	dec	a
-	ret	Z
+	jr	Z, 00109$
 	ld	a, (_g_MatchStatus+0)
 	sub	a, #0x13
-	ret	Z
-;./soccerlg.c:546: V9_SetScrollingBY((u16)g_FieldCurrentYPosition);
+	jr	Z, 00109$
+;./soccerlg.c:540: V9_SetScrollingBY((u16)g_FieldCurrentYPosition);
 	ld	hl, (_g_FieldCurrentYPosition)
-;./soccerlg.c:552: }
-	jp	_V9_SetScrollingBY
-;./soccerlg.c:554: void InterruptHook()
+	call	_V9_SetScrollingBY
+00109$:
+;./soccerlg.c:545: PlaySounds();
+	call	_PlaySounds
+;./soccerlg.c:546: if (g_MatchStatus == MATCH_SHOW_MENU) {
+	ld	a, (_g_MatchStatus+0)
+	sub	a, #0x13
+	jp	Z,_V9990_TickScrollText
+;./soccerlg.c:547: V9990_TickScrollText();
+	ret
+;./soccerlg.c:549: }
+	ret
+;./soccerlg.c:551: void InterruptHook()
 ;	---------------------------------
 ; Function InterruptHook
 ; ---------------------------------
 _InterruptHook::
-;./soccerlg.c:567: __endasm;
+;./soccerlg.c:564: __endasm;
 	in	a, (0x99)
 	in	a, (0x66)
 	out	(0x66), a
 	rra
 	call	c, _V9_InterruptVBlank
-;./soccerlg.c:568: }
+;./soccerlg.c:565: }
 	ret
-;./soccerlg.c:574: i32 Math_Abs32(i32 v) { return (v < 0) ? -v : v; }
+;./soccerlg.c:571: i32 Math_Abs32(i32 v) { return (v < 0) ? -v : v; }
 ;	---------------------------------
 ; Function Math_Abs32
 ; ---------------------------------
@@ -3363,20 +3365,20 @@ _Math_Abs32::
 ;	spillPairReg hl
 ;	spillPairReg hl
 	ret
-;./soccerlg.c:576: const TeamStats* GetTeamStats(u8 teamId) {
+;./soccerlg.c:573: const TeamStats* GetTeamStats(u8 teamId) {
 ;	---------------------------------
 ; Function GetTeamStats
 ; ---------------------------------
 _GetTeamStats::
 	ld	c, a
-;./soccerlg.c:577: if (teamId > 5) return &g_TeamStats[0];
+;./soccerlg.c:574: if (teamId > 5) return &g_TeamStats[0];
 	ld	a, #0x05
 	sub	a, c
 	jr	NC, 00102$
 	ld	de, #_g_TeamStats
 	ret
 00102$:
-;./soccerlg.c:578: return &g_TeamStats[teamId];
+;./soccerlg.c:575: return &g_TeamStats[teamId];
 	ld	b, #0x00
 	ld	l, c
 	ld	h, b
@@ -3386,16 +3388,16 @@ _GetTeamStats::
 	ld	de, #_g_TeamStats
 	add	hl, de
 	ex	de, hl
-;./soccerlg.c:579: }
+;./soccerlg.c:576: }
 	ret
-;./soccerlg.c:580: void PlaySounds(){
+;./soccerlg.c:577: void PlaySounds(){
 ;	---------------------------------
 ; Function PlaySounds
 ; ---------------------------------
 _PlaySounds::
-;./soccerlg.c:582: YSCC_Decode();
+;./soccerlg.c:579: YSCC_Decode();
 	call	_YSCC_Decode
-;./soccerlg.c:584: u8 currentSegment = GET_BANK_SEGMENT(3);
+;./soccerlg.c:581: u8 currentSegment = GET_BANK_SEGMENT(3);
 	ld	bc, (#(_g_Bank0Segment + 6) + 0)
 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/rom_mapper.h:190: g_Bank0Segment[b] = s;
 	ld	hl, #0x0045
@@ -3409,12 +3411,12 @@ _PlaySounds::
 	ld	a, #0x45
 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/system.h:101: inline void Poke(u16 addr, u8 val) { *(u8*)addr = val; }
 	ld	(#0xb000),a
-;./soccerlg.c:588: ayFX_Update();
+;./soccerlg.c:585: ayFX_Update();
 	push	bc
 	call	_ayFX_Update
 	call	_PSG_Apply
 	pop	bc
-;./soccerlg.c:590: SET_BANK_SEGMENT(3, currentSegment);
+;./soccerlg.c:587: SET_BANK_SEGMENT(3, currentSegment);
 	ld	b, #0x00
 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/rom_mapper.h:190: g_Bank0Segment[b] = s;
 	ld	((_g_Bank0Segment + 6)), bc
@@ -3433,15 +3435,15 @@ _PlaySounds::
 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/system.h:101: inline void Poke(u16 addr, u8 val) { *(u8*)addr = val; }
 	ld	hl, #0xb000
 	ld	(hl), c
-;./soccerlg.c:590: SET_BANK_SEGMENT(3, currentSegment);
-;./soccerlg.c:594: }
+;./soccerlg.c:587: SET_BANK_SEGMENT(3, currentSegment);
+;./soccerlg.c:591: }
 	ret
-;./soccerlg.c:599: void main(){
+;./soccerlg.c:596: void main(){
 ;	---------------------------------
 ; Function main
 ; ---------------------------------
 _main::
-;./soccerlg.c:601: Bios_SetHookDirectCallback(H_KEYI, InterruptHook);
+;./soccerlg.c:598: Bios_SetHookDirectCallback(H_KEYI, InterruptHook);
 	ld	bc, #_InterruptHook
 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/bios_hook.h:37: *((u8*)hook) = 0xC3; // JUMP
 	ld	hl, #0xfd9a
@@ -3463,7 +3465,7 @@ _main::
 	ld	a, #0x45
 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/system.h:101: inline void Poke(u16 addr, u8 val) { *(u8*)addr = val; }
 	ld	(#0xb000),a
-;./soccerlg.c:604: ayFX_InitBank(g_Data_AYFX_Bank);
+;./soccerlg.c:601: ayFX_InitBank(g_Data_AYFX_Bank);
 	ld	hl, #_g_Data_AYFX_Bank
 	call	_ayFX_InitBank
 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/ayfx/ayfx_player.h:131: inline void ayFX_SetChannel(u8 chan) { ayFX_Channel = 3 - chan; }
@@ -3472,12 +3474,12 @@ _main::
 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/ayfx/ayfx_player.h:124: inline void ayFX_SetMode(u8 mode) { ayFX_Mode = mode; }
 	ld	hl, #_ayFX_Mode
 	ld	(hl), #0x00
-;./soccerlg.c:607: YSCC_Init();
+;./soccerlg.c:604: YSCC_Init();
 	call	_YSCC_Init
-;./soccerlg.c:608: CallFnc_VOID(4,MainSub);
+;./soccerlg.c:605: CallFnc_VOID(4,MainSub);
 	ld	de, #_MainSub
 	ld	a, #0x04
-;./soccerlg.c:609: }
+;./soccerlg.c:606: }
 	jp	_CallFnc_VOID
 	.area _CODE
 	.area _INITIALIZER

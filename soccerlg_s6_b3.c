@@ -186,8 +186,8 @@ void TickGoalCelebration(){
         g_Ball.X = FIELD_POS_X_CENTER;
         g_Ball.Y = FIELD_POS_Y_CENTER;
         g_Ball.PreviousY = g_Ball.Y;
-        PutBallSprite();
-        
+        // PutBallSprite rimosso: UpdateSpritesPositions nel VBlank aggiorna la palla
+
         for(u8 i=0; i<15; i++){
             if(i==REFEREE || g_Players[i].TeamId==TEAM_1 || g_Players[i].TeamId==TEAM_2){
                  // Force REFEREE Pose reset just in case

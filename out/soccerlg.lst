@@ -3325,278 +3325,280 @@
                                    3291 ;./soccerlg.c:530: g_FrameCounter=0;
     00000F7B FD 36 00 00      [19] 3292 	ld	0 (iy), #0x00
     00000F7F                       3293 00102$:
-                                   3294 ;./soccerlg.c:532: PlaySounds();
-    00000F7F CDrEFr0F         [17] 3295 	call	_PlaySounds
-                                   3296 ;./soccerlg.c:533: if (g_MatchStatus == MATCH_SHOW_MENU) {
-    00000F82 3Ar09r00         [13] 3297 	ld	a, (_g_MatchStatus+0)
-    00000F85 D6 13            [ 7] 3298 	sub	a, #0x13
-    00000F87 20 03            [12] 3299 	jr	NZ, 00104$
-                                   3300 ;./soccerlg.c:534: V9990_TickScrollText();
-    00000F89 CDrC6r0E         [17] 3301 	call	_V9990_TickScrollText
-    00000F8C                       3302 00104$:
-                                   3303 ;./soccerlg.c:537: g_Timer++;
-    00000F8C FD 21r04r00      [14] 3304 	ld	iy, #_g_Timer
-    00000F90 FD 34 00         [23] 3305 	inc	0 (iy)
-                                   3306 ;./soccerlg.c:541: if (g_FieldScrollingActionInProgress != NO_VALUE) {
-    00000F93 3Ar06r00         [13] 3307 	ld	a, (_g_FieldScrollingActionInProgress+0)
-    00000F96 3C               [ 4] 3308 	inc	a
-    00000F97 28 08            [12] 3309 	jr	Z, 00110$
-                                   3310 ;./soccerlg.c:542: CallFnc_VOID(4,TickGameFieldScrolling);
-    00000F99 11r00r00         [10] 3311 	ld	de, #_TickGameFieldScrolling
-    00000F9C 3E 04            [ 7] 3312 	ld	a, #0x04
-    00000F9E C3r00r00         [10] 3313 	jp	_CallFnc_VOID
-    00000FA1                       3314 00110$:
-                                   3315 ;./soccerlg.c:545: if(!g_VblankSuspended && g_MatchStatus!=MATCH_BEFORE_KICK_OFF && g_MatchStatus!=MATCH_SHOW_MENU){
-    00000FA1 3Ar47r00         [13] 3316 	ld	a, (_g_VblankSuspended+0)
-    00000FA4 B7               [ 4] 3317 	or	a, a
-    00000FA5 C0               [11] 3318 	ret	NZ
-    00000FA6 3Ar09r00         [13] 3319 	ld	a, (_g_MatchStatus+0)
-    00000FA9 3D               [ 4] 3320 	dec	a
-    00000FAA C8               [11] 3321 	ret	Z
-    00000FAB 3Ar09r00         [13] 3322 	ld	a, (_g_MatchStatus+0)
-    00000FAE D6 13            [ 7] 3323 	sub	a, #0x13
-    00000FB0 C8               [11] 3324 	ret	Z
-                                   3325 ;./soccerlg.c:546: V9_SetScrollingBY((u16)g_FieldCurrentYPosition);
-    00000FB1 2Ar05r00         [16] 3326 	ld	hl, (_g_FieldCurrentYPosition)
-                                   3327 ;./soccerlg.c:552: }
-    00000FB4 C3r00r00         [10] 3328 	jp	_V9_SetScrollingBY
-                                   3329 ;./soccerlg.c:554: void InterruptHook()
-                                   3330 ;	---------------------------------
-                                   3331 ; Function InterruptHook
-                                   3332 ; ---------------------------------
-    00000FB7                       3333 _InterruptHook::
-                                   3334 ;./soccerlg.c:567: __endasm;
-    00000FB7 DB 99            [11] 3335 	in	a, (0x99)
-    00000FB9 DB 66            [11] 3336 	in	a, (0x66)
-    00000FBB D3 66            [11] 3337 	out	(0x66), a
-    00000FBD 1F               [ 4] 3338 	rra
-    00000FBE DCr61r0F         [17] 3339 	call	c, _V9_InterruptVBlank
-                                   3340 ;./soccerlg.c:568: }
-    00000FC1 C9               [10] 3341 	ret
-                                   3342 ;./soccerlg.c:574: i32 Math_Abs32(i32 v) { return (v < 0) ? -v : v; }
-                                   3343 ;	---------------------------------
-                                   3344 ; Function Math_Abs32
-                                   3345 ; ---------------------------------
-    00000FC2                       3346 _Math_Abs32::
-    00000FC2 4D               [ 4] 3347 	ld	c, l
-    00000FC3 44               [ 4] 3348 	ld	b, h
-    00000FC4 CB 78            [ 8] 3349 	bit	7, b
-    00000FC6 28 0D            [12] 3350 	jr	Z, 00103$
-    00000FC8 21 00 00         [10] 3351 	ld	hl, #0x0000
-    00000FCB BF               [ 4] 3352 	cp	a, a
-    00000FCC ED 52            [15] 3353 	sbc	hl, de
-    00000FCE EB               [ 4] 3354 	ex	de, hl
-    00000FCF 21 00 00         [10] 3355 	ld	hl, #0x0000
-    00000FD2 ED 42            [15] 3356 	sbc	hl, bc
-    00000FD4 C9               [10] 3357 	ret
-    00000FD5                       3358 00103$:
-    00000FD5 69               [ 4] 3359 	ld	l, c
-                                   3360 ;	spillPairReg hl
-                                   3361 ;	spillPairReg hl
-    00000FD6 60               [ 4] 3362 	ld	h, b
+                                   3294 ;./soccerlg.c:532: g_Timer++;
+    00000F7F 21r04r00         [10] 3295 	ld	hl, #_g_Timer
+    00000F82 34               [11] 3296 	inc	(hl)
+                                   3297 ;./soccerlg.c:535: if (g_FieldScrollingActionInProgress != NO_VALUE) {
+    00000F83 3Ar06r00         [13] 3298 	ld	a, (_g_FieldScrollingActionInProgress+0)
+    00000F86 3C               [ 4] 3299 	inc	a
+    00000F87 28 0B            [12] 3300 	jr	Z, 00108$
+                                   3301 ;./soccerlg.c:536: CallFnc_VOID(4,TickGameFieldScrolling);
+    00000F89 11r00r00         [10] 3302 	ld	de, #_TickGameFieldScrolling
+    00000F8C 3E 04            [ 7] 3303 	ld	a, #0x04
+    00000F8E CDr00r00         [17] 3304 	call	_CallFnc_VOID
+    00000F91 C3rADr0F         [10] 3305 	jp	00109$
+    00000F94                       3306 00108$:
+                                   3307 ;./soccerlg.c:539: if(!g_VblankSuspended && g_MatchStatus!=MATCH_BEFORE_KICK_OFF && g_MatchStatus!=MATCH_SHOW_MENU){
+    00000F94 3Ar47r00         [13] 3308 	ld	a, (_g_VblankSuspended+0)
+    00000F97 B7               [ 4] 3309 	or	a, a
+    00000F98 20 13            [12] 3310 	jr	NZ, 00109$
+    00000F9A 3Ar09r00         [13] 3311 	ld	a, (_g_MatchStatus+0)
+    00000F9D 3D               [ 4] 3312 	dec	a
+    00000F9E 28 0D            [12] 3313 	jr	Z, 00109$
+    00000FA0 3Ar09r00         [13] 3314 	ld	a, (_g_MatchStatus+0)
+    00000FA3 D6 13            [ 7] 3315 	sub	a, #0x13
+    00000FA5 28 06            [12] 3316 	jr	Z, 00109$
+                                   3317 ;./soccerlg.c:540: V9_SetScrollingBY((u16)g_FieldCurrentYPosition);
+    00000FA7 2Ar05r00         [16] 3318 	ld	hl, (_g_FieldCurrentYPosition)
+    00000FAA CDr00r00         [17] 3319 	call	_V9_SetScrollingBY
+    00000FAD                       3320 00109$:
+                                   3321 ;./soccerlg.c:545: PlaySounds();
+    00000FAD CDrF2r0F         [17] 3322 	call	_PlaySounds
+                                   3323 ;./soccerlg.c:546: if (g_MatchStatus == MATCH_SHOW_MENU) {
+    00000FB0 3Ar09r00         [13] 3324 	ld	a, (_g_MatchStatus+0)
+    00000FB3 D6 13            [ 7] 3325 	sub	a, #0x13
+    00000FB5 CArC6r0E         [10] 3326 	jp	Z,_V9990_TickScrollText
+                                   3327 ;./soccerlg.c:547: V9990_TickScrollText();
+    00000FB8 C9               [10] 3328 	ret
+                                   3329 ;./soccerlg.c:549: }
+    00000FB9 C9               [10] 3330 	ret
+                                   3331 ;./soccerlg.c:551: void InterruptHook()
+                                   3332 ;	---------------------------------
+                                   3333 ; Function InterruptHook
+                                   3334 ; ---------------------------------
+    00000FBA                       3335 _InterruptHook::
+                                   3336 ;./soccerlg.c:564: __endasm;
+    00000FBA DB 99            [11] 3337 	in	a, (0x99)
+    00000FBC DB 66            [11] 3338 	in	a, (0x66)
+    00000FBE D3 66            [11] 3339 	out	(0x66), a
+    00000FC0 1F               [ 4] 3340 	rra
+    00000FC1 DCr61r0F         [17] 3341 	call	c, _V9_InterruptVBlank
+                                   3342 ;./soccerlg.c:565: }
+    00000FC4 C9               [10] 3343 	ret
+                                   3344 ;./soccerlg.c:571: i32 Math_Abs32(i32 v) { return (v < 0) ? -v : v; }
+                                   3345 ;	---------------------------------
+                                   3346 ; Function Math_Abs32
+                                   3347 ; ---------------------------------
+    00000FC5                       3348 _Math_Abs32::
+    00000FC5 4D               [ 4] 3349 	ld	c, l
+    00000FC6 44               [ 4] 3350 	ld	b, h
+    00000FC7 CB 78            [ 8] 3351 	bit	7, b
+    00000FC9 28 0D            [12] 3352 	jr	Z, 00103$
+    00000FCB 21 00 00         [10] 3353 	ld	hl, #0x0000
+    00000FCE BF               [ 4] 3354 	cp	a, a
+    00000FCF ED 52            [15] 3355 	sbc	hl, de
+    00000FD1 EB               [ 4] 3356 	ex	de, hl
+    00000FD2 21 00 00         [10] 3357 	ld	hl, #0x0000
+    00000FD5 ED 42            [15] 3358 	sbc	hl, bc
+    00000FD7 C9               [10] 3359 	ret
+    00000FD8                       3360 00103$:
+    00000FD8 69               [ 4] 3361 	ld	l, c
+                                   3362 ;	spillPairReg hl
                                    3363 ;	spillPairReg hl
-                                   3364 ;	spillPairReg hl
-    00000FD7 C9               [10] 3365 	ret
-                                   3366 ;./soccerlg.c:576: const TeamStats* GetTeamStats(u8 teamId) {
-                                   3367 ;	---------------------------------
-                                   3368 ; Function GetTeamStats
-                                   3369 ; ---------------------------------
-    00000FD8                       3370 _GetTeamStats::
-    00000FD8 4F               [ 4] 3371 	ld	c, a
-                                   3372 ;./soccerlg.c:577: if (teamId > 5) return &g_TeamStats[0];
-    00000FD9 3E 05            [ 7] 3373 	ld	a, #0x05
-    00000FDB 91               [ 4] 3374 	sub	a, c
-    00000FDC 30 04            [12] 3375 	jr	NC, 00102$
-    00000FDE 11r4Fr00         [10] 3376 	ld	de, #_g_TeamStats
-    00000FE1 C9               [10] 3377 	ret
-    00000FE2                       3378 00102$:
-                                   3379 ;./soccerlg.c:578: return &g_TeamStats[teamId];
-    00000FE2 06 00            [ 7] 3380 	ld	b, #0x00
-    00000FE4 69               [ 4] 3381 	ld	l, c
-    00000FE5 60               [ 4] 3382 	ld	h, b
-    00000FE6 29               [11] 3383 	add	hl, hl
-    00000FE7 29               [11] 3384 	add	hl, hl
-    00000FE8 09               [11] 3385 	add	hl, bc
-    00000FE9 11r4Fr00         [10] 3386 	ld	de, #_g_TeamStats
-    00000FEC 19               [11] 3387 	add	hl, de
-    00000FED EB               [ 4] 3388 	ex	de, hl
-                                   3389 ;./soccerlg.c:579: }
-    00000FEE C9               [10] 3390 	ret
-                                   3391 ;./soccerlg.c:580: void PlaySounds(){
-                                   3392 ;	---------------------------------
-                                   3393 ; Function PlaySounds
-                                   3394 ; ---------------------------------
-    00000FEF                       3395 _PlaySounds::
-                                   3396 ;./soccerlg.c:582: YSCC_Decode();
-    00000FEF CDr00r00         [17] 3397 	call	_YSCC_Decode
-                                   3398 ;./soccerlg.c:584: u8 currentSegment = GET_BANK_SEGMENT(3);
-    00000FF2 ED 4Br06r00      [20] 3399 	ld	bc, (#(_g_Bank0Segment + 6) + 0)
-                                   3400 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/rom_mapper.h:190: g_Bank0Segment[b] = s;
-    00000FF6 21 45 00         [10] 3401 	ld	hl, #0x0045
-    00000FF9 22r06r00         [16] 3402 	ld	((_g_Bank0Segment + 6)), hl
-                                   3403 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/rom_mapper.h:191: Poke(YAMANOOTO_OFFR, (s >> 2) & 0xC0);
-    00000FFC 3E 11            [ 7] 3404 	ld	a, #0x11
-    00000FFE E6 C0            [ 7] 3405 	and	a, #0xc0
-                                   3406 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/system.h:101: inline void Poke(u16 addr, u8 val) { *(u8*)addr = val; }
-    00001000 32 FE 7F         [13] 3407 	ld	(#0x7ffe),a
-                                   3408 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/rom_mapper.h:195: else if (b == 3)	Poke(ADDR_BANK_3, s & 0xFF);
-    00001003 3E 45            [ 7] 3409 	ld	a, #0x45
-                                   3410 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/system.h:101: inline void Poke(u16 addr, u8 val) { *(u8*)addr = val; }
-    00001005 32 00 B0         [13] 3411 	ld	(#0xb000),a
-                                   3412 ;./soccerlg.c:588: ayFX_Update();
-    00001008 C5               [11] 3413 	push	bc
-    00001009 CDr00r00         [17] 3414 	call	_ayFX_Update
-    0000100C CDr00r00         [17] 3415 	call	_PSG_Apply
-    0000100F C1               [10] 3416 	pop	bc
-                                   3417 ;./soccerlg.c:590: SET_BANK_SEGMENT(3, currentSegment);
-    00001010 06 00            [ 7] 3418 	ld	b, #0x00
-                                   3419 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/rom_mapper.h:190: g_Bank0Segment[b] = s;
-    00001012 ED 43r06r00      [20] 3420 	ld	((_g_Bank0Segment + 6)), bc
-                                   3421 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/rom_mapper.h:191: Poke(YAMANOOTO_OFFR, (s >> 2) & 0xC0);
-    00001016 59               [ 4] 3422 	ld	e, c
-    00001017 50               [ 4] 3423 	ld	d, b
-    00001018 CB 3A            [ 8] 3424 	srl	d
-    0000101A CB 1B            [ 8] 3425 	rr	e
-    0000101C CB 3A            [ 8] 3426 	srl	d
-    0000101E CB 1B            [ 8] 3427 	rr	e
-    00001020 7B               [ 4] 3428 	ld	a, e
-    00001021 E6 C0            [ 7] 3429 	and	a, #0xc0
-                                   3430 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/system.h:101: inline void Poke(u16 addr, u8 val) { *(u8*)addr = val; }
-    00001023 32 FE 7F         [13] 3431 	ld	(#0x7ffe),a
-                                   3432 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/rom_mapper.h:195: else if (b == 3)	Poke(ADDR_BANK_3, s & 0xFF);
-                                   3433 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/system.h:101: inline void Poke(u16 addr, u8 val) { *(u8*)addr = val; }
-    00001026 21 00 B0         [10] 3434 	ld	hl, #0xb000
-    00001029 71               [ 7] 3435 	ld	(hl), c
-                                   3436 ;./soccerlg.c:590: SET_BANK_SEGMENT(3, currentSegment);
-                                   3437 ;./soccerlg.c:594: }
-    0000102A C9               [10] 3438 	ret
-                                   3439 ;./soccerlg.c:599: void main(){
-                                   3440 ;	---------------------------------
-                                   3441 ; Function main
-                                   3442 ; ---------------------------------
-    0000102B                       3443 _main::
-                                   3444 ;./soccerlg.c:601: Bios_SetHookDirectCallback(H_KEYI, InterruptHook);
-    0000102B 01rB7r0F         [10] 3445 	ld	bc, #_InterruptHook
-                                   3446 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/bios_hook.h:37: *((u8*)hook) = 0xC3; // JUMP
-    0000102E 21 9A FD         [10] 3447 	ld	hl, #0xfd9a
-    00001031 36 C3            [10] 3448 	ld	(hl), #0xc3
-                                   3449 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/bios_hook.h:38: *((callback*)++hook) = cb; // Callback address
-    00001033 ED 43 9B FD      [20] 3450 	ld	(0xfd9b), bc
-                                   3451 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/bios_hook.h:62: *((u8*)hook) = 0xC9; // RET
-    00001037 2E 9F            [ 7] 3452 	ld	l, #0x9f
-    00001039 36 C9            [10] 3453 	ld	(hl), #0xc9
-                                   3454 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/rom_mapper.h:190: g_Bank0Segment[b] = s;
-    0000103B 21 45 00         [10] 3455 	ld	hl, #0x0045
-    0000103E 22r06r00         [16] 3456 	ld	((_g_Bank0Segment + 6)), hl
-                                   3457 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/rom_mapper.h:191: Poke(YAMANOOTO_OFFR, (s >> 2) & 0xC0);
-    00001041 3E 11            [ 7] 3458 	ld	a, #0x11
-    00001043 E6 C0            [ 7] 3459 	and	a, #0xc0
-                                   3460 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/system.h:101: inline void Poke(u16 addr, u8 val) { *(u8*)addr = val; }
-    00001045 32 FE 7F         [13] 3461 	ld	(#0x7ffe),a
-                                   3462 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/rom_mapper.h:195: else if (b == 3)	Poke(ADDR_BANK_3, s & 0xFF);
-    00001048 3E 45            [ 7] 3463 	ld	a, #0x45
-                                   3464 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/system.h:101: inline void Poke(u16 addr, u8 val) { *(u8*)addr = val; }
-    0000104A 32 00 B0         [13] 3465 	ld	(#0xb000),a
-                                   3466 ;./soccerlg.c:604: ayFX_InitBank(g_Data_AYFX_Bank);
-    0000104D 21r00r00         [10] 3467 	ld	hl, #_g_Data_AYFX_Bank
-    00001050 CDr00r00         [17] 3468 	call	_ayFX_InitBank
-                                   3469 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/ayfx/ayfx_player.h:131: inline void ayFX_SetChannel(u8 chan) { ayFX_Channel = 3 - chan; }
-    00001053 21r00r00         [10] 3470 	ld	hl, #_ayFX_Channel
-    00001056 36 01            [10] 3471 	ld	(hl), #0x01
-                                   3472 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/ayfx/ayfx_player.h:124: inline void ayFX_SetMode(u8 mode) { ayFX_Mode = mode; }
-    00001058 21r00r00         [10] 3473 	ld	hl, #_ayFX_Mode
-    0000105B 36 00            [10] 3474 	ld	(hl), #0x00
-                                   3475 ;./soccerlg.c:607: YSCC_Init();
-    0000105D CDr00r00         [17] 3476 	call	_YSCC_Init
-                                   3477 ;./soccerlg.c:608: CallFnc_VOID(4,MainSub);
-    00001060 11r00r00         [10] 3478 	ld	de, #_MainSub
-    00001063 3E 04            [ 7] 3479 	ld	a, #0x04
-                                   3480 ;./soccerlg.c:609: }
-    00001065 C3r00r00         [10] 3481 	jp	_CallFnc_VOID
-                                   3482 	.area _CODE
-                                   3483 	.area _INITIALIZER
-    00000000                       3484 __xinit__g_PonPonGirlsAreVisible:
-    00000000 01                    3485 	.db #0x01	; 1
-    00000001                       3486 __xinit__g_BallIsVisible:
-    00000001 01                    3487 	.db #0x01	; 1
-    00000002                       3488 __xinit__g_TimeCounter:
-    00000002 00 00                 3489 	.dw #0x0000
-    00000004                       3490 __xinit__g_LastTimeCounter:
-    00000004 00 00                 3491 	.dw #0x0000
-    00000006                       3492 __xinit__g_FieldScrollingActionInProgress:
-    00000006 FF                    3493 	.db #0xff	; 255
-    00000007                       3494 __xinit__g_History1:
-    00000007 50 4C 59 3A 20 20 20  3495 	.ascii "PLY:      "
+    00000FD9 60               [ 4] 3364 	ld	h, b
+                                   3365 ;	spillPairReg hl
+                                   3366 ;	spillPairReg hl
+    00000FDA C9               [10] 3367 	ret
+                                   3368 ;./soccerlg.c:573: const TeamStats* GetTeamStats(u8 teamId) {
+                                   3369 ;	---------------------------------
+                                   3370 ; Function GetTeamStats
+                                   3371 ; ---------------------------------
+    00000FDB                       3372 _GetTeamStats::
+    00000FDB 4F               [ 4] 3373 	ld	c, a
+                                   3374 ;./soccerlg.c:574: if (teamId > 5) return &g_TeamStats[0];
+    00000FDC 3E 05            [ 7] 3375 	ld	a, #0x05
+    00000FDE 91               [ 4] 3376 	sub	a, c
+    00000FDF 30 04            [12] 3377 	jr	NC, 00102$
+    00000FE1 11r4Fr00         [10] 3378 	ld	de, #_g_TeamStats
+    00000FE4 C9               [10] 3379 	ret
+    00000FE5                       3380 00102$:
+                                   3381 ;./soccerlg.c:575: return &g_TeamStats[teamId];
+    00000FE5 06 00            [ 7] 3382 	ld	b, #0x00
+    00000FE7 69               [ 4] 3383 	ld	l, c
+    00000FE8 60               [ 4] 3384 	ld	h, b
+    00000FE9 29               [11] 3385 	add	hl, hl
+    00000FEA 29               [11] 3386 	add	hl, hl
+    00000FEB 09               [11] 3387 	add	hl, bc
+    00000FEC 11r4Fr00         [10] 3388 	ld	de, #_g_TeamStats
+    00000FEF 19               [11] 3389 	add	hl, de
+    00000FF0 EB               [ 4] 3390 	ex	de, hl
+                                   3391 ;./soccerlg.c:576: }
+    00000FF1 C9               [10] 3392 	ret
+                                   3393 ;./soccerlg.c:577: void PlaySounds(){
+                                   3394 ;	---------------------------------
+                                   3395 ; Function PlaySounds
+                                   3396 ; ---------------------------------
+    00000FF2                       3397 _PlaySounds::
+                                   3398 ;./soccerlg.c:579: YSCC_Decode();
+    00000FF2 CDr00r00         [17] 3399 	call	_YSCC_Decode
+                                   3400 ;./soccerlg.c:581: u8 currentSegment = GET_BANK_SEGMENT(3);
+    00000FF5 ED 4Br06r00      [20] 3401 	ld	bc, (#(_g_Bank0Segment + 6) + 0)
+                                   3402 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/rom_mapper.h:190: g_Bank0Segment[b] = s;
+    00000FF9 21 45 00         [10] 3403 	ld	hl, #0x0045
+    00000FFC 22r06r00         [16] 3404 	ld	((_g_Bank0Segment + 6)), hl
+                                   3405 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/rom_mapper.h:191: Poke(YAMANOOTO_OFFR, (s >> 2) & 0xC0);
+    00000FFF 3E 11            [ 7] 3406 	ld	a, #0x11
+    00001001 E6 C0            [ 7] 3407 	and	a, #0xc0
+                                   3408 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/system.h:101: inline void Poke(u16 addr, u8 val) { *(u8*)addr = val; }
+    00001003 32 FE 7F         [13] 3409 	ld	(#0x7ffe),a
+                                   3410 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/rom_mapper.h:195: else if (b == 3)	Poke(ADDR_BANK_3, s & 0xFF);
+    00001006 3E 45            [ 7] 3411 	ld	a, #0x45
+                                   3412 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/system.h:101: inline void Poke(u16 addr, u8 val) { *(u8*)addr = val; }
+    00001008 32 00 B0         [13] 3413 	ld	(#0xb000),a
+                                   3414 ;./soccerlg.c:585: ayFX_Update();
+    0000100B C5               [11] 3415 	push	bc
+    0000100C CDr00r00         [17] 3416 	call	_ayFX_Update
+    0000100F CDr00r00         [17] 3417 	call	_PSG_Apply
+    00001012 C1               [10] 3418 	pop	bc
+                                   3419 ;./soccerlg.c:587: SET_BANK_SEGMENT(3, currentSegment);
+    00001013 06 00            [ 7] 3420 	ld	b, #0x00
+                                   3421 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/rom_mapper.h:190: g_Bank0Segment[b] = s;
+    00001015 ED 43r06r00      [20] 3422 	ld	((_g_Bank0Segment + 6)), bc
+                                   3423 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/rom_mapper.h:191: Poke(YAMANOOTO_OFFR, (s >> 2) & 0xC0);
+    00001019 59               [ 4] 3424 	ld	e, c
+    0000101A 50               [ 4] 3425 	ld	d, b
+    0000101B CB 3A            [ 8] 3426 	srl	d
+    0000101D CB 1B            [ 8] 3427 	rr	e
+    0000101F CB 3A            [ 8] 3428 	srl	d
+    00001021 CB 1B            [ 8] 3429 	rr	e
+    00001023 7B               [ 4] 3430 	ld	a, e
+    00001024 E6 C0            [ 7] 3431 	and	a, #0xc0
+                                   3432 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/system.h:101: inline void Poke(u16 addr, u8 val) { *(u8*)addr = val; }
+    00001026 32 FE 7F         [13] 3433 	ld	(#0x7ffe),a
+                                   3434 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/rom_mapper.h:195: else if (b == 3)	Poke(ADDR_BANK_3, s & 0xFF);
+                                   3435 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/system.h:101: inline void Poke(u16 addr, u8 val) { *(u8*)addr = val; }
+    00001029 21 00 B0         [10] 3436 	ld	hl, #0xb000
+    0000102C 71               [ 7] 3437 	ld	(hl), c
+                                   3438 ;./soccerlg.c:587: SET_BANK_SEGMENT(3, currentSegment);
+                                   3439 ;./soccerlg.c:591: }
+    0000102D C9               [10] 3440 	ret
+                                   3441 ;./soccerlg.c:596: void main(){
+                                   3442 ;	---------------------------------
+                                   3443 ; Function main
+                                   3444 ; ---------------------------------
+    0000102E                       3445 _main::
+                                   3446 ;./soccerlg.c:598: Bios_SetHookDirectCallback(H_KEYI, InterruptHook);
+    0000102E 01rBAr0F         [10] 3447 	ld	bc, #_InterruptHook
+                                   3448 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/bios_hook.h:37: *((u8*)hook) = 0xC3; // JUMP
+    00001031 21 9A FD         [10] 3449 	ld	hl, #0xfd9a
+    00001034 36 C3            [10] 3450 	ld	(hl), #0xc3
+                                   3451 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/bios_hook.h:38: *((callback*)++hook) = cb; // Callback address
+    00001036 ED 43 9B FD      [20] 3452 	ld	(0xfd9b), bc
+                                   3453 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/bios_hook.h:62: *((u8*)hook) = 0xC9; // RET
+    0000103A 2E 9F            [ 7] 3454 	ld	l, #0x9f
+    0000103C 36 C9            [10] 3455 	ld	(hl), #0xc9
+                                   3456 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/rom_mapper.h:190: g_Bank0Segment[b] = s;
+    0000103E 21 45 00         [10] 3457 	ld	hl, #0x0045
+    00001041 22r06r00         [16] 3458 	ld	((_g_Bank0Segment + 6)), hl
+                                   3459 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/rom_mapper.h:191: Poke(YAMANOOTO_OFFR, (s >> 2) & 0xC0);
+    00001044 3E 11            [ 7] 3460 	ld	a, #0x11
+    00001046 E6 C0            [ 7] 3461 	and	a, #0xc0
+                                   3462 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/system.h:101: inline void Poke(u16 addr, u8 val) { *(u8*)addr = val; }
+    00001048 32 FE 7F         [13] 3463 	ld	(#0x7ffe),a
+                                   3464 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/rom_mapper.h:195: else if (b == 3)	Poke(ADDR_BANK_3, s & 0xFF);
+    0000104B 3E 45            [ 7] 3465 	ld	a, #0x45
+                                   3466 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/system.h:101: inline void Poke(u16 addr, u8 val) { *(u8*)addr = val; }
+    0000104D 32 00 B0         [13] 3467 	ld	(#0xb000),a
+                                   3468 ;./soccerlg.c:601: ayFX_InitBank(g_Data_AYFX_Bank);
+    00001050 21r00r00         [10] 3469 	ld	hl, #_g_Data_AYFX_Bank
+    00001053 CDr00r00         [17] 3470 	call	_ayFX_InitBank
+                                   3471 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/ayfx/ayfx_player.h:131: inline void ayFX_SetChannel(u8 chan) { ayFX_Channel = 3 - chan; }
+    00001056 21r00r00         [10] 3472 	ld	hl, #_ayFX_Channel
+    00001059 36 01            [10] 3473 	ld	(hl), #0x01
+                                   3474 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/ayfx/ayfx_player.h:124: inline void ayFX_SetMode(u8 mode) { ayFX_Mode = mode; }
+    0000105B 21r00r00         [10] 3475 	ld	hl, #_ayFX_Mode
+    0000105E 36 00            [10] 3476 	ld	(hl), #0x00
+                                   3477 ;./soccerlg.c:604: YSCC_Init();
+    00001060 CDr00r00         [17] 3478 	call	_YSCC_Init
+                                   3479 ;./soccerlg.c:605: CallFnc_VOID(4,MainSub);
+    00001063 11r00r00         [10] 3480 	ld	de, #_MainSub
+    00001066 3E 04            [ 7] 3481 	ld	a, #0x04
+                                   3482 ;./soccerlg.c:606: }
+    00001068 C3r00r00         [10] 3483 	jp	_CallFnc_VOID
+                                   3484 	.area _CODE
+                                   3485 	.area _INITIALIZER
+    00000000                       3486 __xinit__g_PonPonGirlsAreVisible:
+    00000000 01                    3487 	.db #0x01	; 1
+    00000001                       3488 __xinit__g_BallIsVisible:
+    00000001 01                    3489 	.db #0x01	; 1
+    00000002                       3490 __xinit__g_TimeCounter:
+    00000002 00 00                 3491 	.dw #0x0000
+    00000004                       3492 __xinit__g_LastTimeCounter:
+    00000004 00 00                 3493 	.dw #0x0000
+    00000006                       3494 __xinit__g_FieldScrollingActionInProgress:
+    00000006 FF                    3495 	.db #0xff	; 255
+    00000007                       3496 __xinit__g_History1:
+    00000007 50 4C 59 3A 20 20 20  3497 	.ascii "PLY:      "
              20 20 20
-    00000011 00                    3496 	.db 0x00
-    00000012 00                    3497 	.db 0x00
-    00000013 00                    3498 	.db 0x00
-    00000014 00                    3499 	.db 0x00
-    00000015 00                    3500 	.db 0x00
-    00000016 00                    3501 	.db 0x00
-    00000017 00                    3502 	.db 0x00
-    00000018 00                    3503 	.db 0x00
-    00000019 00                    3504 	.db 0x00
-    0000001A 00                    3505 	.db 0x00
-    0000001B                       3506 __xinit__g_History2:
-    0000001B 43 50 55 3A 20 20 20  3507 	.ascii "CPU:      "
+    00000011 00                    3498 	.db 0x00
+    00000012 00                    3499 	.db 0x00
+    00000013 00                    3500 	.db 0x00
+    00000014 00                    3501 	.db 0x00
+    00000015 00                    3502 	.db 0x00
+    00000016 00                    3503 	.db 0x00
+    00000017 00                    3504 	.db 0x00
+    00000018 00                    3505 	.db 0x00
+    00000019 00                    3506 	.db 0x00
+    0000001A 00                    3507 	.db 0x00
+    0000001B                       3508 __xinit__g_History2:
+    0000001B 43 50 55 3A 20 20 20  3509 	.ascii "CPU:      "
              20 20 20
-    00000025 00                    3508 	.db 0x00
-    00000026 00                    3509 	.db 0x00
-    00000027 00                    3510 	.db 0x00
-    00000028 00                    3511 	.db 0x00
-    00000029 00                    3512 	.db 0x00
-    0000002A 00                    3513 	.db 0x00
-    0000002B 00                    3514 	.db 0x00
-    0000002C 00                    3515 	.db 0x00
-    0000002D 00                    3516 	.db 0x00
-    0000002E 00                    3517 	.db 0x00
-    0000002F                       3518 __xinit__g_PcmStartPlaying:
-    0000002F 00                    3519 	.db #0x00	; 0
-    00000030                       3520 __xinit__g_PmcSoundPlaying:
-    00000030 FF                    3521 	.db #0xff	; 255
-    00000031                       3522 __xinit__g_CornerKickTargetId:
-    00000031 FF                    3523 	.db #0xff	; 255
-    00000032                       3524 __xinit__g_CornerKickSide:
-    00000032 00                    3525 	.db #0x00	; 0
-    00000033                       3526 __xinit__g_ActionCooldown:
-    00000033 00                    3527 	.db #0x00	; 0
-    00000034                       3528 __xinit__g_ShootCooldown:
-    00000034 00                    3529 	.db #0x00	; 0
-    00000035                       3530 __xinit__g_GameWith2Players:
-    00000035 00                    3531 	.db #0x00	; 0
-    00000036                       3532 __xinit__g_GkIsGroundKick:
-    00000036 00                    3533 	.db #0x00	; 0
-    00000037                       3534 __xinit__g_GkAnimPlayerId:
-    00000037 FF                    3535 	.db #0xff	; 255
-    00000038                       3536 __xinit__g_GkRecoilY:
-    00000038 00                    3537 	.db #0x00	;  0
-    00000039                       3538 __xinit__g_GoalKickSide:
-    00000039 00                    3539 	.db #0x00	; 0
-    0000003A                       3540 __xinit__g_GkAnimTimer:
-    0000003A 00                    3541 	.db #0x00	; 0
-    0000003B                       3542 __xinit__g_ThrowInPlayerId:
-    0000003B FF                    3543 	.db #0xff	; 255
-    0000003C                       3544 __xinit__g_GoalScorerId:
-    0000003C FF                    3545 	.db #0xff	; 255
-    0000003D                       3546 __xinit__g_ponPonPatternIndex:
-    0000003D 00                    3547 	.db #0x00	; 0
-    0000003E                       3548 __xinit__g_PonPonGrilsPoseCounter:
-    0000003E 00                    3549 	.db #0x00	; 0
-    0000003F                       3550 __xinit__g_peopleState:
-    0000003F 00                    3551 	.db #0x00	; 0
-    00000040                       3552 __xinit__g_ponPonGirlsInitailized:
-    00000040 00                    3553 	.db #0x00	; 0
-    00000041                       3554 __xinit__g_SoundRequest:
-    00000041 FF                    3555 	.db #0xff	; 255
-    00000042                       3556 __xinit__g_ShotCursorX:
-    00000042 78 00                 3557 	.dw #0x0078
-    00000044                       3558 __xinit__g_ShotCursorDir:
-    00000044 02                    3559 	.db #0x02	;  2
-    00000045                       3560 __xinit__g_currentVGMPlayingSegment:
-    00000045 FF                    3561 	.db #0xff	; 255
-    00000046                       3562 __xinit__g_TimerActive:
-    00000046 00                    3563 	.db #0x00	; 0
-    00000047                       3564 __xinit__g_VblankSuspended:
-    00000047 00                    3565 	.db #0x00	; 0
-                                   3566 	.area _CABS (ABS)
+    00000025 00                    3510 	.db 0x00
+    00000026 00                    3511 	.db 0x00
+    00000027 00                    3512 	.db 0x00
+    00000028 00                    3513 	.db 0x00
+    00000029 00                    3514 	.db 0x00
+    0000002A 00                    3515 	.db 0x00
+    0000002B 00                    3516 	.db 0x00
+    0000002C 00                    3517 	.db 0x00
+    0000002D 00                    3518 	.db 0x00
+    0000002E 00                    3519 	.db 0x00
+    0000002F                       3520 __xinit__g_PcmStartPlaying:
+    0000002F 00                    3521 	.db #0x00	; 0
+    00000030                       3522 __xinit__g_PmcSoundPlaying:
+    00000030 FF                    3523 	.db #0xff	; 255
+    00000031                       3524 __xinit__g_CornerKickTargetId:
+    00000031 FF                    3525 	.db #0xff	; 255
+    00000032                       3526 __xinit__g_CornerKickSide:
+    00000032 00                    3527 	.db #0x00	; 0
+    00000033                       3528 __xinit__g_ActionCooldown:
+    00000033 00                    3529 	.db #0x00	; 0
+    00000034                       3530 __xinit__g_ShootCooldown:
+    00000034 00                    3531 	.db #0x00	; 0
+    00000035                       3532 __xinit__g_GameWith2Players:
+    00000035 00                    3533 	.db #0x00	; 0
+    00000036                       3534 __xinit__g_GkIsGroundKick:
+    00000036 00                    3535 	.db #0x00	; 0
+    00000037                       3536 __xinit__g_GkAnimPlayerId:
+    00000037 FF                    3537 	.db #0xff	; 255
+    00000038                       3538 __xinit__g_GkRecoilY:
+    00000038 00                    3539 	.db #0x00	;  0
+    00000039                       3540 __xinit__g_GoalKickSide:
+    00000039 00                    3541 	.db #0x00	; 0
+    0000003A                       3542 __xinit__g_GkAnimTimer:
+    0000003A 00                    3543 	.db #0x00	; 0
+    0000003B                       3544 __xinit__g_ThrowInPlayerId:
+    0000003B FF                    3545 	.db #0xff	; 255
+    0000003C                       3546 __xinit__g_GoalScorerId:
+    0000003C FF                    3547 	.db #0xff	; 255
+    0000003D                       3548 __xinit__g_ponPonPatternIndex:
+    0000003D 00                    3549 	.db #0x00	; 0
+    0000003E                       3550 __xinit__g_PonPonGrilsPoseCounter:
+    0000003E 00                    3551 	.db #0x00	; 0
+    0000003F                       3552 __xinit__g_peopleState:
+    0000003F 00                    3553 	.db #0x00	; 0
+    00000040                       3554 __xinit__g_ponPonGirlsInitailized:
+    00000040 00                    3555 	.db #0x00	; 0
+    00000041                       3556 __xinit__g_SoundRequest:
+    00000041 FF                    3557 	.db #0xff	; 255
+    00000042                       3558 __xinit__g_ShotCursorX:
+    00000042 78 00                 3559 	.dw #0x0078
+    00000044                       3560 __xinit__g_ShotCursorDir:
+    00000044 02                    3561 	.db #0x02	;  2
+    00000045                       3562 __xinit__g_currentVGMPlayingSegment:
+    00000045 FF                    3563 	.db #0xff	; 255
+    00000046                       3564 __xinit__g_TimerActive:
+    00000046 00                    3565 	.db #0x00	; 0
+    00000047                       3566 __xinit__g_VblankSuspended:
+    00000047 00                    3567 	.db #0x00	; 0
+                                   3568 	.area _CABS (ABS)

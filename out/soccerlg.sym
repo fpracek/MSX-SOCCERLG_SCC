@@ -17,16 +17,16 @@ Symbol Table
   0 _CallFnc_VOID_16_P2                                             0000011A GR
   0 _CallFnc_VOID_P1                                                0000006D GR
   0 _CallFnc_VOID_P2                                                000000C1 GR
-  0 _GetTeamStats                                                   00000FD8 GR
-  0 _InterruptHook                                                  00000FB7 GR
+  0 _GetTeamStats                                                   00000FDB GR
+  0 _InterruptHook                                                  00000FBA GR
   0 _LoadMsxVdpFonts                                                000005AD GR
     _MainSub                                                        ******** GX
-  0 _Math_Abs32                                                     00000FC2 GR
+  0 _Math_Abs32                                                     00000FC5 GR
     _PCM_Play_11K                                                   ******** GX
     _PSG_Apply                                                      ******** GX
   0 _PlayAyFx                                                       00000569 GR
   0 _PlayPCM                                                        0000037F GR
-  0 _PlaySounds                                                     00000FEF GR
+  0 _PlaySounds                                                     00000FF2 GR
     _Print_SetTextFont                                              ******** GX
     _TickGameFieldScrolling                                         ******** GX
   0 _V9990_ClearTextFromLayerA                                      00000CD5 GR
@@ -470,7 +470,7 @@ Symbol Table
   2 _g_peopleState                                                  0000003F GR
   2 _g_ponPonGirlsInitailized                                       00000040 GR
   2 _g_ponPonPatternIndex                                           0000003D GR
-  0 _main                                                           0000102B GR
+  0 _main                                                           0000102E GR
   0 _s_ScrollText                                                   00000DB2 R
   1 _s_ScrollTextLen                                                0000018C R
   1 _s_ScrollTextPos                                                0000018E R
@@ -482,7 +482,7 @@ Hexadecimal [32-Bits]
 
 Area Table
 
-   0 _CODE                                      size     1068   flags    0
+   0 _CODE                                      size     106B   flags    0
    1 _DATA                                      size      191   flags    0
    2 _INITIALIZED                               size       48   flags    0
    3 _DABS                                      size        0   flags    8

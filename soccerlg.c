@@ -529,15 +529,9 @@ void V9_InterruptVBlank(){
 		g_TimeCounter++;
 		g_FrameCounter=0;
 	}
-	PlaySounds();
-	if (g_MatchStatus == MATCH_SHOW_MENU) {
-		V9990_TickScrollText();
-	}
-
     g_Timer++;
 
-   
-	
+	// SCROLL REGISTER AGGIORNATO PRIMA DI TUTTO (deve accadere nel VBlank, prima che PlaySounds possa sforare)
 	if (g_FieldScrollingActionInProgress != NO_VALUE) {
 		CallFnc_VOID(4,TickGameFieldScrolling);
 	}
@@ -547,8 +541,11 @@ void V9_InterruptVBlank(){
 		}
     }
 
-
-	
+	// PlaySounds dopo lo scroll: se YSCC_Decode sfora il VBlank, lo scroll e' gia' scritto correttamente
+	PlaySounds();
+	if (g_MatchStatus == MATCH_SHOW_MENU) {
+		V9990_TickScrollText();
+	}
 }
 // +++ Install VBlank interrupt +++
 void InterruptHook()
