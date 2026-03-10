@@ -193,294 +193,174 @@ void PutPonPonGirlSprite(u8 ponPonGirlId){
 	attr.P = 1;
 	V9_SetSpriteP1(ponPonGirlId+20, &attr);
 }
-// +++ Kick off +++
+
+// +++ Throw in +++
 void TickThrowIn() {
     if (g_MatchStatus != MATCH_BEFORE_THROW_IN) return;
-    
-    // Internal State vars
-    static u8 s_ThrowTargetId = NO_VALUE;
-    static bool s_JoyMoved = false;
-    static u16 s_ForceThrowTimer = 0;
 
-    if (g_Timer == 0) {
-        s_ThrowTargetId = NO_VALUE;
-        s_JoyMoved = false;
-        s_ForceThrowTimer = 0;
+    static u16 s_Timeout = 0;
+    static u8 s_Receivers[2];
+    static u8 s_SelectedReceiverIdx = 0;
 
-		// 1. Clamp Ball Position to bounds (Leave it where it crossed, just ensure on line)
-		if (g_Ball.X < FIELD_POS_X_CENTER) {
-			g_Ball.X = FIELD_BOUND_X_LEFT;
-		} else {
-			g_Ball.X = FIELD_BOUND_X_RIGHT;
-		}
-		
-		// Clamp Y
-		if (g_Ball.Y < FIELD_BOUND_Y_TOP) g_Ball.Y = FIELD_BOUND_Y_TOP;
-		if (g_Ball.Y > FIELD_BOUND_Y_BOTTOM) g_Ball.Y = FIELD_BOUND_Y_BOTTOM;
-		
-		g_Ball.PossessionPlayerId = NO_VALUE;
-
-		// 2. Identify Thrower (Closest Teammate)
-		u8 bestId = NO_VALUE;
-		u16 minDist = 65535;
-		
-		// Helpers for crowd participants (2 nearest teammates, 2 nearest opponents)
-		u8 t1=NO_VALUE, t2=NO_VALUE; u16 dt1=65535, dt2=65535;
-		u8 o1=NO_VALUE, o2=NO_VALUE; u16 do1=65535, do2=65535;
-
-		for(u8 i=0; i<14; i++) {
-			 // Calculate Distance to Ball
-			 u16 dist = 0;
-			 if(g_Players[i].X > g_Ball.X) dist += (g_Players[i].X - g_Ball.X); else dist += (g_Ball.X - g_Players[i].X);
-			 if(g_Players[i].Y > g_Ball.Y) dist += (g_Players[i].Y - g_Ball.Y); else dist += (g_Ball.Y - g_Players[i].Y);
-
-			 // Thrower Logic (RestartTeam only, No GK)
-			 if(g_Players[i].TeamId == g_RestartKickTeamId && g_Players[i].Role != PLAYER_ROLE_GOALKEEPER) {
-				  if(dist < minDist) { minDist = dist; bestId = i; }
-			 }
-		}
-		g_ThrowInPlayerId = bestId;
-		
-		// 3. Find Crowd Participants (Excluding Thrower)
-		for(u8 i=0; i<14; i++) {
-			 if(i == g_ThrowInPlayerId || g_Players[i].Role == PLAYER_ROLE_GOALKEEPER || g_Players[i].TeamId == REFEREE) continue;
-
-			 u16 dist = 0;
-			 if(g_Players[i].X > g_Ball.X) dist += (g_Players[i].X - g_Ball.X); else dist += (g_Ball.X - g_Players[i].X);
-			 if(g_Players[i].Y > g_Ball.Y) dist += (g_Players[i].Y - g_Ball.Y); else dist += (g_Ball.Y - g_Players[i].Y);
-
-			 if (g_Players[i].TeamId == g_RestartKickTeamId) {
-				  // Teammate
-				  if (dist < dt1) { dt2=dt1; t2=t1; dt1=dist; t1=i; }
-				  else if (dist < dt2) { dt2=dist; t2=i; }
-			 } else {
-				  // Opponent
-				  if (dist < do1) { do2=do1; o2=o1; do1=dist; o1=i; }
-				  else if (dist < do2) { do2=dist; o2=i; }
-			 }
-		}
-		
-		// 4. Set Targets
-		if (g_ThrowInPlayerId != NO_VALUE) {
-			g_Players[g_ThrowInPlayerId].TargetX = g_Ball.X;
-			g_Players[g_ThrowInPlayerId].TargetY = g_Ball.Y;
-			g_Players[g_ThrowInPlayerId].Status = PLAYER_STATUS_NONE;
-			if (g_Ball.X < FIELD_POS_X_CENTER) g_Players[g_ThrowInPlayerId].Direction = DIRECTION_RIGHT;
-			else g_Players[g_ThrowInPlayerId].Direction = DIRECTION_LEFT;
-		}
-
-		// Crowd Positioning: 50x100 Rect
-		// Y Range: [BallY-50, BallY+50]. X Range: 50px inward.
-		bool isLeft = (g_Ball.X < FIELD_POS_X_CENTER);
-		u8 crowdIds[4] = {t1, t2, o1, o2};
-		
-		// Fixed offsets to distribute players in the 50x100 area
-		i16 yOffsets[4] = {-30, 20, -15, 35}; 
-		u16 xOffsets[4] = {15, 35, 25, 45}; 
-		
-		for(u8 k=0; k<4; k++) {
-			u8 pid = crowdIds[k];
-			if(pid != NO_VALUE) {
-				g_Players[pid].Status = PLAYER_STATUS_NONE;
-				
-				// Y Position (BallY +/- 50 range)
-				i16 ty = (i16)g_Ball.Y + yOffsets[k];
-				// Clamp Y
-				if(ty < FIELD_BOUND_Y_TOP) ty = FIELD_BOUND_Y_TOP;
-				if(ty > FIELD_BOUND_Y_BOTTOM) ty = FIELD_BOUND_Y_BOTTOM;
-				g_Players[pid].TargetY = (u16)ty;
-				
-				// X Position (50 px inward)
-				if (isLeft) {
-					g_Players[pid].TargetX = g_Ball.X + xOffsets[k];
-					g_Players[pid].Direction = DIRECTION_LEFT; // Look at thrower
-				} else {
-					g_Players[pid].TargetX = g_Ball.X - xOffsets[k];
-					g_Players[pid].Direction = DIRECTION_RIGHT; // Look at thrower
-				}
-			}
-		}
-
-        // --- NEW: Identify Backup Thrower IF the designated thrower was somehow part of the crowd 
-        // (Logic above excludes Thrower from crowd search, so they are distinct)
-        // But let's verify if user wants a CHANGE: "fai arrivare un altro giocatore (diverso da quelli che hai portato li)"
-        
-        // My code ALREADY picks Thrower FIRST (closest), and THEN picks crowd (closest remaining).
-        // So they are distinct.
-        // However, if the user means: "Pick a NEW thrower that is NOT the one currently closest"
-        // I will assume the current logic is fine as long as they are distinct.
-        // The user said: "arriva un altro giocatore (diverso da quelli che hai portato li)... sia targhetizzato sulla palla"
-        
-        // To be safe: Force Thrower target again here.
-         if (g_ThrowInPlayerId != NO_VALUE) {
-            g_Players[g_ThrowInPlayerId].TargetX = g_Ball.X;
-            g_Players[g_ThrowInPlayerId].TargetY = g_Ball.Y;
-         }
-
-        // Show Zone
-        if (g_Ball.Y < 140) g_FieldScrollingActionInProgress=FIELD_NORTH_ZONE;
-        else if (g_Ball.Y > 280) g_FieldScrollingActionInProgress=FIELD_SOUTH_ZONE;
-        else g_FieldScrollingActionInProgress=FIELD_CENTRAL_ZONE;
+    u8 throwerId = g_ThrowInPlayerId;
+    if (throwerId == NO_VALUE) {
+        g_MatchStatus = MATCH_IN_ACTION; // Abort if no thrower
+        return;
     }
-    
-    // Check Thrower Arrival
-    if (g_ThrowInPlayerId != NO_VALUE) {
-        i16 dx = (i16)g_Players[g_ThrowInPlayerId].X - (i16)g_Players[g_ThrowInPlayerId].TargetX;
-        i16 dy = (i16)g_Players[g_ThrowInPlayerId].Y - (i16)g_Players[g_ThrowInPlayerId].TargetY;
-        
+
+    bool isLeft = (g_Players[throwerId].X < FIELD_POS_X_CENTER);
+
+    // --- STATE 0: WAIT FOR THROWER ARRIVAL ---
+    if (g_CornerKickTargetId == 0) {
+        // Force ball to stay at the line until player arrives
+        g_Ball.X = g_Players[throwerId].TargetX;
+        g_Ball.Y = g_Players[throwerId].TargetY;
+
+        i16 dx = (i16)g_Players[throwerId].X - (i16)g_Players[throwerId].TargetX;
+        i16 dy = (i16)g_Players[throwerId].Y - (i16)g_Players[throwerId].TargetY;
+
         if (dx >= -4 && dx <= 4 && dy >= -4 && dy <= 4) {
-             g_Players[g_ThrowInPlayerId].X = g_Players[g_ThrowInPlayerId].TargetX;
-             g_Players[g_ThrowInPlayerId].Y = g_Players[g_ThrowInPlayerId].TargetY;
-             g_Players[g_ThrowInPlayerId].Status = PLAYER_STATUS_POSITIONED;
-
-             // Set Sprite for Throw In
-             if(g_Ball.X < FIELD_POS_X_CENTER) {
-                 g_Players[g_ThrowInPlayerId].PatternId = PLAYER_POSE_THROWIN_LEFT_1;
-                 g_Players[g_ThrowInPlayerId].Direction = DIRECTION_RIGHT;
-             } else {
-                 g_Players[g_ThrowInPlayerId].PatternId = PLAYER_POSE_THROWIN_RIGHT_1;
-                 g_Players[g_ThrowInPlayerId].Direction = DIRECTION_LEFT;
-             }
-             
-             // Set Ball Over Head
-             g_Ball.X = g_Players[g_ThrowInPlayerId].X;
-             // Adjust Height: Right side lower by 2 px (Y-12 instead of Y-14)
-             if(g_Ball.X < FIELD_POS_X_CENTER) g_Ball.Y = g_Players[g_ThrowInPlayerId].Y - 14; 
-             else g_Ball.Y = g_Players[g_ThrowInPlayerId].Y - 12;
-             
-             g_Ball.Size = 1;
-
-             // Ensure Crowd is also ready (Wait for everyone near ball to stop moving)
-             {
-                 u8 crowdReady = 1;
-                 u8 i; // Declare outside for-loop for C89/SDCC compat
-                 for(i=0; i<14; i++) {
-                     // Check if player target is near Ball (Crowd Zone approx 100px)
-                     u16 tdx = (g_Players[i].TargetX > g_Ball.X) ? (g_Players[i].TargetX - g_Ball.X) : (g_Ball.X - g_Players[i].TargetX);
-                     u16 tdy = (g_Players[i].TargetY > g_Ball.Y) ? (g_Players[i].TargetY - g_Ball.Y) : (g_Ball.Y - g_Players[i].TargetY);
-                     
-                     if (tdx < 100 && tdy < 100) {
-                          // If target is in zone, are they there?
-                          if (g_Players[i].Status != PLAYER_STATUS_POSITIONED) {
-                               // SNAPPING LOGIC: If very close, force positioned
-                               i16 pdx = (i16)g_Players[i].X - (i16)g_Players[i].TargetX;
-                               i16 pdy = (i16)g_Players[i].Y - (i16)g_Players[i].TargetY;
-                               if (pdx >= -4 && pdx <= 4 && pdy >= -4 && pdy <= 4) {
-                                    g_Players[i].X = g_Players[i].TargetX;
-                                    g_Players[i].Y = g_Players[i].TargetY;
-                                    g_Players[i].Status = PLAYER_STATUS_POSITIONED;
-                               } else {
-                                    crowdReady = 0;
-                                    break;
-                               }
-                          }
-                     }
-                 }
-
-                 if (crowdReady) {
-                     g_Timer++;
-                 } else {
-                     g_Timer = 1; // Wait
-                 }
+            // Arrived
+            g_Players[throwerId].X = g_Players[throwerId].TargetX;
+            g_Players[throwerId].Y = g_Players[throwerId].TargetY;
+            g_Players[throwerId].Status = PLAYER_STATUS_POSITIONED;
+            
+            // SELECT PLAYERS (2 Teammates, 2 Opponents)
+            u8 t1_p1 = NO_VALUE, t1_p2 = NO_VALUE;
+            u8 t2_p1 = NO_VALUE, t2_p2 = NO_VALUE;
+            u16 d1_1 = 0xFFFF, d1_2 = 0xFFFF;
+            u16 d2_1 = 0xFFFF, d2_2 = 0xFFFF;
+            
+            u8 throwerTeam = g_Players[throwerId].TeamId;
+            
+            for(u8 i=0; i<14; i++) {
+                if (i == throwerId || g_Players[i].Role == PLAYER_ROLE_GOALKEEPER) continue;
+                
+                u16 d = Math_Abs32((i16)g_Players[i].X - (i16)g_Players[throwerId].X) + 
+                        Math_Abs32((i16)g_Players[i].Y - (i16)g_Players[throwerId].Y);
+                
+                if (g_Players[i].TeamId == throwerTeam) {
+                    // Teammate
+                    if (d < d1_1) { d1_2 = d1_1; t1_p2 = t1_p1; d1_1 = d; t1_p1 = i; }
+                    else if (d < d1_2) { d1_2 = d; t1_p2 = i; }
+                } else {
+                    // Opponent
+                    if (d < d2_1) { d2_2 = d2_1; t2_p2 = t2_p1; d2_1 = d; t2_p1 = i; }
+                    else if (d < d2_2) { d2_2 = d; t2_p2 = i; }
+                }
+            }
+            
+            // Set Targets
+            i16 offsetX = isLeft ? 40 : -40; // Move towards center
+            
+            // Teammates
+            if(t1_p1 != NO_VALUE) { g_Players[t1_p1].TargetX = g_Ball.X + offsetX; g_Players[t1_p1].TargetY = g_Ball.Y - 20; g_Players[t1_p1].Status = PLAYER_STATUS_NONE; }
+            if(t1_p2 != NO_VALUE) { g_Players[t1_p2].TargetX = g_Ball.X + offsetX; g_Players[t1_p2].TargetY = g_Ball.Y + 20; g_Players[t1_p2].Status = PLAYER_STATUS_NONE; }
+            
+            // Opponents (Closer/Marking)
+            if(t2_p1 != NO_VALUE) { g_Players[t2_p1].TargetX = g_Ball.X + (offsetX/2); g_Players[t2_p1].TargetY = g_Ball.Y - 10; g_Players[t2_p1].Status = PLAYER_STATUS_NONE; }
+            if(t2_p2 != NO_VALUE) { g_Players[t2_p2].TargetX = g_Ball.X + (offsetX/2); g_Players[t2_p2].TargetY = g_Ball.Y + 10; g_Players[t2_p2].Status = PLAYER_STATUS_NONE; }
+            
+            // Stop others
+             for(u8 i=0; i<14; i++) {
+                 if (i == throwerId || i == t1_p1 || i == t1_p2 || i == t2_p1 || i == t2_p2) continue;
+                 g_Players[i].TargetX = g_Players[i].X;
+                 g_Players[i].TargetY = g_Players[i].Y;
+                 g_Players[i].Status = PLAYER_STATUS_POSITIONED;
              }
 
-             if (g_Timer > 60) {
-                  // Ready for Action (Interactive / CPU Phase)
+            g_CornerKickTargetId = 1;
+            g_Timer = 0;
+        }
+        return; // Wait for arrival
+    }
 
-                  // 1. Identify Candidates (Teammates near ball - INCREASE SEARCH RANGE)
-                  u8 c1=NO_VALUE, c2=NO_VALUE;
-                  {
-                      u8 t1=NO_VALUE, t2=NO_VALUE; u16 dt1=65535, dt2=65535;
-                      u8 i;
-                      for(i=0; i<14; i++) {
-                         if(i == g_ThrowInPlayerId || g_Players[i].Role == PLAYER_ROLE_GOALKEEPER || g_Players[i].TeamId == REFEREE) continue;
-                         
-                         if (g_Players[i].TeamId == g_RestartKickTeamId) {
-                              u16 dx = (g_Players[i].X > g_Ball.X) ? (g_Players[i].X - g_Ball.X) : (g_Ball.X - g_Players[i].X);
-                              u16 dy = (g_Players[i].Y > g_Ball.Y) ? (g_Players[i].Y - g_Ball.Y) : (g_Ball.Y - g_Players[i].Y);
-                              u16 d = dx+dy;
-                              // Increased search range confirmation
-                              if (d < 200) { // Safety check
-                                  if (d < dt1) { dt2=dt1; t2=t1; dt1=d; t1=i; }
-                                  else if (d < dt2) { dt2=d; t2=i; }
-                              }
-                         }
-                      }
-                      c1 = t1; c2 = t2;
-                  }
 
-                  // 2. Default Target
-                  if (s_ThrowTargetId == NO_VALUE && c1 != NO_VALUE) s_ThrowTargetId = c1;
-                  // FALLBACK: If still no target, pick ANY teammate (excluding GK/Thrower)
-                  if (s_ThrowTargetId == NO_VALUE) {
-                       s_ThrowTargetId = CallFnc_U8_P2(4,GetClosestPlayerToBall,g_RestartKickTeamId, g_ThrowInPlayerId);
-                  }
-                  
-                  // 3. Determine Control Type
-                  bool isHuman = (g_RestartKickTeamId == TEAM_1);
-                  if (g_GameWith2Players) isHuman = true; 
-                  if (g_RestartKickTeamId == TEAM_2 && !g_GameWith2Players) isHuman = false;
+    // --- STATE 1: WAIT FOR PLAYERS NEARBY ---
+    if (g_CornerKickTargetId == 1) {
+        g_Timer++;
+        
+        // Set static "holding ball" pose while waiting
+        g_Ball.Y = g_Players[throwerId].Y - 12;
+        g_Ball.X = g_Players[throwerId].X;
+        g_Players[throwerId].PatternId = isLeft ? PLAYER_POSE_THROWIN_LEFT_1 : PLAYER_POSE_THROWIN_RIGHT_1;
+        g_Players[throwerId].Direction = isLeft ? DIRECTION_RIGHT : DIRECTION_LEFT;
 
-                  if (isHuman) {
-                       // --- HUMAN LOGIC ---
-                       u8 joy = CallFnc_U8(4,GetJoystickDirection);
-                       bool trig = CallFnc_BOOL(5,IsJoystickTriggerPressed);
+        // Wait for players to arrive or timeout (2 seconds)
+        if (g_Timer > 120) { 
+            u16 d1 = 0xFFFF, d2 = 0xFFFF;
+            s_Receivers[0] = NO_VALUE; s_Receivers[1] = NO_VALUE;
+            for (u8 i = 0; i < 14; i++) {
+                if (g_Players[i].TeamId != g_RestartKickTeamId || i == throwerId || g_Players[i].Role == PLAYER_ROLE_GOALKEEPER) continue;
+                u16 d = Math_Abs32((i16)g_Players[i].X - (i16)g_Players[throwerId].X) + Math_Abs32((i16)g_Players[i].Y - (i16)g_Players[throwerId].Y);
+                if (d < d1) { d2 = d1; s_Receivers[1] = s_Receivers[0]; d1 = d; s_Receivers[0] = i; } 
+                else if (d < d2) { d2 = d; s_Receivers[1] = i; }
+            }
 
-                       // Toggle Target
-                       if (joy != DIRECTION_NONE && !s_JoyMoved) {
-                            // If we have both candidates
-                            if (c1 != NO_VALUE && c2 != NO_VALUE) {
-                                if (s_ThrowTargetId == c1) s_ThrowTargetId = c2;
-                                else s_ThrowTargetId = c1;
-                            }
-                            s_JoyMoved = true;
-                       } else if (joy == DIRECTION_NONE) {
-                            s_JoyMoved = false;
-                       }
-                       
-                       // Visualize Target
-                       g_PassTargetPlayer = s_ThrowTargetId; 
-                       
-                       // Timeout Logic (4 seconds = 240 frames)
-                       s_ForceThrowTimer++;
+            g_CornerKickTargetId = 2;
+            s_Timeout = 0;
+            s_SelectedReceiverIdx = 0;
+            g_PassTargetPlayer = s_Receivers[0];
+            if (g_PassTargetPlayer == NO_VALUE) g_PassTargetPlayer = CallFnc_U8_P2(4, GetClosestPlayerToBall, g_RestartKickTeamId, throwerId);
+        }
+        return;
+    }
 
-                       // Execute
-                       if ((trig || s_ForceThrowTimer > 240) && s_ThrowTargetId != NO_VALUE) {
-                            g_Ball.PossessionPlayerId = g_ThrowInPlayerId;
-                            CallFnc_VOID_P1(4,SetPlayerBallPossession,g_ThrowInPlayerId);
-                            g_Ball.Y = g_Players[g_ThrowInPlayerId].Y; // Reset to feet
-                            CallFnc_VOID_P1(5,PerformPass,s_ThrowTargetId);
-                            g_MatchStatus = MATCH_IN_ACTION;
-                            V9990_ClearTextFromLayerA(13, 18, 9); // Correct coords: 10, 18 (len 9 is enough for "THROW IN")
-                            g_Ball.ShotActive = 1; // High Arc for throw
-                            g_Ball.Size = 1;
-                       }
-                  } else {
-                       // --- CPU LOGIC ---
-                       if (g_Timer > 100) {
-                            if (s_ThrowTargetId == NO_VALUE && c1 != NO_VALUE) s_ThrowTargetId = c1; 
-                            if (s_ThrowTargetId == NO_VALUE) s_ThrowTargetId = CallFnc_U8_P2(4,GetClosestPlayerToBall,g_RestartKickTeamId, g_ThrowInPlayerId);
+    // --- STATE 2: AIM & THROW ---
+    if (g_CornerKickTargetId == 2) {
+        // Set static "aiming" pose (arms back)
+        g_Ball.Y = g_Players[throwerId].Y - 12;
+        g_Ball.X = g_Players[throwerId].X;
+        g_Players[throwerId].PatternId = isLeft ? PLAYER_POSE_THROWIN_LEFT_2 : PLAYER_POSE_THROWIN_RIGHT_2;
+        g_Players[throwerId].Direction = isLeft ? DIRECTION_RIGHT : DIRECTION_LEFT;
 
-                            // Throw after delay
-                            if (g_Timer > 120) {
-                                g_Ball.PossessionPlayerId = g_ThrowInPlayerId;
-                                CallFnc_VOID_P1(4,SetPlayerBallPossession,g_ThrowInPlayerId);
-                                g_Ball.Y = g_Players[g_ThrowInPlayerId].Y; 
-                                CallFnc_VOID_P1(5,PerformPass,s_ThrowTargetId);
-                                g_MatchStatus = MATCH_IN_ACTION; 
-                                V9990_ClearTextFromLayerA(13, 18, 9);
-                                g_Ball.ShotActive = 1; 
-                                g_Ball.Size = 1;
-                            } else {
-                                g_Timer++;
-                            }
-                       } else {
-                            g_Timer++;
-                       }
-                  }
-             }
-        } else {
-            g_Timer = 1; 
+        bool isHuman = (g_RestartKickTeamId == TEAM_1) || (g_GameWith2Players && g_RestartKickTeamId == TEAM_2);
+        
+        g_PassTargetPlayer = s_Receivers[s_SelectedReceiverIdx];
+        if (g_PassTargetPlayer == NO_VALUE) g_PassTargetPlayer = s_Receivers[0];
+        if (g_PassTargetPlayer == NO_VALUE) g_PassTargetPlayer = CallFnc_U8_P2(4, GetClosestPlayerToBall, g_RestartKickTeamId, throwerId);
+
+        if (isHuman) {
+            s_Timeout++;
+            u8 joyDir = CallFnc_U8(4, GetJoystickDirection);
+            bool trigger = CallFnc_U8(5,IsJoystickTriggerPressed);
+            static bool joyMoved = false;
+
+            if (joyDir != DIRECTION_NONE && !joyMoved) {
+                s_SelectedReceiverIdx = 1 - s_SelectedReceiverIdx;
+                joyMoved = true;
+            } else if (joyDir == DIRECTION_NONE) {
+                joyMoved = false;
+            }
+
+            if (trigger || s_Timeout > 300) { // 5 seconds
+                if (g_PassTargetPlayer != NO_VALUE) {
+                    // Set final throw pose (arms forward)
+                    g_Players[throwerId].PatternId = isLeft ? PLAYER_POSE_THROWIN_LEFT_1 : PLAYER_POSE_THROWIN_RIGHT_1;
+                    g_Ball.PossessionPlayerId = throwerId;
+                    CallFnc_VOID_P1(5,PerformPass,g_PassTargetPlayer);
+                    g_Ball.PossessionPlayerId = NO_VALUE;
+                }
+                V9990_ClearTextFromLayerA(13, 18, 8);
+                g_MatchStatus = MATCH_IN_ACTION;
+                g_ThrowInPlayerId = NO_VALUE;
+                g_PassTargetPlayer = NO_VALUE;
+            }
+        } else { // CPU
+            s_Timeout++;
+            if (s_Timeout > 60) {
+                if (g_PassTargetPlayer != NO_VALUE) {
+                    // Set final throw pose (arms forward)
+                    g_Players[throwerId].PatternId = isLeft ? PLAYER_POSE_THROWIN_LEFT_1 : PLAYER_POSE_THROWIN_RIGHT_1;
+                    g_Ball.PossessionPlayerId = throwerId;
+                    CallFnc_VOID_P1(5,PerformPass,g_PassTargetPlayer);
+                    g_Ball.PossessionPlayerId = NO_VALUE;
+                }
+                V9990_ClearTextFromLayerA(13, 18, 8);
+                g_MatchStatus = MATCH_IN_ACTION;
+                g_ThrowInPlayerId = NO_VALUE;
+                g_PassTargetPlayer = NO_VALUE;
+            }
         }
     }
 }

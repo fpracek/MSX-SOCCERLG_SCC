@@ -7,7 +7,6 @@ Symbol Table
     .__.ABS.                                                    =   00000000 G
     .__.CPU.                                                    =   00000000 L
     .__.H$L.                                                    =   00000000 L
-    _CallFnc_BOOL                                                   ******** GX
     _CallFnc_U8                                                     ******** GX
     _CallFnc_U8_P2                                                  ******** GX
     _CallFnc_VOID_P1                                                ******** GX
@@ -16,15 +15,17 @@ Symbol Table
     _GetJoystickDirection                                           ******** GX
     _GetPlayerIdByRole                                              ******** GX
     _IsJoystickTriggerPressed                                       ******** GX
+    _Math_Abs32                                                     ******** GX
   7 _PeopleMoving                                                   00000456 GR
     _PerformPass                                                    ******** GX
     _PlayPCM                                                        ******** GX
   7 _PutPonPonGirlSprite                                            000004ED GR
     _SetPlayerBallPossession                                        ******** GX
   7 _TickThrowIn                                                    000005C1 GR
-  1 _TickThrowIn_s_ForceThrowTimer_65537_1224                       00000002 R
-  1 _TickThrowIn_s_JoyMoved_65537_1224                              00000001 R
-  1 _TickThrowIn_s_ThrowTargetId_65537_1224                         00000000 R
+  1 _TickThrowIn_joyMoved_196612_1257                               00000005 R
+  1 _TickThrowIn_s_Receivers_65537_1224                             00000002 R
+  1 _TickThrowIn_s_SelectedReceiverIdx_65537_1224                   00000004 R
+  1 _TickThrowIn_s_Timeout_65537_1224                               00000000 R
     _V9990_ClearTextFromLayerA                                      ******** GX
     _V9990_PrintLayerAStringAtPos                                   ******** GX
     _V9_Poke16_CurrentAddr                                          ******** GX
@@ -57,12 +58,12 @@ Symbol Table
     _g_CLOC                                                     =   0000F92A G
     _g_CLPRIM                                                   =   0000F38C G
     _g_CMASK                                                    =   0000F92C G
-    _g_CNSDFG                                                   =   0000F3DE G
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180 / ZX-Next / eZ80 / R800)                          Page 2
 Hexadecimal [32-Bits]
 
 Symbol Table
 
+    _g_CNSDFG                                                   =   0000F3DE G
     _g_CODSAV                                                   =   0000FBCC G
     _g_COMMSK                                                   =   0000FB1D G
     _g_CRTCNT                                                   =   0000F3B1 G
@@ -117,12 +118,12 @@ Symbol Table
     _g_INTFLG                                                   =   0000FC9B G
     _g_INTVAL                                                   =   0000FCA0 G
     _g_JIFFY                                                    =   0000FC9E G
-    _g_KANAMD                                                   =   0000FCAD G
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180 / ZX-Next / eZ80 / R800)                          Page 3
 Hexadecimal [32-Bits]
 
 Symbol Table
 
+    _g_KANAMD                                                   =   0000FCAD G
     _g_KANAST                                                   =   0000FCAC G
     _g_KANJTABLE                                                =   0000F30F G
     _g_KEYBUF                                                   =   0000FBF0 G
@@ -177,12 +178,12 @@ Symbol Table
     _g_PSG_Ext_DataPort                                         =   00000011 
     _g_PSG_Ext_RegPort                                          =   00000010 
     _g_PSG_Ext_StatPort                                         =   00000012 
-    _g_PSG_RegPort                                              =   000000A0 
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180 / ZX-Next / eZ80 / R800)                          Page 4
 Hexadecimal [32-Bits]
 
 Symbol Table
 
+    _g_PSG_RegPort                                              =   000000A0 
     _g_PSG_StatPort                                             =   000000A2 
     _g_PUTPNT                                                   =   0000F3F8 G
     _g_PassTargetPlayer                                             ******** GX
@@ -237,12 +238,12 @@ Symbol Table
     _g_RSIQLN                                                   =   0000FB06 G
     _g_RSTMP                                                    =   0000FB03 G
     _g_RTC_AddrPort                                             =   000000B4 
-    _g_RTC_DataPort                                             =   000000B5 
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180 / ZX-Next / eZ80 / R800)                          Page 5
 Hexadecimal [32-Bits]
 
 Symbol Table
 
+    _g_RTC_DataPort                                             =   000000B5 
     _g_RTYCNT                                                   =   0000FC9A G
     _g_RestartKickTeamId                                            ******** GX
     _g_SAVSP                                                    =   0000FB36 G
@@ -297,12 +298,12 @@ Symbol Table
     _g_VDP_AddrPort                                             =   00000099 
     _g_VDP_DR                                                   =   00000006 G
     _g_VDP_DW                                                   =   00000007 G
-    _g_VDP_DataPort                                             =   00000098 
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180 / ZX-Next / eZ80 / R800)                          Page 6
 Hexadecimal [32-Bits]
 
 Symbol Table
 
+    _g_VDP_DataPort                                             =   00000098 
     _g_VDP_RegPort                                              =   00000099 
     _g_VDP_StatPort                                             =   00000099 
     _g_VOICAQ                                                   =   0000F975 G
@@ -314,19 +315,20 @@ Symbol Table
     _g_XSAVE                                                    =   0000FAFE G
     _g_YSAVE                                                    =   0000FB00 G
 
+
 ASxxxx Assembler V02.00 + NoICE + SDCC mods  (Zilog Z80 / Hitachi HD64180 / ZX-Next / eZ80 / R800)                          Page 7
 Hexadecimal [32-Bits]
 
 Area Table
 
    0 _CODE                                      size        0   flags    0
-   1 _DATA                                      size        4   flags    0
+   1 _DATA                                      size        6   flags    0
    2 _INITIALIZED                               size        0   flags    0
    3 _DABS                                      size        0   flags    8
    4 _HOME                                      size        0   flags    0
-   5 _GSINIT                                    size       13   flags    0
+   5 _GSINIT                                    size       16   flags    0
    6 _GSFINAL                                   size        0   flags    0
-   7 _SEG7                                      size     1262   flags    0
+   7 _SEG7                                      size      F58   flags    0
    8 _INITIALIZER                               size        0   flags    0
    9 _CABS                                      size        0   flags    8
 

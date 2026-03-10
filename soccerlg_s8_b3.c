@@ -166,12 +166,19 @@ u8 SelectTeam(u8 cursorPatternId, u8 excludeIndex) {
     u8 oldDir = DIRECTION_NONE;
     bool trigger = false;
     bool oldTrigger = true; // Force release first
+    bool key1 = false;
+    bool key2 = false;
+    bool oldKey1 = false;
+    bool oldKey2 = false;
+
+    YSCC_State menuSavedState;
 
     while (true) {
         V9990_WaitSynch();
         dir=CallFnc_U8(4,GetJoystickDirection);
-        
         trigger=CallFnc_U8(4,IsTeamJoystickTriggerPressed);
+        key1 = Keyboard_IsKeyPressed(KEY_1);
+        key2 = Keyboard_IsKeyPressed(KEY_2);
 
         if (dir != DIRECTION_NONE && dir != oldDir) {
             u8 nextIdx = currentIdx;
@@ -201,15 +208,31 @@ u8 SelectTeam(u8 cursorPatternId, u8 excludeIndex) {
 
         if (trigger && !oldTrigger) {
             PlayAyFx(AYFX_BALL);
-			return currentIdx;
+            return currentIdx;
+        }
+        if (key1 && !oldKey1) {
+            g_modernAudio = FALSE;
+            YSCC_SaveState(&menuSavedState);
+            YSCC_Play(SCC_AUDIO1OPTION_BIN_SEG, SCC_AUDIO1OPTION_BIN_SIZE);
+            while (YSCC_IsPlaying()) V9990_WaitSynch();
+            YSCC_LoadState(&menuSavedState);
+        }
+        if (key2 && !oldKey2) {
+            g_modernAudio = TRUE;
+            YSCC_SaveState(&menuSavedState);
+            YSCC_Play(SCC_AUDIO2OPTION_BIN_SEG, SCC_AUDIO2OPTION_BIN_SIZE);
+            while (YSCC_IsPlaying()) V9990_WaitSynch();
+            YSCC_LoadState(&menuSavedState);
         }
         oldTrigger = trigger;
+        oldKey1 = key1;
+        oldKey2 = key2;
 
         struct V9_Sprite attr;
         attr.Y = g_TeamPos[currentIdx].y+2;
         attr.X = g_TeamPos[currentIdx].x;
         attr.Pattern = cursorPatternId;
-        attr.P = 0; 
+        attr.P = 0;
         attr.SC = 0;
 		attr.D = 0;
         V9_SetSpriteP1(0, &attr);

@@ -284,7 +284,9 @@ extern bool             g_modernAudio;
 #define PLAYER_POSE_CELEBRATION_FRONT_1 	48
 #define PLAYER_POSE_CELEBRATION_FRONT_2 	49
 #define PLAYER_POSE_THROWIN_RIGHT_1 		28
+#define PLAYER_POSE_THROWIN_RIGHT_2 		29
 #define PLAYER_POSE_THROWIN_LEFT_1 			147
+#define PLAYER_POSE_THROWIN_LEFT_2 			148
 #define PLAYER_ROLE_GOALKEEPER              0
 #define PLAYER_ROLE_LEFT_DEFENDER           1
 #define PLAYER_ROLE_RIGHT_DEFENDER          2
@@ -442,6 +444,7 @@ void PutPlayerSprite(u8 playerId);
 void UpdatePlayerPatternByDirection(u8 playerId);
 u8 GetPatternIdByPoseAndDirection(u8 playerId);
 
+
 // +++ SEGMENT 6 +++
 void V9990_InitPalette();
 void V9990_InitMenuLayers();
@@ -453,11 +456,11 @@ void TickPonPonGirlsAnimation();
 void TickTeamJoystick(u8 direction);
 
 // +++ SEGMENT 7 +++
-void TickThrowIn();
 void CornerKick(u8 teamId);
 void PutPonPonGirlSprite(u8 ponPonGirlId);
 void V9990_PrintLayerAStringAtPos(u8 x, u8 y, const c8* str);
 void PeopleMoving(bool isBasicMoving);
+void TickThrowIn();
 
 // +++ SEGMENT 8 +++
 u8 SelectTeam(u8 cursorPatternId, u8 excludeIndex);

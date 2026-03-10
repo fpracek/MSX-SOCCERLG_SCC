@@ -46,32 +46,63 @@ void GoalKick(u8 teamId){
 }
 // +++ Throw in +++
 void BallThrowIn(u8 teamId){
-	
-	// Placeholder for Throw-in Logic
+
+	// 1. Clamp ball to sideline
+	if ((i16)g_Ball.X < (i16)FIELD_POS_X_CENTER) g_Ball.X = FIELD_BOUND_X_LEFT;
+	else g_Ball.X = FIELD_BOUND_X_RIGHT;
+	if (g_Ball.Y < FIELD_BOUND_Y_TOP) g_Ball.Y = FIELD_BOUND_Y_TOP;
+	if (g_Ball.Y > FIELD_BOUND_Y_BOTTOM) g_Ball.Y = FIELD_BOUND_Y_BOTTOM;
+
+	// 2. UI + sounds
 	V9990_PrintLayerAStringAtPos(13,18,"THROW IN");
 	PlayPCM(PCM_REFEREER);
-    PlayPCM(PCM_THROWIN);
-	g_MatchStatus=MATCH_BEFORE_THROW_IN;
+	PlayPCM(PCM_THROWIN);
+
+	// 3. State
+	g_MatchStatus = MATCH_BEFORE_THROW_IN;
 	g_RestartKickTeamId = teamId;
-	g_Timer = 0;
-	
-	// STOP ALL BALL PHYSICS
+	g_Timer = 0; // Reset timer for the throw-in state machine
+    g_CornerKickTargetId = 0; // Use as State Machine for Throw In (0=Approach, 1=Wait, 2=Throw)
+
+	// 4. Stop ball physics
 	g_Ball.ShotActive = 0;
 	g_Ball.PassTargetPlayerId = NO_VALUE;
 	g_Ball.PossessionPlayerId = NO_VALUE;
-	
-	// FIX: Freeze all players at current positions to prevent walking to old targets
-	for(u8 i=0; i<14; i++) {
-		g_Players[i].TargetX = g_Players[i].X;
-		g_Players[i].TargetY = g_Players[i].Y;
-		// If outside bounds, clamp targets so they move to the line and stop
-		if (g_Players[i].TargetX < FIELD_BOUND_X_LEFT) g_Players[i].TargetX = FIELD_BOUND_X_LEFT;
-		if (g_Players[i].TargetX > FIELD_BOUND_X_RIGHT) g_Players[i].TargetX = FIELD_BOUND_X_RIGHT;
-		if (g_Players[i].TargetY < FIELD_BOUND_Y_TOP) g_Players[i].TargetY = FIELD_BOUND_Y_TOP;
-		if (g_Players[i].TargetY > FIELD_BOUND_Y_BOTTOM) g_Players[i].TargetY = FIELD_BOUND_Y_BOTTOM;
+	g_Ball.Size = 1;
+    g_PassTargetPlayer = NO_VALUE;
+
+	// 5. Find thrower: closest non-GK on restart team
+	u8 throwerId = NO_VALUE;
+	u16 minDist = 65535;
+	for(u8 i = 0; i < 14; i++) {
+		if(g_Players[i].TeamId != teamId) continue;
+		if(g_Players[i].Role == PLAYER_ROLE_GOALKEEPER) continue;
 		
-		g_Players[i].Status = PLAYER_STATUS_NONE;
+		u16 dx = (g_Players[i].X > g_Ball.X) ? (g_Players[i].X - g_Ball.X) : (g_Ball.X - g_Players[i].X);
+		u16 dy = (g_Players[i].Y > g_Ball.Y) ? (g_Players[i].Y - g_Ball.Y) : (g_Ball.Y - g_Players[i].Y);
+		u16 d = dx + dy;
+		if(d < minDist) { minDist = d; throwerId = i; }
 	}
+	g_ThrowInPlayerId = throwerId;
+
+	// 6. Set targets for all players
+	for(u8 i = 0; i < 15; i++) {
+		if (i == throwerId) {
+			// Send thrower to the ball
+			g_Players[i].TargetX = g_Ball.X;
+			g_Players[i].TargetY = g_Ball.Y;
+			g_Players[i].Status = PLAYER_STATUS_NONE; // Allow movement
+		} else {
+			// Other players will be moved by TickThrowIn logic, for now hold position
+			g_Players[i].TargetX = g_Players[i].X;
+			g_Players[i].TargetY = g_Players[i].Y;
+			g_Players[i].Status = PLAYER_STATUS_POSITIONED;
+		}
+	}
+
+	// 7. Active player: clear so cooldown code doesn't fight with thrower Status
+	g_Team1ActivePlayer = NO_VALUE;
+	if(!g_GameWith2Players) g_Team2ActivePlayer = NO_VALUE;
 }
 // +++ Check ball boundaries +++
 void TickCheckBallBoundaries(){

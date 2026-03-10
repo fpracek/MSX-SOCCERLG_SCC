@@ -23,9 +23,9 @@
 	.globl _TickBallFlying
 	.globl _GetNoMovingPlayerPatternId
 	.globl _ShowMenu
+	.globl _TickThrowIn
 	.globl _V9990_PrintLayerAStringAtPos
 	.globl _PutPonPonGirlSprite
-	.globl _TickThrowIn
 	.globl _TickTeamJoystick
 	.globl _TickPonPonGirlsAnimation
 	.globl _UpdateSpritesPositions

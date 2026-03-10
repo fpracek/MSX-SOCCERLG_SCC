@@ -106,6 +106,8 @@ BankedCall = false;
 //-- List of raw data files to be added to final binary (array). Each entry must be in the following format: { offset:0x0000, file:"myfile.bin" }
 RawFiles = [
     { segment:75, file:"scc/scc_public_goal.bin" },
+    { segment:82, file:"scc/scc_audio1option.bin" },
+    { segment:95, file:"scc/scc_audio2option.bin" },
     { segment:105, file:"scc/scc_presentation.bin" },
     { segment:110, file:"scc/scc_match.bin" },
     { segment:145, file:"scc/scc_menu.bin" },

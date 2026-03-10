@@ -392,6 +392,7 @@ void TickGoalKick() {
          else g_Timer = 101; // Hold at 101 while moving to ball
     }
 }
+
 // +++ Goalkeeper with ball +++
 void GoalkeeperWithBall(u8 teamId, bool isSteal) {
     u8 gkId = CallFnc_U8_P2(4,GetPlayerIdByRole,teamId, PLAYER_ROLE_GOALKEEPER);

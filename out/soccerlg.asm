@@ -3077,7 +3077,7 @@ _V9990_ClearTextFromLayerA::
 	pop	hl
 	inc	sp
 	jp	(hl)
-;./soccerlg.c:504: void V9990_InitScrollText() {
+;./soccerlg.c:505: void V9990_InitScrollText() {
 ;	---------------------------------
 ; Function V9990_InitScrollText
 ; ---------------------------------
@@ -3086,10 +3086,10 @@ _V9990_InitScrollText::
 	ld	ix,#0
 	add	ix,sp
 	dec	sp
-;./soccerlg.c:505: s_ScrollTextLen = 0;
+;./soccerlg.c:506: s_ScrollTextLen = 0;
 	ld	hl, #0x0000
 	ld	(_s_ScrollTextLen), hl
-;./soccerlg.c:506: while (s_ScrollText[s_ScrollTextLen] != 0) s_ScrollTextLen++;
+;./soccerlg.c:507: while (s_ScrollText[s_ScrollTextLen] != 0) s_ScrollTextLen++;
 00101$:
 	ld	a, #<(_s_ScrollText)
 	ld	hl, #_s_ScrollTextLen
@@ -3107,19 +3107,19 @@ _V9990_InitScrollText::
 	ld	(_s_ScrollTextLen), hl
 	jp	00101$
 00103$:
-;./soccerlg.c:507: s_ScrollTextPos   = 0;
+;./soccerlg.c:508: s_ScrollTextPos   = 0;
 	ld	hl, #0x0000
 	ld	(_s_ScrollTextPos), hl
-;./soccerlg.c:508: s_ScrollTickCount = 0;
+;./soccerlg.c:509: s_ScrollTickCount = 0;
 	ld	hl, #_s_ScrollTickCount
 	ld	(hl), #0x00
-;./soccerlg.c:509: for (u8 col = 0; col < SCROLLTEXT_COLS; col++) {
+;./soccerlg.c:510: for (u8 col = 0; col < SCROLLTEXT_COLS; col++) {
 	ld	-1 (ix), #0x00
 00108$:
 	ld	a, -1 (ix)
 	sub	a, #0x20
 	jr	NC, 00110$
-;./soccerlg.c:510: u16 idx = (col < s_ScrollTextLen) ? col : 0;
+;./soccerlg.c:511: u16 idx = (col < s_ScrollTextLen) ? col : 0;
 	ld	c, -1 (ix)
 	ld	b, #0x00
 	ld	e, -1 (ix)
@@ -3137,7 +3137,7 @@ _V9990_InitScrollText::
 00112$:
 	ld	bc, #0x0000
 00113$:
-;./soccerlg.c:511: V9_Poke16(V9_CellAddrP1A(col, SCROLLTEXT_ROW), (u16)s_ScrollText[idx]);
+;./soccerlg.c:512: V9_Poke16(V9_CellAddrP1A(col, SCROLLTEXT_ROW), (u16)s_ScrollText[idx]);
 	ld	hl, #_s_ScrollText
 	add	hl, bc
 	ld	c, (hl)
@@ -3172,30 +3172,32 @@ _V9990_InitScrollText::
 ;	spillPairReg hl
 ;	spillPairReg hl
 	call	_V9_Poke16_CurrentAddr
-;./soccerlg.c:509: for (u8 col = 0; col < SCROLLTEXT_COLS; col++) {
+;./soccerlg.c:510: for (u8 col = 0; col < SCROLLTEXT_COLS; col++) {
 	inc	-1 (ix)
 	jp	00108$
 00110$:
-;./soccerlg.c:513: }
+;./soccerlg.c:514: }
 	inc	sp
 	pop	ix
 	ret
 _s_ScrollText:
 	.ascii "   2026 MSX SOCCER LEAGUE  BY FAUSTO PRACEK  -  ASSOCIAZIONE"
 	.ascii " ITALIANA MSX - POWERED BY MSXGL  -  SPECIAL THANKS TO ARTUR"
-	.ascii "O RAGOZINI FOR HIS HELP WITH SOUND EFFECTS  -  THE GAME IS A"
-	.ascii " TRIBUTE TO THE 1983 EXCITING SOCCER  -  NO COPYRIGHT INFRIN"
-	.ascii "GEMENT INTENDED   "
+	.ascii "O RAGOZINI FOR HIS HELP WITH SOUND EFFECTS  AND TO NICOLA BR"
+	.ascii "OGELLI FOR HIS TESTING AND SUPPORT THROUGHOUT THE GAMES' DEV"
+	.ascii "ELOPMENT  -  THE GAME IS A TRIBUTE TO THE 1983 EXCITING SOCC"
+	.ascii "ER  -  NO COPYRIGHT INFRINGEMENT INTENDED  -  PRESS 1 FOR AR"
+	.ascii "CADE MATCH SOUND EFFECTS OR 2 FOR CROWD IN STADIUM SOUNDS"
 	.db 0x00
-;./soccerlg.c:516: void V9990_StopScrollText() {
+;./soccerlg.c:517: void V9990_StopScrollText() {
 ;	---------------------------------
 ; Function V9990_StopScrollText
 ; ---------------------------------
 _V9990_StopScrollText::
-;./soccerlg.c:517: s_ScrollTextLen = 0; // disabilita il tick
+;./soccerlg.c:518: s_ScrollTextLen = 0; // disabilita il tick
 	ld	hl, #0x0000
 	ld	(_s_ScrollTextLen), hl
-;./soccerlg.c:518: V9990_ClearTextFromLayerA(0, SCROLLTEXT_ROW, SCROLLTEXT_COLS);
+;./soccerlg.c:519: V9990_ClearTextFromLayerA(0, SCROLLTEXT_ROW, SCROLLTEXT_COLS);
 	ld	a, #0x20
 	push	af
 	inc	sp
@@ -3204,9 +3206,9 @@ _V9990_StopScrollText::
 ;	spillPairReg hl
 	xor	a, a
 	call	_V9990_ClearTextFromLayerA
-;./soccerlg.c:519: }
+;./soccerlg.c:520: }
 	ret
-;./soccerlg.c:522: static void V9990_TickScrollText() {
+;./soccerlg.c:523: static void V9990_TickScrollText() {
 ;	---------------------------------
 ; Function V9990_TickScrollText
 ; ---------------------------------
@@ -3215,26 +3217,26 @@ _V9990_TickScrollText:
 	ld	ix,#0
 	add	ix,sp
 	dec	sp
-;./soccerlg.c:523: if (s_ScrollTextLen == 0) return;
+;./soccerlg.c:524: if (s_ScrollTextLen == 0) return;
 	ld	a, (_s_ScrollTextLen+1)
 	ld	hl, #_s_ScrollTextLen
 	or	a, (hl)
 	jp	Z,00115$
-;./soccerlg.c:524: s_ScrollTickCount++;
+;./soccerlg.c:525: s_ScrollTickCount++;
 	ld	hl, #_s_ScrollTickCount
 	inc	(hl)
-;./soccerlg.c:525: if (s_ScrollTickCount < SCROLLTEXT_SPEED) return;
+;./soccerlg.c:526: if (s_ScrollTickCount < SCROLLTEXT_SPEED) return;
 	ld	a, (_s_ScrollTickCount+0)
 	sub	a, #0x06
 	jr	C, 00115$
-;./soccerlg.c:526: s_ScrollTickCount = 0;
+;./soccerlg.c:527: s_ScrollTickCount = 0;
 	ld	hl, #_s_ScrollTickCount
 	ld	(hl), #0x00
-;./soccerlg.c:528: s_ScrollTextPos++;
+;./soccerlg.c:529: s_ScrollTextPos++;
 	ld	hl, (_s_ScrollTextPos)
 	inc	hl
 	ld	(_s_ScrollTextPos), hl
-;./soccerlg.c:529: if (s_ScrollTextPos >= s_ScrollTextLen) s_ScrollTextPos = 0;
+;./soccerlg.c:530: if (s_ScrollTextPos >= s_ScrollTextLen) s_ScrollTextPos = 0;
 	ld	hl, #_s_ScrollTextLen
 	ld	a, (_s_ScrollTextPos+0)
 	sub	a, (hl)
@@ -3244,14 +3246,14 @@ _V9990_TickScrollText:
 	jr	C, 00122$
 	ld	hl, #0x0000
 	ld	(_s_ScrollTextPos), hl
-;./soccerlg.c:531: for (u8 col = 0; col < SCROLLTEXT_COLS; col++) {
+;./soccerlg.c:532: for (u8 col = 0; col < SCROLLTEXT_COLS; col++) {
 00122$:
 	ld	-1 (ix), #0x00
 00113$:
 	ld	a, -1 (ix)
 	sub	a, #0x20
 	jr	NC, 00115$
-;./soccerlg.c:532: u16 idx = s_ScrollTextPos + col;
+;./soccerlg.c:533: u16 idx = s_ScrollTextPos + col;
 	ld	c, -1 (ix)
 	ld	b, #0x00
 	ld	hl, (_s_ScrollTextPos)
@@ -3259,7 +3261,7 @@ _V9990_TickScrollText:
 	ld	d, b
 	add	hl, de
 	ex	de, hl
-;./soccerlg.c:533: if (idx >= s_ScrollTextLen) idx -= s_ScrollTextLen;
+;./soccerlg.c:534: if (idx >= s_ScrollTextLen) idx -= s_ScrollTextLen;
 	ld	hl, #_s_ScrollTextLen
 	ld	a, e
 	sub	a, (hl)
@@ -3276,7 +3278,7 @@ _V9990_TickScrollText:
 	sbc	a, (hl)
 	ld	d, a
 00108$:
-;./soccerlg.c:534: V9_Poke16(V9_CellAddrP1A(col, SCROLLTEXT_ROW), (u16)s_ScrollText[idx]);
+;./soccerlg.c:535: V9_Poke16(V9_CellAddrP1A(col, SCROLLTEXT_ROW), (u16)s_ScrollText[idx]);
 	ld	hl, #_s_ScrollText
 	add	hl, de
 	ld	e, (hl)
@@ -3314,50 +3316,50 @@ _V9990_TickScrollText:
 	pop	de
 	ex	de, hl
 	call	_V9_Poke16_CurrentAddr
-;./soccerlg.c:531: for (u8 col = 0; col < SCROLLTEXT_COLS; col++) {
+;./soccerlg.c:532: for (u8 col = 0; col < SCROLLTEXT_COLS; col++) {
 	inc	-1 (ix)
 	jp	00113$
 00115$:
-;./soccerlg.c:536: }
+;./soccerlg.c:537: }
 	inc	sp
 	pop	ix
 	ret
-;./soccerlg.c:539: void V9_InterruptVBlank(){
+;./soccerlg.c:540: void V9_InterruptVBlank(){
 ;	---------------------------------
 ; Function V9_InterruptVBlank
 ; ---------------------------------
 _V9_InterruptVBlank::
-;./soccerlg.c:540: g_VSynch = TRUE;
+;./soccerlg.c:541: g_VSynch = TRUE;
 	ld	hl, #_g_VSynch
 	ld	(hl), #0x01
-;./soccerlg.c:541: g_FrameCounter++;
+;./soccerlg.c:542: g_FrameCounter++;
 	ld	iy, #_g_FrameCounter
 	inc	0 (iy)
-;./soccerlg.c:542: if(g_FrameCounter==60){
+;./soccerlg.c:543: if(g_FrameCounter==60){
 	ld	a, (_g_FrameCounter+0)
 	sub	a, #0x3c
 	jr	NZ, 00102$
-;./soccerlg.c:543: g_TimeCounter++;
+;./soccerlg.c:544: g_TimeCounter++;
 	ld	hl, (_g_TimeCounter)
 	inc	hl
 	ld	(_g_TimeCounter), hl
-;./soccerlg.c:544: g_FrameCounter=0;
+;./soccerlg.c:545: g_FrameCounter=0;
 	ld	0 (iy), #0x00
 00102$:
-;./soccerlg.c:546: g_Timer++;
+;./soccerlg.c:547: g_Timer++;
 	ld	hl, #_g_Timer
 	inc	(hl)
-;./soccerlg.c:549: if (g_FieldScrollingActionInProgress != NO_VALUE) {
+;./soccerlg.c:550: if (g_FieldScrollingActionInProgress != NO_VALUE) {
 	ld	a, (_g_FieldScrollingActionInProgress+0)
 	inc	a
 	jr	Z, 00108$
-;./soccerlg.c:550: CallFnc_VOID(4,TickGameFieldScrolling);
+;./soccerlg.c:551: CallFnc_VOID(4,TickGameFieldScrolling);
 	ld	de, #_TickGameFieldScrolling
 	ld	a, #0x04
 	call	_CallFnc_VOID
 	jp	00109$
 00108$:
-;./soccerlg.c:553: if(!g_VblankSuspended && g_MatchStatus!=MATCH_BEFORE_KICK_OFF && g_MatchStatus!=MATCH_SHOW_MENU){
+;./soccerlg.c:554: if(!g_VblankSuspended && g_MatchStatus!=MATCH_BEFORE_KICK_OFF && g_MatchStatus!=MATCH_SHOW_MENU){
 	ld	a, (_g_VblankSuspended+0)
 	or	a, a
 	jr	NZ, 00109$
@@ -3367,34 +3369,34 @@ _V9_InterruptVBlank::
 	ld	a, (_g_MatchStatus+0)
 	sub	a, #0x13
 	jr	Z, 00109$
-;./soccerlg.c:554: V9_SetScrollingBY((u16)g_FieldCurrentYPosition);
+;./soccerlg.c:555: V9_SetScrollingBY((u16)g_FieldCurrentYPosition);
 	ld	hl, (_g_FieldCurrentYPosition)
 	call	_V9_SetScrollingBY
 00109$:
-;./soccerlg.c:559: PlaySounds();
+;./soccerlg.c:560: PlaySounds();
 	call	_PlaySounds
-;./soccerlg.c:560: if (g_MatchStatus == MATCH_SHOW_MENU) {
+;./soccerlg.c:561: if (g_MatchStatus == MATCH_SHOW_MENU) {
 	ld	a, (_g_MatchStatus+0)
 	sub	a, #0x13
 	jp	Z,_V9990_TickScrollText
-;./soccerlg.c:561: V9990_TickScrollText();
+;./soccerlg.c:562: V9990_TickScrollText();
 	ret
-;./soccerlg.c:563: }
+;./soccerlg.c:564: }
 	ret
-;./soccerlg.c:565: void InterruptHook()
+;./soccerlg.c:566: void InterruptHook()
 ;	---------------------------------
 ; Function InterruptHook
 ; ---------------------------------
 _InterruptHook::
-;./soccerlg.c:578: __endasm;
+;./soccerlg.c:579: __endasm;
 	in	a, (0x99)
 	in	a, (0x66)
 	out	(0x66), a
 	rra
 	call	c, _V9_InterruptVBlank
-;./soccerlg.c:579: }
+;./soccerlg.c:580: }
 	ret
-;./soccerlg.c:585: i32 Math_Abs32(i32 v) { return (v < 0) ? -v : v; }
+;./soccerlg.c:586: i32 Math_Abs32(i32 v) { return (v < 0) ? -v : v; }
 ;	---------------------------------
 ; Function Math_Abs32
 ; ---------------------------------
@@ -3418,20 +3420,20 @@ _Math_Abs32::
 ;	spillPairReg hl
 ;	spillPairReg hl
 	ret
-;./soccerlg.c:587: const TeamStats* GetTeamStats(u8 teamId) {
+;./soccerlg.c:588: const TeamStats* GetTeamStats(u8 teamId) {
 ;	---------------------------------
 ; Function GetTeamStats
 ; ---------------------------------
 _GetTeamStats::
 	ld	c, a
-;./soccerlg.c:588: if (teamId > 5) return &g_TeamStats[0];
+;./soccerlg.c:589: if (teamId > 5) return &g_TeamStats[0];
 	ld	a, #0x05
 	sub	a, c
 	jr	NC, 00102$
 	ld	de, #_g_TeamStats
 	ret
 00102$:
-;./soccerlg.c:589: return &g_TeamStats[teamId];
+;./soccerlg.c:590: return &g_TeamStats[teamId];
 	ld	b, #0x00
 	ld	l, c
 	ld	h, b
@@ -3441,16 +3443,16 @@ _GetTeamStats::
 	ld	de, #_g_TeamStats
 	add	hl, de
 	ex	de, hl
-;./soccerlg.c:590: }
+;./soccerlg.c:591: }
 	ret
-;./soccerlg.c:591: void PlaySounds(){
+;./soccerlg.c:592: void PlaySounds(){
 ;	---------------------------------
 ; Function PlaySounds
 ; ---------------------------------
 _PlaySounds::
-;./soccerlg.c:593: YSCC_Decode();
+;./soccerlg.c:594: YSCC_Decode();
 	call	_YSCC_Decode
-;./soccerlg.c:595: u8 currentSegment = GET_BANK_SEGMENT(3);
+;./soccerlg.c:596: u8 currentSegment = GET_BANK_SEGMENT(3);
 	ld	bc, (#(_g_Bank0Segment + 6) + 0)
 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/rom_mapper.h:190: g_Bank0Segment[b] = s;
 	ld	hl, #0x0045
@@ -3464,12 +3466,12 @@ _PlaySounds::
 	ld	a, #0x45
 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/system.h:101: inline void Poke(u16 addr, u8 val) { *(u8*)addr = val; }
 	ld	(#0xb000),a
-;./soccerlg.c:599: ayFX_Update();
+;./soccerlg.c:600: ayFX_Update();
 	push	bc
 	call	_ayFX_Update
 	call	_PSG_Apply
 	pop	bc
-;./soccerlg.c:601: SET_BANK_SEGMENT(3, currentSegment);
+;./soccerlg.c:602: SET_BANK_SEGMENT(3, currentSegment);
 	ld	b, #0x00
 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/rom_mapper.h:190: g_Bank0Segment[b] = s;
 	ld	((_g_Bank0Segment + 6)), bc
@@ -3488,15 +3490,15 @@ _PlaySounds::
 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/system.h:101: inline void Poke(u16 addr, u8 val) { *(u8*)addr = val; }
 	ld	hl, #0xb000
 	ld	(hl), c
-;./soccerlg.c:601: SET_BANK_SEGMENT(3, currentSegment);
-;./soccerlg.c:605: }
+;./soccerlg.c:602: SET_BANK_SEGMENT(3, currentSegment);
+;./soccerlg.c:606: }
 	ret
-;./soccerlg.c:610: void main(){
+;./soccerlg.c:611: void main(){
 ;	---------------------------------
 ; Function main
 ; ---------------------------------
 _main::
-;./soccerlg.c:612: Bios_SetHookDirectCallback(H_KEYI, InterruptHook);
+;./soccerlg.c:613: Bios_SetHookDirectCallback(H_KEYI, InterruptHook);
 	ld	bc, #_InterruptHook
 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/bios_hook.h:37: *((u8*)hook) = 0xC3; // JUMP
 	ld	hl, #0xfd9a
@@ -3518,7 +3520,7 @@ _main::
 	ld	a, #0x45
 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/system.h:101: inline void Poke(u16 addr, u8 val) { *(u8*)addr = val; }
 	ld	(#0xb000),a
-;./soccerlg.c:615: ayFX_InitBank(g_Data_AYFX_Bank);
+;./soccerlg.c:616: ayFX_InitBank(g_Data_AYFX_Bank);
 	ld	hl, #_g_Data_AYFX_Bank
 	call	_ayFX_InitBank
 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/ayfx/ayfx_player.h:131: inline void ayFX_SetChannel(u8 chan) { ayFX_Channel = 3 - chan; }
@@ -3527,12 +3529,12 @@ _main::
 ;E:/Dropbox/FAUSTO/SVILUPPI/MSX/CODE/C/MSXgl/engine/src/ayfx/ayfx_player.h:124: inline void ayFX_SetMode(u8 mode) { ayFX_Mode = mode; }
 	ld	hl, #_ayFX_Mode
 	ld	(hl), #0x00
-;./soccerlg.c:618: YSCC_Init();
+;./soccerlg.c:619: YSCC_Init();
 	call	_YSCC_Init
-;./soccerlg.c:619: CallFnc_VOID(4,MainSub);
+;./soccerlg.c:620: CallFnc_VOID(4,MainSub);
 	ld	de, #_MainSub
 	ld	a, #0x04
-;./soccerlg.c:620: }
+;./soccerlg.c:621: }
 	jp	_CallFnc_VOID
 	.area _CODE
 	.area _INITIALIZER
