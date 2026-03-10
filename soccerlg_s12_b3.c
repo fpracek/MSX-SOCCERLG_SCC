@@ -41,6 +41,7 @@ void PenaltyShots() {
     //ClearTextFromLayerA(0, 0, 32); 
 	CallFnc_VOID(9,ShowHeaderInfo);
     // --- INTRO TEXT ---
+    if (g_modernAudio) YSCC_PlayLoop(SCC_MODERN_PENALTIES_BIN_SEG, SCC_MODERN_PENALTIES_BIN_SIZE);
     V9990_PrintLayerAStringAtPos(8, 10, "PENALTY SHOOTOUT");
     for(u8 w=0; w<120; w++) V9990_WaitSynch();
     V9990_ClearTextFromLayerA(8, 10, 16);
@@ -89,7 +90,7 @@ void PenaltyShots() {
     }
     
     g_MatchStatus = MATCH_PENALTY_SHOOTOUT;
-    if (g_modernAudio) YSCC_PlayLoop(SCC_MODERN_PENALTIES_BIN_SEG, SCC_MODERN_PENALTIES_BIN_SIZE);
+    
 
     YSCC_State penaltiesSavedState;
     u8 turn = 0;
@@ -120,7 +121,8 @@ void PenaltyShots() {
                 if (goals2 > goals1) { CallFnc_VOID_P1(13,TeamVictory,TEAM_2); return; }
             }
         }
-        
+        YSCC_PlayLoop(SCC_MODERN_PENALTIES_BIN_SEG, SCC_MODERN_PENALTIES_BIN_SIZE);
+
         // --- SETUP TURN ---
         u8 kickingTeam = (turn % 2 == 0) ? TEAM_1 : TEAM_2;
         u8 gkTeam = (kickingTeam == TEAM_1) ? TEAM_2 : TEAM_1;
@@ -372,19 +374,22 @@ void PenaltyShots() {
             if (kickingTeam == TEAM_1) goals1++; else goals2++;
             V9990_PrintLayerAStringAtPos(12, 10, "IN  GOAL");
             if (g_modernAudio) {
-                YSCC_SaveState(&penaltiesSavedState);
                 YSCC_Stop();
                 YSCC_Play(SCC_MODERN_INGOAL_BIN_SEG, SCC_MODERN_INGOAL_BIN_SIZE);
             } else {
                 PlayPCM(PCM_INGOAL);
                 YSCC_Stop();
-                YSCC_Play(SCC_PUBLIC_GOAL_BIN_SEG, SCC_PUBLIC_GOAL_BIN_SIZE);
+                YSCC_Play(SCC_MODERN_INGOAL_BIN_SEG, SCC_MODERN_INGOAL_BIN_SIZE);//YSCC_Play(SCC_PUBLIC_GOAL_BIN_SEG, SCC_PUBLIC_GOAL_BIN_SIZE);
             }
             g_peopleState=!g_peopleState;
 	        CallFnc_VOID_P1(7,PeopleMoving,g_peopleState);
         } else {
             resChar = 'X'; // Uppercase for visibility
-            PlayAyFx(AYFX_BALL_ON_GOALKEEPER);
+            if (g_modernAudio) {
+                YSCC_Play(SCC_MODERN_GOALKICK_BIN_SEG, SCC_MODERN_GOALKICK_BIN_SIZE);
+            } else {
+                PlayAyFx(AYFX_BALL_ON_GOALKEEPER);
+            }
             V9990_PrintLayerAStringAtPos(14, 10, saved ? "SAVED" : "MISS");
         }
         
@@ -407,7 +412,9 @@ void PenaltyShots() {
 
         V9990_ClearTextFromLayerA(12, 10, 10);
         g_BallIsVisible=FALSE;
-        if (goal && g_modernAudio) YSCC_LoadState(&penaltiesSavedState);
+        if (!goal && g_modernAudio){
+            YSCC_PlayLoop(SCC_MODERN_PENALTIES_BIN_SEG, SCC_MODERN_PENALTIES_BIN_SIZE);
+        } 
 
         // --- WALK BACK LOOP ---
         g_VblankSuspended=FALSE;

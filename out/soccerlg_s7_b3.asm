@@ -2627,7 +2627,7 @@ _TickThrowIn::
 	ld	a, e
 	or	a, a
 	jr	Z, 00203$
-	ld	-4 (ix), #0x94
+	ld	-4 (ix), #0x92
 	ld	-3 (ix), #0
 	jp	00204$
 00203$:

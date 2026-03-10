@@ -286,7 +286,7 @@ extern bool             g_modernAudio;
 #define PLAYER_POSE_THROWIN_RIGHT_1 		28
 #define PLAYER_POSE_THROWIN_RIGHT_2 		29
 #define PLAYER_POSE_THROWIN_LEFT_1 			147
-#define PLAYER_POSE_THROWIN_LEFT_2 			148
+#define PLAYER_POSE_THROWIN_LEFT_2 			146
 #define PLAYER_ROLE_GOALKEEPER              0
 #define PLAYER_ROLE_LEFT_DEFENDER           1
 #define PLAYER_ROLE_RIGHT_DEFENDER          2

@@ -223,6 +223,9 @@ void PutBallSprite(){
 	// Keep ball small (Size 1) when held by player
 	if (g_Ball.PossessionPlayerId != NO_VALUE) logicalSize = 1;
 
+    // Force low ball on shots (Visual fix: prevent ball looking like it goes over bar)
+    if (g_Ball.ShotActive && logicalSize > 2) logicalSize = 2;
+
 	if (logicalSize == 0) logicalSize = 1;
 	if (logicalSize > 4) logicalSize = 4;
 

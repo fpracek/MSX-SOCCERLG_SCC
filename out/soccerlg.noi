@@ -42,8 +42,8 @@ DEF l__SEG55 0x159A
 DEF l__SEG58 0x15A5
 DEF l__SEG47 0x15D9
 DEF l__SEG32 0x1609
-DEF l__SEG6 0x1635
-DEF l__SEG12 0x16D2
+DEF l__SEG6 0x1642
+DEF l__SEG12 0x1660
 DEF l__SEG51 0x176A
 DEF l__SEG10 0x18EA
 DEF l__SEG4 0x1A84
@@ -668,8 +668,8 @@ DEF _InitPonPonGirls 0x6A0F2
 DEF _TickGoalCelebration 0x6A153
 DEF _UpdateSpritesPositions 0x6A533
 DEF _PutBallSprite 0x6A54B
-DEF _TickPonPonGirlsAnimation 0x6A6B0
-DEF _TickTeamJoystick 0x6A74E
+DEF _TickPonPonGirlsAnimation 0x6A6BD
+DEF _TickTeamJoystick 0x6A75B
 DEF _CornerKick 0x7A000
 DEF _PeopleMoving 0x7A456
 DEF _PutPonPonGirlSprite 0x7A4ED

@@ -51,8 +51,8 @@ Area                                    Addr        Size        Decimal Bytes (A
      000015A5  l__SEG58                        
      000015D9  l__SEG47                        
      00001609  l__SEG32                        
-     00001635  l__SEG6                         
-     000016D2  l__SEG12                        
+     00001642  l__SEG6                         
+     00001660  l__SEG12                        
      0000176A  l__SEG51                        
      000018EA  l__SEG10                        
      00001A84  l__SEG4                         
@@ -855,7 +855,7 @@ Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-_SEG6                               0006A000    00001635 =        5685. bytes (REL,CON)
+_SEG6                               0006A000    00001642 =        5698. bytes (REL,CON)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
@@ -869,8 +869,8 @@ _SEG6                               0006A000    00001635 =        5685. bytes (R
      0006A153  _TickGoalCelebration               soccerlg_s6_b3
      0006A533  _UpdateSpritesPositions            soccerlg_s6_b3
      0006A54B  _PutBallSprite                     soccerlg_s6_b3
-     0006A6B0  _TickPonPonGirlsAnimation          soccerlg_s6_b3
-     0006A74E  _TickTeamJoystick                  soccerlg_s6_b3
+     0006A6BD  _TickPonPonGirlsAnimation          soccerlg_s6_b3
+     0006A75B  _TickTeamJoystick                  soccerlg_s6_b3
 ASxxxx Linker V03.00 + NoICE + sdld,  page 23.
 Hexadecimal  [32-Bits]
 
@@ -967,7 +967,7 @@ Hexadecimal  [32-Bits]
 
 Area                                    Addr        Size        Decimal Bytes (Attributes)
 --------------------------------        ----        ----        ------- ----- ------------
-_SEG12                              000CA000    000016D2 =        5842. bytes (REL,CON)
+_SEG12                              000CA000    00001660 =        5728. bytes (REL,CON)
 
       Value  Global                              Global Defined In Module
       -----  --------------------------------   ------------------------
